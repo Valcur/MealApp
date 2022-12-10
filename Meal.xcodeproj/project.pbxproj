@@ -14,6 +14,21 @@
 		DB9B87B0293F4FA300F2344B /* MealTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87AF293F4FA300F2344B /* MealTests.swift */; };
 		DB9B87BA293F4FA300F2344B /* MealUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87B9293F4FA300F2344B /* MealUITests.swift */; };
 		DB9B87BC293F4FA300F2344B /* MealUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87BB293F4FA300F2344B /* MealUITestsLaunchTests.swift */; };
+		DB9B87C9293F4FB900F2344B /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87C8293F4FB900F2344B /* Meal.swift */; };
+		DB9B87D1293F51C200F2344B /* MealTypeSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87D0293F51C200F2344B /* MealTypeSelectionRow.swift */; };
+		DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87D4293F79C500F2344B /* MealsListPanelViewModel.swift */; };
+		DB9B87D8293F7A0900F2344B /* MealsDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87D7293F7A0900F2344B /* MealsDataController.swift */; };
+		DB9B87DA293F81C400F2344B /* NewMealSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87D9293F81C400F2344B /* NewMealSheet.swift */; };
+		DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87DB29410F2700F2344B /* Extensions.swift */; };
+		DB9B87E02941EAC400F2344B /* PlanningPannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87DF2941EAC400F2344B /* PlanningPannel.swift */; };
+		DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E22942143A00F2344B /* WeekPlanOrganiser.swift */; };
+		DB9B87E52942159A00F2344B /* WeekPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E42942159A00F2344B /* WeekPlan.swift */; };
+		DB9B87E72942176B00F2344B /* PlanningPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E62942176B00F2344B /* PlanningPanelViewModel.swift */; };
+		DB9B87E92943A4AE00F2344B /* DayPlanMealEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E82943A4AE00F2344B /* DayPlanMealEditSheet.swift */; };
+		DB9B87EC294503BB00F2344B /* MealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87EB294503BB00F2344B /* MealList.swift */; };
+		DB9B87EE294503F400F2344B /* DayPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87ED294503F400F2344B /* DayPlan.swift */; };
+		DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87EF2945042500F2344B /* MealsListPanel.swift */; };
+		DB9B87F22945044300F2344B /* MealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87F12945044300F2344B /* MealList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +59,21 @@
 		DB9B87B5293F4FA300F2344B /* MealUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MealUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9B87B9293F4FA300F2344B /* MealUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealUITests.swift; sourceTree = "<group>"; };
 		DB9B87BB293F4FA300F2344B /* MealUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DB9B87C8293F4FB900F2344B /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		DB9B87D0293F51C200F2344B /* MealTypeSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypeSelectionRow.swift; sourceTree = "<group>"; };
+		DB9B87D4293F79C500F2344B /* MealsListPanelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListPanelViewModel.swift; sourceTree = "<group>"; };
+		DB9B87D7293F7A0900F2344B /* MealsDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsDataController.swift; sourceTree = "<group>"; };
+		DB9B87D9293F81C400F2344B /* NewMealSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMealSheet.swift; sourceTree = "<group>"; };
+		DB9B87DB29410F2700F2344B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DB9B87DF2941EAC400F2344B /* PlanningPannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningPannel.swift; sourceTree = "<group>"; };
+		DB9B87E22942143A00F2344B /* WeekPlanOrganiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPlanOrganiser.swift; sourceTree = "<group>"; };
+		DB9B87E42942159A00F2344B /* WeekPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPlan.swift; sourceTree = "<group>"; };
+		DB9B87E62942176B00F2344B /* PlanningPanelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningPanelViewModel.swift; sourceTree = "<group>"; };
+		DB9B87E82943A4AE00F2344B /* DayPlanMealEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPlanMealEditSheet.swift; sourceTree = "<group>"; };
+		DB9B87EB294503BB00F2344B /* MealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealList.swift; sourceTree = "<group>"; };
+		DB9B87ED294503F400F2344B /* DayPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPlan.swift; sourceTree = "<group>"; };
+		DB9B87EF2945042500F2344B /* MealsListPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListPanel.swift; sourceTree = "<group>"; };
+		DB9B87F12945044300F2344B /* MealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +124,9 @@
 		DB9B879D293F4F9F00F2344B /* Meal */ = {
 			isa = PBXGroup;
 			children = (
+				DB9B87E12941F0CA00F2344B /* Commons */,
+				DB9B87DD2941EA5100F2344B /* PlanningPanel */,
+				DB9B87CF293F51A300F2344B /* MealsListPanel */,
 				DB9B879E293F4F9F00F2344B /* MealApp.swift */,
 				DB9B87A0293F4F9F00F2344B /* ContentView.swift */,
 				DB9B87A2293F4FA300F2344B /* Assets.xcassets */,
@@ -125,6 +158,74 @@
 				DB9B87BB293F4FA300F2344B /* MealUITestsLaunchTests.swift */,
 			);
 			path = MealUITests;
+			sourceTree = "<group>";
+		};
+		DB9B87CA293F502B00F2344B /* Struct */ = {
+			isa = PBXGroup;
+			children = (
+				DB9B87EB294503BB00F2344B /* MealList.swift */,
+			);
+			path = Struct;
+			sourceTree = "<group>";
+		};
+		DB9B87CF293F51A300F2344B /* MealsListPanel */ = {
+			isa = PBXGroup;
+			children = (
+				DB9B87D4293F79C500F2344B /* MealsListPanelViewModel.swift */,
+				DB9B87D7293F7A0900F2344B /* MealsDataController.swift */,
+				DB9B87D6293F79CF00F2344B /* Views */,
+			);
+			path = MealsListPanel;
+			sourceTree = "<group>";
+		};
+		DB9B87D6293F79CF00F2344B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DB9B87EF2945042500F2344B /* MealsListPanel.swift */,
+				DB9B87D0293F51C200F2344B /* MealTypeSelectionRow.swift */,
+				DB9B87F12945044300F2344B /* MealList.swift */,
+				DB9B87D9293F81C400F2344B /* NewMealSheet.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DB9B87DD2941EA5100F2344B /* PlanningPanel */ = {
+			isa = PBXGroup;
+			children = (
+				DB9B87E62942176B00F2344B /* PlanningPanelViewModel.swift */,
+				DB9B87DE2941EA7700F2344B /* Views */,
+			);
+			path = PlanningPanel;
+			sourceTree = "<group>";
+		};
+		DB9B87DE2941EA7700F2344B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DB9B87DF2941EAC400F2344B /* PlanningPannel.swift */,
+				DB9B87E22942143A00F2344B /* WeekPlanOrganiser.swift */,
+				DB9B87E82943A4AE00F2344B /* DayPlanMealEditSheet.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DB9B87E12941F0CA00F2344B /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				DB9B87EA294503A000F2344B /* Class */,
+				DB9B87DB29410F2700F2344B /* Extensions.swift */,
+				DB9B87CA293F502B00F2344B /* Struct */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
+		DB9B87EA294503A000F2344B /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				DB9B87C8293F4FB900F2344B /* Meal.swift */,
+				DB9B87E42942159A00F2344B /* WeekPlan.swift */,
+				DB9B87ED294503F400F2344B /* DayPlan.swift */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +358,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB9B87DA293F81C400F2344B /* NewMealSheet.swift in Sources */,
 				DB9B87A1293F4F9F00F2344B /* ContentView.swift in Sources */,
+				DB9B87D1293F51C200F2344B /* MealTypeSelectionRow.swift in Sources */,
+				DB9B87E52942159A00F2344B /* WeekPlan.swift in Sources */,
+				DB9B87EC294503BB00F2344B /* MealList.swift in Sources */,
+				DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */,
+				DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */,
+				DB9B87F22945044300F2344B /* MealList.swift in Sources */,
+				DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */,
+				DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */,
+				DB9B87D8293F7A0900F2344B /* MealsDataController.swift in Sources */,
+				DB9B87E02941EAC400F2344B /* PlanningPannel.swift in Sources */,
+				DB9B87E92943A4AE00F2344B /* DayPlanMealEditSheet.swift in Sources */,
+				DB9B87C9293F4FB900F2344B /* Meal.swift in Sources */,
+				DB9B87E72942176B00F2344B /* PlanningPanelViewModel.swift in Sources */,
+				DB9B87EE294503F400F2344B /* DayPlan.swift in Sources */,
 				DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,6 +541,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,6 +571,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
