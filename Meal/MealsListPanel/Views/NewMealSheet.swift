@@ -17,13 +17,13 @@ struct NewMealSheet: View {
         MealInfoSheet(
             mealName: $mealName,
             mealType: $mealType,
-            sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "New meal", intro: "Enter the info for you new meal, then press Done"),
+            sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_new_title", intro: "mealList_new_subtitle"),
             confirmButton:
                 Button(action: {
                     mealsListPanelVM.createNewMealWith(name: mealName, type: mealType)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
-                    ButtonLabel(title: "Done")
+                    ButtonLabel(title: "done")
                 })
         )
     }
@@ -38,13 +38,13 @@ struct EditMealSheet: View {
         MealInfoSheet(
             mealName: $meal.name,
             mealType: $meal.type,
-            sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "Edit meal", intro: "Change the info of your meal"),
+            sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_edit_title", intro: "mealList_edit_subtitle"),
             confirmButton:
                 Button(action: {
                     mealsListPanelVM.updateMealInfo(meal: meal)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
-                    ButtonLabel(title: "Confirm")
+                    ButtonLabel(title: "confirmChangesButton")
                 })
         )
     }
@@ -60,15 +60,15 @@ struct MealInfoSheet<ConfirmButton>: View where ConfirmButton: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
-            Text(sheetInfo.title)
+            Text(NSLocalizedString(sheetInfo.title, comment: sheetInfo.title))
                 .title()
             
-            Text(sheetInfo.intro)
+            Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
             
-            Text("Meal name")
+            Text(NSLocalizedString("mealList_name_title", comment: "mealList_name_title"))
                 .font(.title)
             
-            TextField("Enter meal name", text: $mealNameField)
+            TextField(NSLocalizedString("mealList_name_placeholder", comment: "mealList_name_placeholder"), text: $mealNameField)
                 .onChange(of: mealNameField) { _ in
                     mealName = mealNameField
                 }
@@ -76,7 +76,7 @@ struct MealInfoSheet<ConfirmButton>: View where ConfirmButton: View {
                     mealNameField = mealName
                 }
             
-            Text("Meal type")
+            Text(NSLocalizedString("mealList_type_title", comment: "mealList_type_title"))
                 .font(.title)
             
             HStack {
@@ -90,6 +90,8 @@ struct MealInfoSheet<ConfirmButton>: View where ConfirmButton: View {
             .onAppear() {
                 mealTypeField = mealType
             }
+            
+            Spacer()
    
             confirmButton
         }.padding(30)
@@ -111,8 +113,8 @@ struct MealTypeSelector: View {
                 mealType.getColor()
                 Text(mealType.getName())
                     .fontWeight(.semibold)
-                    .foregroundColor(.white)
-            }.frame(height: 40).roundedCornerRectangle(padding: 0, cornerRadius: 10).opacity(isSelected ? 1 : 0.7)
+                    .foregroundColor(Color("TextColor"))
+            }.frame(height: 40).roundedCornerRectangle(padding: 0, cornerRadius: 10).opacity(isSelected ? 1 : 0.5)
         })
     }
 }

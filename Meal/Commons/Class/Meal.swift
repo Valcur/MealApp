@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import EventKit
 
 class Meal: Hashable, Codable, Identifiable {
     let id: Int
@@ -31,7 +32,9 @@ class Meal: Hashable, Codable, Identifiable {
         return Meal(id: self.id, name: self.name, type: self.type)
     }
     
-    static var LeftOVer: Meal = Meal(id: -1, name: "LeftOver", type: .vegan)
+    static var LeftOVer: Meal = Meal(id: -1, name: NSLocalizedString("leftover", comment: "leftover"), type: .vegan)
+    
+    static var EmptyMEal: Meal = Meal(id: -2, name: "Nothing", type: .meat)
 }
 
 enum MealType: Codable {
@@ -53,11 +56,11 @@ enum MealType: Codable {
     func getName() -> String {
         switch self {
         case .meat:
-            return "Meat"
+            return NSLocalizedString("Meat", comment: "Meat")
         case .vegan:
-            return "Vegan"
+            return NSLocalizedString("Vegan", comment: "Vegan")
         case .outside:
-            return "Outside"
+            return NSLocalizedString("Outside", comment: "Outside")
         }
     }
 }

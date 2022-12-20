@@ -12,24 +12,23 @@ struct MealsListPanel: View {
     @State private var selectedMealType: MealType = .meat
     
     var body: some View {
-        ZStack {
-            NewMealButton(showingNewMealSheet: $showingNewMealSheet)
-                .position(x: 400, y: 30)
-                .sheet(isPresented: $showingNewMealSheet) {
-                    NewMealSheet(mealType: selectedMealType)
-                }
+        VStack(alignment: .leading) {
+            HStack {
+                Text(NSLocalizedString("mealList_title", comment: "mealList_title"))
+                    .title()
+                
+                Spacer()
+                
+                NewMealButton(showingNewMealSheet: $showingNewMealSheet)
+                    .sheet(isPresented: $showingNewMealSheet) {
+                        NewMealSheet(mealType: selectedMealType)
+                    }
+            }
             
-            VStack(alignment: .leading) {
-                Text("Your meals")
-                    .font(.largeTitle)
-                
-                Text("Add/Edit your meals")
-                
-                MealTypeSelectionRow(selectedMealType: $selectedMealType)
-                Divider()
-                MealList(selectedMealType: $selectedMealType)
-            }.padding(.horizontal, 40)
-        }
+            MealTypeSelectionRow(selectedMealType: $selectedMealType)
+            Divider()
+            MealList(selectedMealType: $selectedMealType)
+        }.padding(.horizontal, 40)
     }
     
     struct NewMealButton: View {

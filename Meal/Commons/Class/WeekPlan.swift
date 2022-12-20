@@ -6,20 +6,27 @@
 //
 
 import Foundation
+import SwiftUI
 
 // L'organisation d'une semaine
 class WeekPlan: ObservableObject {
     @Published var week: [DayPlan]
     
-    init() {
+    init(_ wichWeek: WichWeekIsIt) {
+        var firstDayOfTheWeek = Date().previous(.monday)
+        
+        if wichWeek == .nextWeek {
+            firstDayOfTheWeek = Date().next(.monday)
+        }
+        
         week = [
-            DayPlan(day: .monday, date: Date(), midday: [], evening: []),
-            DayPlan(day: .tuesday, date: Date(), midday: [], evening: []),
-            DayPlan(day: .wednesday, date: Date(), midday: [], evening: []),
-            DayPlan(day: .thursday, date: Date(), midday: [], evening: []),
-            DayPlan(day: .friday, date: Date(), midday: [], evening: []),
-            DayPlan(day: .saturday, date: Date(), midday: [], evening: []),
-            DayPlan(day: .sunday, date: Date(), midday: [], evening: [])
+            DayPlan(day: .monday, date: firstDayOfTheWeek, midday: [], evening: []),
+            DayPlan(day: .tuesday, date: firstDayOfTheWeek.next(.tuesday), midday: [], evening: []),
+            DayPlan(day: .wednesday, date: firstDayOfTheWeek.next(.wednesday), midday: [], evening: []),
+            DayPlan(day: .thursday, date: firstDayOfTheWeek.next(.thursday), midday: [], evening: []),
+            DayPlan(day: .friday, date: firstDayOfTheWeek.next(.friday), midday: [], evening: []),
+            DayPlan(day: .saturday, date: firstDayOfTheWeek.next(.saturday), midday: [], evening: []),
+            DayPlan(day: .sunday, date: firstDayOfTheWeek.next(.sunday), midday: [], evening: [])
         ]
     }
     
@@ -34,9 +41,24 @@ class WeekPlan: ObservableObject {
             week[day.rawValue].evening.append(meal)
         }
     }
+    
+    func getAllMealsInPlan() -> [Meal] {
+        var mealsThisWeek: [Meal] = []
+        
+        for day in self.week {
+            for meal in day.midday {
+                mealsThisWeek.append(meal)
+            }
+            for meal in day.evening {
+                mealsThisWeek.append(meal)
+            }
+        }
+        
+        return mealsThisWeek
+    }
 }
 
-enum WeekDays: Int {
+enum WeekDays: Int, Codable {
     case monday = 0
     case tuesday = 1
     case wednesday = 2
@@ -48,24 +70,56 @@ enum WeekDays: Int {
     func name() -> String {
         switch self {
         case .monday:
-            return "Monday"
+            return NSLocalizedString("Monday", comment: "Monday")
         case .tuesday:
-            return "Tuesday"
+            return NSLocalizedString("Tuesday", comment: "Tuesday")
         case .wednesday:
-            return "Wednesday"
+            return NSLocalizedString("Wednesday", comment: "Wednesday")
         case .thursday:
-            return "Thursday"
+            return NSLocalizedString("Thursday", comment: "Thursday")
         case .friday:
-            return "Friday"
+            return NSLocalizedString("Friday", comment: "Friday")
         case .saturday:
-            return "Saturday"
+            return NSLocalizedString("Saturday", comment: "Saturday")
         case .sunday:
-            return "Sunday"
+            return NSLocalizedString("Sunday", comment: "Sunday")
         }
     }
 }
 
-enum TimeOfTheDay: Int {
+enum TimeOfTheDay: Int, Codable {
     case midday = 0
     case evening = 1
+    
+    func name() -> String {
+        switch self {
+        case .midday:
+            return NSLocalizedString("Midday", comment: "Midday")
+        case .evening:
+            return NSLocalizedString("Evening", comment: "Evening")
+        }
+    }
+    
+    func image() -> Image {
+        switch self {
+        case .midday:
+            return Image(systemName: "sun.max.fill").resizable()
+        case .evening:
+            return Image(systemName: "moon.fill").resizable()
+        }
+    }
+}
+
+enum WichWeekIsIt {
+    case thisWeek
+    case nextWeek
+    
+    func name() -> String {
+        switch self {
+        case .thisWeek:
+            return NSLocalizedString("this_week", comment: "This week")
+        case .nextWeek:
+            return NSLocalizedString("next_week", comment: "Next week")
+        }
+    }
 }

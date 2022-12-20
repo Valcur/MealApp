@@ -24,11 +24,22 @@
 		DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E22942143A00F2344B /* WeekPlanOrganiser.swift */; };
 		DB9B87E52942159A00F2344B /* WeekPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E42942159A00F2344B /* WeekPlan.swift */; };
 		DB9B87E72942176B00F2344B /* PlanningPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E62942176B00F2344B /* PlanningPanelViewModel.swift */; };
-		DB9B87E92943A4AE00F2344B /* DayPlanMealEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E82943A4AE00F2344B /* DayPlanMealEditSheet.swift */; };
+		DB9B87E92943A4AE00F2344B /* DayPlanSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87E82943A4AE00F2344B /* DayPlanSheet.swift */; };
 		DB9B87EC294503BB00F2344B /* MealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87EB294503BB00F2344B /* MealList.swift */; };
 		DB9B87EE294503F400F2344B /* DayPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87ED294503F400F2344B /* DayPlan.swift */; };
 		DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87EF2945042500F2344B /* MealsListPanel.swift */; };
-		DB9B87F22945044300F2344B /* MealList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87F12945044300F2344B /* MealList.swift */; };
+		DB9B87F22945044300F2344B /* MealListPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87F12945044300F2344B /* MealListPanel.swift */; };
+		DB9D994E294F8EA10051BD63 /* AutoFillSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D994D294F8EA10051BD63 /* AutoFillSheet.swift */; };
+		DB9D995029506D6B0051BD63 /* ConfigurePanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D994F29506D6B0051BD63 /* ConfigurePanelViewModel.swift */; };
+		DB9D995329506D960051BD63 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D995229506D960051BD63 /* Schedule.swift */; };
+		DB9D995529506F9B0051BD63 /* MealPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D995429506F9B0051BD63 /* MealPicker.swift */; };
+		DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D9956295092B40051BD63 /* MealsDataController+Schedule.swift */; };
+		DB9D9959295092F00051BD63 /* MealsDataController+WeekPlaning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D9958295092F00051BD63 /* MealsDataController+WeekPlaning.swift */; };
+		DB9D995B2951C5B30051BD63 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D995A2951C5B30051BD63 /* CalendarController.swift */; };
+		DB9D995D2951C8860051BD63 /* CalendarPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D995C2951C8860051BD63 /* CalendarPanel.swift */; };
+		DB9D99602951F25A0051BD63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB9D99622951F25A0051BD63 /* Localizable.strings */; };
+		DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */; };
+		DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,11 +80,23 @@
 		DB9B87E22942143A00F2344B /* WeekPlanOrganiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPlanOrganiser.swift; sourceTree = "<group>"; };
 		DB9B87E42942159A00F2344B /* WeekPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPlan.swift; sourceTree = "<group>"; };
 		DB9B87E62942176B00F2344B /* PlanningPanelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningPanelViewModel.swift; sourceTree = "<group>"; };
-		DB9B87E82943A4AE00F2344B /* DayPlanMealEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPlanMealEditSheet.swift; sourceTree = "<group>"; };
+		DB9B87E82943A4AE00F2344B /* DayPlanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPlanSheet.swift; sourceTree = "<group>"; };
 		DB9B87EB294503BB00F2344B /* MealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealList.swift; sourceTree = "<group>"; };
 		DB9B87ED294503F400F2344B /* DayPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPlan.swift; sourceTree = "<group>"; };
 		DB9B87EF2945042500F2344B /* MealsListPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListPanel.swift; sourceTree = "<group>"; };
-		DB9B87F12945044300F2344B /* MealList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealList.swift; sourceTree = "<group>"; };
+		DB9B87F12945044300F2344B /* MealListPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListPanel.swift; sourceTree = "<group>"; };
+		DB9D994D294F8EA10051BD63 /* AutoFillSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFillSheet.swift; sourceTree = "<group>"; };
+		DB9D994F29506D6B0051BD63 /* ConfigurePanelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePanelViewModel.swift; sourceTree = "<group>"; };
+		DB9D995229506D960051BD63 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		DB9D995429506F9B0051BD63 /* MealPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPicker.swift; sourceTree = "<group>"; };
+		DB9D9956295092B40051BD63 /* MealsDataController+Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealsDataController+Schedule.swift"; sourceTree = "<group>"; };
+		DB9D9958295092F00051BD63 /* MealsDataController+WeekPlaning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealsDataController+WeekPlaning.swift"; sourceTree = "<group>"; };
+		DB9D995A2951C5B30051BD63 /* CalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
+		DB9D995C2951C8860051BD63 /* CalendarPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPanel.swift; sourceTree = "<group>"; };
+		DB9D99612951F25A0051BD63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DB9D99632951F25E0051BD63 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePanel.swift; sourceTree = "<group>"; };
+		DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealScheduleSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +147,7 @@
 		DB9B879D293F4F9F00F2344B /* Meal */ = {
 			isa = PBXGroup;
 			children = (
+				DBA39EEB294A29BE00AC97E2 /* ConfigurePanel */,
 				DB9B87E12941F0CA00F2344B /* Commons */,
 				DB9B87DD2941EA5100F2344B /* PlanningPanel */,
 				DB9B87CF293F51A300F2344B /* MealsListPanel */,
@@ -183,7 +207,7 @@
 			children = (
 				DB9B87EF2945042500F2344B /* MealsListPanel.swift */,
 				DB9B87D0293F51C200F2344B /* MealTypeSelectionRow.swift */,
-				DB9B87F12945044300F2344B /* MealList.swift */,
+				DB9B87F12945044300F2344B /* MealListPanel.swift */,
 				DB9B87D9293F81C400F2344B /* NewMealSheet.swift */,
 			);
 			path = Views;
@@ -193,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				DB9B87E62942176B00F2344B /* PlanningPanelViewModel.swift */,
+				DB9D9958295092F00051BD63 /* MealsDataController+WeekPlaning.swift */,
 				DB9B87DE2941EA7700F2344B /* Views */,
 			);
 			path = PlanningPanel;
@@ -203,7 +228,8 @@
 			children = (
 				DB9B87DF2941EAC400F2344B /* PlanningPannel.swift */,
 				DB9B87E22942143A00F2344B /* WeekPlanOrganiser.swift */,
-				DB9B87E82943A4AE00F2344B /* DayPlanMealEditSheet.swift */,
+				DB9B87E82943A4AE00F2344B /* DayPlanSheet.swift */,
+				DB9D994D294F8EA10051BD63 /* AutoFillSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,9 +237,11 @@
 		DB9B87E12941F0CA00F2344B /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				DB9B87CA293F502B00F2344B /* Struct */,
 				DB9B87EA294503A000F2344B /* Class */,
 				DB9B87DB29410F2700F2344B /* Extensions.swift */,
-				DB9B87CA293F502B00F2344B /* Struct */,
+				DB9D995429506F9B0051BD63 /* MealPicker.swift */,
+				DB9D99622951F25A0051BD63 /* Localizable.strings */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -224,8 +252,30 @@
 				DB9B87C8293F4FB900F2344B /* Meal.swift */,
 				DB9B87E42942159A00F2344B /* WeekPlan.swift */,
 				DB9B87ED294503F400F2344B /* DayPlan.swift */,
+				DB9D995229506D960051BD63 /* Schedule.swift */,
 			);
 			path = Class;
+			sourceTree = "<group>";
+		};
+		DB9D995129506D750051BD63 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */,
+				DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */,
+				DB9D995C2951C8860051BD63 /* CalendarPanel.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DBA39EEB294A29BE00AC97E2 /* ConfigurePanel */ = {
+			isa = PBXGroup;
+			children = (
+				DB9D994F29506D6B0051BD63 /* ConfigurePanelViewModel.swift */,
+				DB9D9956295092B40051BD63 /* MealsDataController+Schedule.swift */,
+				DB9D995A2951C5B30051BD63 /* CalendarController.swift */,
+				DB9D995129506D750051BD63 /* Views */,
+			);
+			path = ConfigurePanel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +364,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = DB9B8792293F4F9F00F2344B;
 			productRefGroup = DB9B879C293F4F9F00F2344B /* Products */;
@@ -333,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB9B87A6293F4FA300F2344B /* Preview Assets.xcassets in Resources */,
+				DB9D99602951F25A0051BD63 /* Localizable.strings in Resources */,
 				DB9B87A3293F4FA300F2344B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,20 +412,30 @@
 			files = (
 				DB9B87DA293F81C400F2344B /* NewMealSheet.swift in Sources */,
 				DB9B87A1293F4F9F00F2344B /* ContentView.swift in Sources */,
+				DB9D995329506D960051BD63 /* Schedule.swift in Sources */,
+				DB9D995D2951C8860051BD63 /* CalendarPanel.swift in Sources */,
 				DB9B87D1293F51C200F2344B /* MealTypeSelectionRow.swift in Sources */,
 				DB9B87E52942159A00F2344B /* WeekPlan.swift in Sources */,
 				DB9B87EC294503BB00F2344B /* MealList.swift in Sources */,
 				DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */,
+				DB9D995529506F9B0051BD63 /* MealPicker.swift in Sources */,
 				DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */,
-				DB9B87F22945044300F2344B /* MealList.swift in Sources */,
+				DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */,
+				DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */,
+				DB9D9959295092F00051BD63 /* MealsDataController+WeekPlaning.swift in Sources */,
+				DB9B87F22945044300F2344B /* MealListPanel.swift in Sources */,
 				DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */,
 				DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */,
+				DB9D994E294F8EA10051BD63 /* AutoFillSheet.swift in Sources */,
 				DB9B87D8293F7A0900F2344B /* MealsDataController.swift in Sources */,
 				DB9B87E02941EAC400F2344B /* PlanningPannel.swift in Sources */,
-				DB9B87E92943A4AE00F2344B /* DayPlanMealEditSheet.swift in Sources */,
+				DB9B87E92943A4AE00F2344B /* DayPlanSheet.swift in Sources */,
 				DB9B87C9293F4FB900F2344B /* Meal.swift in Sources */,
 				DB9B87E72942176B00F2344B /* PlanningPanelViewModel.swift in Sources */,
+				DB9D995B2951C5B30051BD63 /* CalendarController.swift in Sources */,
 				DB9B87EE294503F400F2344B /* DayPlan.swift in Sources */,
+				DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */,
+				DB9D995029506D6B0051BD63 /* ConfigurePanelViewModel.swift in Sources */,
 				DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +471,18 @@
 			targetProxy = DB9B87B6293F4FA300F2344B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DB9D99622951F25A0051BD63 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB9D99612951F25A0051BD63 /* en */,
+				DB9D99632951F25E0051BD63 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		DB9B87BD293F4FA300F2344B /* Debug */ = {
@@ -536,6 +610,7 @@
 				DEVELOPMENT_TEAM = LXUS44RH3Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -566,6 +641,7 @@
 				DEVELOPMENT_TEAM = LXUS44RH3Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -15,9 +15,10 @@ extension MealsListPanel {
 
         var body: some View {
             ZStack {
+                // Faire une vue commune quand j'ai le temps
                 if selectedMealType == .meat {
                     VStack {
-                        MealTypeDesription(text: "When you don't want to bother")
+                        MealTypeDesription(text: "mealList_meat_intro")
                         ScrollView(.vertical) {
                             LazyVGrid(columns: columns) {
                                 ForEach(mealsListPanelVM.meals.meatMeals, id: \.self) { meal in
@@ -26,10 +27,10 @@ extension MealsListPanel {
                             }
                         }
                         Spacer()
-                    }
+                    }.transition(.slide.combined(with: .opacity))
                 } else if selectedMealType == .vegan {
                     VStack {
-                        MealTypeDesription(text: "When you don't want to eat meat")
+                        MealTypeDesription(text: "mealList_vegan_intro")
                         ScrollView(.vertical) {
                             LazyVGrid(columns: columns) {
                                 ForEach(mealsListPanelVM.meals.veganMeals, id: \.self) { meal in
@@ -38,10 +39,10 @@ extension MealsListPanel {
                             }
                         }
                         Spacer()
-                    }
+                    }.transition(.slide.combined(with: .opacity))
                 } else {
                     VStack {
-                        MealTypeDesription(text: "When you don't want to cook")
+                        MealTypeDesription(text: "mealList_outside_intro")
                         ScrollView(.vertical) {
                             LazyVGrid(columns: columns) {
                                 ForEach(mealsListPanelVM.meals.outsideMeals, id: \.self) { meal in
@@ -50,7 +51,7 @@ extension MealsListPanel {
                             }
                         }
                         Spacer()
-                    }
+                    }.transition(.slide.combined(with: .opacity))
                 }
             }
          }
@@ -60,8 +61,11 @@ extension MealsListPanel {
         let text: String
         
         var body: some View {
-            Text(text)
-                .font(.caption)
+            HStack {
+                Text(NSLocalizedString(text, comment: text))
+                    .subTitle()
+                Spacer()
+            }
         }
     }
     
@@ -74,6 +78,8 @@ extension MealsListPanel {
                 Text(meal.name)
                     .font(.title3)
                     .fontWeight(.bold)
+                    .lineLimit(2)
+                    .frame(height: 50)
                 Spacer()
                 Button(action: {
                     showingMealInfoSheet = true

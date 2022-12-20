@@ -1,0 +1,71 @@
+/* 
+  Localizable.strings
+  Meal
+
+  Created by Loic D on 20/12/2022.
+  
+*/
+
+"Meat" = "Carné";
+"Vegan" = "Vegan";
+"Outsidde" = "Extérieur";
+
+"mealList_meat_intro" = "Vos plats non vegan";
+"mealList_vegan_intro" = "Vos plats vegan";
+"mealList_outside_intro" = "Les adresses où vous aimez commander";
+
+"Monday" = "Lundi";
+"Tuesday" = "Mardi";
+"Wednesday" = "Mercredi";
+"Thursday" = "Jeudi";
+"Friday" = "Vendredi";
+"Saturday" = "Samedi";
+"Sunday" = "Dimanche";
+
+"Midday" = "Midi";
+"Evening" = "Soir";
+
+"this_week" = "Cette semaine";
+"next_week" = "Semaine prochaine";
+
+"tab_week" = "Ma semaine";
+"tab_meals" = "Mes plats";
+"tab_options" = "Options";
+
+"autofill" = "AutoFill";
+"autofill_intro" = "Remplis la semaine avec vos plats, choisis aléatoirement";
+"autofill_meat-vegan_title" = "Choisissez le pourcentage de plat carné que vous souhaitez cette semaine (le reste sera vegan)";
+"autofill_outside_title" = "Choisissez le nombre de repas où vous souhaitez commander des plats déjà préparé cette semaine";
+
+"mealPlan_edit_title" = "Modifier les informations";
+"mealPlan_edit_subtitle" = "Changer le plat pour ce repas";
+"mealPlan_new_title" = "Ajouter un plat pour ce repas";
+"mealPlan_new_subtitle" = "Choisissez le plat";
+"choice_choose" = "Au choix";
+"choice_write" = "Spécial";
+"choice_leftover" = "Des restes";
+"choice_write_intro" = "Choisissez le nom de ce repas";
+"choice_write_placeholder" = "Entrez le nom";
+"leftover" = "Restes";
+"done" = "Valider";
+
+"mealList_title" = "Ajouter/Modifer votre list de plats";
+"mealList_new_title" = "Nouveau plat";
+"mealList_new_subtitle" = "Entrez les informations pour votre nouveau plat";
+"mealList_edit_title" = "Edit meal";
+"mealList_edit_subtitle" = "Modifiez les informations pour ce plat";
+"mealList_name_title" = "Nom du plat";
+"mealList_name_placeholder" = "Entrez le nom du plat";
+"mealList_type_title" = "Type de plat";
+
+"options_schedule_title" = "XXXX";
+"options_schedule_new" = "Nouveau XXXX";
+"options_schedule_new_title" = "Nouveau XXXXX";
+"options_schedule_new_mealChoice_subtitle" = "Chisissez le plat que YYYYY";
+"options_schedule_edit_title" = "Modifier XXXXX";
+"options_schedule_edit_mealChoice_subtitle" = "Changer le plat de ZZZZZZ";
+"options_schedule_new_subtitle" = "Choissez les jours et le repas auquel AAAAAA";
+"options_schedule_new_confirmButton" = "Ajouter XXXX";
+"confirmChangesButton" = "Confirmer les changements";
+
+"options_scalendar_title" = "Calendrier";

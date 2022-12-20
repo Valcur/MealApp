@@ -1,0 +1,60 @@
+/* 
+  Localizable.strings
+  Meal
+
+  Created by Loic D on 20/12/2022.
+  
+*/
+
+"Meat" = "Meat";
+"Vegan" = "Vegan";
+"Outsidde" = "Outside";
+
+"mealList_meat_intro" = "Meat";
+"mealList_vegan_intro" = "Vegan";
+"mealList_outside_intro" = "Outside";
+
+"this_week" = "This week";
+"next_week" = "Next week";
+
+"tab_week" = "My week";
+"tab_meals" = "My meals";
+"tab_options" = "Configure";
+
+"autofill" = "AutoFill";
+"autofill_intro" = "Fill each empty lunch with a random meal depending on what options you selected";
+"autofill_meat-vegan_title" = "Share between meat/vegan meal this week";
+"autofill_outside_title" = "Number of meal outside this week";
+
+"mealPlan_edit_title" = "Edit info";
+"mealPlan_edit_subtitle" = "Change meal";
+"mealPlan_new_title" = "New meal";
+"mealPlan_new_subtitle" = "Select info";
+"choice_choose" = "Choose";
+"choice_write" = "Write";
+"choice_leftover" = "Leftover";
+"choice_write_intro" = "Choose a custom name for this one time meal";
+"choice_write_placeholder" = "Enter meal name";
+"leftover" = "Leftover";
+"done" = "Done";
+
+"mealList_title" = "Add/Edit your meals";
+"mealList_new_title" = "New meal";
+"mealList_new_subtitle" = "Enter the info for your new meal";
+"mealList_edit_title" = "Edit meal";
+"mealList_edit_subtitle" = "Change the info of your meal";
+"mealList_name_title" = "Meal name";
+"mealList_name_placeholder" = "Enter meal name";
+"mealList_type_title" = "Meal type";
+
+"options_schedule_title" = "Schedule";
+"options_schedule_new" = "New schedule";
+"options_schedule_new_title" = "New schedule";
+"options_schedule_new_mealChoice_subtitle" = "Choose the meal you want to add to a schedule";
+"options_schedule_edit_title" = "Edit schedule";
+"options_schedule_edit_mealChoice_subtitle" = "Change the meal for this schedule";
+"options_schedule_new_subtitle" = "Choose the days and hours for this schedule";
+"options_schedule_new_confirmButton" = "Add Schedule";
+"confirmChangesButton" = "Confirm changes";
+
+"options_scalendar_title" = "Calendar";

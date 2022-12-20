@@ -3,6 +3,7 @@
 //  Meal
 //
 //  Created by Loic D on 06/12/2022.
+// Stickers by stickers
 //
 
 import SwiftUI
@@ -39,12 +40,7 @@ extension MealsListPanel {
                     }
                 }, label: {
                     ZStack(alignment: .bottomLeading) {
-                        mealType.getColor()
-                            .opacity(isSelected ? 1 : 0)
-                        Image("MealTypeBackground")
-                            .resizable()
-                            .opacity(isSelected ? 1 : 0)
-                        EmojiBackground()
+                        EmojiBackground(mealType: mealType, isSelected: isSelected)
                         Text(mealType.getName())
                             .font(.largeTitle)
                             .fontWeight(.bold)
@@ -57,35 +53,31 @@ extension MealsListPanel {
     }
     
     struct EmojiBackground: View {
-        private var emojis: [Image]
-        private var positions: [CGPoint]
-        private var sizes: [CGFloat]
         
-        init() {
-            emojis = [
-                Image("Outside_1"),
-                Image("Outside_2"),
-                Image("Outside_3")
-            ]
-            positions = [
-                CGPoint(x: 110, y: -40),
-                CGPoint(x: 300, y: -30),
-                CGPoint(x: 220, y: 60)
-            ]
-            sizes = [
-                60,
-                40,
-                90
-            ]
+        let mealType: MealType
+        let isSelected: Bool
+        
+        var image: Image {
+            switch mealType {
+            case .meat:
+                return Image("Meat")
+            case .vegan:
+                return Image("Vegan")
+            case .outside:
+                return Image("Outside")
+            }
         }
         
         var body: some View {
-            ForEach(0..<emojis.count, id: \.self) { i in
-                emojis[i]
+            ZStack(alignment: .trailing) {
+                mealType.getColor()
+                    .opacity(isSelected ? 1 : 0)
+                
+                image
                     .resizable()
-                    .position(x: positions[i].x, y: positions[i].y)
-                    .frame(width: sizes[i], height: sizes[i])
-            }
+                    .frame(width: isSelected ? 200 : 100, height: isSelected ? 200 : 100)
+                    .offset(x: isSelected ? 50 : -15, y: isSelected ? 30 : 0)
+            }.frame(height: 120)
         }
     }
 }

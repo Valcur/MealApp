@@ -9,9 +9,38 @@ import SwiftUI
 
 struct PlanningPannel: View {
     @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
+    @State private var showingAutoFillSheet = false
     
     var body: some View {
-        WeekPlanOrganiser()
+        VStack(spacing: 20) {
+            HStack {
+                Button(action: {
+                    planningPanelVM.switchToThisWeek()
+                }, label: {
+                    Text(WichWeekIsIt.thisWeek.name())
+                        .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary)
+                })
+                Spacer()
+                Button(action: {
+                    planningPanelVM.switchToNextWeek()
+                }, label: {
+                    Text(WichWeekIsIt.nextWeek.name())
+                        .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary)
+                })
+                Spacer()
+                Spacer()
+                Button(action: {
+                    showingAutoFillSheet = true
+                }, label: {
+                    ButtonLabel(title: "autofill")
+                })
+                .sheet(isPresented: $showingAutoFillSheet) {
+                    AutoFillSheet()
+                }
+            }.padding(20)
+            
+            WeekPlanOrganiser()
+        }
     }
 }
 

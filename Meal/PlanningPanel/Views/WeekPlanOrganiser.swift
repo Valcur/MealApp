@@ -12,31 +12,14 @@ struct WeekPlanOrganiser: View {
     @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
     
     var body: some View {
-        VStack(spacing: 20) {
+        ScrollView(.horizontal) {
             HStack {
-                Spacer()
-                Text("This week")
-                    .subTitle()
-                Spacer()
-                Text("Next week")
-                    .subTitle(style: .secondary)
-                Spacer()
-                Text("Autofill")
-                    .subTitle()
-                Text("Autofill options")
-                    .subTitle(style: .secondary)
-            }
-            
-            ScrollView(.horizontal) {
-                HStack {
-                    HorizontalDayTime()
-                    
-                    ForEach(planningPanelVM.weekPlan.week) { day in
-                        DayView(dayPlan: day)
-                    }
+                HorizontalDayTime()
+                
+                ForEach(planningPanelVM.weekPlan.week) { day in
+                    DayView(dayPlan: day)
                 }
             }
-             
         }
     }
     
@@ -45,13 +28,13 @@ struct WeekPlanOrganiser: View {
             VStack {
                 Spacer()
                 
-                Text("Midi")
+                Text(TimeOfTheDay.midday.name())
                     .subTitle()
                     .rotationEffect(Angle(degrees: 90))
                 
                 Spacer()
                 
-                Text("Soir")
+                Text(TimeOfTheDay.evening.name())
                     .subTitle()
                     .rotationEffect(Angle(degrees: 90))
                 
@@ -62,6 +45,13 @@ struct WeekPlanOrganiser: View {
     
     struct DayView: View {
         @ObservedObject var dayPlan: DayPlan
+        let dateFormatter: DateFormatter
+        
+        init(dayPlan: DayPlan) {
+            self.dayPlan = dayPlan
+            self.dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "d MMM"
+        }
         
         var body: some View {
             VStack(spacing: 15) {
@@ -69,8 +59,8 @@ struct WeekPlanOrganiser: View {
                     Text(dayPlan.day.name())
                         .title()
                     
-                    Text("2 november")
-                        .subTitle()
+                    Text(dateFormatter.string(from: dayPlan.date))
+                        .subTitle(style: .secondary)
                 }
                 
                 Divider()
@@ -92,6 +82,7 @@ struct WeekPlanOrganiser: View {
         struct DayMealView: View {
             @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
             @ObservedObject var dayPlan: DayPlan
+            @State private var showingNewMealSheet = false
             let time: TimeOfTheDay
             let meals: [Meal]
             
@@ -106,13 +97,17 @@ struct WeekPlanOrganiser: View {
                         Spacer()
                         HStack {
                             Button(action: {
-                                
+                                showingNewMealSheet = true
                             }, label: {
                                 Image(systemName: "plus")
                                     .resizable()
                                     .frame(width: 30, height: 30)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color("TextColor"))
                             }).padding(5)
+                            .sheet(isPresented: $showingNewMealSheet) {
+                                DayPlanNewMealSheet(dayPlan: dayPlan, time: time)
+                                    .environmentObject(planningPanelVM)
+                            }
                             
                             Button(action: {
                                 planningPanelVM.addRandomMeal(day: dayPlan.day, time: time)
@@ -120,11 +115,11 @@ struct WeekPlanOrganiser: View {
                                 Image(systemName: "arrow.clockwise")
                                     .resizable()
                                     .frame(width: 30, height: 30)
-                                    .foregroundColor(.black)
+                                    .foregroundColor(Color("TextColor"))
                             }).padding(5)
                         }
                     }
-                    Spacer()
+                    //Spacer()
                 }
             }
             
@@ -137,15 +132,17 @@ struct WeekPlanOrganiser: View {
                 
                 var body: some View {
                     ZStack {
-                        meal.type.getColor()
+                        meal.type.getColor().opacity(0.4)
                         Text(meal.name)
                             .fontWeight(.bold)
+                            .foregroundColor(.black)
                         Button(action: {
                             showingMealInfoSheet = true
                         }, label: {
                             Image(systemName: "slider.horizontal.3")
                                 .resizable()
                                 .frame(width: 20, height: 20)
+                                .foregroundColor(meal.type.getColor())
                                 .position(x: 20, y: 20)
                         })
                     }.roundedCornerRectangle(padding: 0).frame(maxWidth: .infinity)

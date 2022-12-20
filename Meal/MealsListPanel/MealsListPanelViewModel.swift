@@ -16,8 +16,11 @@ class MealsListPanelViewModel: ObservableObject {
         meals.append(Meal(id: 102, name: "Tortilla Chips", type: .meat))
         meals.append(Meal(id: 103, name: "Avocado", type: .meat))
         meals.append(Meal(id: 104, name: "Red Cabbage", type: .meat))
+        meals.append(Meal(id: 105, name: "Red something", type: .meat))
+        meals.append(Meal(id: 106, name: "Red something else", type: .meat))
+        meals.append(Meal(id: 107, name: "Red thing with red rice and pasta and butter and lots of other things", type: .meat))
         
-        meals.append(Meal(id: 105, name: "Soup", type: .vegan))
+        meals.append(Meal(id: 110, name: "Soup", type: .vegan))
     }
 }
 

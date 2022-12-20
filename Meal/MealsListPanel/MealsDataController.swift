@@ -9,11 +9,15 @@ import Foundation
 
 class MealsDataController {
     
-    private let userDefaults = UserDefaults.standard
+    internal let userDefaults = UserDefaults.standard
     var mealCount: Int
     
     private let MEAL_COUNT_KEY = "MEAL_COUNT"
     private let MEAL_KEY = "MEAL"
+    internal let DAYPLAN_KEY = "DAYPLAN"
+    internal let THIS_WEEK_KEY = "THIS_WEEK"
+    internal let NEXT_WEEK_KEY = "NEXT_WEEK"
+    internal let SCHEDULE_KEY = "SCHEDULE"
     
     init() {
         mealCount = userDefaults.integer(forKey: MEAL_COUNT_KEY)

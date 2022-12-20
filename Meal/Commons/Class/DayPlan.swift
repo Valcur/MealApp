@@ -8,8 +8,8 @@
 import Foundation
 
 // L'organisation d'une journée
-class DayPlan: Equatable, Identifiable, ObservableObject {
-    let id = UUID()
+class DayPlan: Equatable, Identifiable, ObservableObject, Codable {
+    var id = UUID()
     let day: WeekDays
     let date: Date
     var midday: [Meal]

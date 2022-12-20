@@ -7,15 +7,44 @@
 
 import SwiftUI
 
+struct DayPlanNewMealSheet: View {
+    @EnvironmentObject var planningPanelVM: PlanningPanelViewModel
+    @State var dayPlan: DayPlan
+    let time: TimeOfTheDay
+    @State var newMeal: Meal = .EmptyMEal
+    @State var mealType: MealType = .meat
+
+    var body: some View {
+        // SOULDNT SHOW THE BIN
+        DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: .meat)
+            .onChange(of: newMeal) { _ in
+                planningPanelVM.addMeal(newMeal, day: dayPlan.day, time: time)
+            }
+    }
+}
+
 struct DayPlanMealEditSheet: View {
+    @State var dayPlan: DayPlan
+    let time: TimeOfTheDay
+    @Binding var meal: Meal
+    @State var mealType: MealType = .meat
+
+    var body: some View {
+        DayPlanSheet(sheetTitle: "mealPlan_edit_title", sheetIntro: "mealPlan_edit_subtitle", dayPlan: dayPlan, time: time, meal: $meal, mealType: meal.type)
+    }
+}
+
+struct DayPlanSheet: View {
     @EnvironmentObject var planningPanelVM: PlanningPanelViewModel
     @Environment(\.presentationMode) var presentationMode
     
+    let sheetTitle: String
+    let sheetIntro: String
     @State var dayPlan: DayPlan
     let time: TimeOfTheDay
-    
     @Binding var meal: Meal
     @State var mealType: MealType = .meat
+    
     @State var customMealName: String = ""
     @State var selection = 0
     @State var editChoice: EditMealChoice = .choose
@@ -33,24 +62,19 @@ struct DayPlanMealEditSheet: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
-            Text("Edit info")
+            Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
                 .title()
             
             Text(dayPlan.day.name())
             
             HStack {
-                Text("Change meal")
+                Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
                     .font(.title)
                 
                 Spacer()
                                 
                 Button(action: {
-                    if time == .midday {
-                        dayPlan.midday.removeAll(where: {$0.id == meal.id})
-                    } else {
-                        dayPlan.evening.removeAll(where: {$0.id == meal.id})
-                    }
-                    dayPlan.objectWillChange.send()
+                    planningPanelVM.deleteMeal(meal, dayPlan: dayPlan, time: time)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Image(systemName: "trash")
@@ -61,18 +85,12 @@ struct DayPlanMealEditSheet: View {
             }
             
             HStack {
-                MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
-                MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
-                MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
-            }
-            
-            HStack {
                 Button(action: {
                     withAnimation(.easeInOut(duration: 0.3)) {
                         editChoice = .choose
                     }
                 }, label: {
-                    Text("Choose")
+                    ChoiceButtonLabel(title: "choice_choose")
                 })
                 
                 Spacer()
@@ -82,7 +100,7 @@ struct DayPlanMealEditSheet: View {
                         editChoice = .write
                     }
                 }, label: {
-                    Text("Write")
+                    ChoiceButtonLabel(title: "choice_write")
                 })
                 
                 Spacer()
@@ -92,33 +110,42 @@ struct DayPlanMealEditSheet: View {
                         editChoice = .leftOver
                     }
                 }, label: {
-                    Text("LeftOver")
+                    ChoiceButtonLabel(title: "choice_leftover")
                 })
+            }
+            
+            if editChoice != .leftOver {
+                HStack {
+                    MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
+                    MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
+                    MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
+                }
             }
             
             if editChoice == .choose {
                 Picker("Meals to choose from", selection: $selection) {
-                    ForEach(mealsAvailable) { meal in
-                        Text(meal.name)
+                    ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
+                        Text(mealsAvailable[mealId].name)
                     }
                 }.onChange(of: mealsAvailable) { _ in
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
+                }.onAppear() {
+                    selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
                 }
-                .onChange(of: selection, perform: { newValue in
-                    print(newValue)
-                })
             } else if editChoice == .write {
-                Text("Choose a custom name for this one time meal")
-                TextField("Enter meal name", text: $customMealName)
+                Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
+                TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
             } else {
-                Text("Leftover")
+                Text(NSLocalizedString("leftover", comment: "leftover"))
             }
+            
+            Spacer()
 
             Button(action: {
                 if editChoice == .choose {
-                    let index = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? -1
-                    if index > -1 {
-                        meal = mealsAvailable[index]
+                    if selection >= 0 {
+                        let newMeal = mealsAvailable[selection]
+                        meal = newMeal
                         print("now selected \(meal.name)")
                     }
                 } else if editChoice == .write {
@@ -129,9 +156,16 @@ struct DayPlanMealEditSheet: View {
                 dayPlan.objectWillChange.send()
                 presentationMode.wrappedValue.dismiss()
             }, label: {
-                ButtonLabel(title: "Done")
+                ButtonLabel(title: "done")
             })
         }.padding(30)
+    }
+    
+    struct ChoiceButtonLabel: View {
+        let title: String
+        var body: some View {
+            Text(NSLocalizedString(title, comment: title))
+        }
     }
     
     enum EditMealChoice {
