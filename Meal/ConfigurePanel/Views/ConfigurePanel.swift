@@ -21,16 +21,22 @@ struct ConfigurePanel: View {
                     }
                     NavigationLink(destination: NewMealSchedule()) {
                         HStack {
-                            Image(systemName: "plus")
+                            Image(systemName: "plus").foregroundColor(.accentColor)
                             Text(NSLocalizedString("options_schedule_new", comment: "options_schedule_new"))
                         }
                     }
                 }
                 Section(header: Text("Options")) {
+                    NavigationLink(destination: ThanksPanel()) {
+                        Text("Thanks")
+                    }
+                }
+                /*
+                Section(header: Text("Options")) {
                     NavigationLink(destination: CalendarPanel()) {
                         Text(NSLocalizedString("options_scalendar_title", comment: "options_scalendar_title"))
                     }
-                }
+                }*/
             }.navigationTitle(NSLocalizedString("tab_options", comment: "tab_options"))
         }
     }

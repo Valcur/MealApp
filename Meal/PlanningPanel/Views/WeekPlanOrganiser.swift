@@ -33,6 +33,7 @@ struct WeekPlanOrganiser: View {
                     .rotationEffect(Angle(degrees: 90))
                 
                 Spacer()
+                Spacer()
                 
                 Text(TimeOfTheDay.evening.name())
                     .subTitle()
@@ -69,7 +70,7 @@ struct WeekPlanOrganiser: View {
                     DayMealView(dayPlan: dayPlan, time: .midday, meals: dayPlan.midday)
                     
                     Divider()
-                        .frame(height: 10)
+                        .frame(maxHeight: 10)
                     
                     DayMealView(dayPlan: dayPlan, time: .evening, meals: dayPlan.evening)
                 }
@@ -112,14 +113,13 @@ struct WeekPlanOrganiser: View {
                             Button(action: {
                                 planningPanelVM.addRandomMeal(day: dayPlan.day, time: time)
                             }, label: {
-                                Image(systemName: "arrow.clockwise")
+                                Image(systemName: "shuffle")
                                     .resizable()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 40, height: 30)
                                     .foregroundColor(Color("TextColor"))
                             }).padding(5)
                         }
                     }
-                    //Spacer()
                 }
             }
             
@@ -132,10 +132,11 @@ struct WeekPlanOrganiser: View {
                 
                 var body: some View {
                     ZStack {
-                        meal.type.getColor().opacity(0.4)
+                        //meal.type.getColor().opacity(0.4)
+                        Color("WhiteBackgroundColor")
                         Text(meal.name)
                             .fontWeight(.bold)
-                            .foregroundColor(.black)
+                            .foregroundColor(meal.type.getColor())
                         Button(action: {
                             showingMealInfoSheet = true
                         }, label: {

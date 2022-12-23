@@ -10,11 +10,11 @@ import Foundation
 class ConfigurePanelViewModel: ObservableObject {
     let calendarController = CalendarController()
     weak var planningPanelVM: PlanningPanelViewModel?
-    @Published var schedules: [Schedule] = []
+    private let data = MealsDataController()
+    @Published var schedules: [Schedule]
     
-    init(planningPanelVM: PlanningPanelViewModel) {
-        self.planningPanelVM = planningPanelVM
-        self.schedules.append(Schedule(meal: Meal.LeftOVer, days: [.friday, .saturday], time: [.evening]))
+    init() {
+        self.schedules = data.loadSchedules().schedules
     }
 }
 
@@ -24,10 +24,25 @@ extension ConfigurePanelViewModel {
         let time = getTimeFromSelectedHours(selectedHours)
         
         schedules.append(Schedule(meal: meal, days: days, time: time))
-        print("You now have \(schedules.count) schedules")
+
+        for day in days {
+            for t in time {
+                planningPanelVM?.thisWeek.append(meal, day: day, time: t)
+                planningPanelVM?.nextWeek.append(meal, day: day, time: t)
+            }
+        }
+        
+        data.saveSchedules(schedules: Schedules(schedules: schedules))
     }
     
     func editSchedule(meal: Meal, selectedDays: [Bool], selectedHours: [Bool], schedule: Schedule) {
+        for day in schedule.days {
+            for t in schedule.time {
+                planningPanelVM?.thisWeek.remove(schedule.meal, day: day, time: t)
+                planningPanelVM?.nextWeek.remove(schedule.meal, day: day, time: t)
+            }
+        }
+        
         schedule.meal = meal
         schedule.days = getDaysFromSelectedDays(selectedDays)
         schedule.time = getTimeFromSelectedHours(selectedHours)
@@ -35,6 +50,29 @@ extension ConfigurePanelViewModel {
         let index = schedules.firstIndex(where: {$0.id == schedule.id})
         if index != nil {
             schedules[index!] = schedule
+        }
+        
+        for day in schedule.days {
+            for t in schedule.time {
+                planningPanelVM?.thisWeek.append(meal, day: day, time: t)
+                planningPanelVM?.nextWeek.append(meal, day: day, time: t)
+            }
+        }
+        
+        data.saveSchedules(schedules: Schedules(schedules: schedules))
+    }
+    
+    func applyAllSchedulesTo(_ weekPlan: WeekPlan) {
+        for schedule in schedules {
+            applyScheduleTo(weekPlan, schedule: schedule)
+        }
+    }
+    
+    private func applyScheduleTo(_ weekPlan: WeekPlan, schedule: Schedule) {
+        for day in schedule.days {
+            for t in schedule.time {
+                weekPlan.append(schedule.meal, day: day, time: t)
+            }
         }
     }
     

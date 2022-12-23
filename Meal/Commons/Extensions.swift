@@ -9,12 +9,12 @@ import Foundation
 import SwiftUI
 
 extension View {
-    func roundedCornerRectangle(padding: CGFloat = 15, cornerRadius: CGFloat = 10, shadowRadius: CGFloat = 5, margin: CGFloat = 5) -> some View {
+    func roundedCornerRectangle(padding: CGFloat = 15, cornerRadius: CGFloat = 10, shadowRadius: CGFloat = 5, margin: CGFloat = 5, color: Color = Color("WhiteBackgroundColor")) -> some View {
         self
             .padding(padding)
             .cornerRadius(cornerRadius)
             .padding(margin)
-            .background(Color.white.cornerRadius(cornerRadius).shadow(color: Color("ShadowColor"), radius: shadowRadius, y: shadowRadius / 2).padding(shadowRadius))
+            .background(color.cornerRadius(cornerRadius).shadow(color: Color("ShadowColor"), radius: shadowRadius, y: shadowRadius / 2).padding(shadowRadius))
             
     }
 }
@@ -24,7 +24,7 @@ extension Text {
         self
             .font(.title)
             .fontWeight(.bold)
-            .foregroundColor(style == .primary ? Color("TextColor") : .gray)
+            .foregroundColor(style == .primary ? .accentColor: Color("TextColor"))
     }
     
     func title(style: TextStyle = .primary) -> some View {
@@ -125,7 +125,15 @@ extension Date {
 
 struct ButtonLabel: View {
     let title: String
+    let isCompact: Bool
+    
+    init(title: String, isCompact: Bool = false) {
+        self.title = title
+        self.isCompact = isCompact
+    }
+    
     var body: some View {
+        /*
         Text(NSLocalizedString(title, comment: title))
             .fontWeight(.bold)
             .foregroundColor(Color("AccentColor"))
@@ -135,5 +143,20 @@ struct ButtonLabel: View {
                 RoundedRectangle(cornerRadius: 50)
                     .stroke(Color("AccentColor"), lineWidth: 3)
             )
+         */
+        HStack() {
+            if !isCompact {
+                Spacer()
+            }
+            Text(NSLocalizedString(title, comment: title))
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .frame(minWidth: 100)
+                .roundedCornerRectangle(color: .accentColor)
+            if !isCompact {
+                Spacer()
+            }
+        }
     }
 }
+

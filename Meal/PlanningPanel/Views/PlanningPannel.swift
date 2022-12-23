@@ -32,15 +32,15 @@ struct PlanningPannel: View {
                 Button(action: {
                     showingAutoFillSheet = true
                 }, label: {
-                    ButtonLabel(title: "autofill")
+                    ButtonLabel(title: "autofill", isCompact: true)
                 })
                 .sheet(isPresented: $showingAutoFillSheet) {
                     AutoFillSheet()
                 }
-            }.padding(20)
+            }.padding(20).background(Color("WhiteBackgroundColor")).ignoresSafeArea()
             
             WeekPlanOrganiser()
-        }
+        }.background(Color("BackgroundColor"))
     }
 }
 
@@ -48,7 +48,7 @@ struct PlanningPannel_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15, *) {
             PlanningPannel()
-                .environmentObject(PlanningPanelViewModel(mealsVM: MealsListPanelViewModel()))
+                .environmentObject(PlanningPanelViewModel(mealsVM: MealsListPanelViewModel(), configureVM: ConfigurePanelViewModel()))
                 .previewInterfaceOrientation(.landscapeLeft)
                 .previewDevice(PreviewDevice(rawValue: "iPad Air (5th generation)"))
         } else {

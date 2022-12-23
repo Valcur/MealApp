@@ -8,7 +8,7 @@
 
 "Meat" = "Carné";
 "Vegan" = "Vegan";
-"Outsidde" = "Extérieur";
+"Outside" = "Extérieur";
 
 "mealList_meat_intro" = "Vos plats non vegan";
 "mealList_vegan_intro" = "Vos plats vegan";
@@ -49,7 +49,7 @@
 "leftover" = "Restes";
 "done" = "Valider";
 
-"mealList_title" = "Ajouter/Modifer votre list de plats";
+"mealList_title" = "Ajouter/Modifer votre liste de plats";
 "mealList_new_title" = "Nouveau plat";
 "mealList_new_subtitle" = "Entrez les informations pour votre nouveau plat";
 "mealList_edit_title" = "Edit meal";
@@ -58,14 +58,14 @@
 "mealList_name_placeholder" = "Entrez le nom du plat";
 "mealList_type_title" = "Type de plat";
 
-"options_schedule_title" = "XXXX";
-"options_schedule_new" = "Nouveau XXXX";
-"options_schedule_new_title" = "Nouveau XXXXX";
-"options_schedule_new_mealChoice_subtitle" = "Chisissez le plat que YYYYY";
-"options_schedule_edit_title" = "Modifier XXXXX";
-"options_schedule_edit_mealChoice_subtitle" = "Changer le plat de ZZZZZZ";
-"options_schedule_new_subtitle" = "Choissez les jours et le repas auquel AAAAAA";
-"options_schedule_new_confirmButton" = "Ajouter XXXX";
+"options_schedule_title" = "Programme";
+"options_schedule_new" = "Nouveau programme";
+"options_schedule_new_title" = "Nouveau programme";
+"options_schedule_new_mealChoice_subtitle" = "Chisissez le plat que vous souhaitez voir répéter chaque semaine";
+"options_schedule_edit_title" = "Modifier programme";
+"options_schedule_edit_mealChoice_subtitle" = "Changer le plat de répété";
+"options_schedule_new_subtitle" = "Choissez les jours et le repas où vous souhaitez voir ce plat se répéter";
+"options_schedule_new_confirmButton" = "Ajouter programme";
 "confirmChangesButton" = "Confirmer les changements";
 
 "options_scalendar_title" = "Calendrier";

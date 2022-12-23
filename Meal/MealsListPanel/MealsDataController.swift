@@ -18,6 +18,7 @@ class MealsDataController {
     internal let THIS_WEEK_KEY = "THIS_WEEK"
     internal let NEXT_WEEK_KEY = "NEXT_WEEK"
     internal let SCHEDULE_KEY = "SCHEDULE"
+    internal let EVENT_KEY = "EVENT_IDENTIFIERS"
     
     init() {
         mealCount = userDefaults.integer(forKey: MEAL_COUNT_KEY)
@@ -32,7 +33,7 @@ class MealsDataController {
         }
         
         for i in 1...mealCount {
-            let meal = userDefaults.object(forKey: "\(MEAL_KEY)_\(i)") as? Meal ?? nil
+            let meal = getDataMealWithId(i)
             if let meal = meal {
                 mealList.append(meal)
             }
@@ -50,7 +51,8 @@ class MealsDataController {
     
     // Enregistre les changements effectués sur un plat
     func updateMeal(meal: Meal) {
-        userDefaults.set(meal, forKey: "\(MEAL_KEY)_\(meal.id)")
+        //userDefaults.set(meal, forKey: "\(MEAL_KEY)_\(meal.id)")
+        saveDataMeal(meal)
     }
     
     // Supprime un plat

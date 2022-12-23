@@ -15,8 +15,9 @@ struct MealApp: App {
     
     init() {
         mealListVM = MealsListPanelViewModel()
-        planningVM = PlanningPanelViewModel(mealsVM: mealListVM)
-        configurePanelVM = ConfigurePanelViewModel(planningPanelVM: planningVM)
+        configurePanelVM = ConfigurePanelViewModel()
+        planningVM = PlanningPanelViewModel(mealsVM: mealListVM, configureVM: configurePanelVM)
+        configurePanelVM.planningPanelVM = planningVM
     }
     
     var body: some Scene {

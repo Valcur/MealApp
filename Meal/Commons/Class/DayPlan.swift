@@ -22,6 +22,17 @@ class DayPlan: Equatable, Identifiable, ObservableObject, Codable {
         self.evening = evening
     }
     
+    func append(_ meal: Meal, time: TimeOfTheDay) {
+        if time == .midday && self.midday.count < 3 {
+            self.midday.append(meal.new())
+            self.objectWillChange.send()
+        }
+        if time == .evening && self.evening.count < 3 {
+            self.evening.append(meal.new())
+            self.objectWillChange.send()
+        }
+    }
+    
     static func ==(lhs: DayPlan, rhs: DayPlan) -> Bool {
         return lhs.id == rhs.id && lhs.midday.count == rhs.midday.count && lhs.evening.count == rhs.evening.count
     }

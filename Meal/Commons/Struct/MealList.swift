@@ -30,7 +30,7 @@ struct MealList {
         outsideMeals.removeAll(where: {$0.id == meal.id})
         
         // Add the new one
-        self.append(meal)
+        self.append(meal.new())
     }
     
     func getRandomElement(type: MealType) -> Meal? {

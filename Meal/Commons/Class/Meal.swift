@@ -10,6 +10,7 @@ import SwiftUI
 import EventKit
 
 class Meal: Hashable, Codable, Identifiable {
+    var uuid = UUID()
     let id: Int
     var name: String
     var type: MealType
@@ -21,7 +22,7 @@ class Meal: Hashable, Codable, Identifiable {
     }
     
     static func ==(lhs: Meal, rhs: Meal) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id && lhs.uuid == rhs.uuid
     }
     
     func hash(into hasher: inout Hasher) {

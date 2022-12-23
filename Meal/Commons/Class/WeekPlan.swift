@@ -35,10 +35,23 @@ class WeekPlan: ObservableObject {
     }
     
     func append(_ meal: Meal, day: WeekDays, time: TimeOfTheDay) {
+        if time == .midday && week[day.rawValue].midday.count < 3 {
+            week[day.rawValue].midday.append(meal.new())
+            week[day.rawValue].objectWillChange.send()
+        } else if time == .evening && week[day.rawValue].evening.count < 3 {
+            week[day.rawValue].evening.append(meal.new())
+            week[day.rawValue].objectWillChange.send()
+        }
+        self.objectWillChange.send()
+    }
+    
+    func remove(_ meal: Meal, day: WeekDays, time: TimeOfTheDay) {
         if time == .midday {
-            week[day.rawValue].midday.append(meal)
+            week[day.rawValue].midday.removeAll(where: {$0.id == meal.id})
+            week[day.rawValue].objectWillChange.send()
         } else if time == .evening {
-            week[day.rawValue].evening.append(meal)
+            week[day.rawValue].evening.removeAll(where: {$0.id == meal.id})
+            week[day.rawValue].objectWillChange.send()
         }
     }
     

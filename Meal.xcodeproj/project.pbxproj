@@ -38,6 +38,8 @@
 		DB9D995B2951C5B30051BD63 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D995A2951C5B30051BD63 /* CalendarController.swift */; };
 		DB9D995D2951C8860051BD63 /* CalendarPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D995C2951C8860051BD63 /* CalendarPanel.swift */; };
 		DB9D99602951F25A0051BD63 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB9D99622951F25A0051BD63 /* Localizable.strings */; };
+		DB9D9965295387B40051BD63 /* MealsDataController+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D9964295387B40051BD63 /* MealsDataController+Calendar.swift */; };
+		DB9D99672954DEB60051BD63 /* ThanksPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D99662954DEB60051BD63 /* ThanksPanel.swift */; };
 		DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */; };
 		DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */; };
 /* End PBXBuildFile section */
@@ -95,6 +97,8 @@
 		DB9D995C2951C8860051BD63 /* CalendarPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPanel.swift; sourceTree = "<group>"; };
 		DB9D99612951F25A0051BD63 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB9D99632951F25E0051BD63 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DB9D9964295387B40051BD63 /* MealsDataController+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealsDataController+Calendar.swift"; sourceTree = "<group>"; };
+		DB9D99662954DEB60051BD63 /* ThanksPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksPanel.swift; sourceTree = "<group>"; };
 		DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePanel.swift; sourceTree = "<group>"; };
 		DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealScheduleSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -263,6 +267,7 @@
 				DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */,
 				DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */,
 				DB9D995C2951C8860051BD63 /* CalendarPanel.swift */,
+				DB9D99662954DEB60051BD63 /* ThanksPanel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 			children = (
 				DB9D994F29506D6B0051BD63 /* ConfigurePanelViewModel.swift */,
 				DB9D9956295092B40051BD63 /* MealsDataController+Schedule.swift */,
+				DB9D9964295387B40051BD63 /* MealsDataController+Calendar.swift */,
 				DB9D995A2951C5B30051BD63 /* CalendarController.swift */,
 				DB9D995129506D750051BD63 /* Views */,
 			);
@@ -416,12 +422,14 @@
 				DB9D995D2951C8860051BD63 /* CalendarPanel.swift in Sources */,
 				DB9B87D1293F51C200F2344B /* MealTypeSelectionRow.swift in Sources */,
 				DB9B87E52942159A00F2344B /* WeekPlan.swift in Sources */,
+				DB9D9965295387B40051BD63 /* MealsDataController+Calendar.swift in Sources */,
 				DB9B87EC294503BB00F2344B /* MealList.swift in Sources */,
 				DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */,
 				DB9D995529506F9B0051BD63 /* MealPicker.swift in Sources */,
 				DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */,
 				DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */,
 				DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */,
+				DB9D99672954DEB60051BD63 /* ThanksPanel.swift in Sources */,
 				DB9D9959295092F00051BD63 /* MealsDataController+WeekPlaning.swift in Sources */,
 				DB9B87F22945044300F2344B /* MealListPanel.swift in Sources */,
 				DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */,
@@ -535,7 +543,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -589,7 +597,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -604,29 +612,35 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
-				DEVELOPMENT_TEAM = LXUS44RH3Q;
+				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Loic.Meal;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -635,29 +649,35 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
-				DEVELOPMENT_TEAM = LXUS44RH3Q;
+				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Loic.Meal;
+				MARKETING_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

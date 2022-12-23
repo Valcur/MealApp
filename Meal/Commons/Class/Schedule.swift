@@ -27,3 +27,11 @@ class Schedule: Identifiable, Hashable, Codable {
         return hasher.combine(ObjectIdentifier(self))
     }
 }
+
+struct Schedules: Codable {
+    var schedules: [Schedule]
+}
+
+struct EventIdentifiers: Codable {
+    var eventIdentifiers: [String]
+}

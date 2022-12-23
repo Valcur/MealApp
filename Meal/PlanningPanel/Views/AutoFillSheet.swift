@@ -24,17 +24,23 @@ struct AutoFillSheet: View {
             Text(NSLocalizedString("autofill_meat-vegan_title", comment: "autofill_meat-vegan_title"))
             
             HStack {
-                Slider(value: $meatPercentageThisWeek, in: 0...100)
                 Text("\(meatPercentageThisWeek, specifier: "%.0f")%")
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .foregroundColor(.accentColor)
+                    .frame(width: 70)
+                Slider(value: $meatPercentageThisWeek, in: 0...100, step: 1.0)
             }
             
             Text(NSLocalizedString("autofill_outside_title", comment: "autofill_outside_title"))
             
             HStack {
-                Slider(value: $outsideThisWeek, in: 0...7)
                 Text("\(outsideThisWeek, specifier: "%.0f")")
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .foregroundColor(.accentColor)
+                    .frame(width: 70)
+                Slider(value: $outsideThisWeek, in: 0...7, step: 1.0)
             }
             
             Spacer()
@@ -43,7 +49,7 @@ struct AutoFillSheet: View {
                 planningPanelVM.autoFill(meatPercentage: meatPercentageThisWeek, desiredOutside: Int(outsideThisWeek))
                 presentationMode.wrappedValue.dismiss()
             }, label: {
-                ButtonLabel(title: "autoFill")
+                ButtonLabel(title: "autofill")
             })
         }.padding(30)
     }

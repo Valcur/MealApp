@@ -11,60 +11,35 @@ extension MealsListPanel {
     struct MealList: View {
         @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
         @Binding var selectedMealType: MealType
-        let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
         var body: some View {
             ZStack {
                 // Faire une vue commune quand j'ai le temps
                 if selectedMealType == .meat {
-                    VStack {
-                        MealTypeDesription(text: "mealList_meat_intro")
-                        ScrollView(.vertical) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(mealsListPanelVM.meals.meatMeals, id: \.self) { meal in
-                                    MealGridItem(meal: meal)
-                                }
-                            }
-                        }
-                        Spacer()
-                    }.transition(.slide.combined(with: .opacity))
+                    MealList(mealList: mealsListPanelVM.meals.meatMeals)
                 } else if selectedMealType == .vegan {
-                    VStack {
-                        MealTypeDesription(text: "mealList_vegan_intro")
-                        ScrollView(.vertical) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(mealsListPanelVM.meals.veganMeals, id: \.self) { meal in
-                                    MealGridItem(meal: meal)
-                                }
-                            }
-                        }
-                        Spacer()
-                    }.transition(.slide.combined(with: .opacity))
+                    MealList(mealList: mealsListPanelVM.meals.veganMeals)
                 } else {
-                    VStack {
-                        MealTypeDesription(text: "mealList_outside_intro")
-                        ScrollView(.vertical) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(mealsListPanelVM.meals.outsideMeals, id: \.self) { meal in
-                                    MealGridItem(meal: meal)
-                                }
-                            }
-                        }
-                        Spacer()
-                    }.transition(.slide.combined(with: .opacity))
+                    MealList(mealList: mealsListPanelVM.meals.outsideMeals)
                 }
             }
          }
-    }
-    
-    struct MealTypeDesription: View {
-        let text: String
         
-        var body: some View {
-            HStack {
-                Text(NSLocalizedString(text, comment: text))
-                    .subTitle()
-                Spacer()
+        struct MealList: View {
+            let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+            let mealList: [Meal]
+            
+            var body: some View {
+                VStack {
+                    ScrollView(.vertical) {
+                        LazyVGrid(columns: columns) {
+                            ForEach(mealList, id: \.self) { meal in
+                                MealGridItem(meal: meal)
+                            }
+                        }
+                    }
+                    Spacer()
+                }.transition(.slide.combined(with: .opacity))
             }
         }
     }

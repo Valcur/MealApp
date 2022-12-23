@@ -12,20 +12,22 @@ class PlanningPanelViewModel: ObservableObject {
     @Published var weekPlan: WeekPlan
     private let data = MealsDataController()
     var mealsVM: MealsListPanelViewModel
+    var configureVM: ConfigurePanelViewModel
     
     var selectedWeek: WichWeekIsIt = .thisWeek
     var thisWeek: WeekPlan
     var nextWeek: WeekPlan
     
-    init(mealsVM: MealsListPanelViewModel) {
+    init(mealsVM: MealsListPanelViewModel, configureVM: ConfigurePanelViewModel) {
         self.mealsVM = mealsVM
+        self.configureVM = configureVM
         
         thisWeek = data.loadWeek(forWeek: .thisWeek)
         nextWeek = data.loadWeek(forWeek: .nextWeek)
         
         weekPlan = thisWeek
         
-        let WANT_TO_RESET = true
+        let WANT_TO_RESET = false
         if WANT_TO_RESET {
             weekPlan = WeekPlan(.thisWeek)
             weekPlan.append(Meal(id: 1, name: "Fish & Chips", type: .meat), day: .monday, time: .midday)
@@ -38,16 +40,54 @@ class PlanningPanelViewModel: ObservableObject {
             
             saveWeek()
         }
+        
+        updateWeekDatesIfNeeded()
     }
     
-    private func saveWeek() {
+    func updateWeekDatesIfNeeded() {
+        let cal = Calendar(identifier: .gregorian)
+        // Le début de semaine des 2 semaines actuellment sauvegardées
+        let savedThisWeekMonday = cal.startOfDay(for: thisWeek.week[0].date)
+        let savedNextWeekMonday = cal.startOfDay(for: nextWeek.week[0].date)
+        // Le début de la semaine actuelle
+        let thisWeekMonday = cal.startOfDay(for: Date().previous(.monday))
+        
+        // Si nextweek est devenu thisweek, on remplace et on créé un nouveau nextweek
+        if thisWeekMonday == savedNextWeekMonday {
+            print("Nouvelle semaine !")
+            thisWeek = nextWeek
+            nextWeek = WeekPlan(.nextWeek)
+            configureVM.applyAllSchedulesTo(nextWeek)
+            
+            switchToNextWeek()
+            saveWeek()
+            switchToThisWeek()
+            saveWeek()
+        }
+        // Si la semaine actuelle correpsond a aucune des 2 semaines, on récréé 2 nouvelles semaines
+        else if thisWeekMonday != savedThisWeekMonday {
+            print("L'app n'a pas été ouverte depuis plus de 2 semaines")
+            thisWeek = WeekPlan(.thisWeek)
+            nextWeek = WeekPlan(.nextWeek)
+            configureVM.applyAllSchedulesTo(thisWeek)
+            configureVM.applyAllSchedulesTo(nextWeek)
+            
+            switchToNextWeek()
+            saveWeek()
+            switchToThisWeek()
+            saveWeek()
+        }
+    }
+    
+    func saveWeek() {
         data.saveWeek(weekPlan: weekPlan, forWeek: selectedWeek)
+        configureVM.calendarController.addWeekToCalendar(weekPlan: weekPlan)
     }
 }
 
 extension PlanningPanelViewModel {
     func addRandomMeal(day: WeekDays, time: TimeOfTheDay) {
-        let randomMeal = mealsVM.meals.getRandomElement(type: .meat)
+        let randomMeal = mealsVM.meals.getRandomElement(type: [MealType.meat, MealType.vegan].randomElement()!)
         guard let randomMeal = randomMeal else { return }
         
         withAnimation(.easeInOut(duration: 0.3)) {
@@ -112,7 +152,7 @@ extension PlanningPanelViewModel {
             let meal = mealsVM.meals.outsideMeals.randomElement()
             // Ajouter le plat à un jour aléatoire vide qui n'a pas de outside
             if meal != nil {
-                addOutsideMealToRandomDay(meal: meal!)
+                addOutsideMealToRandomDay(meal: meal!.new())
             }
             numberOfOutside += 1
         }
@@ -143,7 +183,7 @@ extension PlanningPanelViewModel {
             for _ in 0..<meatLunchToAdd {
                 let meal = mealsVM.meals.meatMeals.randomElement()
                 if meal != nil {
-                    addMealToRandomDay(meal: meal!)
+                    addMealToRandomDay(meal: meal!.new())
                 }
             }
         }
@@ -153,7 +193,7 @@ extension PlanningPanelViewModel {
             for _ in 0..<veganLunchToAdd {
                 let meal = mealsVM.meals.veganMeals.randomElement()
                 if meal != nil {
-                    addMealToRandomDay(meal: meal!)
+                    addMealToRandomDay(meal: meal!.new())
                 }
             }
         }
@@ -190,10 +230,10 @@ extension PlanningPanelViewModel {
             var possibleChoices: [TimeOfTheDay] = []
             
             // On s'assure de ne pas ajouter de outside si il y en déjà un dans la même journée
-            if day.midday.count == 0 && day.evening.contains(where: {$0.type == .outside}){
+            if day.midday.count == 0 && !day.evening.contains(where: {$0.type == .outside}){
                 possibleChoices.append(.midday)
             }
-            if day.evening.count == 0 && day.midday.contains(where: {$0.type == .outside}){
+            if day.evening.count == 0 && !day.midday.contains(where: {$0.type == .outside}){
                 possibleChoices.append(.evening)
             }
             

@@ -10,25 +10,38 @@ import SwiftUI
 struct MealsListPanel: View {
     @State private var showingNewMealSheet = false
     @State private var selectedMealType: MealType = .meat
+    var selectedMealIntroString: String {
+        if selectedMealType == .meat {
+            return "mealList_meat_intro"
+        } else if selectedMealType == .vegan {
+            return "mealList_vegan_intro"
+        } else {
+            return "mealList_outside_intro"
+        }
+    }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 10) {
                 Text(NSLocalizedString("mealList_title", comment: "mealList_title"))
                     .title()
                 
-                Spacer()
+                MealTypeSelectionRow(selectedMealType: $selectedMealType)
                 
-                NewMealButton(showingNewMealSheet: $showingNewMealSheet)
-                    .sheet(isPresented: $showingNewMealSheet) {
-                        NewMealSheet(mealType: selectedMealType)
-                    }
-            }
-            
-            MealTypeSelectionRow(selectedMealType: $selectedMealType)
-            Divider()
-            MealList(selectedMealType: $selectedMealType)
-        }.padding(.horizontal, 40)
+                HStack {
+                    MealTypeDesription(text: selectedMealIntroString)
+                    
+                    Spacer()
+                    
+                    NewMealButton(showingNewMealSheet: $showingNewMealSheet)
+                        .sheet(isPresented: $showingNewMealSheet) {
+                            NewMealSheet(mealType: selectedMealType)
+                        }
+                }
+            }.padding(15).padding(.top, 25).background(Color("WhiteBackgroundColor")).ignoresSafeArea()
+
+            MealList(selectedMealType: $selectedMealType).padding(.horizontal, 20)
+        }.background(Color("BackgroundColor"))
     }
     
     struct NewMealButton: View {
@@ -38,14 +51,18 @@ struct MealsListPanel: View {
             Button(action: {
                 showingNewMealSheet = true
             }, label: {
-                ZStack {
-                    Color.green
-                    Image(systemName: "plus")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
-                }
-            }).frame(width: 50, height: 50)
+                ButtonLabel(title: "+", isCompact: true)
+            })
+        }
+    }
+    
+    struct MealTypeDesription: View {
+        let text: String
+        
+        var body: some View {
+            Text(NSLocalizedString(text, comment: text))
+                .subTitle()
+                .transition(.opacity)
         }
     }
 }
