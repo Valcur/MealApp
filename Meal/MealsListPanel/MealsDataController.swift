@@ -19,6 +19,7 @@ class MealsDataController {
     internal let NEXT_WEEK_KEY = "NEXT_WEEK"
     internal let SCHEDULE_KEY = "SCHEDULE"
     internal let EVENT_KEY = "EVENT_IDENTIFIERS"
+    internal let ALREADY_PICKED_KEY = "ALREADY_PICKED"
     
     init() {
         mealCount = userDefaults.integer(forKey: MEAL_COUNT_KEY)
@@ -79,5 +80,24 @@ extension MealsDataController {
             }
         }
         return nil
+    }
+}
+
+extension MealsDataController {
+    func saveAlreadyPickedIds(_ alreadyPicked: AlreadyPickedIds) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(alreadyPicked) {
+            userDefaults.set(data, forKey: "\(ALREADY_PICKED_KEY)")
+        }
+    }
+    
+    func loadAlreadyPickedIds() -> AlreadyPickedIds {
+        if let data = userDefaults.object(forKey: "\(ALREADY_PICKED_KEY)") as? Data {
+            let decoder = JSONDecoder()
+            if let picked = try? decoder.decode(AlreadyPickedIds.self, from: data) {
+                return picked
+            }
+        }
+        return AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOutsideIds: [])
     }
 }

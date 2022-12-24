@@ -87,11 +87,11 @@ class PlanningPanelViewModel: ObservableObject {
 
 extension PlanningPanelViewModel {
     func addRandomMeal(day: WeekDays, time: TimeOfTheDay) {
-        let randomMeal = mealsVM.meals.getRandomElement(type: [MealType.meat, MealType.vegan].randomElement()!)
+        let randomMeal = mealsVM.getRandomMeal(type: MealType.randomNonOutside())
         guard let randomMeal = randomMeal else { return }
         
         withAnimation(.easeInOut(duration: 0.3)) {
-            weekPlan.append(randomMeal.new(), day: day, time: time)
+            weekPlan.append(randomMeal, day: day, time: time)
             weekPlan.objectWillChange.send()
             for i in 0..<weekPlan.week.count {
                 weekPlan.week[i].objectWillChange.send()
@@ -108,6 +108,7 @@ extension PlanningPanelViewModel {
             weekPlan.week[day.rawValue].objectWillChange.send()
             self.objectWillChange.send()
         }
+        mealsVM.mealHasBeenPicked(meal)
         
         saveWeek()
     }
@@ -149,10 +150,10 @@ extension PlanningPanelViewModel {
         // On remplis au hasard avec le nombre restant de outside
         
         while numberOfOutside < desiredOutside {
-            let meal = mealsVM.meals.outsideMeals.randomElement()
+            let meal = mealsVM.getRandomMeal(type: .outside)
             // Ajouter le plat à un jour aléatoire vide qui n'a pas de outside
             if meal != nil {
-                addOutsideMealToRandomDay(meal: meal!.new())
+                addOutsideMealToRandomDay(meal: meal!)
             }
             numberOfOutside += 1
         }
@@ -181,7 +182,7 @@ extension PlanningPanelViewModel {
         // On ajoute le bon nombre de meat à un repas aléatoire
         if meatLunchToAdd > 0 {
             for _ in 0..<meatLunchToAdd {
-                let meal = mealsVM.meals.meatMeals.randomElement()
+                let meal = mealsVM.getRandomMeal(type: .meat)
                 if meal != nil {
                     addMealToRandomDay(meal: meal!.new())
                 }
@@ -191,7 +192,7 @@ extension PlanningPanelViewModel {
         // On ajoute le bon nombre de vegan à un repas aléatoire
         if veganLunchToAdd > 0 {
             for _ in 0..<veganLunchToAdd {
-                let meal = mealsVM.meals.veganMeals.randomElement()
+                let meal = mealsVM.getRandomMeal(type: .vegan)
                 if meal != nil {
                     addMealToRandomDay(meal: meal!.new())
                 }

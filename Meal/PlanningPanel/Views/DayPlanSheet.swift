@@ -38,6 +38,7 @@ struct DayPlanMealEditSheet: View {
                 } else if time == .evening {
                     dayPlan.evening[mealIndex] = meal.new()
                 }
+                planningPanelVM.mealsVM.mealHasBeenPicked(meal)
                 dayPlan.objectWillChange.send()
                 planningPanelVM.saveWeek()
             }
@@ -81,14 +82,9 @@ struct DayPlanSheet: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
-            Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
-                .title()
-            
-            Text(dayPlan.day.name())
-            
             HStack {
-                Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
-                    .font(.title)
+                Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
+                    .title()
                 
                 Spacer()
                                 
@@ -104,6 +100,11 @@ struct DayPlanSheet: View {
                     })
                 }
             }
+            
+            Text(dayPlan.day.name())
+            
+            Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
+                .font(.title)
             
             HStack {
                 Button(action: {

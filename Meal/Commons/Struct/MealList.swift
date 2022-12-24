@@ -33,6 +33,16 @@ struct MealList {
         self.append(meal.new())
     }
     
+    mutating func removeWithId(_ id: Int) {
+        meatMeals.removeAll(where: {$0.id == id})
+        veganMeals.removeAll(where: {$0.id == id})
+        outsideMeals.removeAll(where: {$0.id == id})
+    }
+    
+    func count() -> (Int, Int, Int) {
+        return (meatMeals.count, veganMeals.count, outsideMeals.count)
+    }
+    
     func getRandomElement(type: MealType) -> Meal? {
         switch type {
         case .meat:
@@ -41,6 +51,25 @@ struct MealList {
             return veganMeals.randomElement()
         case .outside:
             return outsideMeals.randomElement()
+        }
+    }
+}
+
+struct AlreadyPickedIds: Codable {
+    var pickedMeatIds: [Int]
+    var pickedVeganIds: [Int]
+    var pickedOutsideIds: [Int]
+    
+    mutating func append(_ id: Int, type: MealType) {
+        if type == .meat {
+            pickedMeatIds.removeAll(where: {$0 == id})
+            pickedMeatIds.append(id)
+        } else if type == .vegan {
+            pickedVeganIds.removeAll(where: {$0 == id})
+            pickedVeganIds.append(id)
+        } else {
+            pickedOutsideIds.removeAll(where: {$0 == id})
+            pickedOutsideIds.append(id)
         }
     }
 }

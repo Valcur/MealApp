@@ -18,6 +18,7 @@ struct NewMealSheet: View {
             mealName: $mealName,
             mealType: $mealType,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_new_title", intro: "mealList_new_subtitle"),
+            showBin: false,
             confirmButton:
                 Button(action: {
                     mealsListPanelVM.createNewMealWith(name: mealName, type: mealType)
@@ -39,6 +40,7 @@ struct EditMealSheet: View {
             mealName: $meal.name,
             mealType: $meal.type,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_edit_title", intro: "mealList_edit_subtitle"),
+            showBin: false,
             confirmButton:
                 Button(action: {
                     mealsListPanelVM.updateMealInfo(meal: meal)
@@ -54,14 +56,31 @@ struct MealInfoSheet<ConfirmButton>: View where ConfirmButton: View {
     @Binding var mealName: String
     @Binding var mealType: MealType
     let sheetInfo: MealInfoSheetData
+    let showBin: Bool
     let confirmButton: ConfirmButton
     @State private var mealNameField: String = ""
     @State private var mealTypeField: MealType = .meat
 
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
-            Text(NSLocalizedString(sheetInfo.title, comment: sheetInfo.title))
-                .title()
+            HStack {
+                Text(NSLocalizedString(sheetInfo.title, comment: sheetInfo.title))
+                    .title()
+                
+                Spacer()
+                                
+                if showBin {
+                    Button(action: {
+                        // Delete
+                        //presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image(systemName: "trash")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.red)
+                    })
+                }
+            }
             
             Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
             

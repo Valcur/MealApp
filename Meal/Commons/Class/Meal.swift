@@ -64,4 +64,8 @@ enum MealType: Codable {
             return NSLocalizedString("Outside", comment: "Outside")
         }
     }
+    
+    static func randomNonOutside() -> MealType {
+        return [MealType.meat, MealType.vegan].randomElement()!
+    }
 }
