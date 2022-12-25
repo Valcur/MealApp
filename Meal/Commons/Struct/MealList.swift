@@ -39,6 +39,12 @@ struct MealList {
         outsideMeals.removeAll(where: {$0.id == id})
     }
     
+    mutating func sort() {
+        meatMeals = meatMeals.sorted { $0.name < $1.name }
+        veganMeals = veganMeals.sorted { $0.name < $1.name }
+        outsideMeals = outsideMeals.sorted { $0.name < $1.name }
+    }
+    
     func count() -> (Int, Int, Int) {
         return (meatMeals.count, veganMeals.count, outsideMeals.count)
     }

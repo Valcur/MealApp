@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // L'organisation d'une journée
 class DayPlan: Equatable, Identifiable, ObservableObject, Codable {
@@ -23,13 +24,15 @@ class DayPlan: Equatable, Identifiable, ObservableObject, Codable {
     }
     
     func append(_ meal: Meal, time: TimeOfTheDay) {
-        if time == .midday && self.midday.count < 3 {
-            self.midday.append(meal.new())
-            self.objectWillChange.send()
-        }
-        if time == .evening && self.evening.count < 3 {
-            self.evening.append(meal.new())
-            self.objectWillChange.send()
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if time == .midday && self.midday.count < 3 {
+                self.midday.append(meal.new())
+                self.objectWillChange.send()
+            }
+            if time == .evening && self.evening.count < 3 {
+                self.evening.append(meal.new())
+                self.objectWillChange.send()
+            }
         }
     }
     

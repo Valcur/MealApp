@@ -114,12 +114,14 @@ extension PlanningPanelViewModel {
     }
     
     func deleteMeal(_ meal: Meal, dayPlan: DayPlan, time: TimeOfTheDay) {
-        if time == .midday {
-            dayPlan.midday.removeAll(where: {$0.id == meal.id})
-        } else {
-            dayPlan.evening.removeAll(where: {$0.id == meal.id})
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if time == .midday {
+                dayPlan.midday.removeAll(where: {$0.id == meal.id})
+            } else {
+                dayPlan.evening.removeAll(where: {$0.id == meal.id})
+            }
+            dayPlan.objectWillChange.send()
         }
-        dayPlan.objectWillChange.send()
         
         saveWeek()
     }
@@ -240,12 +242,7 @@ extension PlanningPanelViewModel {
             
             if possibleChoices.count > 0 {
                 let randomTime = possibleChoices.randomElement()
-                if randomTime == .midday {
-                    day.midday.append(meal)
-                }
-                if randomTime == .evening {
-                    day.evening.append(meal)
-                }
+                day.append(meal, time: randomTime!)
                 successfullyAdded = true
             }
             
@@ -281,12 +278,7 @@ extension PlanningPanelViewModel {
             
             if possibleChoices.count > 0 {
                 let randomTime = possibleChoices.randomElement()
-                if randomTime == .midday {
-                    day.midday.append(meal)
-                }
-                if randomTime == .evening {
-                    day.evening.append(meal)
-                }
+                day.append(meal, time: randomTime!)
                 successfullyAdded = true
             }
             

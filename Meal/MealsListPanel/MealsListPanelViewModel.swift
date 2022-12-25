@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class MealsListPanelViewModel: ObservableObject {
     private let data = MealsDataController()
@@ -30,6 +31,7 @@ class MealsListPanelViewModel: ObservableObject {
          */
         
         iniPickedAndAvailableMealsList()
+        meals.sort()
     }
     
     private func iniPickedAndAvailableMealsList() {
@@ -94,14 +96,31 @@ extension MealsListPanelViewModel {
 // Buttons
 extension MealsListPanelViewModel {
     func createNewMealWith(name: String, type: MealType) {
-        let newMealTmp = Meal(id: data.mealCount + 1, name: name, type: type)
-        data.createNewMeal(meal: newMealTmp)
-        meals.append(newMealTmp)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            let newMealTmp = Meal(id: data.mealCount + 1, name: name, type: type)
+            data.createNewMeal(meal: newMealTmp)
+            meals.append(newMealTmp)
+            meals.sort()
+            availableMeals.append(newMealTmp)
+        }
     }
     
     func updateMealInfo(meal: Meal) {
-        dump(meal)
-        meals.updateValue(meal)
-        data.updateMeal(meal: meal)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            dump(meal)
+            meals.updateValue(meal)
+            meals.sort()
+            availableMeals.updateValue(meal)
+            data.updateMeal(meal: meal)
+        }
+    }
+    
+    func deleteMeal(meal: Meal) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            print("Removing \(meal.name)")
+            meals.removeWithId(meal.id)
+            availableMeals.removeWithId(meal.id)
+            data.deleteMeal(meal: meal)
+        }
     }
 }

@@ -52,7 +52,6 @@ class MealsDataController {
     
     // Enregistre les changements effectués sur un plat
     func updateMeal(meal: Meal) {
-        //userDefaults.set(meal, forKey: "\(MEAL_KEY)_\(meal.id)")
         saveDataMeal(meal)
     }
     

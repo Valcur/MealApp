@@ -18,14 +18,14 @@ struct NewMealSheet: View {
             mealName: $mealName,
             mealType: $mealType,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_new_title", intro: "mealList_new_subtitle"),
-            showBin: false,
+            trashButton: AnyView(Spacer()),
             confirmButton:
-                Button(action: {
+                AnyView(Button(action: {
                     mealsListPanelVM.createNewMealWith(name: mealName, type: mealType)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ButtonLabel(title: "done")
-                })
+                }))
         )
     }
 }
@@ -40,24 +40,33 @@ struct EditMealSheet: View {
             mealName: $meal.name,
             mealType: $meal.type,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_edit_title", intro: "mealList_edit_subtitle"),
-            showBin: false,
+            trashButton:
+                AnyView(Button(action: {
+                    mealsListPanelVM.deleteMeal(meal: meal)
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Image(systemName: "trash")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(.red)
+                })),
             confirmButton:
-                Button(action: {
+                AnyView(Button(action: {
                     mealsListPanelVM.updateMealInfo(meal: meal)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ButtonLabel(title: "confirmChangesButton")
-                })
+                }))
         )
     }
 }
 
-struct MealInfoSheet<ConfirmButton>: View where ConfirmButton: View {
+struct MealInfoSheet: View {
     @Binding var mealName: String
     @Binding var mealType: MealType
     let sheetInfo: MealInfoSheetData
-    let showBin: Bool
-    let confirmButton: ConfirmButton
+    let trashButton: AnyView
+    let confirmButton: AnyView
     @State private var mealNameField: String = ""
     @State private var mealTypeField: MealType = .meat
 
@@ -69,17 +78,7 @@ struct MealInfoSheet<ConfirmButton>: View where ConfirmButton: View {
                 
                 Spacer()
                                 
-                if showBin {
-                    Button(action: {
-                        // Delete
-                        //presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Image(systemName: "trash")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.red)
-                    })
-                }
+                trashButton
             }
             
             Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
