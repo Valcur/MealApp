@@ -16,8 +16,10 @@ class CalendarController {
     let eventStore : EKEventStore = EKEventStore()
     var accessAllowed = false
     var allSavedEventIdentifiers: [String] = [] // Tous les event enregistré par l'app
+    var calendarUsage: CalendarUsage
     
     init() {
+        calendarUsage = data.loadCalendarUsage()
         eventStore.requestAccess(to: .event) { (granted, error) in
             self.accessAllowed = (granted) && (error == nil)
         }
@@ -27,6 +29,7 @@ class CalendarController {
     func addWeekToCalendar(weekPlan: WeekPlan) {
         removeAllEventsFromCalendar()
         allSavedEventIdentifiers = []
+        guard calendarUsage.useCalendar else { return }
         for day in weekPlan.week {
             addDayToCalendar(day: day)
         }
@@ -71,10 +74,12 @@ class CalendarController {
     }
     
     private func getMealStartAndEndDate(date: Date, time: TimeOfTheDay, rank: Int, total: Int) -> (Date, Date) {
-        let cal = Calendar(identifier: .gregorian)
-        let midnight = cal.startOfDay(for: date)
+        let cal = Calendar.current
         
-        var startDate = time == .midday ? midnight + 13 * 60 * 60 : midnight + 20 * 60 * 60
+        let middayTime = cal.date(bySettingHour: calendarUsage.middayHour.hour, minute: calendarUsage.middayHour.minutes, second: 0, of: date) ?? date
+        let eveningTime = cal.date(bySettingHour: calendarUsage.eveningHour.hour, minute: calendarUsage.eveningHour.minutes, second: 0, of: date) ?? date
+        
+        var startDate = time == .midday ? middayTime : eveningTime
         let duration = (30 / total) * 60
         startDate =  startDate + (Double(rank * duration))
         let endDate = startDate + Double(duration)

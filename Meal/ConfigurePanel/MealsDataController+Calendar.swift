@@ -25,4 +25,32 @@ extension MealsDataController {
         }
         return EventIdentifiers(eventIdentifiers: [])
     }
+    
+    func saveCalendarUsage(calendarUsage: CalendarUsage) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(calendarUsage) {
+            userDefaults.set(data, forKey: "\(CALENDAR_USAGE_KEY)")
+        }
+    }
+    
+    func loadCalendarUsage() -> CalendarUsage {
+        if let data = userDefaults.object(forKey: "\(CALENDAR_USAGE_KEY)") as? Data {
+            let decoder = JSONDecoder()
+            if let calendar = try? decoder.decode(CalendarUsage.self, from: data) {
+                return calendar
+            }
+        }
+        return CalendarUsage(useCalendar: false, middayHour: Hour(hour: 13, minutes: 0), eveningHour: Hour(hour: 19, minutes: 45))
+    }
+}
+
+struct CalendarUsage: Codable {
+    var useCalendar: Bool
+    var middayHour: Hour
+    var eveningHour: Hour
+}
+
+struct Hour: Codable {
+    var hour: Int
+    var minutes: Int
 }

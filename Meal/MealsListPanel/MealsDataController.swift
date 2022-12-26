@@ -20,6 +20,7 @@ class MealsDataController {
     internal let SCHEDULE_KEY = "SCHEDULE"
     internal let EVENT_KEY = "EVENT_IDENTIFIERS"
     internal let ALREADY_PICKED_KEY = "ALREADY_PICKED"
+    internal let CALENDAR_USAGE_KEY = "CALENDAR_USAGE"
     
     init() {
         mealCount = userDefaults.integer(forKey: MEAL_COUNT_KEY)

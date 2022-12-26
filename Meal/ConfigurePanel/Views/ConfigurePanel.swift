@@ -27,16 +27,13 @@ struct ConfigurePanel: View {
                     }
                 }
                 Section(header: Text("Options")) {
+                    NavigationLink(destination: CalendarPanel()) {
+                        Text(NSLocalizedString("options_calendar_title", comment: "options_calendar_title"))
+                    }
                     NavigationLink(destination: ThanksPanel()) {
                         Text("Thanks")
                     }
                 }
-                /*
-                Section(header: Text("Options")) {
-                    NavigationLink(destination: CalendarPanel()) {
-                        Text(NSLocalizedString("options_scalendar_title", comment: "options_scalendar_title"))
-                    }
-                }*/
             }.navigationTitle(NSLocalizedString("tab_options", comment: "tab_options"))
         }
     }

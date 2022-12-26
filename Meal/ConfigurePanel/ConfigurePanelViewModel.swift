@@ -100,3 +100,22 @@ extension ConfigurePanelViewModel {
         return time
     }
 }
+
+extension ConfigurePanelViewModel {
+    func saveCalendarUsage(useCalendar: Bool, middayDate: Date, eveningDate: Date) {
+        let calendar = Calendar.current
+        let calendarUsage = CalendarUsage(useCalendar: useCalendar,
+                                          middayHour: Hour(hour: calendar.component(.hour, from: middayDate),
+                                                           minutes: calendar.component(.minute, from: middayDate)),
+                                          eveningHour: Hour(hour: calendar.component(.hour, from: eveningDate),
+                                                            minutes: calendar.component(.minute, from: eveningDate))
+                                         )
+        calendarController.calendarUsage = calendarUsage
+        calendarController.addWeekToCalendar(weekPlan: planningPanelVM!.weekPlan)
+        data.saveCalendarUsage(calendarUsage: calendarUsage)
+    }
+    
+    func loadCalendarUsage() -> CalendarUsage {
+        return data.loadCalendarUsage()
+    }
+}
