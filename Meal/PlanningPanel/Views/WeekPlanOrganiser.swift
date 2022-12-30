@@ -47,18 +47,20 @@ struct WeekPlanOrganiser: View {
     struct DayView: View {
         @ObservedObject var dayPlan: DayPlan
         let dateFormatter: DateFormatter
+        let isToday: Bool
         
         init(dayPlan: DayPlan) {
             self.dayPlan = dayPlan
             self.dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "d MMM"
+            self.dateFormatter.dateFormat = "d MMM"
+            self.isToday = Calendar.current.isDateInToday(dayPlan.date)
         }
         
         var body: some View {
             VStack(spacing: 15) {
                 VStack(spacing: 3) {
                     Text(dayPlan.day.name())
-                        .title()
+                        .title(style: isToday ? .secondary : .primary)
                     
                     Text(dateFormatter.string(from: dayPlan.date))
                         .subTitle(style: .secondary)
@@ -97,27 +99,38 @@ struct WeekPlanOrganiser: View {
                     if meals.count < 3 {
                         Spacer()
                         HStack {
-                            Button(action: {
-                                showingNewMealSheet = true
-                            }, label: {
-                                Image(systemName: "plus")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundColor(Color("TextColor"))
-                            }).padding(5)
-                            .sheet(isPresented: $showingNewMealSheet) {
-                                DayPlanNewMealSheet(dayPlan: dayPlan, time: time)
-                                    .environmentObject(planningPanelVM)
+                            if planningPanelVM.mealClipboard == nil {
+                                Button(action: {
+                                    showingNewMealSheet = true
+                                }, label: {
+                                    Image(systemName: "plus")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .foregroundColor(Color("TextColor"))
+                                }).padding(5).transition(.slide.combined(with: .opacity))
+                                    .sheet(isPresented: $showingNewMealSheet) {
+                                        DayPlanNewMealSheet(dayPlan: dayPlan, time: time)
+                                            .environmentObject(planningPanelVM)
+                                    }
+                                
+                                Button(action: {
+                                    planningPanelVM.addRandomMeal(day: dayPlan.day, time: time)
+                                }, label: {
+                                    Image(systemName: "shuffle")
+                                        .resizable()
+                                        .frame(width: 40, height: 30)
+                                        .foregroundColor(Color("TextColor"))
+                                }).padding(5).transition(.slide.combined(with: .opacity))
+                            } else {
+                                Button(action: {
+                                    planningPanelVM.addClipboardMeal(day: dayPlan.day, time: time)
+                                }, label: {
+                                    Image(systemName: "doc.on.clipboard")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .foregroundColor(Color("TextColor"))
+                                }).padding(5).transition(.slide.combined(with: .opacity))
                             }
-                            
-                            Button(action: {
-                                planningPanelVM.addRandomMeal(day: dayPlan.day, time: time)
-                            }, label: {
-                                Image(systemName: "shuffle")
-                                    .resizable()
-                                    .frame(width: 40, height: 30)
-                                    .foregroundColor(Color("TextColor"))
-                            }).padding(5)
                         }
                     }
                 }
@@ -137,16 +150,20 @@ struct WeekPlanOrganiser: View {
                         Text(meal.name)
                             .fontWeight(.bold)
                             .foregroundColor(meal.type.getColor())
-                        Button(action: {
-                            showingMealInfoSheet = true
-                        }, label: {
-                            Image(systemName: "slider.horizontal.3")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(meal.type.getColor())
-                                .position(x: 20, y: 20)
-                        })
-                    }.roundedCornerRectangle(padding: 0).frame(maxWidth: .infinity)
+                        
+                        Image(systemName: "slider.horizontal.3")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(meal.type.getColor())
+                            .position(x: 18, y: 18)
+                            .onTapGesture {
+                                showingMealInfoSheet = true
+                            }
+                    }.roundedCornerRectangle(padding: 2).frame(maxWidth: .infinity)
+                    .onTapGesture {  }
+                    .onLongPressGesture(minimumDuration: 0.5) {
+                        planningPanelVM.copyClipboardMeal(meal, day: dayPlan, time: time)
+                    }
                     .sheet(isPresented: $showingMealInfoSheet) {
                         DayPlanMealEditSheet(dayPlan: dayPlan, time: time, meal: $meal, mealType: meal.type)
                             .environmentObject(planningPanelVM)

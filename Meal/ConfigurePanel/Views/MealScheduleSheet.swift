@@ -25,16 +25,19 @@ struct NewMealSchedule: View {
                            selectedMeal: $selectedMeal,
                            selectedDays: $selectedDays,
                            selectedHours: $selectedHours,
-                           confirmButton: Button(action: {
-            configurePanelVM.newSchedule(meal: selectedMeal, selectedDays: selectedDays, selectedHours: selectedHours)
-        }, label: {
-            ButtonLabel(title: "options_schedule_new_confirmButton")
-        }))
+                           trashButton: AnyView(Spacer()),
+                           confirmButton:
+                            AnyView(Button(action: {
+                                configurePanelVM.newSchedule(meal: selectedMeal, selectedDays: selectedDays, selectedHours: selectedHours)
+                            }, label: {
+                                ButtonLabel(title: "options_schedule_new_confirmButton")
+                            })))
     }
 }
 
 struct EditMealSchedule: View {
     @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
+    //@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let selectedSchedule: Schedule
     @State var selectedMeal: Meal
     @State var selectedDays: [Bool]
@@ -62,27 +65,45 @@ struct EditMealSchedule: View {
                            selectedMeal: $selectedMeal,
                            selectedDays: $selectedDays,
                            selectedHours: $selectedHours,
-                           confirmButton: Button(action: {
-            configurePanelVM.editSchedule(meal: selectedMeal, selectedDays: selectedDays, selectedHours: selectedHours, schedule: selectedSchedule)
-        }, label: {
-            ButtonLabel(title: "confirmChangesButton")
-        }))
+                           trashButton:
+                                AnyView(Button(action: {
+                                    configurePanelVM.removeSchedule(schedule: selectedSchedule)
+                                    //presentationMode.wrappedValue.dismiss()
+                                }, label: {
+                                    Image(systemName: "trash")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(.red)
+                                })),
+                           confirmButton:
+                                AnyView(Button(action: {
+                                    configurePanelVM.editSchedule(meal: selectedMeal, selectedDays: selectedDays, selectedHours: selectedHours, schedule: selectedSchedule)
+                                }, label: {
+                                    ButtonLabel(title: "confirmChangesButton")
+                                })))
     }
 }
 
-struct MealScheduleScheet<ConfirmButton>: View where ConfirmButton: View {
+struct MealScheduleScheet: View {
     @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
     let title: String
     let intro: String
     @Binding var selectedMeal: Meal
     @Binding var selectedDays: [Bool]
     @Binding var selectedHours: [Bool]
-    let confirmButton: ConfirmButton
+    let trashButton: AnyView
+    let confirmButton: AnyView
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
-            Text(NSLocalizedString(title, comment: title))
-                .title()
+            HStack {
+                Text(NSLocalizedString(title, comment: title))
+                    .title()
+                
+                Spacer()
+                
+                trashButton
+            }
             
             Text(NSLocalizedString(intro, comment: intro))
                 .subTitle()

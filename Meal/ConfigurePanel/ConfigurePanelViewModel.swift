@@ -36,12 +36,7 @@ extension ConfigurePanelViewModel {
     }
     
     func editSchedule(meal: Meal, selectedDays: [Bool], selectedHours: [Bool], schedule: Schedule) {
-        for day in schedule.days {
-            for t in schedule.time {
-                planningPanelVM?.thisWeek.remove(schedule.meal, day: day, time: t)
-                planningPanelVM?.nextWeek.remove(schedule.meal, day: day, time: t)
-            }
-        }
+        unapplySchedule(schedule: schedule)
         
         schedule.meal = meal
         schedule.days = getDaysFromSelectedDays(selectedDays)
@@ -62,9 +57,24 @@ extension ConfigurePanelViewModel {
         data.saveSchedules(schedules: Schedules(schedules: schedules))
     }
     
+    func removeSchedule(schedule: Schedule) {
+        unapplySchedule(schedule: schedule)
+        schedules.removeAll(where: {$0.id == schedule.id})
+        data.saveSchedules(schedules: Schedules(schedules: schedules))
+    }
+    
     func applyAllSchedulesTo(_ weekPlan: WeekPlan) {
         for schedule in schedules {
             applyScheduleTo(weekPlan, schedule: schedule)
+        }
+    }
+    
+    private func unapplySchedule(schedule: Schedule) {
+        for day in schedule.days {
+            for t in schedule.time {
+                planningPanelVM?.thisWeek.remove(schedule.meal, day: day, time: t)
+                planningPanelVM?.nextWeek.remove(schedule.meal, day: day, time: t)
+            }
         }
     }
     

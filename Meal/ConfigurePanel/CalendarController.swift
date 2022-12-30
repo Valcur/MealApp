@@ -80,8 +80,10 @@ class CalendarController {
         let eveningTime = cal.date(bySettingHour: calendarUsage.eveningHour.hour, minute: calendarUsage.eveningHour.minutes, second: 0, of: date) ?? date
         
         var startDate = time == .midday ? middayTime : eveningTime
-        let duration = (30 / total) * 60
-        startDate =  startDate + (Double(rank * duration))
+        //let duration = (30 / total) * 60
+        //startDate =  startDate + (Double(rank * duration))
+        //let endDate = startDate + Double(duration)
+        let duration = 30 * 60
         let endDate = startDate + Double(duration)
         
         return (startDate, endDate)

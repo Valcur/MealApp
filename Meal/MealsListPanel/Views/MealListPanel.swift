@@ -36,7 +36,7 @@ extension MealsListPanel {
                             ForEach(mealList, id: \.self) { meal in
                                 MealGridItem(meal: meal)
                             }
-                        }
+                        }.padding(.vertical, 10)
                     }
                     Spacer()
                 }.transition(.slide.combined(with: .opacity))

@@ -36,6 +36,17 @@ class DayPlan: Equatable, Identifiable, ObservableObject, Codable {
         }
     }
     
+    func remove(_ meal: Meal, time: TimeOfTheDay) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if time == .midday {
+                self.midday.removeAll(where: {$0.id == meal.id && $0.name == meal.name})
+            } else {
+                self.evening.removeAll(where: {$0.id == meal.id && $0.name == meal.name})
+            }
+            self.objectWillChange.send()
+        }
+    }
+    
     static func ==(lhs: DayPlan, rhs: DayPlan) -> Bool {
         return lhs.id == rhs.id && lhs.midday.count == rhs.midday.count && lhs.evening.count == rhs.evening.count
     }

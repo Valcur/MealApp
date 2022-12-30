@@ -69,6 +69,6 @@
 "confirmChangesButton" = "Confirmer les changements";
 
 "options_calendar_title" = "Calendrier";
-"options_calendar_use" = "Souhaitez vous que votre semaine soit ajoutée à votre calendrier ?";
+"options_calendar_use" = "Ajouter vos semaines à votre calendrier";
 "options_calendar_midday" = "Choisissez l'heure du repas du midi";
 "options_calendar_evening" = "Choisissez l'heure du repas du soir";

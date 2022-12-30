@@ -38,10 +38,10 @@ struct MealsListPanel: View {
                             NewMealSheet(mealType: selectedMealType)
                         }
                 }
-            }.padding(15).padding(.top, 25).background(Color("WhiteBackgroundColor")).ignoresSafeArea()
+            }.padding(15).padding(.top, 25).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4)).zIndex(1)
 
             MealList(selectedMealType: $selectedMealType).padding(.horizontal, 20)
-        }.background(Color("BackgroundColor"))
+        }.background(Color("BackgroundColor")).ignoresSafeArea()
     }
     
     struct NewMealButton: View {

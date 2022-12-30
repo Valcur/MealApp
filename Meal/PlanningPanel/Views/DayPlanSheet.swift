@@ -12,7 +12,7 @@ struct DayPlanNewMealSheet: View {
     @State var dayPlan: DayPlan
     let time: TimeOfTheDay
     @State var newMeal: Meal = .EmptyMEal
-    @State var mealType: MealType = .meat
+    @State var mealType: MealType = .vegan
 
     var body: some View {
         DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: .meat, showBin: false)
@@ -180,7 +180,15 @@ struct DayPlanSheet: View {
                         print("now selected \(meal.name)")
                     }
                 } else if editChoice == .write {
-                    meal = Meal(id: -1, name: customMealName, type: mealType)
+                    let mealsThisLunch = time == .midday ? dayPlan.midday : dayPlan.evening
+                    
+                    var lowestId = 0
+                    for meal in mealsThisLunch {
+                        if meal.id < lowestId {
+                            lowestId = meal.id
+                        }
+                    }
+                    meal = Meal(id: lowestId - 1, name: customMealName, type: mealType)
                 } else if editChoice == .leftOver {
                     meal = Meal.LeftOVer.new()
                 }

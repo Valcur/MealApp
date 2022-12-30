@@ -58,6 +58,6 @@
 "confirmChangesButton" = "Confirm changes";
 
 "options_calendar_title" = "Calendar";
-"options_calendar_use" = "Do you want to add your meal plan to your calendar ?";
+"options_calendar_use" = "Add your meal plan to your calendar";
 "options_calendar_midday" = "Choose the midday lunch time";
 "options_calendar_evening" = "Choose the evening dinner time";

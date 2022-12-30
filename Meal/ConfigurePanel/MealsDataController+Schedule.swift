@@ -12,10 +12,6 @@ extension MealsDataController {
 
     }
     
-    func updateSchedule(schedule: Schedule) {
-        
-    }
-    
     func saveSchedules(schedules: Schedules) {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(schedules) {

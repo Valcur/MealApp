@@ -31,7 +31,7 @@ extension Text {
         self
             .font(.title2)
             .fontWeight(.bold)
-            .foregroundColor(style == .primary ? Color("TextColor") : .gray)
+            .foregroundColor(style == .primary ? Color("TextColor") : .accentColor)
     }
     
     func subTitle(style: TextStyle = .primary) -> some View {
@@ -133,17 +133,6 @@ struct ButtonLabel: View {
     }
     
     var body: some View {
-        /*
-        Text(NSLocalizedString(title, comment: title))
-            .fontWeight(.bold)
-            .foregroundColor(Color("AccentColor"))
-            .padding()
-            .frame(minWidth: 100)
-            .overlay(
-                RoundedRectangle(cornerRadius: 50)
-                    .stroke(Color("AccentColor"), lineWidth: 3)
-            )
-         */
         HStack() {
             if !isCompact {
                 Spacer()

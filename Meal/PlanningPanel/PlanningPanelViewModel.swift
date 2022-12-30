@@ -18,6 +18,8 @@ class PlanningPanelViewModel: ObservableObject {
     var thisWeek: WeekPlan
     var nextWeek: WeekPlan
     
+    var mealClipboard: Meal? = nil
+    
     init(mealsVM: MealsListPanelViewModel, configureVM: ConfigurePanelViewModel) {
         self.mealsVM = mealsVM
         self.configureVM = configureVM
@@ -114,16 +116,30 @@ extension PlanningPanelViewModel {
     }
     
     func deleteMeal(_ meal: Meal, dayPlan: DayPlan, time: TimeOfTheDay) {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            if time == .midday {
-                dayPlan.midday.removeAll(where: {$0.id == meal.id})
-            } else {
-                dayPlan.evening.removeAll(where: {$0.id == meal.id})
-            }
-            dayPlan.objectWillChange.send()
-        }
-        
+        dayPlan.remove(meal, time: time)
         saveWeek()
+    }
+    
+    func addClipboardMeal(day: WeekDays, time: TimeOfTheDay) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            addMeal(mealClipboard!, day: day, time: time)
+            mealClipboard = nil
+            
+            for i in 0..<weekPlan.week.count {
+                weekPlan.week[i].objectWillChange.send()
+            }
+        }
+    }
+    
+    func copyClipboardMeal(_ meal: Meal, day: DayPlan, time: TimeOfTheDay) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            deleteMeal(meal, dayPlan: day, time: time)
+            mealClipboard = meal
+            
+            for i in 0..<weekPlan.week.count {
+                weekPlan.week[i].objectWillChange.send()
+            }
+        }
     }
 }
 
