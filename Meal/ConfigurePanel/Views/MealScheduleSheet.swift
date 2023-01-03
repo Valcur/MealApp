@@ -9,15 +9,9 @@ import SwiftUI
 
 struct NewMealSchedule: View {
     @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
-    @State var selectedMeal: Meal
-    @State var selectedDays: [Bool]
-    @State var selectedHours: [Bool]
-    
-    init() {
-        self.selectedDays = [false, false, false, false, false, false, false]
-        self.selectedHours = [false, false]
-        self.selectedMeal = .EmptyMEal
-    }
+    @State var selectedMeal: Meal = .EmptyMEal
+    @State var selectedDays: [Bool] = [false, false, false, false, false, false, false]
+    @State var selectedHours: [Bool] = [false, false]
     
     var body: some View {
         MealScheduleScheet(title: "options_schedule_new_title",
@@ -37,7 +31,6 @@ struct NewMealSchedule: View {
 
 struct EditMealSchedule: View {
     @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
-    //@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let selectedSchedule: Schedule
     @State var selectedMeal: Meal
     @State var selectedDays: [Bool]
@@ -68,7 +61,6 @@ struct EditMealSchedule: View {
                            trashButton:
                                 AnyView(Button(action: {
                                     configurePanelVM.removeSchedule(schedule: selectedSchedule)
-                                    //presentationMode.wrappedValue.dismiss()
                                 }, label: {
                                     Image(systemName: "trash")
                                         .resizable()

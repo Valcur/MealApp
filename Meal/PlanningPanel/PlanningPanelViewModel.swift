@@ -89,7 +89,7 @@ class PlanningPanelViewModel: ObservableObject {
 
 extension PlanningPanelViewModel {
     func addRandomMeal(day: WeekDays, time: TimeOfTheDay) {
-        let randomMeal = mealsVM.getRandomMeal(type: MealType.randomNonOutside())
+        let randomMeal = mealsVM.getRandomMealMeatOrVegan()
         guard let randomMeal = randomMeal else { return }
         
         withAnimation(.easeInOut(duration: 0.3)) {

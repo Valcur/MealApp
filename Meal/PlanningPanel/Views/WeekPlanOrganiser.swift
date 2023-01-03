@@ -116,9 +116,9 @@ struct WeekPlanOrganiser: View {
                                 Button(action: {
                                     planningPanelVM.addRandomMeal(day: dayPlan.day, time: time)
                                 }, label: {
-                                    Image(systemName: "shuffle")
+                                    Image(systemName: "questionmark.square")
                                         .resizable()
-                                        .frame(width: 40, height: 30)
+                                        .frame(width: 30, height: 30)
                                         .foregroundColor(Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                             } else {

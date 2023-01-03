@@ -91,6 +91,14 @@ extension MealsListPanelViewModel {
         mealHasBeenPicked(meal)
         return meal.new()
     }
+    
+    func getRandomMealMeatOrVegan() -> Meal? {
+        let availableMealsMeatOrVegan = availableMeals.meatMeals + availableMeals.veganMeals
+        let meal = availableMealsMeatOrVegan.randomElement()
+        guard let meal = meal else { return nil }
+        mealHasBeenPicked(meal)
+        return meal.new()
+    }
 }
 
 // Buttons
