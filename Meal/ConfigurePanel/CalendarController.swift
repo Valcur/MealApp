@@ -13,7 +13,8 @@ class CalendarController {
     // 'EKEntityTypeReminder' or 'EKEntityTypeEvent'
     
     private let data = MealsDataController()
-    let eventStore : EKEventStore = EKEventStore()
+    let eventStore: EKEventStore = EKEventStore()
+    var calendars: Set<EKCalendar>?
     var accessAllowed = false
     var allSavedEventIdentifiers: [String] = [] // Tous les event enregistré par l'app
     var calendarUsage: CalendarUsage
@@ -23,6 +24,18 @@ class CalendarController {
         eventStore.requestAccess(to: .event) { (granted, error) in
             self.accessAllowed = (granted) && (error == nil)
         }
+        
+        calendars = []
+        if calendarUsage.calendarIdentifier != CalendarUsage.defaultCalendarIdentifier {
+            if let calendar = eventStore.calendar(withIdentifier: calendarUsage.calendarIdentifier) {
+                calendars?.insert(calendar)
+            }
+        } else {
+            if let calendar = eventStore.defaultCalendarForNewEvents {
+                calendars?.insert(calendar)
+            }
+        }
+        
         allSavedEventIdentifiers = data.loadEventIdentifiers().eventIdentifiers
     }
     
@@ -79,7 +92,7 @@ class CalendarController {
         let middayTime = cal.date(bySettingHour: calendarUsage.middayHour.hour, minute: calendarUsage.middayHour.minutes, second: 0, of: date) ?? date
         let eveningTime = cal.date(bySettingHour: calendarUsage.eveningHour.hour, minute: calendarUsage.eveningHour.minutes, second: 0, of: date) ?? date
         
-        var startDate = time == .midday ? middayTime : eveningTime
+        let startDate = time == .midday ? middayTime : eveningTime
         //let duration = (30 / total) * 60
         //startDate =  startDate + (Double(rank * duration))
         //let endDate = startDate + Double(duration)
@@ -90,13 +103,14 @@ class CalendarController {
     }
     
     private func saveMeal(_ meal: Meal, start: Date, end: Date) {
+        guard calendars!.count > 0 else { return }
         let event:EKEvent = EKEvent(eventStore: eventStore)
 
         event.title = meal.name
         event.startDate = start
         event.endDate = end
         //event.notes = "This is a note"
-        event.calendar = eventStore.defaultCalendarForNewEvents
+        event.calendar = calendars?.first
         
         do {
             try eventStore.save(event, span: .thisEvent)

@@ -59,5 +59,7 @@
 
 "options_calendar_title" = "Calendar";
 "options_calendar_use" = "Add your meal plan to your calendar";
+"options_calendar_choose_desciption" = "Choose the calendar on which to add your menus (do not select more than one calendar)";
+"options_calendar_choose_buttonLabel" = "Choose calendar";
 "options_calendar_midday" = "Choose the midday lunch time";
 "options_calendar_evening" = "Choose the evening dinner time";

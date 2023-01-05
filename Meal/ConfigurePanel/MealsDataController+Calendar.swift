@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import EventKit
 
 extension MealsDataController {
     func saveEventIdentifiers(eventIdentifiers: [String]) {
@@ -40,14 +41,17 @@ extension MealsDataController {
                 return calendar
             }
         }
-        return CalendarUsage(useCalendar: false, middayHour: Hour(hour: 13, minutes: 0), eveningHour: Hour(hour: 19, minutes: 45))
+        return CalendarUsage(useCalendar: false, calendarIdentifier: CalendarUsage.defaultCalendarIdentifier, middayHour: Hour(hour: 13, minutes: 0), eveningHour: Hour(hour: 19, minutes: 45))
     }
 }
 
 struct CalendarUsage: Codable {
     var useCalendar: Bool
+    var calendarIdentifier: String
     var middayHour: Hour
     var eveningHour: Hour
+    
+    static let defaultCalendarIdentifier = "setToDefaultCalendarForNewEvents"
 }
 
 struct Hour: Codable {

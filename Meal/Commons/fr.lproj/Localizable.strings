@@ -70,5 +70,7 @@
 
 "options_calendar_title" = "Calendrier";
 "options_calendar_use" = "Ajouter vos semaines à votre calendrier";
+"options_calendar_choose_desciption" = "Choisissez le calendrier sur lequel ajouter vos menus (ne selectionnez pas plus d'un calendrier)";
+"options_calendar_choose_buttonLabel" = "Choisir calendier";
 "options_calendar_midday" = "Choisissez l'heure du repas du midi";
 "options_calendar_evening" = "Choisissez l'heure du repas du soir";

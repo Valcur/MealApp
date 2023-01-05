@@ -8,7 +8,7 @@
 import Foundation
 
 class ConfigurePanelViewModel: ObservableObject {
-    let calendarController = CalendarController()
+    var calendarController = CalendarController()
     weak var planningPanelVM: PlanningPanelViewModel?
     private let data = MealsDataController()
     @Published var schedules: [Schedule]
@@ -112,9 +112,10 @@ extension ConfigurePanelViewModel {
 }
 
 extension ConfigurePanelViewModel {
-    func saveCalendarUsage(useCalendar: Bool, middayDate: Date, eveningDate: Date) {
+    func saveCalendarUsage(useCalendar: Bool, calendarIdentifier: String, middayDate: Date, eveningDate: Date) {
         let calendar = Calendar.current
         let calendarUsage = CalendarUsage(useCalendar: useCalendar,
+                                          calendarIdentifier: calendarIdentifier,
                                           middayHour: Hour(hour: calendar.component(.hour, from: middayDate),
                                                            minutes: calendar.component(.minute, from: middayDate)),
                                           eveningHour: Hour(hour: calendar.component(.hour, from: eveningDate),
