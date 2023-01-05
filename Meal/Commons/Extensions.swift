@@ -18,22 +18,22 @@ extension View {
             
     }
     
-    @ViewBuilder
-    func ignoreSafeAreaOniPad() -> some View {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-             self
-        } else {
-            self
+    func scrollableSheetVStack() -> some View {
+        ScrollView(.vertical) {
+            self.padding(.horizontal, 20).padding(.top, 20)
         }
     }
 }
 
 extension Text {
-    func largeTitle(style: TextStyle = .primary) -> some View {
+    func largeTitle(style: TextStyle = .primary, numberOfLine: Int = 2) -> some View {
         self
             .font(ViewSizes._title())
             .fontWeight(.bold)
             .foregroundColor(style == .primary ? .accentColor: Color("TextColor"))
+            .frame(minHeight: CGFloat(30 * numberOfLine))
+            .scaledToFit()
+            .minimumScaleFactor(0.5)
     }
     
     func title(style: TextStyle = .primary) -> some View {
@@ -45,7 +45,14 @@ extension Text {
     
     func subTitle(style: TextStyle = .primary) -> some View {
         self
-            .font(.title3)
+            .font(.headline)
+            .fontWeight(style == .primary ? .bold : .regular)
+            .foregroundColor(style == .primary ? Color("TextColor") : .gray)
+    }
+    
+    func headLine(style: TextStyle = .primary) -> some View {
+        self
+            .font(.headline)
             .fontWeight(.regular)
             .foregroundColor(style == .primary ? Color("TextColor") : .gray)
     }

@@ -104,7 +104,7 @@ struct DayPlanSheet: View {
             Text(dayPlan.day.name())
             
             Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
-                .font(.title)
+                .subTitle()
             
             HStack {
                 Button(action: {
@@ -197,7 +197,7 @@ struct DayPlanSheet: View {
             }, label: {
                 ButtonLabel(title: "done")
             })
-        }.padding(30)
+        }.scrollableSheetVStack()
     }
     
     struct ChoiceButtonLabel: View {

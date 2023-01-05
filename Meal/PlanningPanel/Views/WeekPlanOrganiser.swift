@@ -29,16 +29,16 @@ struct WeekPlanOrganiser: View {
                 Spacer()
                 
                 Text(TimeOfTheDay.midday.name())
-                    .subTitle()
-                    .frame(width: 120)
+                    .headLine()
+                    .frame(width: 90)
                     .rotationEffect(Angle(degrees: 90))
                 
                 Spacer()
                 Spacer()
                 
                 Text(TimeOfTheDay.evening.name())
-                    .subTitle()
-                    .frame(width: 120)
+                    .headLine()
+                    .frame(width: 90)
                     .rotationEffect(Angle(degrees: 90))
                 
                 Spacer()

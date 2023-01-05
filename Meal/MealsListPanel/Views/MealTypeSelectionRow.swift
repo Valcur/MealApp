@@ -44,6 +44,8 @@ extension MealsListPanel {
                         Text(mealType.getName())
                             .font(ViewSizes._largeTitle())
                             .fontWeight(.bold)
+                            .scaledToFit()
+                            .minimumScaleFactor(0.01)
                             .foregroundColor(isSelected ? .white : mealType.getColor())
                             .padding(ViewSizes._15())
                     }

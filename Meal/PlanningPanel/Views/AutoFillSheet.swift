@@ -51,7 +51,7 @@ struct AutoFillSheet: View {
             }, label: {
                 ButtonLabel(title: "autofill")
             })
-        }.padding(30)
+        }.scrollableSheetVStack()
     }
 }
 

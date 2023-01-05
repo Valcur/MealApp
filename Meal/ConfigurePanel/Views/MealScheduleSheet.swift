@@ -98,19 +98,19 @@ struct MealScheduleScheet: View {
             }
             
             Text(NSLocalizedString(intro, comment: intro))
-                .subTitle()
+                .headLine()
             
             MealPicker(selectedMeal: $selectedMeal, mealsList: mealsListPanelVM.meals)
             
             Text(NSLocalizedString("options_schedule_new_subtitle", comment: "options_schedule_new_subtitle"))
-                .subTitle()
+                .headLine()
             
             DaySelector(selectedDays: $selectedDays, selectedHours: $selectedHours)
             
             Spacer()
             
             confirmButton
-        }.padding(20)
+        }.scrollableSheetVStack()
     }
     
     struct DaySelector: View {

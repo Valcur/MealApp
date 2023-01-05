@@ -82,9 +82,10 @@ struct MealInfoSheet: View {
             }
             
             Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
+                .headLine()
             
             Text(NSLocalizedString("mealList_name_title", comment: "mealList_name_title"))
-                .font(.title)
+                .subTitle()
             
             TextField(NSLocalizedString("mealList_name_placeholder", comment: "mealList_name_placeholder"), text: $mealNameField)
                 .onChange(of: mealNameField) { _ in
@@ -95,7 +96,7 @@ struct MealInfoSheet: View {
                 }
             
             Text(NSLocalizedString("mealList_type_title", comment: "mealList_type_title"))
-                .font(.title)
+                .subTitle()
             
             HStack {
                 MealTypeSelector(mealType: .meat, selectedMealType: $mealTypeField)
@@ -112,7 +113,7 @@ struct MealInfoSheet: View {
             Spacer()
    
             confirmButton
-        }.padding(30)
+        }.scrollableSheetVStack()
     }
 }
 
