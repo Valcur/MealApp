@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */; };
 		DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B879E293F4F9F00F2344B /* MealApp.swift */; };
 		DB9B87A1293F4F9F00F2344B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87A0293F4F9F00F2344B /* ContentView.swift */; };
 		DB9B87A3293F4FA300F2344B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9B87A2293F4FA300F2344B /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizes.swift; sourceTree = "<group>"; };
 		DB9B879B293F4F9F00F2344B /* Meal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9B879E293F4F9F00F2344B /* MealApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealApp.swift; sourceTree = "<group>"; };
 		DB9B87A0293F4F9F00F2344B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				DB9B87DB29410F2700F2344B /* Extensions.swift */,
 				DB9D995429506F9B0051BD63 /* MealPicker.swift */,
 				DB9D99622951F25A0051BD63 /* Localizable.strings */,
+				DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */,
 				DB9D995529506F9B0051BD63 /* MealPicker.swift in Sources */,
 				DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */,
+				DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */,
 				DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */,
 				DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */,
 				DB9D99672954DEB60051BD63 /* ThanksPanel.swift in Sources */,
@@ -640,7 +644,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -677,7 +681,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

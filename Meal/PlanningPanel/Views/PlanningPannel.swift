@@ -37,7 +37,7 @@ struct PlanningPannel: View {
                 .sheet(isPresented: $showingAutoFillSheet) {
                     AutoFillSheet()
                 }
-            }.padding(20).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4)).ignoresSafeArea()
+            }.padding([.bottom, .horizontal], 20).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4).mask(Rectangle().padding(.bottom, -20)))
             
             WeekPlanOrganiser()
         }.background(Color("BackgroundColor"))

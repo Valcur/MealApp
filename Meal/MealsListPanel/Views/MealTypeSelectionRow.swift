@@ -16,10 +16,10 @@ extension MealsListPanel {
             HStack {
                 MealTypeSelector(mealType: .meat, selectedMealType: $selectedMealType)
                 Spacer()
-                    .frame(width: 50)
+                    .frame(width: ViewSizes._mealType_spacerWidth())
                 MealTypeSelector(mealType: .vegan, selectedMealType: $selectedMealType)
                 Spacer()
-                    .frame(width: 50)
+                    .frame(width: ViewSizes._mealType_spacerWidth())
                 MealTypeSelector(mealType: .outside, selectedMealType: $selectedMealType)
             }
         }
@@ -42,10 +42,10 @@ extension MealsListPanel {
                     ZStack(alignment: .bottomLeading) {
                         EmojiBackground(mealType: mealType, isSelected: isSelected)
                         Text(mealType.getName())
-                            .font(.largeTitle)
+                            .font(ViewSizes._largeTitle())
                             .fontWeight(.bold)
                             .foregroundColor(isSelected ? .white : mealType.getColor())
-                            .padding(15)
+                            .padding(ViewSizes._15())
                     }
                 }).frame(height: 120).roundedCornerRectangle(padding: 0).cornerRadius(20)
             }
@@ -75,8 +75,8 @@ extension MealsListPanel {
                 
                 image
                     .resizable()
-                    .frame(width: isSelected ? 200 : 100, height: isSelected ? 200 : 100)
-                    .offset(x: isSelected ? 50 : -15, y: isSelected ? 30 : 0)
+                    .frame(width: isSelected ? ViewSizes._200() : ViewSizes._100(), height: isSelected ? ViewSizes._200() : ViewSizes._100())
+                    .offset(x: isSelected ? ViewSizes._50() : -15, y: isSelected ? ViewSizes._30() : 0)
             }.frame(height: 120)
         }
     }

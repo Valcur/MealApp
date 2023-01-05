@@ -61,7 +61,7 @@
 "options_schedule_title" = "Programme";
 "options_schedule_new" = "Nouveau programme";
 "options_schedule_new_title" = "Nouveau programme";
-"options_schedule_new_mealChoice_subtitle" = "Chisissez le plat que vous souhaitez voir répéter chaque semaine";
+"options_schedule_new_mealChoice_subtitle" = "Choisissez le plat que vous souhaitez voir répéter chaque semaine";
 "options_schedule_edit_title" = "Modifier programme";
 "options_schedule_edit_mealChoice_subtitle" = "Changer le plat de répété";
 "options_schedule_new_subtitle" = "Choissez les jours et le repas où vous souhaitez voir ce plat se répéter";

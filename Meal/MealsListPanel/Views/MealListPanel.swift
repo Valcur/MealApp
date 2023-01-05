@@ -26,7 +26,7 @@ extension MealsListPanel {
          }
         
         struct MealList: View {
-            let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+            let columns = ViewSizes._MealList_GridColumns()
             let mealList: [Meal]
             
             var body: some View {
@@ -54,7 +54,7 @@ extension MealsListPanel {
                     .font(.title3)
                     .fontWeight(.bold)
                     .lineLimit(2)
-                    .frame(height: 50)
+                    .frame(height: ViewSizes._50())
                 Spacer()
                 Button(action: {
                     showingMealInfoSheet = true

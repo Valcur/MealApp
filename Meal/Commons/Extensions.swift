@@ -9,20 +9,29 @@ import Foundation
 import SwiftUI
 
 extension View {
-    func roundedCornerRectangle(padding: CGFloat = 15, cornerRadius: CGFloat = 10, shadowRadius: CGFloat = 5, margin: CGFloat = 5, color: Color = Color("WhiteBackgroundColor")) -> some View {
+    func roundedCornerRectangle(padding: CGFloat = 15, cornerRadius: CGFloat = 10, shadowRadius: CGFloat = ViewSizes._5(), margin: CGFloat = 5, color: Color = Color("WhiteBackgroundColor")) -> some View {
         self
             .padding(padding)
             .cornerRadius(cornerRadius)
             .padding(margin)
-            .background(color.cornerRadius(cornerRadius).shadow(color: Color("ShadowColor"), radius: shadowRadius, y: shadowRadius / 2).padding(shadowRadius))
+            .background(color.cornerRadius(cornerRadius).shadow(color: Color("ShadowColor"), radius: shadowRadius, y: shadowRadius / 2).padding(shadowRadius < 5 ? 5 : shadowRadius))
             
+    }
+    
+    @ViewBuilder
+    func ignoreSafeAreaOniPad() -> some View {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+             self
+        } else {
+            self
+        }
     }
 }
 
 extension Text {
     func largeTitle(style: TextStyle = .primary) -> some View {
         self
-            .font(.title)
+            .font(ViewSizes._title())
             .fontWeight(.bold)
             .foregroundColor(style == .primary ? .accentColor: Color("TextColor"))
     }

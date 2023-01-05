@@ -30,6 +30,7 @@ struct WeekPlanOrganiser: View {
                 
                 Text(TimeOfTheDay.midday.name())
                     .subTitle()
+                    .frame(width: 120)
                     .rotationEffect(Angle(degrees: 90))
                 
                 Spacer()
@@ -37,10 +38,11 @@ struct WeekPlanOrganiser: View {
                 
                 Text(TimeOfTheDay.evening.name())
                     .subTitle()
+                    .frame(width: 120)
                     .rotationEffect(Angle(degrees: 90))
                 
                 Spacer()
-            }.frame(width: 50).padding(.top, 70)
+            }.frame(width: 50).padding(.top, ViewSizes._70())
         }
     }
     
@@ -88,7 +90,7 @@ struct WeekPlanOrganiser: View {
             @State private var showingNewMealSheet = false
             let time: TimeOfTheDay
             let meals: [Meal]
-            
+                
             var body: some View {
                 VStack {
                     if meals.count > 0 {
