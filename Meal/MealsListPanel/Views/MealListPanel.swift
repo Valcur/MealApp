@@ -51,8 +51,7 @@ extension MealsListPanel {
         var body: some View {
             HStack {
                 Text(meal.name)
-                    .font(.title3)
-                    .fontWeight(.bold)
+                    .subTitle()
                     .lineLimit(2)
                     .frame(height: ViewSizes._50())
                 Spacer()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7708AD2968304F00BF5604 /* IntroSheet.swift */; };
 		DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */; };
 		DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B879E293F4F9F00F2344B /* MealApp.swift */; };
 		DB9B87A1293F4F9F00F2344B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87A0293F4F9F00F2344B /* ContentView.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB7708AD2968304F00BF5604 /* IntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSheet.swift; sourceTree = "<group>"; };
 		DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizes.swift; sourceTree = "<group>"; };
 		DB9B879B293F4F9F00F2344B /* Meal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9B879E293F4F9F00F2344B /* MealApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealApp.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				DB9B87A0293F4F9F00F2344B /* ContentView.swift */,
 				DB9B87A2293F4FA300F2344B /* Assets.xcassets */,
 				DB9B87A4293F4FA300F2344B /* Preview Content */,
+				DB7708AD2968304F00BF5604 /* IntroSheet.swift */,
 			);
 			path = Meal;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				DB9D995B2951C5B30051BD63 /* CalendarController.swift in Sources */,
 				DB9B87EE294503F400F2344B /* DayPlan.swift in Sources */,
 				DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */,
+				DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */,
 				DB9D995029506D6B0051BD63 /* ConfigurePanelViewModel.swift in Sources */,
 				DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */,
 			);
@@ -628,7 +632,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -665,7 +669,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (

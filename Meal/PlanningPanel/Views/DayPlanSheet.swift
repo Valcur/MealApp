@@ -106,35 +106,7 @@ struct DayPlanSheet: View {
             Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
                 .subTitle()
             
-            HStack {
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        editChoice = .choose
-                    }
-                }, label: {
-                    ChoiceButtonLabel(title: "choice_choose")
-                })
-                
-                Spacer()
-                
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        editChoice = .write
-                    }
-                }, label: {
-                    ChoiceButtonLabel(title: "choice_write")
-                })
-                
-                Spacer()
-                
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        editChoice = .leftOver
-                    }
-                }, label: {
-                    ChoiceButtonLabel(title: "choice_leftover")
-                })
-            }
+            EditChoicePicker(editChoice: $editChoice)
             
             if editChoice != .leftOver {
                 HStack {
@@ -157,11 +129,13 @@ struct DayPlanSheet: View {
                 }
             } else if editChoice == .write {
                 Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
+                    .subTitle()
                 TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
             } else {
                 VStack(alignment: .center, spacing: 30) {
                     Spacer()
                     Text(NSLocalizedString("leftover", comment: "leftover"))
+                        .headLine()
                         
                     Image("LeftOver")
                         .resizable()
@@ -200,10 +174,54 @@ struct DayPlanSheet: View {
         }.scrollableSheetVStack()
     }
     
-    struct ChoiceButtonLabel: View {
-        let title: String
+    struct EditChoicePicker: View {
+        @Binding var editChoice: EditMealChoice
+        var selectorOffsetX: CGFloat {
+            switch editChoice {
+            case .choose:
+                return 0
+            case .write:
+                return 1
+            case .leftOver:
+                return 2
+            }
+        }
+        
         var body: some View {
-            Text(NSLocalizedString(title, comment: title))
+            GeometryReader { geo in
+                ZStack {
+                    Color.accentColor.frame(width: geo.size.width / 3, height: 35).cornerRadius(8).offset(x: selectorOffsetX * geo.size.width / 3 - geo.size.width / 3)
+                    HStack {
+                        ChoiceButton(choice: .choose, editChoice: $editChoice, title: "choice_choose")
+                        
+                        ChoiceButton(choice: .write, editChoice: $editChoice, title: "choice_write")
+                        
+                        ChoiceButton(choice: .leftOver, editChoice: $editChoice, title: "choice_leftover")
+                    }
+                }
+            }.frame(height: 35).padding(3).background(Color("TextColor").opacity(0.08)).cornerRadius(10)
+        }
+        
+        struct ChoiceButton: View {
+            let choice: EditMealChoice
+            @Binding var editChoice: EditMealChoice
+            let title: String
+            
+            var isSelected: Bool {
+                choice == editChoice
+            }
+            
+            var body: some View {
+                Button(action: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        editChoice = choice
+                    }
+                }, label: {
+                    Text(NSLocalizedString(title, comment: title))
+                        .foregroundColor(isSelected ? Color("BackgroundColor") : Color("TextColor"))
+                        .subTitle()
+                }).frame(maxWidth: .infinity).frame(height: 35)
+            }
         }
     }
     
