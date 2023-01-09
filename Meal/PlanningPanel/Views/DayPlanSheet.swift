@@ -15,7 +15,7 @@ struct DayPlanNewMealSheet: View {
     @State var mealType: MealType = .vegan
 
     var body: some View {
-        DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: .meat, showBin: false)
+        DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: .vegan, showBin: false)
             .onChange(of: newMeal) { _ in
                 planningPanelVM.addMeal(newMeal, day: dayPlan.day, time: time)
             }
@@ -27,7 +27,7 @@ struct DayPlanMealEditSheet: View {
     @State var dayPlan: DayPlan
     let time: TimeOfTheDay
     @Binding var meal: Meal
-    @State var mealType: MealType = .meat
+    @State var mealType: MealType = .vegan
     @State var mealIndex = -1
 
     var body: some View {
@@ -61,7 +61,7 @@ struct DayPlanSheet: View {
     @State var dayPlan: DayPlan
     let time: TimeOfTheDay
     @Binding var meal: Meal
-    @State var mealType: MealType = .meat
+    @State var mealType: MealType = .vegan
     
     @State var customMealName: String = ""
     @State var selection = 0
@@ -213,12 +213,12 @@ struct DayPlanSheet: View {
             
             var body: some View {
                 Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.spring()) {
                         editChoice = choice
                     }
                 }, label: {
                     Text(NSLocalizedString(title, comment: title))
-                        .foregroundColor(isSelected ? Color("BackgroundColor") : Color("TextColor"))
+                        .foregroundColor(isSelected ? Color("BackgroundColor") : Color.gray)
                         .subTitle()
                 }).frame(maxWidth: .infinity).frame(height: 35)
             }

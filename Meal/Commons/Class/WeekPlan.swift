@@ -47,10 +47,14 @@ class WeekPlan: ObservableObject {
     
     func remove(_ meal: Meal, day: WeekDays, time: TimeOfTheDay) {
         if time == .midday {
-            week[day.rawValue].midday.removeAll(where: {$0.id == meal.id && $0.name == meal.name})
+            let index = week[day.rawValue].midday.firstIndex(where: {$0.id == meal.id && $0.name == meal.name})
+            guard let index = index else { return }
+            week[day.rawValue].midday.remove(at: index)
             week[day.rawValue].objectWillChange.send()
         } else if time == .evening {
-            week[day.rawValue].evening.removeAll(where: {$0.id == meal.id && $0.name == meal.name})
+            let index = week[day.rawValue].evening.firstIndex(where: {$0.id == meal.id && $0.name == meal.name})
+            guard let index = index else { return }
+            week[day.rawValue].evening.remove(at: index)
             week[day.rawValue].objectWillChange.send()
         }
     }

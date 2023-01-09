@@ -35,7 +35,7 @@ extension MealsListPanel {
         var body: some View {
             HStack {
                 Button(action: {
-                    withAnimation(.linear(duration: 0.3)) {
+                    withAnimation(.spring()) {
                         selectedMealType = mealType
                     }
                 }, label: {

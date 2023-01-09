@@ -38,7 +38,7 @@
 "leftover" = "Leftover";
 "done" = "Done";
 
-"mealList_title" = "Add/Edit your meals";
+"mealList_title" = "Edit your meals";
 "mealList_new_title" = "New meal";
 "mealList_new_subtitle" = "Enter the info for your new meal";
 "mealList_edit_title" = "Edit meal";
@@ -63,3 +63,28 @@
 "options_calendar_choose_buttonLabel" = "Choose calendar";
 "options_calendar_midday" = "Choose the midday lunch time";
 "options_calendar_evening" = "Choose the evening dinner time";
+
+"intro_welcome_title" = "Welcome";
+"intro_welcome_intro" = "Let's quickly learn how to use this app";
+
+"intro_addMeal_title" = "Add meals";
+"intro_addMeal_intro" = "First, we need to add the meals you like. Head to the 'my meals' tab";
+"intro_addMeal_add" = "Use this button to create a new meal";
+"intro_addMeal_category" = "Your meals can be stored in 3 categories :";
+"intro_addMeal_meat" = "Your meals that contains meat";
+"intro_addMeal_vegan" = "Your vegan meals";
+"intro_addMeal_outside" = "The places where you like to order, like your favorite sushi place";
+
+"intro_organize_title" = "Plan your week";
+"intro_organize_intro" = "Once you have created a few meals, head to the 'my week' pannel. Here, you can fill your days";
+"intro_organize_+" = "Press this to add a specific meal";
+"intro_organize_?" = "Press this to add a random vegan/not vegan meal. The app will try to add meals that you haven't picked for a while";
+"intro_organize_hold" = "Changed your mind ? Hold a meal in the menu to move it to another day";
+"intro_organize_auto" = "Use the autofill button to let the app fill your week randomly";
+
+"intro_end_title" = "One more thing";
+"intro_end_calendar" = "Head to the options if you want to automatically add your menus to your calendar and share them with your familly";
+"intro_end_schedule" = "You can create schedules to add the same meal every week at a specific time";
+
+"intro_continue" = "Continue";
+"intro_start" = "Let's get started";

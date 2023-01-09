@@ -35,7 +35,7 @@ class Meal: Hashable, Codable, Identifiable {
     
     static var LeftOVer: Meal = Meal(id: -1, name: NSLocalizedString("leftover", comment: "leftover"), type: .vegan)
     
-    static var EmptyMEal: Meal = Meal(id: -2, name: "", type: .meat)
+    static var EmptyMEal: Meal = Meal(id: -2, name: "", type: .vegan)
 }
 
 enum MealType: Codable {

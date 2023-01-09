@@ -39,9 +39,13 @@ class DayPlan: Equatable, Identifiable, ObservableObject, Codable {
     func remove(_ meal: Meal, time: TimeOfTheDay) {
         withAnimation(.easeInOut(duration: 0.3)) {
             if time == .midday {
-                self.midday.removeAll(where: {$0.id == meal.id && $0.name == meal.name})
-            } else {
-                self.evening.removeAll(where: {$0.id == meal.id && $0.name == meal.name})
+                let index = self.midday.firstIndex(where: {$0.id == meal.id && $0.name == meal.name})
+                guard let index = index else { return }
+                self.midday.remove(at: index)
+            } else if time == .evening {
+                let index = self.evening.firstIndex(where: {$0.id == meal.id && $0.name == meal.name})
+                guard let index = index else { return }
+                self.evening.remove(at: index)
             }
             self.objectWillChange.send()
         }

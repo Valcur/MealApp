@@ -19,8 +19,10 @@ extension View {
     }
     
     func scrollableSheetVStack() -> some View {
-        ScrollView(.vertical) {
-            self.padding(.horizontal, 20).padding(.top, 20)
+        GeometryReader { geo in
+            ScrollView(.vertical) {
+                self.padding(.horizontal, 20).padding(.top, 20).frame(minHeight: geo.size.height)
+            }.frame(width: geo.size.width)
         }
     }
 }
@@ -55,6 +57,8 @@ extension Text {
             .font(.headline)
             .fontWeight(.regular)
             .foregroundColor(style == .primary ? Color("TextColor") : .gray)
+            .fixedSize(horizontal: false, vertical: true)
+            .padding(0)
     }
     
     enum TextStyle {

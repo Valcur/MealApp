@@ -49,7 +49,7 @@
 "leftover" = "Restes";
 "done" = "Valider";
 
-"mealList_title" = "Ajouter/Modifer votre liste de plats";
+"mealList_title" = "Modifer votre liste de plats";
 "mealList_new_title" = "Nouveau plat";
 "mealList_new_subtitle" = "Entrez les informations pour votre nouveau plat";
 "mealList_edit_title" = "Edit meal";
@@ -74,3 +74,29 @@
 "options_calendar_choose_buttonLabel" = "Choisir calendier";
 "options_calendar_midday" = "Choisissez l'heure du repas du midi";
 "options_calendar_evening" = "Choisissez l'heure du repas du soir";
+
+"intro_welcome_title" = "Bienvenue";
+"intro_welcome_intro" = "Prenons un court instant pour apprendre à utiliser cette application";
+
+"intro_addMeal_title" = "Ajouter des plats";
+"intro_addMeal_intro" = "Dans un premier temps, il vous faut ajouter des plats que vous aimez. Dirigez vous vers l'onglet 'Mes plats'";
+"intro_addMeal_add" = "Utilisez ce bouton pour enregisrer uun nouveau plat";
+"intro_addMeal_category" = "Vos plats peuvent être rangés dans 3 categories :";
+"intro_addMeal_meat" = "Vos plats non vegan";
+"intro_addMeal_vegan" = "Vos plats vegan";
+"intro_addMeal_outside" = "Les endroits où vous aimez commander";
+
+"intro_organize_title" = "Plannifier sa semaine";
+"intro_organize_intro" = "Une fois que vous avez créé assez de plats, dirigez vous vers l'onglet 'Ma semaine'. Ici, vous allez pouvoir remplir le menu de la semaine";
+"intro_organize_+" = "Ajouter un plat précis";
+"intro_organize_?" = "Ajouter un plat vegan/non vegan aléatoire que vous n'avez pas mangé depuis longtemps";
+"intro_organize_hold" = "Changé d'avis ? Gardez appuyer un plat pour le déplacer à un autre jour";
+"intro_organize_auto" = "Utilisez le bouton autofill pour laisser l'application finir de remplir votre semaine aléatoirement";
+
+"intro_end_title" = "Dernier point";
+"intro_end_calendar" = "Dirigez vous vers les options si vous souhaitez que votre menu soit automatiquement ajouté à votre calendrier et ainsi pouvoir le partager avec votre famille";
+"intro_end_schedule" = "Créez un nouveau programme pour ajouter un plat specifique automatiquement chaque semaine";
+
+"intro_continue" = "Continuer";
+"intro_start" = "Commencer";
+
