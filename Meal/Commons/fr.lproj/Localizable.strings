@@ -80,7 +80,7 @@
 
 "intro_addMeal_title" = "Ajouter des plats";
 "intro_addMeal_intro" = "Dans un premier temps, il vous faut ajouter des plats que vous aimez. Dirigez vous vers l'onglet 'Mes plats'";
-"intro_addMeal_add" = "Utilisez ce bouton pour enregisrer uun nouveau plat";
+"intro_addMeal_add" = "Utilisez ce bouton pour enregisrer un nouveau plat";
 "intro_addMeal_category" = "Vos plats peuvent être rangés dans 3 categories :";
 "intro_addMeal_meat" = "Vos plats non vegan";
 "intro_addMeal_vegan" = "Vos plats vegan";
