@@ -52,7 +52,7 @@
 "mealList_title" = "Modifer votre liste de plats";
 "mealList_new_title" = "Nouveau plat";
 "mealList_new_subtitle" = "Entrez les informations pour votre nouveau plat";
-"mealList_edit_title" = "Edit meal";
+"mealList_edit_title" = "Modifier le plat";
 "mealList_edit_subtitle" = "Modifiez les informations pour ce plat";
 "mealList_name_title" = "Nom du plat";
 "mealList_name_placeholder" = "Entrez le nom du plat";
@@ -100,3 +100,23 @@
 "intro_continue" = "Continuer";
 "intro_start" = "Commencer";
 
+"sidepicker_title" = "Choissez autant d'accompagnements que souhaité";
+"avec" = "Avec";
+"et" = "et";
+"pates" = "Pâtes";
+"riz" = "Riz";
+"semoule" = "Semoule";
+"pomme-de-terre" = "Pommes de terre";
+"haricots-verts" = "Haricots verts";
+"puree" = "Purée";
+"salade" = "Salade";
+"gnocchi" = "Gnocchis";
+"legumes" = "Légumes";
+"pois-chiche" = "Pois Chiches";
+"galette-patate" = "Galette de patates";
+"polenta" = "Polenta";
+"chou" = "Chou";
+"crudite" = "Crudités";
+"taboule" = "Taboulé";
+"pomme-noisette" = "Patates frites";
+"flageolets" = "Flageolets";

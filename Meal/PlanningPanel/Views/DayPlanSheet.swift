@@ -13,11 +13,14 @@ struct DayPlanNewMealSheet: View {
     let time: TimeOfTheDay
     @State var newMeal: Meal = .EmptyMEal
     @State var mealType: MealType = .vegan
+    @State var startChoice: DayPlanSheet.EditMealChoice = .choose
 
     var body: some View {
-        DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: .vegan, showBin: false)
+        DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: .vegan, editChoice: $startChoice, showBin: false)
             .onChange(of: newMeal) { _ in
-                planningPanelVM.addMeal(newMeal, day: dayPlan.day, time: time)
+                DispatchQueue.main.async {
+                    planningPanelVM.addMeal(newMeal, day: dayPlan.day, time: time)
+                }
             }
     }
 }
@@ -29,24 +32,33 @@ struct DayPlanMealEditSheet: View {
     @Binding var meal: Meal
     @State var mealType: MealType = .vegan
     @State var mealIndex = -1
+    @State var startChoice: DayPlanSheet.EditMealChoice = .choose
 
     var body: some View {
-        DayPlanSheet(sheetTitle: "mealPlan_edit_title", sheetIntro: "mealPlan_edit_subtitle", dayPlan: dayPlan, time: time, meal: $meal, mealType: meal.type, showBin: true)
+        DayPlanSheet(sheetTitle: "mealPlan_edit_title", sheetIntro: "mealPlan_edit_subtitle", dayPlan: dayPlan, time: time, meal: $meal, mealType: meal.type, editChoice: $startChoice, showBin: true)
             .onChange(of: meal) { _ in
-                if time == .midday {
-                    dayPlan.midday[mealIndex] = meal.new()
-                } else if time == .evening {
-                    dayPlan.evening[mealIndex] = meal.new()
+                DispatchQueue.main.async {
+                    if time == .midday {
+                        dayPlan.midday[mealIndex] = meal
+                    } else if time == .evening {
+                        dayPlan.evening[mealIndex] = meal
+                    }
+                    planningPanelVM.mealsVM.mealHasBeenPicked(meal)
+                    dayPlan.objectWillChange.send()
+                    planningPanelVM.saveWeek()
                 }
-                planningPanelVM.mealsVM.mealHasBeenPicked(meal)
-                dayPlan.objectWillChange.send()
-                planningPanelVM.saveWeek()
             }
             .onAppear() {
                 if time == .midday {
-                    mealIndex = dayPlan.midday.firstIndex(where: {$0.id == meal.id}) ?? -1
+                    mealIndex = dayPlan.midday.firstIndex(where: {$0.uuid == meal.uuid}) ?? -1
                 } else if time == .evening {
-                    mealIndex = dayPlan.evening.firstIndex(where: {$0.id == meal.id}) ?? -1
+                    mealIndex = dayPlan.evening.firstIndex(where: {$0.uuid == meal.uuid}) ?? -1
+                }
+                
+                if meal.name == Meal.LeftOVer.name {
+                    startChoice = .leftOver
+                } else if meal.id < 0 {
+                    startChoice = .write
                 }
             }
     }
@@ -65,7 +77,8 @@ struct DayPlanSheet: View {
     
     @State var customMealName: String = ""
     @State var selection = 0
-    @State var editChoice: EditMealChoice = .choose
+    @Binding var editChoice: EditMealChoice
+    @State var selectedSides: [Side] = []
     
     let showBin: Bool
     
@@ -81,97 +94,115 @@ struct DayPlanSheet: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
-            HStack {
-                Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
-                    .title()
-                
-                Spacer()
-                                
-                if showBin {
-                    Button(action: {
-                        planningPanelVM.deleteMeal(meal, dayPlan: dayPlan, time: time)
-                        presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Image(systemName: "trash")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.red)
-                    })
-                }
-            }
-            
-            Text(dayPlan.day.name())
-            
-            Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
-                .subTitle()
-            
-            EditChoicePicker(editChoice: $editChoice)
-            
-            if editChoice != .leftOver {
+        ZStack {
+            VStack(alignment: .leading, spacing: 30) {
                 HStack {
-                    MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
-                    MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
-                    MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
-                }
-            }
-            
-            if editChoice == .choose {
-                Picker("Meals to choose from", selection: $selection) {
-                    ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
-                        Text(mealsAvailable[mealId].name)
+                    Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
+                        .title()
+                    
+                    Spacer()
+                    
+                    if showBin {
+                        Button(action: {
+                            DispatchQueue.main.async {
+                                planningPanelVM.deleteMeal(meal, dayPlan: dayPlan, time: time)
+                            }
+                            presentationMode.wrappedValue.dismiss()
+                        }, label: {
+                            Image(systemName: "trash")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.red)
+                        })
                     }
-                }.onChange(of: mealsAvailable) { _ in
-                    selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
-                }.onAppear() {
-                    customMealName = meal.name
-                    selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
                 }
-            } else if editChoice == .write {
-                Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
+                
+                //Text(dayPlan.day.name())
+                
+                Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
                     .subTitle()
-                TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
-            } else {
-                VStack(alignment: .center, spacing: 30) {
-                    Spacer()
-                    Text(NSLocalizedString("leftover", comment: "leftover"))
-                        .headLine()
-                        
-                    Image("LeftOver")
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                    Spacer()
-                }.frame(maxWidth: .infinity)
-            }
-            
-            Spacer()
-
-            Button(action: {
+                
+                EditChoicePicker(editChoice: $editChoice)
+                
+                if editChoice != .leftOver {
+                    HStack {
+                        MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
+                        MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
+                        MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
+                    }
+                }
+                
                 if editChoice == .choose {
-                    if selection >= 0 && mealsAvailable.count > 0 {
-                        let newMeal = mealsAvailable[selection]
-                        meal = newMeal
-                        print("now selected \(meal.name)")
+                    Picker("Meals to choose from", selection: $selection) {
+                        ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
+                            Text(mealsAvailable[mealId].name)
+                        }
+                    }.onChange(of: mealsAvailable) { _ in
+                        selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
+                    }.onAppear() {
+                        customMealName = meal.name
+                        selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
                     }
                 } else if editChoice == .write {
-                    let mealsThisLunch = time == .midday ? dayPlan.midday : dayPlan.evening
-                    
-                    var lowestId = 0
-                    for meal in mealsThisLunch {
-                        if meal.id < lowestId {
-                            lowestId = meal.id
+                    Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
+                        .subTitle()
+                    TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
+                } else {
+                    VStack(alignment: .center, spacing: 30) {
+                        Spacer()
+                        Text(NSLocalizedString("leftover", comment: "leftover"))
+                            .headLine()
+                        
+                        Image("LeftOver")
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                        Spacer()
+                    }.frame(maxWidth: .infinity)
+                }
+                
+                if editChoice != .leftOver {
+                    Text(NSLocalizedString("sidepicker_title", comment: "sidepicker_title"))
+                        .subTitle()
+                    SidePickerView(selectedSides: $selectedSides)
+                        .onAppear {
+                            selectedSides = meal.sides ?? []
+                        }
+                }
+                
+                Spacer().frame(minHeight: 90)
+            }.scrollableSheetVStack()
+            
+            StickyBottomButton(button: AnyView(
+                Button(action: {
+                    DispatchQueue.main.async {
+                        if editChoice == .choose {
+                            if selection >= 0 && mealsAvailable.count > 0 {
+                                let newMeal = mealsAvailable[selection].new()
+                                newMeal.sides = selectedSides
+                                meal = newMeal
+                            }
+                            
+                        } else if editChoice == .write {
+                            let mealsThisLunch = time == .midday ? dayPlan.midday : dayPlan.evening
+                            
+                            var lowestId = 0
+                            for meal in mealsThisLunch {
+                                if meal.id < lowestId {
+                                    lowestId = meal.id
+                                }
+                            }
+                            meal = Meal(id: lowestId - 1, name: customMealName, type: mealType, sides: selectedSides)
+                        } else if editChoice == .leftOver {
+                            meal = Meal.LeftOVer.new()
                         }
                     }
-                    meal = Meal(id: lowestId - 1, name: customMealName, type: mealType)
-                } else if editChoice == .leftOver {
-                    meal = Meal.LeftOVer.new()
-                }
-                dayPlan.objectWillChange.send()
-                presentationMode.wrappedValue.dismiss()
-            }, label: {
-                ButtonLabel(title: "done")
-            })
-        }.scrollableSheetVStack()
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    ButtonLabel(title: "done")
+                })
+            )).frame(maxHeight: .infinity, alignment: .bottom)
+                
+        }.ignoresSafeArea()
     }
     
     struct EditChoicePicker: View {

@@ -105,8 +105,12 @@ class CalendarController {
     private func saveMeal(_ meal: Meal, start: Date, end: Date) {
         guard calendars!.count > 0 else { return }
         let event:EKEvent = EKEvent(eventStore: eventStore)
-
-        event.title = meal.name
+        if meal.sides != nil && meal.sides!.count > 0 {
+            event.title = "\(meal.name) \(Side.sidesNameDescription(meal.sides!).lowercased())"
+        } else {
+            event.title = meal.name
+        }
+        event.title = (event.title.first?.uppercased() ?? "") + event.title.dropFirst()
         event.startDate = start
         event.endDate = end
         //event.notes = "This is a note"

@@ -21,7 +21,7 @@ extension View {
     func scrollableSheetVStack() -> some View {
         GeometryReader { geo in
             ScrollView(.vertical) {
-                self.padding(.horizontal, 20).padding(.top, 20).frame(minHeight: geo.size.height)
+                self.padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 20).frame(minHeight: geo.size.height)
             }.frame(width: geo.size.width)
         }
     }
@@ -165,6 +165,25 @@ struct ButtonLabel: View {
             if !isCompact {
                 Spacer()
             }
+        }
+    }
+}
+
+struct StickyBottomButton: View {
+    let backgroundColor = Color(UIColor.systemBackground)
+    let clearColor = Color(UIColor.systemBackground.withAlphaComponent(0))
+    let button: AnyView
+    
+    var body: some View {
+        ZStack {
+            VStack(spacing: 0) {
+                LinearGradient(gradient:  Gradient(colors: [clearColor, backgroundColor]), startPoint: .top, endPoint: .bottom)
+                    .frame(height: 15)
+                Rectangle()
+                    .foregroundColor(backgroundColor)
+                    .frame(height:  100)
+            }
+            button
         }
     }
 }

@@ -88,3 +88,24 @@
 
 "intro_continue" = "Continue";
 "intro_start" = "Let's get started";
+
+"sidepicker_title" = "Choose any number of sides";
+"avec" = "With";
+"et" = "and";
+"pates" = "Pasta";
+"riz" = "Rice";
+"semoule" = "Semolina";
+"pomme-de-terre" = "Potatoes";
+"haricots-verts" = "Green beans";
+"puree" = "Mash potatoes";
+"salade" = "Salad";
+"gnocchi" = "Gnocchi";
+"legumes" = "Vegetable";
+"pois-chiche" = "Chickpeas";
+"galette-patate" = "Potato pancake";
+"polenta" = "Polenta";
+"chou" = "Cabbage";
+"crudite" = "Raw vegetable";
+"taboule" = "Tabbouleh";
+"pomme-noisette" = "Fried potatoes";
+"flageolets" = "Flageolets";

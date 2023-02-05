@@ -9,22 +9,34 @@ import XCTest
 @testable import Meal
 
 final class MealTests: XCTestCase {
+    
+    var planningVM: PlanningPanelViewModel?
+    var mealListVM: MealsListPanelViewModel?
+    var configurePanelVM: ConfigurePanelViewModel?
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        mealListVM = MealsListPanelViewModel()
+        configurePanelVM = ConfigurePanelViewModel()
+        planningVM = PlanningPanelViewModel(mealsVM: mealListVM!, configureVM: configurePanelVM!)
+        configurePanelVM!.planningPanelVM = planningVM
+    }
+    
+    func reset() {
+        // Make it empty in case of testing on a device who has already saved meals or weekplan
+        mealListVM?.meals = MealList(meatMeals: [], veganMeals: [], outsideMeals: [])
+        mealListVM?.availableMeals = MealList(meatMeals: [], veganMeals: [], outsideMeals: [])
+        planningVM?.weekPlan = WeekPlan(.thisWeek)
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test() throws {
+        try! test_mealListPanelViewModel()
+        try! test_planningPanelViewModel()
     }
+
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

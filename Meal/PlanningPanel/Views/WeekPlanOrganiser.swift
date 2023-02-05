@@ -94,7 +94,7 @@ struct WeekPlanOrganiser: View {
             var body: some View {
                 VStack {
                     if meals.count > 0 {
-                        ForEach(meals) { meal in
+                        ForEach(meals, id: \.uuid) { meal in
                             MealView(dayPlan: dayPlan, time: time, meal: meal)
                         }
                     }
@@ -149,9 +149,21 @@ struct WeekPlanOrganiser: View {
                     ZStack {
                         //meal.type.getColor().opacity(0.4)
                         Color("WhiteBackgroundColor")
-                        Text(meal.name)
-                            .fontWeight(.bold)
-                            .foregroundColor(meal.type.getColor())
+                        
+                        VStack(spacing: 1) {
+                            Text(meal.name)
+                                .fontWeight(.bold)
+                                .foregroundColor(meal.type.getColor())
+                                .padding(.horizontal, 30)
+                            if meal.sides?.count ?? 0 > 0 {
+                                Text(Side.sidesNameDescription(meal.sides ?? []))
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(meal.type.getColor())
+                                    .padding(.horizontal, 10)
+                            }
+                        }
+
                         
                         Image(systemName: "slider.horizontal.3")
                             .resizable()

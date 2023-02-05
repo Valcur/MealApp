@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB6E0E7C2979825900BCDB96 /* MealsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */; };
+		DB6E0E7E297982DC00BCDB96 /* PlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */; };
+		DB6E0E80297AE14C00BCDB96 /* ViewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */; };
+		DB6E0E82297F05B300BCDB96 /* Side.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E81297F05B300BCDB96 /* Side.swift */; };
 		DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7708AD2968304F00BF5604 /* IntroSheet.swift */; };
 		DB7708B0296C57D000BF5604 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7708AF296C57D000BF5604 /* Assets.xcassets */; };
 		DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */; };
@@ -63,6 +67,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListTests.swift; sourceTree = "<group>"; };
+		DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningTests.swift; sourceTree = "<group>"; };
+		DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsTests.swift; sourceTree = "<group>"; };
+		DB6E0E81297F05B300BCDB96 /* Side.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Side.swift; sourceTree = "<group>"; };
 		DB7708AD2968304F00BF5604 /* IntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSheet.swift; sourceTree = "<group>"; };
 		DB7708AF296C57D000BF5604 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizes.swift; sourceTree = "<group>"; };
@@ -177,6 +185,9 @@
 			isa = PBXGroup;
 			children = (
 				DB9B87AF293F4FA300F2344B /* MealTests.swift */,
+				DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */,
+				DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */,
+				DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */,
 			);
 			path = MealTests;
 			sourceTree = "<group>";
@@ -194,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				DB9B87EB294503BB00F2344B /* MealList.swift */,
+				DB6E0E81297F05B300BCDB96 /* Side.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -446,6 +458,7 @@
 				DB9D995B2951C5B30051BD63 /* CalendarController.swift in Sources */,
 				DB9B87EE294503F400F2344B /* DayPlan.swift in Sources */,
 				DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */,
+				DB6E0E82297F05B300BCDB96 /* Side.swift in Sources */,
 				DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */,
 				DB9D995029506D6B0051BD63 /* ConfigurePanelViewModel.swift in Sources */,
 				DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */,
@@ -456,7 +469,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6E0E80297AE14C00BCDB96 /* ViewsTests.swift in Sources */,
+				DB6E0E7C2979825900BCDB96 /* MealsListTests.swift in Sources */,
 				DB9B87B0293F4FA300F2344B /* MealTests.swift in Sources */,
+				DB6E0E7E297982DC00BCDB96 /* PlanningTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,7 +651,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -672,7 +688,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

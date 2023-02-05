@@ -10,7 +10,7 @@ import SwiftUI
 struct ThanksPanel: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 30)  {
-            Text("Icons by Freepkik")
+            Text("Icons by Freepkik, imaginationlol, Icongeek26, shmai, Mihimihi and Smashingstocks")
             Text("Meat, Vegan and Outside stickers by stickers")
 
         }.padding(20)
