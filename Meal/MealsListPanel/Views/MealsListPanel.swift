@@ -61,7 +61,7 @@ struct MealsListPanel: View {
         
         var body: some View {
             Text(NSLocalizedString(text, comment: text))
-                .subTitle()
+                .headLine()
         }
     }
 }
