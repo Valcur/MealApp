@@ -113,7 +113,9 @@ class CalendarController {
         event.title = (event.title.first?.uppercased() ?? "") + event.title.dropFirst()
         event.startDate = start
         event.endDate = end
-        //event.notes = "This is a note"
+        if let notes = meal.notes {
+            event.notes = notes
+        }
         event.calendar = calendars?.first
         
         do {

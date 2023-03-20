@@ -41,6 +41,8 @@
 "mealPlan_edit_subtitle" = "Changer le plat pour ce repas";
 "mealPlan_new_title" = "Ajouter un plat pour ce repas";
 "mealPlan_new_subtitle" = "Choisissez le plat";
+"mealPlan_notes_new_title" = "Ajoutez des notes";
+"mealPlan_notes_edit_title" = "Modifier les notes";
 "choice_choose" = "Au choix";
 "choice_write" = "Spécial";
 "choice_leftover" = "Des restes";
@@ -57,6 +59,8 @@
 "mealList_name_title" = "Nom du plat";
 "mealList_name_placeholder" = "Entrez le nom du plat";
 "mealList_type_title" = "Type de plat";
+"mealList_notes_title" = "Notes";
+"notes_placeholder" = "Ajoutez vos notes ici ...";
 
 "options_schedule_title" = "Programme";
 "options_schedule_new" = "Nouveau programme";

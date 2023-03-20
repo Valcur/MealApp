@@ -94,115 +94,109 @@ struct DayPlanSheet: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading, spacing: 30) {
-                HStack {
-                    Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
-                        .title()
-                    
-                    Spacer()
-                    
-                    if showBin {
-                        Button(action: {
-                            DispatchQueue.main.async {
-                                planningPanelVM.deleteMeal(meal, dayPlan: dayPlan, time: time)
-                            }
-                            presentationMode.wrappedValue.dismiss()
-                        }, label: {
-                            Image(systemName: "trash")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(.red)
-                        })
-                    }
-                }
+        VStack(alignment: .leading, spacing: 30) {
+            HStack {
+                Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
+                    .title()
                 
-                //Text(dayPlan.day.name())
+                Spacer()
                 
-                Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
-                    .subTitle()
-                
-                EditChoicePicker(editChoice: $editChoice)
-                
-                if editChoice != .leftOver {
-                    HStack {
-                        MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
-                        MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
-                        MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
-                    }
-                }
-                
-                if editChoice == .choose {
-                    Picker("Meals to choose from", selection: $selection) {
-                        ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
-                            Text(mealsAvailable[mealId].name)
+                if showBin {
+                    Button(action: {
+                        DispatchQueue.main.async {
+                            planningPanelVM.deleteMeal(meal, dayPlan: dayPlan, time: time)
                         }
-                    }.onChange(of: mealsAvailable) { _ in
-                        selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
-                    }.onAppear() {
-                        customMealName = meal.name
-                        selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
-                    }
-                } else if editChoice == .write {
-                    Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
-                        .subTitle()
-                    TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
-                } else {
-                    VStack(alignment: .center, spacing: 30) {
-                        Spacer()
-                        Text(NSLocalizedString("leftover", comment: "leftover"))
-                            .headLine()
-                        
-                        Image("LeftOver")
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image(systemName: "trash")
                             .resizable()
-                            .frame(width: 200, height: 200)
-                        Spacer()
-                    }.frame(maxWidth: .infinity)
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.red)
+                    })
                 }
-                
-                if editChoice != .leftOver {
-                    Text(NSLocalizedString("sidepicker_title", comment: "sidepicker_title"))
-                        .subTitle()
-                    SidePickerView(selectedSides: $selectedSides)
-                        .onAppear {
-                            selectedSides = meal.sides ?? []
-                        }
-                }
-                
-                Spacer().frame(minHeight: 90)
-            }.scrollableSheetVStack()
+            }
             
-            StickyBottomButton(button: AnyView(
-                Button(action: {
-                    DispatchQueue.main.async {
-                        if editChoice == .choose {
-                            if selection >= 0 && mealsAvailable.count > 0 {
-                                let newMeal = mealsAvailable[selection].new()
-                                newMeal.sides = selectedSides
-                                meal = newMeal
-                            }
-                            
-                        } else if editChoice == .write {
-                            let mealsThisLunch = time == .midday ? dayPlan.midday : dayPlan.evening
-                            
-                            var lowestId = 0
-                            for meal in mealsThisLunch {
-                                if meal.id < lowestId {
-                                    lowestId = meal.id
-                                }
-                            }
-                            meal = Meal(id: lowestId - 1, name: customMealName, type: mealType, sides: selectedSides)
-                        } else if editChoice == .leftOver {
-                            meal = Meal.LeftOVer.new()
-                        }
+            Text(NSLocalizedString(sheetIntro, comment: sheetIntro))
+                .subTitle()
+            
+            EditChoicePicker(editChoice: $editChoice)
+            
+            if editChoice != .leftOver {
+                HStack {
+                    MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
+                    MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
+                    MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
+                }
+            }
+            
+            if editChoice == .choose {
+                Picker("Meals to choose from", selection: $selection) {
+                    ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
+                        Text(mealsAvailable[mealId].name)
                     }
-                    presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    ButtonLabel(title: "done")
-                })
-            )).frame(maxHeight: .infinity, alignment: .bottom)
-                
-        }.ignoresSafeArea()
+                }.onChange(of: mealsAvailable) { _ in
+                    selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
+                }.onAppear() {
+                    customMealName = meal.name
+                    selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
+                }
+            } else if editChoice == .write {
+                Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
+                    .subTitle()
+                TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
+                    .textFieldBackground()
+            } else {
+                VStack(alignment: .center, spacing: 30) {
+                    Spacer()
+                    Text(NSLocalizedString("leftover", comment: "leftover"))
+                        .headLine()
+                    
+                    Image("LeftOver")
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                    Spacer()
+                }.frame(maxWidth: .infinity)
+            }
+            
+            if editChoice != .leftOver {
+                Text(NSLocalizedString("sidepicker_title", comment: "sidepicker_title"))
+                    .subTitle()
+                SidePickerView(selectedSides: $selectedSides)
+                    .onAppear {
+                        selectedSides = meal.sides ?? []
+                    }
+            }
+            
+            Spacer()
+        }.scrollableSheetVStackWithStickyButton(button: AnyView(
+            Button(action: {
+                DispatchQueue.main.async {
+                    if editChoice == .choose {
+                        if selection >= 0 && mealsAvailable.count > 0 {
+                            let newMeal = mealsAvailable[selection].new()
+                            newMeal.sides = selectedSides
+                            meal = newMeal
+                        }
+                        
+                    } else if editChoice == .write {
+                        let mealsThisLunch = time == .midday ? dayPlan.midday : dayPlan.evening
+                        
+                        var lowestId = 0
+                        for meal in mealsThisLunch {
+                            if meal.id < lowestId {
+                                lowestId = meal.id
+                            }
+                        }
+                        meal = Meal(id: lowestId - 1, name: customMealName, type: mealType, sides: selectedSides)
+                    } else if editChoice == .leftOver {
+                        meal = Meal.LeftOVer.new()
+                    }
+                }
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                ButtonLabel(title: "done")
+            })
+        ))
     }
     
     struct EditChoicePicker: View {

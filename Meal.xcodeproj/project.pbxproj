@@ -47,6 +47,7 @@
 		DB9D99672954DEB60051BD63 /* ThanksPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D99662954DEB60051BD63 /* ThanksPanel.swift */; };
 		DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */; };
 		DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */; };
+		DBA7B1FA29C3264900B04E38 /* NotesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7B1F929C3264900B04E38 /* NotesSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		DB9D99662954DEB60051BD63 /* ThanksPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksPanel.swift; sourceTree = "<group>"; };
 		DBA39EEC294C9DDF00AC97E2 /* ConfigurePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurePanel.swift; sourceTree = "<group>"; };
 		DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealScheduleSheet.swift; sourceTree = "<group>"; };
+		DBA7B1F929C3264900B04E38 /* NotesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 				DB9B87E22942143A00F2344B /* WeekPlanOrganiser.swift */,
 				DB9B87E82943A4AE00F2344B /* DayPlanSheet.swift */,
 				DB9D994D294F8EA10051BD63 /* AutoFillSheet.swift */,
+				DBA7B1F929C3264900B04E38 /* NotesSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */,
 				DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */,
 				DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */,
+				DBA7B1FA29C3264900B04E38 /* NotesSheet.swift in Sources */,
 				DB9D99672954DEB60051BD63 /* ThanksPanel.swift in Sources */,
 				DB9D9959295092F00051BD63 /* MealsDataController+WeekPlaning.swift in Sources */,
 				DB9B87F22945044300F2344B /* MealListPanel.swift in Sources */,

@@ -15,12 +15,14 @@ class Meal: Hashable, Codable, Identifiable {
     var name: String
     var type: MealType
     var sides: [Side]?
+    var notes: String?
     
-    init(id: Int, name: String, type: MealType, sides: [Side]? = []) {
+    init(id: Int, name: String, type: MealType, sides: [Side]? = [], notes: String? = nil) {
         self.id = id
         self.name = name
         self.type = type
         self.sides = sides
+        self.notes = notes
     }
     
     static func ==(lhs: Meal, rhs: Meal) -> Bool {
@@ -32,7 +34,11 @@ class Meal: Hashable, Codable, Identifiable {
     }
     
     func new() -> Meal {
-        return Meal(id: self.id, name: self.name, type: self.type, sides: self.sides ?? nil)
+        return Meal(id: self.id, name: self.name, type: self.type, sides: self.sides ?? nil, notes: self.notes ?? nil)
+    }
+    
+    func hasNotes() -> Bool {
+        return notes != nil && notes != ""
     }
     
     static var LeftOVer: Meal = Meal(id: -1, name: NSLocalizedString("leftover", comment: "leftover"), type: .vegan)

@@ -141,9 +141,13 @@ struct WeekPlanOrganiser: View {
             struct MealView: View {
                 @EnvironmentObject var planningPanelVM: PlanningPanelViewModel
                 @State private var showingMealInfoSheet = false
+                @State private var showingNotesSheet = false
                 @ObservedObject var dayPlan: DayPlan
                 let time: TimeOfTheDay
                 @State var meal: Meal
+                var mealHasNotes: Bool {
+                    return meal.notes != nil && meal.notes! != ""
+                }
                 
                 var body: some View {
                     ZStack {
@@ -162,17 +166,30 @@ struct WeekPlanOrganiser: View {
                                     .foregroundColor(meal.type.getColor())
                                     .padding(.horizontal, 10)
                             }
-                        }
+                        }.allowsHitTesting(false)
 
-                        
-                        Image(systemName: "slider.horizontal.3")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(meal.type.getColor())
-                            .position(x: 18, y: 18)
-                            .onTapGesture {
-                                showingMealInfoSheet = true
-                            }
+                        VStack {
+                            HStack {
+                                Image(systemName: "slider.horizontal.3")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(meal.type.getColor())
+                                    .onTapGesture {
+                                        showingMealInfoSheet = true
+                                    }
+                                
+                                Spacer()
+                                
+                                Image(systemName: mealHasNotes ? "note.text" : "plus")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(meal.type.getColor())
+                                    .onTapGesture {
+                                        showingNotesSheet = true
+                                    }.opacity(mealHasNotes ? 1 : 0.3)
+                            }.padding(8)
+                            Spacer()
+                        }
                     }.roundedCornerRectangle(padding: 2).frame(maxWidth: .infinity)
                     .onTapGesture {  }
                     .onLongPressGesture(minimumDuration: 0.5) {
@@ -181,6 +198,9 @@ struct WeekPlanOrganiser: View {
                     .sheet(isPresented: $showingMealInfoSheet) {
                         DayPlanMealEditSheet(dayPlan: dayPlan, time: time, meal: $meal, mealType: meal.type)
                             .environmentObject(planningPanelVM)
+                    }
+                    .sheet(isPresented: $showingNotesSheet) {
+                        WeekPlanNotesSheet(meal: $meal)
                     }
                 }
             }

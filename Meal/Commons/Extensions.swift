@@ -22,8 +22,38 @@ extension View {
         GeometryReader { geo in
             ScrollView(.vertical) {
                 self.padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 20).frame(minHeight: geo.size.height)
-            }.frame(width: geo.size.width)
+            }.frame(width: geo.size.width).onTapGesture {
+                UIApplication.shared.endEditing()
+            }
         }
+    }
+    
+    func scrollableSheetVStackWithStickyButton(button: AnyView) -> some View {
+        ZStack {
+            self.padding(.bottom, 40).scrollableSheetVStack()
+            
+            StickyBottomButton(button: button)//.ignoresSafeArea(.container)
+        }.ignoresSafeArea()
+    }
+    
+    func sheetVStackWithStickyButton(button: AnyView) -> some View {
+        ZStack {
+            self.padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 75)
+            
+            StickyBottomButton(button: button)
+        }.ignoresSafeArea(.container)
+    }
+    
+    func textFieldBackground(hPadding: CGFloat = 10, vPadding: CGFloat = 10) -> some View {
+        self
+            .padding(.horizontal, hPadding).padding(.vertical, vPadding)
+            .background(Color("BackgroundColor").cornerRadius(10))
+    }
+}
+
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
@@ -184,7 +214,7 @@ struct StickyBottomButton: View {
                     .frame(height:  100)
             }
             button
-        }
+        }.frame(maxHeight: .infinity, alignment: .bottom)
     }
 }
 

@@ -29,6 +29,7 @@ struct MealApp: App {
         WindowGroup {
             TabView {
                 PlanningPannel()
+                    .ignoresSafeArea(.keyboard)
                     .environmentObject(planningVM)
                     .tabItem {
                         Image(systemName: "calendar")

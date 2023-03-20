@@ -11,12 +11,14 @@ struct NewMealSheet: View {
     @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
     @State var mealName: String = ""
     @State var mealType: MealType
+    @State var mealNotes: String? = ""
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         MealInfoSheet(
             mealName: $mealName,
             mealType: $mealType,
+            mealNotes: $mealNotes,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_new_title", intro: "mealList_new_subtitle"),
             trashButton: AnyView(Spacer()),
             confirmButton:
@@ -39,6 +41,7 @@ struct EditMealSheet: View {
         MealInfoSheet(
             mealName: $meal.name,
             mealType: $meal.type,
+            mealNotes: $meal.notes,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_edit_title", intro: "mealList_edit_subtitle"),
             trashButton:
                 AnyView(Button(action: {
@@ -62,13 +65,17 @@ struct EditMealSheet: View {
 }
 
 struct MealInfoSheet: View {
+    @State var mealTmp: Meal = Meal.EmptyMEal
     @Binding var mealName: String
     @Binding var mealType: MealType
+    @Binding var mealNotes: String?
     let sheetInfo: MealInfoSheetData
     let trashButton: AnyView
     let confirmButton: AnyView
     @State private var mealNameField: String = ""
     @State private var mealTypeField: MealType = .meat
+    @State private var mealNotesField: String = "This is some editable text..."
+    @State private var showingNotesSheet = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
@@ -88,12 +95,7 @@ struct MealInfoSheet: View {
                 .subTitle()
             
             TextField(NSLocalizedString("mealList_name_placeholder", comment: "mealList_name_placeholder"), text: $mealNameField)
-                .onChange(of: mealNameField) { _ in
-                    mealName = mealNameField
-                }
-                .onAppear() {
-                    mealNameField = mealName
-                }
+                .textFieldBackground()
             
             Text(NSLocalizedString("mealList_type_title", comment: "mealList_type_title"))
                 .subTitle()
@@ -103,17 +105,39 @@ struct MealInfoSheet: View {
                 MealTypeSelector(mealType: .vegan, selectedMealType: $mealTypeField)
                 MealTypeSelector(mealType: .outside, selectedMealType: $mealTypeField)
             }
+            
+            Text(NSLocalizedString("mealList_notes_title", comment: "mealList_notes_title"))
+                .subTitle()
+            
+            Button(action: {
+                showingNotesSheet = true
+            }, label: {
+                ButtonLabel(title: "Add notes", isCompact: true)
+            })
+            
+            Spacer()
+        }.scrollableSheetVStackWithStickyButton(button: confirmButton)
+            .onChange(of: mealNameField) { _ in
+                mealName = mealNameField
+            }
+            .onAppear() {
+                mealNameField = mealName
+            }
             .onChange(of: mealTypeField) { _ in
                 mealType = mealTypeField
             }
             .onAppear() {
                 mealTypeField = mealType
             }
-            
-            Spacer()
-   
-            confirmButton
-        }.scrollableSheetVStack()
+            .onChange(of: mealTmp.notes) { _ in
+                mealNotes = mealTmp.notes
+            }
+            .onAppear() {
+                mealTmp.notes = mealNotes ?? ""
+            }
+            .sheet(isPresented: $showingNotesSheet) {
+                MealEditNotesSheet(meal: $mealTmp)
+            }
     }
 }
 
