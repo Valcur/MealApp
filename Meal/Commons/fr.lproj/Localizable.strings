@@ -123,4 +123,11 @@
 "crudite" = "Crudités";
 "taboule" = "Taboulé";
 "pomme-noisette" = "Patates frites";
-"flageolets" = "Flageolets";
+"flageolets" = "Flageoletts";
+
+"whatsNew_title" = "Nouvelle version";
+"whatsNew_content" = "Vous pouvez désormais écrire des notes pour vos plats.\n\nBesoin d'ajouter une recette ? Un lien vers le site internet de votre pizzeria préférée ? Ces notes seront automatiquement ajoutées à votre calendrier afin que tout le monde puisse les lire.\n\nLes notes dans l'onglet 'ma semaine' ne sont pas sauvegardées pour une prochaine utilisation du plat. Les notes récurentes doivent être ajoutées dans l'onglet 'mes plats'.";
+"whatsNew_rateUs_title" = "Vous appréciez l'application ?";
+"whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
+"whatsNew_rateUs_button" = "Notez nous sur l'App Store";
+"whatsNew_rateUs_noThanks" = "Non merci";

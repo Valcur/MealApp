@@ -112,7 +112,7 @@ struct MealInfoSheet: View {
             Button(action: {
                 showingNotesSheet = true
             }, label: {
-                ButtonLabel(title: "Add notes", isCompact: true)
+                ButtonLabel(title: "mealPlan_notes_edit_title", isCompact: true)
             })
             
             Spacer()

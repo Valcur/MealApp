@@ -52,7 +52,11 @@ struct MealApp: App {
                     }
             }.sheet(isPresented: $showIntro) {
                 IntroSheet()
-            }
+            }.background(ZStack {
+                if !showIntro {
+                    WhatsNewView()
+                }
+            })
         }
     }
 }

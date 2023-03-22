@@ -30,18 +30,18 @@ extension View {
     
     func scrollableSheetVStackWithStickyButton(button: AnyView) -> some View {
         ZStack {
-            self.padding(.bottom, 40).scrollableSheetVStack()
+            self.padding(.bottom, 40).scrollableSheetVStack().ignoresSafeArea()
             
-            StickyBottomButton(button: button)//.ignoresSafeArea(.container)
-        }.ignoresSafeArea()
+            StickyBottomButton(button: button).ignoresSafeArea(.keyboard)
+        }
     }
     
     func sheetVStackWithStickyButton(button: AnyView) -> some View {
         ZStack {
-            self.padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 75)
+            self.padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 95).ignoresSafeArea(.container)
             
             StickyBottomButton(button: button)
-        }.ignoresSafeArea(.container)
+        }
     }
     
     func textFieldBackground(hPadding: CGFloat = 10, vPadding: CGFloat = 10) -> some View {
@@ -58,7 +58,7 @@ extension UIApplication {
 }
 
 extension Text {
-    func largeTitle(style: TextStyle = .primary, numberOfLine: Int = 2) -> some View {
+    func largeTitle(style: UIStyle = .primary, numberOfLine: Int = 2) -> some View {
         self
             .font(ViewSizes._title())
             .fontWeight(.bold)
@@ -68,21 +68,21 @@ extension Text {
             .minimumScaleFactor(0.5)
     }
     
-    func title(style: TextStyle = .primary) -> some View {
+    func title(style: UIStyle = .primary) -> some View {
         self
             .font(.title2)
             .fontWeight(.bold)
             .foregroundColor(style == .primary ? Color("TextColor") : .accentColor)
     }
     
-    func subTitle(style: TextStyle = .primary) -> some View {
+    func subTitle(style: UIStyle = .primary) -> some View {
         self
             .font(.headline)
             .fontWeight(style == .primary ? .bold : .regular)
             .foregroundColor(style == .primary ? Color("TextColor") : .gray)
     }
     
-    func headLine(style: TextStyle = .primary) -> some View {
+    func headLine(style: UIStyle = .primary) -> some View {
         self
             .font(.headline)
             .fontWeight(.regular)
@@ -90,11 +90,11 @@ extension Text {
             .fixedSize(horizontal: false, vertical: true)
             .padding(0)
     }
-    
-    enum TextStyle {
-        case primary
-        case secondary
-    }
+}
+
+enum UIStyle {
+    case primary
+    case secondary
 }
 
 extension Date {
@@ -176,10 +176,12 @@ extension Date {
 struct ButtonLabel: View {
     let title: String
     let isCompact: Bool
+    let style: UIStyle
     
-    init(title: String, isCompact: Bool = false) {
+    init(title: String, isCompact: Bool = false, style: UIStyle = .primary) {
         self.title = title
         self.isCompact = isCompact
+        self.style = style
     }
     
     var body: some View {
@@ -191,7 +193,7 @@ struct ButtonLabel: View {
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .frame(minWidth: 100)
-                .roundedCornerRectangle(color: .accentColor)
+                .roundedCornerRectangle(color: style == .primary ? .accentColor : .black)
             if !isCompact {
                 Spacer()
             }
@@ -205,15 +207,16 @@ struct StickyBottomButton: View {
     let button: AnyView
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                LinearGradient(gradient:  Gradient(colors: [clearColor, backgroundColor]), startPoint: .top, endPoint: .bottom)
-                    .frame(height: 15)
-                Rectangle()
-                    .foregroundColor(backgroundColor)
-                    .frame(height:  100)
-            }
-            button
+        ZStack(alignment: .top){
+            button.padding(.top, 30).padding(.bottom, 10).background(
+                    VStack(spacing: 0) {
+                        LinearGradient(gradient:  Gradient(colors: [clearColor, backgroundColor]), startPoint: .top, endPoint: .bottom)
+                            .frame(height: 15)
+                        Rectangle()
+                            .foregroundColor(backgroundColor)
+                            .background(Rectangle()
+                                .foregroundColor(backgroundColor).frame(height: 150).offset(y: 100))
+                    })
         }.frame(maxHeight: .infinity, alignment: .bottom)
     }
 }

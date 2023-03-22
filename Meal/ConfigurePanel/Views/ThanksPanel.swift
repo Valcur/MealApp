@@ -12,7 +12,7 @@ struct ThanksPanel: View {
         VStack(alignment: .leading, spacing: 30)  {
             Text("Icons by Freepkik, imaginationlol, Icongeek26, shmai, Mihimihi and Smashingstocks")
             Text("Meat, Vegan and Outside stickers by stickers")
-
+            Text("Notes image by storyset on Freepik")
         }.padding(20)
     }
 }

@@ -76,31 +76,29 @@ struct NotesTextField: View {
     let hPadding: CGFloat = 6
     
     var body: some View {
-        ZStack(alignment: .leading) {
+        ZStack(alignment: .topLeading) {
             if #available(iOS 16.0, *) {
                 ZStack {
                     Text(mealNotesField).opacity(0).padding(.all, 10)
                     TextEditor(text: $mealNotesField)
                         .textFieldBackground(hPadding: hPadding, vPadding: vPadding)
                         .scrollContentBackground(.hidden)
-                        //.frame(minHeight: height)
-                        //.fixedSize(horizontal: false, vertical: true)
-                        //.frame(maxHeight: .infinity)
-                        //
-                    
                 }
             } else {
-                TextEditor(text: $mealNotesField)
-                    .textFieldBackground(hPadding: hPadding, vPadding: vPadding)
-                    .onAppear {
-                        UITextView.appearance().backgroundColor = .clear
-                    }
+                ZStack {
+                    Text(mealNotesField).opacity(0).padding(.all, 10)
+                    TextEditor(text: $mealNotesField)
+                        .textFieldBackground(hPadding: hPadding, vPadding: vPadding)
+                        .onAppear {
+                            UITextView.appearance().backgroundColor = .clear
+                        }
+                }
             }
             
             if mealNotesField.isEmpty {
                 Text(NSLocalizedString("notes_placeholder", comment: "notes_placeholder"))
                     .foregroundColor(Color(UIColor.systemGray2))
-                    .padding(.horizontal, 10).padding(.vertical, vPadding)
+                    .padding(.all, 10)
                     .allowsHitTesting(false)
             }
         }
