@@ -200,7 +200,7 @@ struct WeekPlanOrganiser: View {
                             .environmentObject(planningPanelVM)
                     }
                     .sheet(isPresented: $showingNotesSheet) {
-                        WeekPlanNotesSheet(meal: $meal)
+                        WeekPlanNotesSheet(dayPlan: dayPlan, time: time, meal: $meal)
                     }
                 }
             }

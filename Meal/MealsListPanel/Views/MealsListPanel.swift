@@ -40,7 +40,7 @@ struct MealsListPanel: View {
                 } 
             }.padding(15).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4).mask(Rectangle().padding(.bottom, -20))).zIndex(1)
 
-            MealList(selectedMealType: $selectedMealType).padding(.horizontal, 20)
+            MealList(selectedMealType: $selectedMealType)
         }.background(Color("BackgroundColor"))
     }
     

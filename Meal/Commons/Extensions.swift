@@ -30,7 +30,7 @@ extension View {
     
     func scrollableSheetVStackWithStickyButton(button: AnyView) -> some View {
         ZStack {
-            self.padding(.bottom, 40).scrollableSheetVStack().ignoresSafeArea()
+            self.padding(.bottom, 50).scrollableSheetVStack().ignoresSafeArea()
             
             StickyBottomButton(button: button).ignoresSafeArea(.keyboard)
         }

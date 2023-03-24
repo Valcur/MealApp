@@ -38,9 +38,9 @@ struct DayPlanMealEditSheet: View {
         DayPlanSheet(sheetTitle: "mealPlan_edit_title", sheetIntro: "mealPlan_edit_subtitle", dayPlan: dayPlan, time: time, meal: $meal, mealType: meal.type, editChoice: $startChoice, showBin: true)
             .onChange(of: meal) { _ in
                 DispatchQueue.main.async {
-                    if time == .midday {
+                    if time == .midday && mealIndex >= 0 {
                         dayPlan.midday[mealIndex] = meal
-                    } else if time == .evening {
+                    } else if time == .evening && mealIndex >= 0 {
                         dayPlan.evening[mealIndex] = meal
                     }
                     planningPanelVM.mealsVM.mealHasBeenPicked(meal)

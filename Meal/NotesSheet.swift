@@ -10,8 +10,11 @@ import SwiftUI
 struct WeekPlanNotesSheet: View {
     @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
     @Environment(\.presentationMode) var presentationMode
+    @State var dayPlan: DayPlan
+    let time: TimeOfTheDay
     @Binding var meal: Meal
-    @State private var mealNotesField: String = "This is some editable text..."
+    @State var mealIndex = -1
+    @State private var mealNotesField: String = "Add notes ..."
     
     var body: some View {
         NotesSheet(meal: $meal, mealNotesField: $mealNotesField).sheetVStackWithStickyButton(button: AnyView(Button(action: {
@@ -20,19 +23,30 @@ struct WeekPlanNotesSheet: View {
             } else {
                 meal.notes = nil
             }
-            meal = meal.new()
+            if time == .midday && mealIndex >= 0 {
+                dayPlan.midday[mealIndex] = meal
+            } else if time == .evening && mealIndex >= 0 {
+                dayPlan.evening[mealIndex] = meal
+            }
             planningPanelVM.saveWeek()
             presentationMode.wrappedValue.dismiss()
         }, label: {
             ButtonLabel(title: "confirmChangesButton")
         })))
+        .onAppear() {
+            if time == .midday {
+                mealIndex = dayPlan.midday.firstIndex(where: {$0.uuid == meal.uuid}) ?? -1
+            } else if time == .evening {
+                mealIndex = dayPlan.evening.firstIndex(where: {$0.uuid == meal.uuid}) ?? -1
+            }
+        }
     }
 }
 
 struct MealEditNotesSheet: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var meal: Meal
-    @State private var mealNotesField: String = "This is some editable text..."
+    @State private var mealNotesField: String = "Add notes ..."
     
     var body: some View {
         NotesSheet(meal: $meal, mealNotesField: $mealNotesField).sheetVStackWithStickyButton(button: AnyView(Button(action: {

@@ -23,7 +23,7 @@ struct NewMealSheet: View {
             trashButton: AnyView(Spacer()),
             confirmButton:
                 AnyView(Button(action: {
-                    mealsListPanelVM.createNewMealWith(name: mealName, type: mealType)
+                    mealsListPanelVM.createNewMealWith(name: mealName, type: mealType, notes: mealNotes)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ButtonLabel(title: "done")
