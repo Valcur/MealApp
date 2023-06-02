@@ -7,6 +7,7 @@
 
 import Foundation
 import EventKit
+import Contacts
 
 class CalendarController {
           
@@ -20,6 +21,13 @@ class CalendarController {
     var calendarUsage: CalendarUsage
     
     init() {
+        // Need access to contact or some users will crash
+        let contactStore = CNContactStore()
+        contactStore.requestAccess(for: .contacts) { (granted, error) in
+            
+        }
+        
+        
         calendarUsage = data.loadCalendarUsage()
         eventStore.requestAccess(to: .event) { (granted, error) in
             self.accessAllowed = (granted) && (error == nil)

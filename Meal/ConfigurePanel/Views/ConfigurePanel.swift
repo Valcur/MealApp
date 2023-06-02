@@ -30,6 +30,9 @@ struct ConfigurePanel: View {
                     NavigationLink(destination: CalendarPanel()) {
                         Text(NSLocalizedString("options_calendar_title", comment: "options_calendar_title"))
                     }
+                    NavigationLink(destination: WhatsNewPanel()) {
+                        Text(NSLocalizedString("whatsNew_title", comment: "whatsNew_title"))
+                    }
                     NavigationLink(destination: ThanksPanel()) {
                         Text("Thanks")
                     }

@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Meal
+
+  Created by Loic D on 26/03/2023.
+  
+*/
+
+NSCalendarsUsageDescription = "Pour pourvoir ajouter votre menu à un calendrier";
+NSContactsUsageDescription = "Nécessaire pour pouvoir choisir le calendrier sur lequel vous souhaitez ajouter votre menu";

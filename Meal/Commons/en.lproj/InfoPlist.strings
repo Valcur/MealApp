@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Meal
+
+  Created by Loic D on 26/03/2023.
+  
+*/
+
+NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
+NSContactsUsageDescription = "To choose on which calendar to add your lunch plan";

@@ -36,8 +36,15 @@ struct WhatsNewView: View {
                     Spacer()
                 }.padding(.horizontal, 50)
                 
+                if true {
+                    Text(NSLocalizedString("whatsNew_old_title", comment: "whatsNew_title"))
+                        .largeTitle(style: .secondary)
+                    
+                    Text(NSLocalizedString("whatsNew_old_content", comment: "whatsNew_content"))
+                        .headLine()
+                }
                 
-                Spacer()
+                Spacer().padding(.bottom, 120)
             }.scrollableSheetVStackWithStickyButton(button: AnyView(
                 VStack {
                     Text(NSLocalizedString("whatsNew_rateUs_title", comment: "whatsNew_rateUs_title"))
@@ -68,7 +75,7 @@ struct WhatsNewView: View {
     }
     
     class WhatsNewController: ObservableObject {
-        private let updateDate = "21/03/2023"
+        private let updateDate = "27/03/2023"
         @Published var showWhatsNew: Bool
         
         init() {
