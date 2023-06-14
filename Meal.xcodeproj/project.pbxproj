@@ -51,6 +51,8 @@
 		DBA7B1FC29C9D98000B04E38 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7B1FB29C9D98000B04E38 /* WhatsNew.swift */; };
 		DBDB328E29D0588600248B12 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDB329029D0588600248B12 /* InfoPlist.strings */; };
 		DBDB329429D070F900248B12 /* WhatsNewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDB329329D070F900248B12 /* WhatsNewPanel.swift */; };
+		DBEAFBD92A35C89C0048797C /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEAFBD82A35C89C0048797C /* CloudKitController.swift */; };
+		DBEAFBDB2A3786D30048797C /* CollaborationPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEAFBDA2A3786D30048797C /* CollaborationPanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,9 @@
 		DBDB329129D0588E00248B12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBDB329229D0589E00248B12 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBDB329329D070F900248B12 /* WhatsNewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPanel.swift; sourceTree = "<group>"; };
+		DBEAFBD72A334B590048797C /* Meal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meal.entitlements; sourceTree = "<group>"; };
+		DBEAFBD82A35C89C0048797C /* CloudKitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
+		DBEAFBDA2A3786D30048797C /* CollaborationPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationPanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +175,7 @@
 		DB9B879D293F4F9F00F2344B /* Meal */ = {
 			isa = PBXGroup;
 			children = (
+				DBEAFBD72A334B590048797C /* Meal.entitlements */,
 				DBA39EEB294A29BE00AC97E2 /* ConfigurePanel */,
 				DB9B87E12941F0CA00F2344B /* Commons */,
 				DB9B87DD2941EA5100F2344B /* PlanningPanel */,
@@ -248,6 +254,7 @@
 				DB9B87E62942176B00F2344B /* PlanningPanelViewModel.swift */,
 				DB9D9958295092F00051BD63 /* MealsDataController+WeekPlaning.swift */,
 				DB9B87DE2941EA7700F2344B /* Views */,
+				DBEAFBD82A35C89C0048797C /* CloudKitController.swift */,
 			);
 			path = PlanningPanel;
 			sourceTree = "<group>";
@@ -296,6 +303,7 @@
 				DB9D995C2951C8860051BD63 /* CalendarPanel.swift */,
 				DB9D99662954DEB60051BD63 /* ThanksPanel.swift */,
 				DBDB329329D070F900248B12 /* WhatsNewPanel.swift */,
+				DBEAFBDA2A3786D30048797C /* CollaborationPanel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -465,6 +473,7 @@
 				DB9B87F22945044300F2344B /* MealListPanel.swift in Sources */,
 				DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */,
 				DBDB329429D070F900248B12 /* WhatsNewPanel.swift in Sources */,
+				DBEAFBDB2A3786D30048797C /* CollaborationPanel.swift in Sources */,
 				DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */,
 				DB9D994E294F8EA10051BD63 /* AutoFillSheet.swift in Sources */,
 				DB9B87D8293F7A0900F2344B /* MealsDataController.swift in Sources */,
@@ -477,6 +486,7 @@
 				DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */,
 				DB6E0E82297F05B300BCDB96 /* Side.swift in Sources */,
 				DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */,
+				DBEAFBD92A35C89C0048797C /* CloudKitController.swift in Sources */,
 				DB9D995029506D6B0051BD63 /* ConfigurePanelViewModel.swift in Sources */,
 				DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */,
 			);
@@ -658,6 +668,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -678,7 +689,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -696,6 +707,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -716,7 +728,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

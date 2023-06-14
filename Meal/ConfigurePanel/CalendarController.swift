@@ -14,19 +14,20 @@ class CalendarController {
     // 'EKEntityTypeReminder' or 'EKEntityTypeEvent'
     
     private let data = MealsDataController()
+    private let cloudKitController: CloudKitController
     let eventStore: EKEventStore = EKEventStore()
     var calendars: Set<EKCalendar>?
     var accessAllowed = false
     var allSavedEventIdentifiers: [String] = [] // Tous les event enregistré par l'app
     var calendarUsage: CalendarUsage
     
-    init() {
+    init(cloudKitController: CloudKitController) {
+        self.cloudKitController = cloudKitController
         // Need access to contact or some users will crash
         let contactStore = CNContactStore()
         contactStore.requestAccess(for: .contacts) { (granted, error) in
             
         }
-        
         
         calendarUsage = data.loadCalendarUsage()
         eventStore.requestAccess(to: .event) { (granted, error) in
@@ -45,16 +46,37 @@ class CalendarController {
         }
         
         allSavedEventIdentifiers = data.loadEventIdentifiers().eventIdentifiers
+        print("From local : \(allSavedEventIdentifiers.first ?? "")")
     }
     
-    func addWeekToCalendar(weekPlan: WeekPlan) {
+    func updateData() {
+        cloudKitController.eventsIniCompleted = false
+        cloudKitController.getEventIdentifiersFromCloud(completion: { events in
+            DispatchQueue.main.async {
+                if let events = events {
+                    self.removeAllEventsFromCalendar()
+                    self.allSavedEventIdentifiers = events.eventIdentifiers
+                    print("From cloud : \(events.eventIdentifiers.first ?? "")")
+                    self.cloudKitController.eventsIniCompleted = true
+                } else {
+                    print("ERROR RETRIEVING IDENTIFIERS FROM CLOUD")
+                }
+            }
+        })
+    }
+    
+    func addWeeksToCalendar(thisWeek: WeekPlan, nextWeek: WeekPlan) {
         removeAllEventsFromCalendar()
         allSavedEventIdentifiers = []
         guard calendarUsage.useCalendar else { return }
-        for day in weekPlan.week {
+        for day in thisWeek.week {
+            addDayToCalendar(day: day)
+        }
+        for day in nextWeek.week {
             addDayToCalendar(day: day)
         }
         data.saveEventIdentifiers(eventIdentifiers: allSavedEventIdentifiers)
+        cloudKitController.saveEventIdentifiersToCloud(eventIdentifiers: allSavedEventIdentifiers)
     }
     
     private func removeAllEventsFromCalendar() {
@@ -65,6 +87,7 @@ class CalendarController {
         
         for eventIdentifier in allSavedEventIdentifiers {
             let event = eventStore.event(withIdentifier: eventIdentifier)
+            print("trying to remove ->\(eventIdentifier)<-")
             if let event = event {
                 do {
                     try eventStore.remove(event, span: EKSpan.thisEvent, commit: true)
@@ -129,6 +152,7 @@ class CalendarController {
         do {
             try eventStore.save(event, span: .thisEvent)
             self.allSavedEventIdentifiers.append(event.eventIdentifier)
+            print("Saved to cal with id : \(event.eventIdentifier)")
         } catch let error as NSError {
             print("failed to save event with error : \(error)")
         }

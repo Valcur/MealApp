@@ -12,34 +12,39 @@ struct PlanningPannel: View {
     @State private var showingAutoFillSheet = false
     
     var body: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Button(action: {
-                    planningPanelVM.switchToThisWeek()
-                }, label: {
-                    Text(WichWeekIsIt.thisWeek.name())
-                        .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary)
-                })
-                Spacer()
-                Button(action: {
-                    planningPanelVM.switchToNextWeek()
-                }, label: {
-                    Text(WichWeekIsIt.nextWeek.name())
-                        .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary)
-                })
-                Spacer()
-                Spacer()
-                Button(action: {
-                    showingAutoFillSheet = true
-                }, label: {
-                    ButtonLabel(title: "autofill", isCompact: true)
-                })
-                .sheet(isPresented: $showingAutoFillSheet) {
-                    AutoFillSheet()
-                }
-            }.padding([.bottom, .horizontal], 20).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4).mask(Rectangle().padding(.bottom, -20)))
-            
-            WeekPlanOrganiser()
+        ZStack {
+            VStack(spacing: 20) {
+                HStack {
+                    Button(action: {
+                        planningPanelVM.switchToThisWeek()
+                    }, label: {
+                        Text(WichWeekIsIt.thisWeek.name())
+                            .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary)
+                    })
+                    Spacer()
+                    Button(action: {
+                        planningPanelVM.switchToNextWeek()
+                    }, label: {
+                        Text(WichWeekIsIt.nextWeek.name())
+                            .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary)
+                    })
+                    Spacer()
+                    Spacer()
+                    Button(action: {
+                        showingAutoFillSheet = true
+                    }, label: {
+                        ButtonLabel(title: "autofill", isCompact: true)
+                    })
+                    .sheet(isPresented: $showingAutoFillSheet) {
+                        AutoFillSheet()
+                    }
+                }.padding([.bottom, .horizontal], 20).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4).mask(Rectangle().padding(.bottom, -20)))
+                
+                WeekPlanOrganiser()
+            }
+            if !(planningPanelVM.cloudKitController.weeksIniCompleted && planningPanelVM.cloudKitController.eventsIniCompleted) {
+                Text("Loading ...").roundedCornerRectangle()
+            }
         }.background(Color("BackgroundColor"))
     }
 }
@@ -48,7 +53,7 @@ struct PlanningPannel_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15, *) {
             PlanningPannel()
-                .environmentObject(PlanningPanelViewModel(mealsVM: MealsListPanelViewModel(), configureVM: ConfigurePanelViewModel()))
+                .environmentObject(PlanningPanelViewModel(mealsVM: MealsListPanelViewModel(), configureVM: ConfigurePanelViewModel(cloudKitController: CloudKitController()), cloudKitController: CloudKitController()))
                 .previewInterfaceOrientation(.landscapeLeft)
                 .previewDevice(PreviewDevice(rawValue: "iPad Air (5th generation)"))
         } else {

@@ -8,13 +8,16 @@
 import Foundation
 
 class ConfigurePanelViewModel: ObservableObject {
-    var calendarController = CalendarController()
+    var calendarController: CalendarController
     weak var planningPanelVM: PlanningPanelViewModel?
     private let data = MealsDataController()
+    let cloudKitController: CloudKitController
     @Published var schedules: [Schedule]
     
-    init() {
+    init(cloudKitController: CloudKitController) {
         self.schedules = data.loadSchedules().schedules
+        self.cloudKitController = cloudKitController
+        self.calendarController = CalendarController(cloudKitController: cloudKitController)
     }
 }
 
@@ -122,7 +125,7 @@ extension ConfigurePanelViewModel {
                                                             minutes: calendar.component(.minute, from: eveningDate))
                                          )
         calendarController.calendarUsage = calendarUsage
-        calendarController.addWeekToCalendar(weekPlan: planningPanelVM!.weekPlan)
+        calendarController.addWeeksToCalendar(thisWeek: planningPanelVM!.thisWeek, nextWeek: planningPanelVM!.nextWeek)
         data.saveCalendarUsage(calendarUsage: calendarUsage)
     }
     

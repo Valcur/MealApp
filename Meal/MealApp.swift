@@ -12,12 +12,14 @@ struct MealApp: App {
     let planningVM: PlanningPanelViewModel
     let mealListVM: MealsListPanelViewModel
     let configurePanelVM: ConfigurePanelViewModel
+    let cloudKitController: CloudKitController
     @State var showIntro: Bool
     
     init() {
+        cloudKitController = CloudKitController()
         mealListVM = MealsListPanelViewModel()
-        configurePanelVM = ConfigurePanelViewModel()
-        planningVM = PlanningPanelViewModel(mealsVM: mealListVM, configureVM: configurePanelVM)
+        configurePanelVM = ConfigurePanelViewModel(cloudKitController: cloudKitController)
+        planningVM = PlanningPanelViewModel(mealsVM: mealListVM, configureVM: configurePanelVM, cloudKitController: cloudKitController)
         configurePanelVM.planningPanelVM = planningVM
         
         // Show intro for as long as there is no meal saved by the user
@@ -49,7 +51,7 @@ struct MealApp: App {
                     .tabItem {
                         Image(systemName: "gear")
                         Text(NSLocalizedString("tab_options", comment: "Options"))
-                    }
+                }
             }.sheet(isPresented: $showIntro) {
                 IntroSheet()
             }.background(ZStack {
@@ -57,6 +59,13 @@ struct MealApp: App {
                     WhatsNewView()
                 }
             })
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                UIApplication.shared.applicationIconBadgeNumber = 0
+                if cloudKitController.isIniComplete() {
+                    print("Going foreground from background")
+                    planningVM.updateData()
+                }
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import SwiftUI
 class PlanningPanelViewModel: ObservableObject {
     @Published var weekPlan: WeekPlan
     private let data = MealsDataController()
+    let cloudKitController: CloudKitController
     var mealsVM: MealsListPanelViewModel
     var configureVM: ConfigurePanelViewModel
     
@@ -20,9 +21,10 @@ class PlanningPanelViewModel: ObservableObject {
     
     var mealClipboard: Meal? = nil
     
-    init(mealsVM: MealsListPanelViewModel, configureVM: ConfigurePanelViewModel) {
+    init(mealsVM: MealsListPanelViewModel, configureVM: ConfigurePanelViewModel, cloudKitController: CloudKitController) {
         self.mealsVM = mealsVM
         self.configureVM = configureVM
+        self.cloudKitController = cloudKitController
         
         thisWeek = data.loadWeek(forWeek: .thisWeek)
         nextWeek = data.loadWeek(forWeek: .nextWeek)
@@ -44,9 +46,12 @@ class PlanningPanelViewModel: ObservableObject {
         }
         
         updateWeekDatesIfNeeded()
+        
+        // Load from cloud and update when data is retrieved
+        updateData()
     }
     
-    func updateWeekDatesIfNeeded() {
+    func updateWeekDatesIfNeeded() -> Bool {
         let cal = Calendar(identifier: .gregorian)
         // Le début de semaine des 2 semaines actuellment sauvegardées
         let savedThisWeekMonday = cal.startOfDay(for: thisWeek.week[0].date)
@@ -65,6 +70,7 @@ class PlanningPanelViewModel: ObservableObject {
             saveWeek()
             switchToThisWeek()
             saveWeek()
+            return true
         }
         // Si la semaine actuelle correpsond a aucune des 2 semaines, on récréé 2 nouvelles semaines
         else if thisWeekMonday != savedThisWeekMonday {
@@ -78,12 +84,54 @@ class PlanningPanelViewModel: ObservableObject {
             saveWeek()
             switchToThisWeek()
             saveWeek()
+            return true
         }
+        return false
     }
     
     func saveWeek() {
         data.saveWeek(weekPlan: weekPlan, forWeek: selectedWeek)
-        configureVM.calendarController.addWeekToCalendar(weekPlan: weekPlan)
+        configureVM.calendarController.addWeeksToCalendar(thisWeek: thisWeek, nextWeek: nextWeek)
+        
+        if true && cloudKitController.weeksIniCompleted && cloudKitController.eventsIniCompleted {
+            cloudKitController.saveWeeksPlanningToCloud(thisWeek: thisWeek, nexWeek: nextWeek)
+        }
+    }
+    
+    func updateData() {
+        cloudKitController.weeksIniCompleted = false
+        configureVM.calendarController.updateData()
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, completion: { thisWeekPlan in
+            DispatchQueue.main.async {
+                if let thisWeekPlan = thisWeekPlan {
+                    self.thisWeek = thisWeekPlan
+                    
+                    self.weekPlan = thisWeekPlan
+                    self.selectedWeek = .thisWeek
+                }
+            }
+            self.cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, completion: { nextWeekPlan in
+                DispatchQueue.main.async {
+                    if let nextWeekPlan = nextWeekPlan {
+                        self.nextWeek = nextWeekPlan
+                    }
+                    self.cloudKitController.weeksIniCompleted = true
+                    print("PLANNING INI FROM CLOUD COMPLETED")
+                }
+            })
+        })
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            print("Checking if complete")
+            if self.cloudKitController.isIniComplete() {
+                self.objectWillChange.send()
+                print("Cloud ini completed")
+                if !self.updateWeekDatesIfNeeded() {
+                    self.saveWeek()
+                }
+                timer.invalidate()
+            }
+        }
     }
 }
 

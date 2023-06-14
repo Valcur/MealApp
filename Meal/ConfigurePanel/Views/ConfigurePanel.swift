@@ -27,6 +27,9 @@ struct ConfigurePanel: View {
                     }
                 }
                 Section(header: Text("Options")) {
+                    NavigationLink(destination: CollaborationPanel()) {
+                        Text(NSLocalizedString("Collaboration", comment: "options_calendar_title"))
+                    }
                     NavigationLink(destination: CalendarPanel()) {
                         Text(NSLocalizedString("options_calendar_title", comment: "options_calendar_title"))
                     }
