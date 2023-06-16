@@ -88,14 +88,7 @@ struct MealScheduleScheet: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30) {
-            HStack {
-                Text(NSLocalizedString(title, comment: title))
-                    .title()
-                
-                Spacer()
-                
-                trashButton
-            }
+            trashButton
             
             Text(NSLocalizedString(intro, comment: intro))
                 .headLine()
@@ -111,6 +104,7 @@ struct MealScheduleScheet: View {
             
             confirmButton
         }.scrollableSheetVStack()
+        .navigationTitle(NSLocalizedString(title, comment: title))
     }
     
     struct DaySelector: View {

@@ -14,6 +14,7 @@ struct ThanksPanel: View {
             Text("Meat, Vegan and Outside stickers by stickers")
             Text("Whats New image by stickers")
         }.padding(20)
+        .navigationTitle("Thanks")
     }
 }
 

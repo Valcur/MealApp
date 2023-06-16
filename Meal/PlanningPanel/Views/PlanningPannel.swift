@@ -9,10 +9,11 @@ import SwiftUI
 
 struct PlanningPannel: View {
     @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
+    @ObservedObject var cloudKitController: CloudKitController
     @State private var showingAutoFillSheet = false
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             VStack(spacing: 20) {
                 HStack {
                     Button(action: {
@@ -30,6 +31,35 @@ struct PlanningPannel: View {
                     })
                     Spacer()
                     Spacer()
+                    
+                    ZStack {
+                        ZStack {
+                            Image(systemName: "icloud.fill")
+                                .resizable()
+                                .frame(width: 50, height: 34)
+                            
+                            Image(systemName: "arrow.clockwise")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                        }.opacity(cloudKitController.cloudSyncStatus == .inProgress ? 1 : 0)
+
+                        
+                        Button(action: {
+                            planningPanelVM.updateData()
+                        }, label: {
+                            ZStack {
+                                Image(systemName: "exclamationmark.icloud.fill")
+                                    .resizable()
+                                    .frame(width: 50, height: 34)
+                                
+                                Text("Try again")
+                                    .font(.caption)
+                                    .offset(y: 25)
+                            }
+                        }).opacity(cloudKitController.cloudSyncStatus == .error ? 1 : 0)
+                            
+                    }.frame(width: 60, height: 40)
+
                     Button(action: {
                         showingAutoFillSheet = true
                     }, label: {
@@ -42,9 +72,7 @@ struct PlanningPannel: View {
                 
                 WeekPlanOrganiser()
             }
-            if !(planningPanelVM.cloudKitController.weeksIniCompleted && planningPanelVM.cloudKitController.eventsIniCompleted) {
-                Text("Loading ...").roundedCornerRectangle()
-            }
+
         }.background(Color("BackgroundColor"))
     }
 }
@@ -52,12 +80,12 @@ struct PlanningPannel: View {
 struct PlanningPannel_Previews: PreviewProvider {
     static var previews: some View {
         if #available(iOS 15, *) {
-            PlanningPannel()
+            PlanningPannel(cloudKitController: CloudKitController())
                 .environmentObject(PlanningPanelViewModel(mealsVM: MealsListPanelViewModel(), configureVM: ConfigurePanelViewModel(cloudKitController: CloudKitController()), cloudKitController: CloudKitController()))
                 .previewInterfaceOrientation(.landscapeLeft)
                 .previewDevice(PreviewDevice(rawValue: "iPad Air (5th generation)"))
         } else {
-            PlanningPannel()
+            PlanningPannel(cloudKitController: CloudKitController())
                 .previewDevice(PreviewDevice(rawValue: "iPad Air (5th generation)"))
         }
 

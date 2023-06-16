@@ -10,6 +10,7 @@ import Foundation
 extension MealsDataController {
     func saveWeek(weekPlan: WeekPlan, forWeek: WichWeekIsIt) {
         let weekKey = forWeek == .thisWeek ? THIS_WEEK_KEY : NEXT_WEEK_KEY
+        
         for day in weekPlan.week {
             let encoder = JSONEncoder()
             if let data = try? encoder.encode(day) {
@@ -31,7 +32,7 @@ extension MealsDataController {
                 return WeekPlan(forWeek)
             }
         }
-    
+        
         let wp = WeekPlan(forWeek)
         wp.week = dayPlans
         return wp

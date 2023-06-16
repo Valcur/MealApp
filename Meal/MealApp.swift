@@ -30,7 +30,7 @@ struct MealApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                PlanningPannel()
+                PlanningPannel(cloudKitController: cloudKitController)
                     .ignoresSafeArea(.keyboard)
                     .environmentObject(planningVM)
                     .tabItem {

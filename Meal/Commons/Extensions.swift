@@ -36,6 +36,14 @@ extension View {
         }
     }
     
+    func safeAreaScrollableSheetVStackWithStickyButton(button: AnyView) -> some View {
+        ZStack {
+            self.padding(.bottom, 100).scrollableSheetVStack()
+            
+            StickyBottomButton(button: button)
+        }
+    }
+    
     func sheetVStackWithStickyButton(button: AnyView) -> some View {
         ZStack {
             self.padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 95).ignoresSafeArea(.container)
@@ -211,7 +219,7 @@ struct StickyBottomButton: View {
             button.padding(.top, 30).padding(.bottom, 10).background(
                     VStack(spacing: 0) {
                         LinearGradient(gradient:  Gradient(colors: [clearColor, backgroundColor]), startPoint: .top, endPoint: .bottom)
-                            .frame(height: 15)
+                            .frame(height: 10)
                         Rectangle()
                             .foregroundColor(backgroundColor)
                             .background(Rectangle()

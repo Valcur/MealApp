@@ -10,19 +10,14 @@ import EventKit
 import Contacts
 
 class CalendarController {
-          
-    // 'EKEntityTypeReminder' or 'EKEntityTypeEvent'
-    
     private let data = MealsDataController()
-    private let cloudKitController: CloudKitController
     let eventStore: EKEventStore = EKEventStore()
     var calendars: Set<EKCalendar>?
     var accessAllowed = false
     var allSavedEventIdentifiers: [String] = [] // Tous les event enregistré par l'app
     var calendarUsage: CalendarUsage
     
-    init(cloudKitController: CloudKitController) {
-        self.cloudKitController = cloudKitController
+    init() {
         // Need access to contact or some users will crash
         let contactStore = CNContactStore()
         contactStore.requestAccess(for: .contacts) { (granted, error) in
@@ -46,23 +41,6 @@ class CalendarController {
         }
         
         allSavedEventIdentifiers = data.loadEventIdentifiers().eventIdentifiers
-        print("From local : \(allSavedEventIdentifiers.first ?? "")")
-    }
-    
-    func updateData() {
-        cloudKitController.eventsIniCompleted = false
-        cloudKitController.getEventIdentifiersFromCloud(completion: { events in
-            DispatchQueue.main.async {
-                if let events = events {
-                    self.removeAllEventsFromCalendar()
-                    self.allSavedEventIdentifiers = events.eventIdentifiers
-                    print("From cloud : \(events.eventIdentifiers.first ?? "")")
-                    self.cloudKitController.eventsIniCompleted = true
-                } else {
-                    print("ERROR RETRIEVING IDENTIFIERS FROM CLOUD")
-                }
-            }
-        })
     }
     
     func addWeeksToCalendar(thisWeek: WeekPlan, nextWeek: WeekPlan) {
@@ -76,7 +54,6 @@ class CalendarController {
             addDayToCalendar(day: day)
         }
         data.saveEventIdentifiers(eventIdentifiers: allSavedEventIdentifiers)
-        cloudKitController.saveEventIdentifiersToCloud(eventIdentifiers: allSavedEventIdentifiers)
     }
     
     private func removeAllEventsFromCalendar() {
@@ -85,19 +62,47 @@ class CalendarController {
             return
         }
         
-        for eventIdentifier in allSavedEventIdentifiers {
-            let event = eventStore.event(withIdentifier: eventIdentifier)
-            print("trying to remove ->\(eventIdentifier)<-")
-            if let event = event {
-                do {
-                    try eventStore.remove(event, span: EKSpan.thisEvent, commit: true)
-                } catch {
-                    print("failed to remove event with error : \(error)")
+        if true {
+            removeAllEventsMatchingPredicate()
+        } else {
+            for eventIdentifier in allSavedEventIdentifiers {
+                let event = eventStore.event(withIdentifier: eventIdentifier)
+                print("trying to remove ->\(eventIdentifier)<-")
+                if let event = event {
+                    do {
+                        try eventStore.remove(event, span: EKSpan.thisEvent, commit: true)
+                    } catch {
+                        print("failed to remove event with error : \(error)")
+                    }
                 }
             }
+            
+            print("Removed \(allSavedEventIdentifiers.count) events")
+        }
+    }
+    
+    func removeAllEventsMatchingPredicate() {
+        let startDate = NSDate().addingTimeInterval(60*60*24*(-7))
+        let endDate = NSDate().addingTimeInterval(60*60*24*14)
+
+        if calendars == nil || calendars!.first == nil {
+            print("Error : no calendar to remove event")
+            return
         }
         
-        print("Removed \(allSavedEventIdentifiers.count) events")
+        let predicate2 = eventStore.predicateForEvents(withStart: startDate as Date, end: endDate as Date, calendars: [calendars!.first!])
+
+        print("startDate:\(startDate) endDate:\(endDate)")
+        let eV = eventStore.events(matching: predicate2) as [EKEvent]
+
+        for i in eV {
+            do{
+                (try eventStore.remove(i, span: EKSpan.thisEvent, commit: true))
+            }
+            catch let error {
+                print("Error removing events: ", error)
+            }
+        }
     }
 
     private func addDayToCalendar(day: DayPlan) {
@@ -152,7 +157,6 @@ class CalendarController {
         do {
             try eventStore.save(event, span: .thisEvent)
             self.allSavedEventIdentifiers.append(event.eventIdentifier)
-            print("Saved to cal with id : \(event.eventIdentifier)")
         } catch let error as NSError {
             print("failed to save event with error : \(error)")
         }

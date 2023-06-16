@@ -17,9 +17,6 @@ struct CalendarPanel: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 30)  {
-            Text(NSLocalizedString("options_calendar_title", comment: "options_calendar_title"))
-                .title()
-            
             HStack {
                 Text(NSLocalizedString("options_calendar_use", comment: "options_calendar_use"))
                     .headLine()
@@ -72,6 +69,7 @@ struct CalendarPanel: View {
                 eveningTime = calendar.date(bySettingHour: calendarUsage.eveningHour.hour, minute: calendarUsage.eveningHour.minutes, second: 0, of: eveningTime) ?? Date()
             }
         }.scrollableSheetVStack()
+        .navigationTitle(NSLocalizedString("options_calendar_title", comment: "options_calendar_title"))
     }
     
     struct CalendarChooser: UIViewControllerRepresentable {

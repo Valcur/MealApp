@@ -10,9 +10,6 @@ import SwiftUI
 struct WhatsNewPanel: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Text(NSLocalizedString("whatsNew_title", comment: "whatsNew_title"))
-                .largeTitle(style: .secondary)
-            
             Text(NSLocalizedString("whatsNew_content", comment: "whatsNew_content"))
                 .headLine()
             
@@ -34,5 +31,6 @@ struct WhatsNewPanel: View {
             }
             Spacer()
         }.scrollableSheetVStack()
+        .navigationTitle(NSLocalizedString("whatsNew_title", comment: "whatsNew_title"))
     }
 }

@@ -11,13 +11,16 @@ class ConfigurePanelViewModel: ObservableObject {
     var calendarController: CalendarController
     weak var planningPanelVM: PlanningPanelViewModel?
     private let data = MealsDataController()
-    let cloudKitController: CloudKitController
+    var cloudKitController: CloudKitController
     @Published var schedules: [Schedule]
+    @Published var isPremium = false
     
     init(cloudKitController: CloudKitController) {
         self.schedules = data.loadSchedules().schedules
         self.cloudKitController = cloudKitController
-        self.calendarController = CalendarController(cloudKitController: cloudKitController)
+        self.calendarController = CalendarController()
+        
+        // TEST IF PREMIUM
     }
 }
 

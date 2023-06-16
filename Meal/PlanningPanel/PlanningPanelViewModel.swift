@@ -93,14 +93,15 @@ class PlanningPanelViewModel: ObservableObject {
         data.saveWeek(weekPlan: weekPlan, forWeek: selectedWeek)
         configureVM.calendarController.addWeeksToCalendar(thisWeek: thisWeek, nextWeek: nextWeek)
         
-        if true && cloudKitController.weeksIniCompleted && cloudKitController.eventsIniCompleted {
+        if cloudKitController.isSavingToCloud() && cloudKitController.cloudSyncStatus != .inProgress {
             cloudKitController.saveWeeksPlanningToCloud(thisWeek: thisWeek, nexWeek: nextWeek)
         }
     }
     
     func updateData() {
-        cloudKitController.weeksIniCompleted = false
-        configureVM.calendarController.updateData()
+        cloudKitController.thisWeekIniCompleted = false
+        cloudKitController.nextWeekIniCompleted = false
+        
         cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, completion: { thisWeekPlan in
             DispatchQueue.main.async {
                 if let thisWeekPlan = thisWeekPlan {
@@ -108,30 +109,38 @@ class PlanningPanelViewModel: ObservableObject {
                     
                     self.weekPlan = thisWeekPlan
                     self.selectedWeek = .thisWeek
+                    
+                    self.cloudKitController.thisWeekIniCompleted = true
+                    
+                    if self.cloudKitController.isIniComplete() {
+                        self.objectWillChange.send()
+                        if !self.updateWeekDatesIfNeeded() {
+                            self.saveWeek()
+                        }
+                        
+                        print("PLANNING INI FROM CLOUD COMPLETED")
+                    }
                 }
             }
-            self.cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, completion: { nextWeekPlan in
-                DispatchQueue.main.async {
-                    if let nextWeekPlan = nextWeekPlan {
-                        self.nextWeek = nextWeekPlan
-                    }
-                    self.cloudKitController.weeksIniCompleted = true
-                    print("PLANNING INI FROM CLOUD COMPLETED")
-                }
-            })
         })
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            print("Checking if complete")
-            if self.cloudKitController.isIniComplete() {
-                self.objectWillChange.send()
-                print("Cloud ini completed")
-                if !self.updateWeekDatesIfNeeded() {
-                    self.saveWeek()
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, completion: { nextWeekPlan in
+            DispatchQueue.main.async {
+                if let nextWeekPlan = nextWeekPlan {
+                    self.nextWeek = nextWeekPlan
                 }
-                timer.invalidate()
+                self.cloudKitController.nextWeekIniCompleted = true
+                
+                if self.cloudKitController.isIniComplete() {
+                    self.objectWillChange.send()
+                    if !self.updateWeekDatesIfNeeded() {
+                        self.saveWeek()
+                    }
+                    
+                    print("PLANNING INI FROM CLOUD COMPLETED")
+                }
             }
-        }
+        })
     }
 }
 

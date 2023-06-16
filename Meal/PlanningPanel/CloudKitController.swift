@@ -7,43 +7,71 @@
 
 import Foundation
 import CloudKit
+import SwiftUI
 
 class CloudKitController: ObservableObject {
     private var database: CKDatabase
     private var container: CKContainer
+    @Published var thisWeekIniCompleted = false
+    @Published var nextWeekIniCompleted = false
+    @Published var cloudSyncStatus: CloudSyncStatus = .completed
+    private var weekSavingProgress = 0
     var sharedWeekPlanId: String = SharedWeekPlanIdError.notLoaded.rawValue
+    
+    @Published var userUUID: String = ""
+    @Published var sharedPlanningUUID: String = ""
+    @Published var shareYourPlanning = false
+    @Published var useSharedPlanning = false
+    
     //private let isPremium: Bool = true
-    @Published var weeksIniCompleted = false
-    @Published var eventsIniCompleted = false
+    
+    // Recors deleted, ini not completed -> no save
     
     init() {
         self.container = CKContainer(identifier: "iCloud.BurningBeard.Meal.MealPlanning")
         self.database = self.container.publicCloudDatabase
-        loadSharedWeekPlanId()
+        iniUserPreferences()
+        updateSharedWeekPlanId()
+    }
+    
+    func iniUserPreferences() {
+        let userDefaults = UserDefaults.standard
+        
+        userUUID = userDefaults.string(forKey: CloudPreferenceKeys.userUUID.rawValue) ?? UUID().uuidString
+        userDefaults.set(userUUID, forKey: CloudPreferenceKeys.userUUID.rawValue)
+        
+        sharedPlanningUUID = userDefaults.string(forKey: CloudPreferenceKeys.sharedUUID.rawValue) ?? ""
+        shareYourPlanning = userDefaults.bool(forKey: CloudPreferenceKeys.shareYourPlanning.rawValue)
+        useSharedPlanning = userDefaults.bool(forKey: CloudPreferenceKeys.useSharedPlanning.rawValue)
     }
     
     func getWeekPlanningFromCloud(recordType: String, completion: @escaping (WeekPlan?) -> ()) {
+        self.setCloudSynsStatus(.inProgress)
         let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
         let query = CKQuery(recordType: recordType, predicate: predicate)
         database.perform(query, inZoneWith: nil) { ckRecords, error in
             if let error = error {
                 print(error)
                 completion(nil)
+                self.setCloudSynsStatus(.error)
                 return
             } else {
                 guard let records = ckRecords else {
                     completion(nil)
+                    self.setCloudSynsStatus(.error)
                     return
                 }
-
+                
                 guard let record = records.first else {
                     completion(nil)
+                    self.setCloudSynsStatus(.error)
                     return
                 }
-
+                
                 guard let weekPlanString = record.value(forKey: "weekPlan") as? String else { return }
                 let weekPlan = self.weekPlanStringToWeekPlan(weekPlanString, whichWeek: recordType == RecordType.thisWeekPlan.rawValue ? .thisWeek : .nextWeek)
                 completion(weekPlan)
+                self.setCloudSynsStatus(.completed)
             }
         }
     }
@@ -111,11 +139,13 @@ class CloudKitController: ObservableObject {
     }
     
     func saveWeeksPlanningToCloud(thisWeek: WeekPlan, nexWeek: WeekPlan) {
+        weekSavingProgress = 0
         saveWeekPlanningToCloud(recordType: RecordType.thisWeekPlan.rawValue, plan: thisWeek)
         saveWeekPlanningToCloud(recordType: RecordType.nextWeekPlan.rawValue, plan: nexWeek)
     }
     
     private func saveWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
+        self.setCloudSynsStatus(.inProgress)
         var text = "\(recordType)\n\n"
         for dayPlan in plan.week {
             text += "\(dayPlan.day)\n"
@@ -158,134 +188,194 @@ class CloudKitController: ObservableObject {
         database.perform(query, inZoneWith: nil) { ckRecords, error in
             if let error = error {
                 print(error)
+                self.setCloudSynsStatus(.error)
             } else {
                 guard let records = ckRecords else {
+                    self.setCloudSynsStatus(.error)
                     return
                 }
-
+                
                 guard let record = records.first else {
+                    self.setCloudSynsStatus(.error)
                     return
                 }
                 
                 record["weekPlan"] = text
-
+                
                 self.database.save(record) { _, error in
                     if let error = error {
                         print(error)
+                        self.setCloudSynsStatus(.error)
+                        self.weekSavingProgress = -1
                     } else {
                         print("Week updated successfully")
+                        self.weekSavingProgress += 1
+                        if self.weekSavingProgress == 2 {
+                            self.setCloudSynsStatus(.completed)
+                        }
                     }
                 }
             }
         }
-        /*
-        let record = CKRecord(recordType: recordType)
-        record.setValue(sharedWeekPlanId, forKey: "id")
-        record.setValue(text, forKey: "weekPlan")
-        
-        self.database.save(record) { newRecord, error in
-            if let error = error {
-                print(error)
-            } else {
-                if let _ = newRecord {
-                    print("Week saved")
-                }
-            }
-        }*/
-    }
-    
-    func getEventIdentifiersFromCloud(completion: @escaping (EventIdentifiers?) -> ()) {
-        let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
-        let query = CKQuery(recordType: RecordType.eventIdentifiers.rawValue, predicate: predicate)
-        database.perform(query, inZoneWith: nil) { ckRecords, error in
-            if let error = error {
-                print(error)
-                completion(nil)
-                return
-            } else {
-                guard let records = ckRecords else {
-                    completion(nil)
-                    return
-                }
-
-                guard let record = records.first else {
-                    completion(nil)
-                    return
-                }
-
-                guard let eventString = record.value(forKey: "eventIdentifiers") as? String else { return }
-                let eventIdentifier = self.eventStringToEventIdentifers(eventString)
-                completion(eventIdentifier)
-            }
-        }
-    }
-    
-    private func eventStringToEventIdentifers(_ eventString: String) -> EventIdentifiers {
-        let events = eventString.split(whereSeparator: \.isNewline)
-        var eventIdentifiers = EventIdentifiers(eventIdentifiers: [])
-        for ev in events {
-            let event = String(ev)
-            if event.count > 1 {
-                eventIdentifiers.eventIdentifiers.append(event)
-            }
-        }
-        return eventIdentifiers
-    }
-    
-    func saveEventIdentifiersToCloud(eventIdentifiers: [String]) {
-        var eventsString = ""
-        for event in eventIdentifiers {
-            eventsString += "\(event)\n"
-        }
-        
-        let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
-        let query = CKQuery(recordType: RecordType.eventIdentifiers.rawValue, predicate: predicate)
-        database.perform(query, inZoneWith: nil) { ckRecords, error in
-            if let error = error {
-                print(error)
-            } else {
-                guard let records = ckRecords else {
-                    return
-                }
-
-                guard let record = records.first else {
-                    return
-                }
-                
-                record["eventIdentifiers"] = eventsString
-
-                self.database.save(record) { _, error in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        print("Events updated successfully")
-                    }
-                }
-            }
-        }
-        /*
-        let record = CKRecord(recordType: RecordType.eventIdentifiers.rawValue)
-        record.setValue(sharedWeekPlanId, forKey: "id")
-        record.setValue(eventsString, forKey: "eventIdentifiers")
-        
-        self.database.save(record) { newRecord, error in
-            if let error = error {
-                print(error)
-            } else {
-                if let _ = newRecord {
-                    print("Events saved")
-                }
-            }
-        }*/
-    }
-    
-    func loadSharedWeekPlanId() {
-        sharedWeekPlanId = UserDefaults.standard.string(forKey: "SHARED_WEEK_PLAN_ID") ?? SharedWeekPlanIdError.noId.rawValue
-        sharedWeekPlanId = "aeaereararzerjzehruezhr"
     }
     
     func isIniComplete() -> Bool {
-        return weeksIniCompleted && eventsIniCompleted
+        return thisWeekIniCompleted && nextWeekIniCompleted
+    }
+    
+    private func setCloudSynsStatus(_ status: CloudSyncStatus) {
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.cloudSyncStatus = status
+            }
+        }
+    }
+}
+
+// Collaboration Panel
+
+extension CloudKitController {
+    func createWeekPlanningRecordIfNeeded(completion: @escaping (Bool) -> ()) {
+        // Check if both exist, create if it doesn't
+
+        let predicate = NSPredicate(format: "id == %@", userUUID)
+        var recordCount = 0
+        
+        // Check if this week exist
+        let queryThisWeek = CKQuery(recordType: RecordType.thisWeekPlan.rawValue, predicate: predicate)
+        database.perform(queryThisWeek, inZoneWith: nil) { ckRecords, error in
+            if let error = error {
+                print(error)
+                completion(false)
+            } else {
+                guard let records = ckRecords else {
+                    completion(false)
+                    return
+                }
+
+                if records.first != nil {
+                    print("Record already exist")
+                    recordCount += 1
+                    if recordCount == 2 { completion(true) }
+                } else {
+                    self.createEmptyRecord(recordType: RecordType.thisWeekPlan.rawValue, completion: { success in
+                        if success {
+                            recordCount += 1
+                            if recordCount == 2 { completion(true) }
+                        } else {
+                            completion(false)
+                        }
+                    })
+                }
+            }
+        }
+        
+        // Check if next week exist
+        let queryNextWeek = CKQuery(recordType: RecordType.nextWeekPlan.rawValue, predicate: predicate)
+        self.database.perform(queryNextWeek, inZoneWith: nil) { ckRecords, error in
+            if let error = error {
+                print(error)
+                completion(false)
+            } else {
+                guard let records = ckRecords else {
+                    completion(false)
+                    return
+                }
+
+                if records.first != nil {
+                    print("Record already exist")
+                    recordCount += 1
+                    if recordCount == 2 { completion(true) }
+                } else {
+                    self.createEmptyRecord(recordType: RecordType.nextWeekPlan.rawValue, completion: { success in
+                        if success {
+                            recordCount += 1
+                            if recordCount == 2 { completion(true) }
+                        } else {
+                            completion(false)
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
+    private func createEmptyRecord(recordType: String, completion: @escaping (Bool) -> ()) {
+        let record = CKRecord(recordType: recordType)
+        record.setValue(userUUID, forKey: "id")
+        record.setValue("", forKey: "weekPlan")
+        
+        self.database.save(record) { newRecord, error in
+            if let error = error {
+                print(error)
+                completion(false)
+            } else {
+                if let _ = newRecord {
+                    print("Record created for \(self.userUUID)")
+                    completion(true)
+                }
+            }
+        }
+    }
+    
+    func isKeyValid(_ key: String, completion: @escaping (Bool) -> ()) {
+        let predicate = NSPredicate(format: "id == %@", key)
+        let query = CKQuery(recordType: RecordType.thisWeekPlan.rawValue, predicate: predicate)
+        print("Checking if record with \(key) exist")
+        database.perform(query, inZoneWith: nil) { ckRecords, error in
+            if let error = error {
+                print(error)
+                completion(false)
+            } else {
+                guard let records = ckRecords else {
+                    completion(false)
+                    return
+                }
+
+                guard records.first != nil else {
+                    completion(false)
+                    return
+                }
+                
+                completion(true)
+            }
+        }
+    }
+    
+    func updateUserPreferences(useShared: Bool, sharedKey: String, isSharing: Bool) {
+        DispatchQueue.main.async {
+            self.useSharedPlanning = useShared
+            self.sharedPlanningUUID = sharedKey
+            self.shareYourPlanning = isSharing
+        }
+        
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(sharedKey, forKey: CloudPreferenceKeys.sharedUUID.rawValue)
+        userDefaults.set(isSharing, forKey: CloudPreferenceKeys.shareYourPlanning.rawValue)
+        userDefaults.set(useShared, forKey: CloudPreferenceKeys.useSharedPlanning.rawValue)
+        
+        updateSharedWeekPlanId()
+    }
+    
+    private func updateSharedWeekPlanId() {
+        if useSharedPlanning {
+            sharedWeekPlanId = sharedPlanningUUID
+        } else if shareYourPlanning {
+            sharedWeekPlanId = userUUID
+        } else {
+            sharedWeekPlanId = ""
+        }
+    }
+    
+    func isSavingToCloud() -> Bool {
+        return sharedWeekPlanId.count > 0
+    }
+    
+    enum CloudPreferenceKeys: String {
+        case userUUID = "USER_UUID"
+        case sharedUUID = "SHARED_UUID"
+        case useSharedPlanning = "IS_USING_SHARED_PLANNING"
+        case shareYourPlanning = "IS_SHARING_PLANNING"
     }
 }
 
@@ -298,4 +388,10 @@ enum RecordType: String {
 enum SharedWeekPlanIdError: String {
     case noId = "NO_ID"
     case notLoaded = "NOT_LOADED"
+}
+
+enum CloudSyncStatus: String {
+    case completed = "COMPLETED"
+    case inProgress = "IN_PROGRESS"
+    case error = "ERROR"
 }
