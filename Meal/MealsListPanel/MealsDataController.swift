@@ -21,6 +21,8 @@ class MealsDataController {
     internal let EVENT_KEY = "EVENT_IDENTIFIERS"
     internal let ALREADY_PICKED_KEY = "ALREADY_PICKED"
     internal let CALENDAR_USAGE_KEY = "CALENDAR_USAGE"
+    internal let THIS_WEEK_LAST_MODIFY_KEY = "THIS_WEEK_LAST_MODIFY"
+    internal let NEXT_WEEK_LAST_MODIFY_KEY = "NEXT_WEEK_LAST_MODIFY"
     
     init() {
         mealCount = userDefaults.integer(forKey: MEAL_COUNT_KEY)

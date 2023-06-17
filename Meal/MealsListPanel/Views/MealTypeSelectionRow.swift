@@ -49,7 +49,10 @@ extension MealsListPanel {
                             .foregroundColor(isSelected ? .white : mealType.getColor())
                             .padding(ViewSizes._15())
                     }
-                }).frame(height: 120).roundedCornerRectangle(padding: 0).cornerRadius(20)
+                }).frame(height: 120).overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color("BackgroundColor"), lineWidth: isSelected ? 0 : 2)
+                ).roundedCornerRectangle(padding: 0, shadowRadius: isSelected ? 4 : 0)
             }
         }
     }

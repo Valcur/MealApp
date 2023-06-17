@@ -14,13 +14,14 @@ class ConfigurePanelViewModel: ObservableObject {
     var cloudKitController: CloudKitController
     @Published var schedules: [Schedule]
     @Published var isPremium = false
+    @Published var paymentProcessing = false    // A INTEGRER DANS L4UI
     
     init(cloudKitController: CloudKitController) {
         self.schedules = data.loadSchedules().schedules
         self.cloudKitController = cloudKitController
         self.calendarController = CalendarController()
         
-        // TEST IF PREMIUM
+        testPremium()
     }
 }
 

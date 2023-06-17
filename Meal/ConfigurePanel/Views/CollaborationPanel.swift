@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 struct CollaborationPanel: View {
     @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
-    @State var keyUsed = "earreret"
+    @State var keyUsed = "fail"
     @State var useSharedCalendar = false
     @State var shareYourCalendar = false
     @State var errorMessage = ""
@@ -23,35 +23,41 @@ struct CollaborationPanel: View {
             
             /*------------------------ INTRO ------------------------*/
             
-            Text(NSLocalizedString("Partagez votre code avec votre famille ou entrez celui d'un autre membre pour travailler sur le même planning (seul la personne qui partage son code doit avoir un compte payant)", comment: "options_calendar_title"))
+            Text(NSLocalizedString("collaboration.description", comment: "collaboration.description"))
                 .headLine()
             
             /*------------------------ REJOINDRE ------------------------*/
             
-            Text(NSLocalizedString("Rejoindre un espace", comment: "options_calendar_title"))
+            Text(NSLocalizedString("collaboration.useSharedPlanning.title", comment: "collaboration.useSharedPlanning.title"))
                 .title()
             
             if shareYourCalendar {
-                Text(NSLocalizedString("Vous ne pouvez pas rejoindre un espace alors que vous partagez le votre", comment: "options_calendar_title"))
+                Text(NSLocalizedString("collaboration.useSharedPlanning.error", comment: "collaboration.useSharedPlanning.error"))
                     .headLine()
             } else {
                 
-                Text(NSLocalizedString("Entrez le code d'un membre de votre famille (n'oubliez pas d'également activer le switch)", comment: "options_calendar_title"))
+                Text(NSLocalizedString("collaboration.useSharedPlanning.codeDescription", comment: "collaboration.useSharedPlanning.codeDescription"))
                     .headLine()
                 
                 HStack {
-                    TextField("", text: $keyUsed)
-                        .roundedCornerRectangle(cornerRadius: 5)
+                    if #available(iOS 16.0, *) {
+                        TextField("", text: $keyUsed, axis: .vertical)
+                            .roundedCornerRectangle(cornerRadius: 5)
+                    } else {
+                        TextField("", text: $keyUsed)
+                            .roundedCornerRectangle(cornerRadius: 5)
+                    }
+                    
                     
                     Button(action: {
                         keyUsed = UIPasteboard.general.string ?? ""
                     }, label: {
-                        ButtonLabel(title: "Paste", isCompact: true)
+                        ButtonLabel(title: "paste", isCompact: true)
                     })
                 }
                 
                 HStack {
-                    Text("Utiliser le calendrier lié au code ci-dessus")
+                    Text("collaboration.useSharedPlanning.toggle")
                         .headLine()
                     Spacer()
                     Toggle("", isOn: $useSharedCalendar.animation())
@@ -61,23 +67,23 @@ struct CollaborationPanel: View {
             
             /*------------------------ PARTAGER ------------------------*/
             
-            Text(NSLocalizedString("Partagez votre espace", comment: "options_calendar_title"))
+            Text(NSLocalizedString("collaboration.shareYourPlanning.title", comment: "collaboration.shareYourPlanning.title"))
                 .title()
             
             if configurePanelVM.isPremium {
                 if useSharedCalendar {
-                    Text(NSLocalizedString("Supprimez le code de votre famille pour créer votre propre espace", comment: "options_calendar_title"))
+                    Text(NSLocalizedString("collaboration.shareYourPlanning.error", comment: "collaboration.shareYourPlanning.error"))
                         .headLine()
                 } else {
                     HStack {
-                        Text("Partagez votre calendrier")
+                        Text(NSLocalizedString("collaboration.shareYourPlanning.toggle", comment: "collaboration.shareYourPlanning.toggle"))
                             .headLine()
                         Spacer()
                         Toggle("", isOn: $shareYourCalendar.animation())
                             .labelsHidden()
                     }
                     
-                    Text(NSLocalizedString("Partagez ce code avec votre famille.", comment: "options_calendar_title"))
+                    Text(NSLocalizedString("collaboration.shareYourPlanning.codeDescription", comment: "collaboration.shareYourPlanning.codeDescription"))
                         .headLine()
                     
                     HStack {
@@ -91,12 +97,20 @@ struct CollaborationPanel: View {
                             UIPasteboard.general.setValue(userUUID,
                                         forPasteboardType: UTType.plainText.identifier)
                         }, label: {
-                            ButtonLabel(title: "Copy", isCompact: true)
+                            ButtonLabel(title: "copy", isCompact: true)
                         })
                     }
                 }
             } else {
-                SubscribePanel()
+                if configurePanelVM.paymentProcessing {
+                    ZStack {
+                        Text(NSLocalizedString("collaboration.premium.processing", comment: "collaboration.premium.processing"))
+                            .headLine()
+                            .frame(maxWidth: .infinity)
+                    }.frame(height: 100)
+                } else {
+                    SubscribePanel()
+                }
             }
             Spacer()
         }.safeAreaScrollableSheetVStackWithStickyButton(button: AnyView(
@@ -127,19 +141,19 @@ struct CollaborationPanel: View {
                 shareYourCalendar = false
             }
         }
-        .navigationTitle(NSLocalizedString("Collaboration", comment: "options_calendar_title"))
+        .navigationTitle(NSLocalizedString("collaboration.title", comment: "collaboration.title"))
     }
     
     func applyChanges() {
-        errorMessage = NSLocalizedString("Veuillez patienter ...", comment: "options_calendar_title")
+        errorMessage = NSLocalizedString("collaboration.errorMessage.progress", comment: "collaboration.errorMessage.progress")
         
         if keyUsed.count > 0 && useSharedCalendar {
             configurePanelVM.cloudKitController.isKeyValid(keyUsed, completion: { keyValid in
                 if keyValid {
                     savePreferences()
-                    errorMessage = NSLocalizedString("Fuck", comment: "options_calendar_title")
+                    errorMessage = NSLocalizedString("Fuck UNTRANSLATED", comment: "options_calendar_title")
                 } else {
-                    errorMessage = NSLocalizedString("Clé non valide", comment: "options_calendar_title")
+                    errorMessage = NSLocalizedString("collaboration.errorMessage.invalidKey", comment: "collaboration.errorMessage.invalidKey")
                 }
             })
         } else if shareYourCalendar {
@@ -148,7 +162,7 @@ struct CollaborationPanel: View {
                     savePreferences()
                     configurePanelVM.planningPanelVM!.saveWeek()
                 } else {
-                    errorMessage = "Error, try again"
+                    errorMessage = NSLocalizedString("collaboration.errorMessage.tryAgain", comment: "collaboration.errorMessage.tryAgain")
                 }
             })
         } else {
@@ -165,7 +179,7 @@ struct CollaborationPanel: View {
         @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
         var body: some View {
             VStack(spacing: 20) {
-                Text(NSLocalizedString("Seul les utilisateurs payant peuvent partager leur espace (les membres de votre famille avec qui vous partagez votre code n'ont pas besoin de payer)", comment: "options_calendar_title"))
+                Text(NSLocalizedString("collaboration.premium.description", comment: "collaboration.premium.description"))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
                     .headLine()
@@ -173,7 +187,7 @@ struct CollaborationPanel: View {
                 
                 HStack {
                     VStack {
-                        Text(NSLocalizedString("Subscribe", comment: "options_calendar_title"))
+                        Text(NSLocalizedString("collaboration.premium.subscribe.description", comment: "collaboration.premium.subscribe.description"))
                             .foregroundColor(.white)
                             .fontWeight(.bold)
                             .headLine()
@@ -186,14 +200,14 @@ struct CollaborationPanel: View {
                     }
                     Spacer()
                     VStack {
-                        Text(NSLocalizedString("Already premium ?", comment: "options_calendar_title"))
+                        Text(NSLocalizedString("collaboration.premium.restore.description", comment: "collaboration.premium.restore.description"))
                             .foregroundColor(.white)
                             .fontWeight(.bold)
                             .headLine()
                         Button(action: {
                             configurePanelVM.isPremium = true
                         }, label: {
-                            ButtonLabel(title: "Restore", style: .secondary)
+                            ButtonLabel(title: "collaboration.premium.restore.title", style: .secondary)
                         })
                     }
                 }

@@ -99,10 +99,15 @@ class PlanningPanelViewModel: ObservableObject {
     }
     
     func updateData() {
+        // SHOULD UMDATE LOCAL TOO ?
+        // IF TRUE STIL IN CALENDAR
+        if !cloudKitController.isSavingToCloud() {
+            return
+        }
         cloudKitController.thisWeekIniCompleted = false
         cloudKitController.nextWeekIniCompleted = false
         
-        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, completion: { thisWeekPlan in
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, localPlanning: thisWeek, completion: { thisWeekPlan in
             DispatchQueue.main.async {
                 if let thisWeekPlan = thisWeekPlan {
                     self.thisWeek = thisWeekPlan
@@ -124,7 +129,7 @@ class PlanningPanelViewModel: ObservableObject {
             }
         })
         
-        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, completion: { nextWeekPlan in
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, localPlanning: nextWeek, completion: { nextWeekPlan in
             DispatchQueue.main.async {
                 if let nextWeekPlan = nextWeekPlan {
                     self.nextWeek = nextWeekPlan

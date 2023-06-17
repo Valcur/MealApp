@@ -40,7 +40,7 @@
 "leftover" = "Leftover";
 "done" = "Done";
 
-"mealList_title" = "Edit your meals";
+"mealList_title" = "Your meals";
 "mealList_new_title" = "New meal";
 "mealList_new_subtitle" = "Enter the info for your new meal";
 "mealList_edit_title" = "Edit meal";
@@ -122,3 +122,35 @@
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
 "whatsNew_rateUs_noThanks" = "No thanks";
+
+"collaboration.title" = "Collaboration";
+"collaboration.description" = "Work together on the same planning. Copy your unique code and send it to people you want to invite.
+
+Joining a shared planning is free, sharing your planning is for premium users only.
+
+When using collaboration, if you save your planning to a calendar, make sure this specific calendar is only used for this app or other events on it could be deleted.
+";
+
+"collaboration.useSharedPlanning.title" = "Join a shared planning";
+"collaboration.useSharedPlanning.codeDescription" = "Paste the code someone shared with you bellow to join his planning:";
+"collaboration.useSharedPlanning.toggle" = "Confirm using shared planning from this code";
+"collaboration.useSharedPlanning.error" = "You can't join a shared planning while sharing your own planning.";
+
+"collaboration.shareYourPlanning.title" = "Share your planning";
+"collaboration.shareYourPlanning.toggle" = "Share your planning with anyone who has your code";
+"collaboration.shareYourPlanning.codeDescription" = "Copy this code and share it to invite others to join your planning :";
+"collaboration.shareYourPlanning.error" = "You can't share a planning while working on someone else's planning.";
+
+"collaboration.premium.description" = "Only premium users can share their planning.";
+"collaboration.premium.subscribe.description" = "Subscribe";
+"collaboration.premium.restore.description" = "Already premium ?";
+"collaboration.premium.restore.title" = "Restore";
+"collaboration.premium.processing" = "Processing ...";
+
+"collaboration.errorMessage.progress" = "Please wait ...";
+"collaboration.errorMessage.invalidKey" = "Invalid code";
+"collaboration.errorMessage.tryAgain" = "Error, please try again";
+
+
+"copy" = "Copy";
+"paste" = "Paste";

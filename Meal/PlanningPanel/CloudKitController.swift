@@ -9,7 +9,10 @@ import Foundation
 import CloudKit
 import SwiftUI
 
+// MARCHE PAS SI LE MEC UTILISE PAS LE CLOUD, LOGO CLOUD TOUJOURS VISIBLE
+
 class CloudKitController: ObservableObject {
+    private let data = MealsDataController()
     private var database: CKDatabase
     private var container: CKContainer
     @Published var thisWeekIniCompleted = false
@@ -22,10 +25,6 @@ class CloudKitController: ObservableObject {
     @Published var sharedPlanningUUID: String = ""
     @Published var shareYourPlanning = false
     @Published var useSharedPlanning = false
-    
-    //private let isPremium: Bool = true
-    
-    // Recors deleted, ini not completed -> no save
     
     init() {
         self.container = CKContainer(identifier: "iCloud.BurningBeard.Meal.MealPlanning")
@@ -45,33 +44,52 @@ class CloudKitController: ObservableObject {
         useSharedPlanning = userDefaults.bool(forKey: CloudPreferenceKeys.useSharedPlanning.rawValue)
     }
     
-    func getWeekPlanningFromCloud(recordType: String, completion: @escaping (WeekPlan?) -> ()) {
-        self.setCloudSynsStatus(.inProgress)
+    func getWeekPlanningFromCloud(recordType: String, localPlanning: WeekPlan, completion: @escaping (WeekPlan?) -> ()) {
+        self.setCloudSyncStatus(.inProgress)
         let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
         let query = CKQuery(recordType: recordType, predicate: predicate)
         database.perform(query, inZoneWith: nil) { ckRecords, error in
             if let error = error {
                 print(error)
                 completion(nil)
-                self.setCloudSynsStatus(.error)
+                self.setCloudSyncStatus(.error)
                 return
             } else {
                 guard let records = ckRecords else {
                     completion(nil)
-                    self.setCloudSynsStatus(.error)
+                    self.setCloudSyncStatus(.error)
                     return
                 }
                 
                 guard let record = records.first else {
                     completion(nil)
-                    self.setCloudSynsStatus(.error)
+                    self.setCloudSyncStatus(.error)
                     return
+                }
+                
+                let localModificationDate: Date? = self.data.getPlanningModificationDate(forWeek: recordType == RecordType.thisWeekPlan.rawValue ? .thisWeek : .nextWeek)
+                let cloudModificationDate: Date? = record.modificationDate
+                if let cloudModificationDate = cloudModificationDate, let localModificationDate = localModificationDate {
+                    if localModificationDate > cloudModificationDate {
+                        completion(localPlanning)
+                        self.setCloudSyncStatus(.completed)
+                        print("Local is more recent than cloud, using local for \(recordType)")
+                        return
+                    } else {
+                        print("Cloud is more recent than local, using cloud for \(recordType)")
+                    }
+                } else {
+                    if cloudModificationDate == nil {
+                        print("Error : cloud modification date is nil for \(recordType)")
+                    } else if localModificationDate == nil {
+                        print("Error : local modification date is nil for \(recordType)")
+                    }
                 }
                 
                 guard let weekPlanString = record.value(forKey: "weekPlan") as? String else { return }
                 let weekPlan = self.weekPlanStringToWeekPlan(weekPlanString, whichWeek: recordType == RecordType.thisWeekPlan.rawValue ? .thisWeek : .nextWeek)
                 completion(weekPlan)
-                self.setCloudSynsStatus(.completed)
+                self.setCloudSyncStatus(.completed)
             }
         }
     }
@@ -145,7 +163,7 @@ class CloudKitController: ObservableObject {
     }
     
     private func saveWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
-        self.setCloudSynsStatus(.inProgress)
+        self.setCloudSyncStatus(.inProgress)
         var text = "\(recordType)\n\n"
         for dayPlan in plan.week {
             text += "\(dayPlan.day)\n"
@@ -188,15 +206,15 @@ class CloudKitController: ObservableObject {
         database.perform(query, inZoneWith: nil) { ckRecords, error in
             if let error = error {
                 print(error)
-                self.setCloudSynsStatus(.error)
+                self.setCloudSyncStatus(.error)
             } else {
                 guard let records = ckRecords else {
-                    self.setCloudSynsStatus(.error)
+                    self.setCloudSyncStatus(.error)
                     return
                 }
                 
                 guard let record = records.first else {
-                    self.setCloudSynsStatus(.error)
+                    self.setCloudSyncStatus(.error)
                     return
                 }
                 
@@ -205,13 +223,13 @@ class CloudKitController: ObservableObject {
                 self.database.save(record) { _, error in
                     if let error = error {
                         print(error)
-                        self.setCloudSynsStatus(.error)
+                        self.setCloudSyncStatus(.error)
                         self.weekSavingProgress = -1
                     } else {
                         print("Week updated successfully")
                         self.weekSavingProgress += 1
                         if self.weekSavingProgress == 2 {
-                            self.setCloudSynsStatus(.completed)
+                            self.setCloudSyncStatus(.completed)
                         }
                     }
                 }
@@ -223,7 +241,7 @@ class CloudKitController: ObservableObject {
         return thisWeekIniCompleted && nextWeekIniCompleted
     }
     
-    private func setCloudSynsStatus(_ status: CloudSyncStatus) {
+    private func setCloudSyncStatus(_ status: CloudSyncStatus) {
         DispatchQueue.main.async {
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.cloudSyncStatus = status
@@ -347,14 +365,14 @@ extension CloudKitController {
             self.useSharedPlanning = useShared
             self.sharedPlanningUUID = sharedKey
             self.shareYourPlanning = isSharing
+            
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(sharedKey, forKey: CloudPreferenceKeys.sharedUUID.rawValue)
+            userDefaults.set(isSharing, forKey: CloudPreferenceKeys.shareYourPlanning.rawValue)
+            userDefaults.set(useShared, forKey: CloudPreferenceKeys.useSharedPlanning.rawValue)
+            
+            self.updateSharedWeekPlanId()
         }
-        
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(sharedKey, forKey: CloudPreferenceKeys.sharedUUID.rawValue)
-        userDefaults.set(isSharing, forKey: CloudPreferenceKeys.shareYourPlanning.rawValue)
-        userDefaults.set(useShared, forKey: CloudPreferenceKeys.useSharedPlanning.rawValue)
-        
-        updateSharedWeekPlanId()
     }
     
     private func updateSharedWeekPlanId() {
@@ -364,6 +382,7 @@ extension CloudKitController {
             sharedWeekPlanId = userUUID
         } else {
             sharedWeekPlanId = ""
+            self.cloudSyncStatus = .completed
         }
     }
     

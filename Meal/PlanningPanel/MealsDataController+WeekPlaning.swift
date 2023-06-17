@@ -17,6 +17,8 @@ extension MealsDataController {
                 userDefaults.set(data, forKey: "\(weekKey)_\(DAYPLAN_KEY)_\(day.day.rawValue)")
             }
         }
+        
+        savePlanningModificationDate(forWeek: forWeek)
     }
     
     func loadWeek(forWeek: WichWeekIsIt) -> WeekPlan {
@@ -47,5 +49,35 @@ extension MealsDataController {
         }
         
         return nil
+    }
+    
+    private func savePlanningModificationDate(forWeek: WichWeekIsIt) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss' 'Z'"
+        var currentDate = dateFormatter.string(from: Date())
+        
+        if forWeek == .thisWeek {
+            userDefaults.set(currentDate, forKey: THIS_WEEK_LAST_MODIFY_KEY)
+        } else {
+            userDefaults.set(currentDate, forKey: NEXT_WEEK_LAST_MODIFY_KEY)
+        }
+    }
+    
+    func getPlanningModificationDate(forWeek: WichWeekIsIt) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss' 'Z'"
+        
+        var dateString = ""
+        if forWeek == .thisWeek {
+            dateString = userDefaults.string(forKey: THIS_WEEK_LAST_MODIFY_KEY) ?? ""
+        } else {
+            dateString = userDefaults.string(forKey: NEXT_WEEK_LAST_MODIFY_KEY) ?? ""
+        }
+        
+        if dateString == "" {
+            return nil
+        }
+        
+        return dateFormatter.date(from: dateString) ?? nil
     }
 }

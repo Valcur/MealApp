@@ -51,7 +51,7 @@
 "leftover" = "Restes";
 "done" = "Valider";
 
-"mealList_title" = "Modifer votre liste de plats";
+"mealList_title" = "Vos plats";
 "mealList_new_title" = "Nouveau plat";
 "mealList_new_subtitle" = "Entrez les informations pour votre nouveau plat";
 "mealList_edit_title" = "Modifier le plat";
@@ -133,3 +133,36 @@
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
 "whatsNew_rateUs_noThanks" = "Non merci";
+
+"collaboration.title" = "Collaboration";
+"collaboration.description" = "Collaborer à plusieurs sur le même menu. Copiez votre code et envoyez le aux gens avec qui vous souhaitez collaborer.
+
+Rejoindre un menu partagé est gratuit, partager votre menu est réservé aux utilisateurs premium.
+
+Lorsque vous collaborez, si vous sauvegardé votre menu sur un calendrier, assurez vous que le calendrier en question n'est utilisé que pour cette application ou certains évènements risqueraient d'être supprimé.
+";
+
+"collaboration.useSharedPlanning.title" = "Rejoindre un menu partagé";
+"collaboration.useSharedPlanning.codeDescription" = "Collez le code qu'on vous a partagé ci-dessous :";
+"collaboration.useSharedPlanning.toggle" = "Confirmer vouloir rejoindre le menu lié au code ci-dessus.";
+"collaboration.useSharedPlanning.error" = "Vous ne pouvez pas collaborer sur le menu de quelq'un d'autre tant que vous partagez votre menu.";
+
+"collaboration.shareYourPlanning.title" = "Partager votre menu";
+"collaboration.shareYourPlanning.toggle" = "Partager votre menu avec quiconque a votre code";
+"collaboration.shareYourPlanning.codeDescription" = "Copiez ce code et envoyé le aux gens avec qui vous souhaitez collaborer :";
+"collaboration.shareYourPlanning.error" = "Vous ne pouvez pas partager votre menu alors que vous collaborez déjà sur le menu de quelqu'un d'autre;";
+
+"collaboration.premium.description" = "Seul les utilisateurs premium peuvent partager leur menu.";
+"collaboration.premium.subscribe.description" = "Abonnez vous";
+"collaboration.premium.restore.description" = "Déjà premium ?";
+"collaboration.premium.restore.title" = "Restorer";
+"collaboration.premium.processing" = "Opération en cours ...";
+
+"collaboration.errorMessage.progress" = "Veuillez patienter ...";
+"collaboration.errorMessage.invalidKey" = "Code non valide";
+"collaboration.errorMessage.tryAgain" = "Erreur, veuillez réessayer";
+
+
+"copy" = "Copier";
+"paste" = "Coller";
+"tryAgain" = "XXXXX";

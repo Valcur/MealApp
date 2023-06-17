@@ -49,6 +49,8 @@
 		DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */; };
 		DBA7B1FA29C3264900B04E38 /* NotesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7B1F929C3264900B04E38 /* NotesSheet.swift */; };
 		DBA7B1FC29C9D98000B04E38 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7B1FB29C9D98000B04E38 /* WhatsNew.swift */; };
+		DBB9C5D72A3DB6050087BA99 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9C5D62A3DB6050087BA99 /* IAPManager.swift */; };
+		DBB9C5D92A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9C5D82A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift */; };
 		DBDB328E29D0588600248B12 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDB329029D0588600248B12 /* InfoPlist.strings */; };
 		DBDB329429D070F900248B12 /* WhatsNewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDB329329D070F900248B12 /* WhatsNewPanel.swift */; };
 		DBEAFBD92A35C89C0048797C /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEAFBD82A35C89C0048797C /* CloudKitController.swift */; };
@@ -119,6 +121,8 @@
 		DBA39EEE294C9F9D00AC97E2 /* MealScheduleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealScheduleSheet.swift; sourceTree = "<group>"; };
 		DBA7B1F929C3264900B04E38 /* NotesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesSheet.swift; sourceTree = "<group>"; };
 		DBA7B1FB29C9D98000B04E38 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNew.swift; sourceTree = "<group>"; };
+		DBB9C5D62A3DB6050087BA99 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		DBB9C5D82A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfigurePanelVM+IAP.swift"; sourceTree = "<group>"; };
 		DBDB329129D0588E00248B12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBDB329229D0589E00248B12 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBDB329329D070F900248B12 /* WhatsNewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPanel.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				DB9B879E293F4F9F00F2344B /* MealApp.swift */,
 				DB7708AF296C57D000BF5604 /* Assets.xcassets */,
 				DBA7B1FB29C9D98000B04E38 /* WhatsNew.swift */,
+				DBB9C5D62A3DB6050087BA99 /* IAPManager.swift */,
 			);
 			path = Meal;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				DB9D9956295092B40051BD63 /* MealsDataController+Schedule.swift */,
 				DB9D9964295387B40051BD63 /* MealsDataController+Calendar.swift */,
 				DB9D995A2951C5B30051BD63 /* CalendarController.swift */,
+				DBB9C5D82A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift */,
 				DB9D995129506D750051BD63 /* Views */,
 			);
 			path = ConfigurePanel;
@@ -464,6 +470,7 @@
 				DBA7B1FC29C9D98000B04E38 /* WhatsNew.swift in Sources */,
 				DB9D995529506F9B0051BD63 /* MealPicker.swift in Sources */,
 				DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */,
+				DBB9C5D92A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift in Sources */,
 				DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */,
 				DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */,
 				DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */,
@@ -473,6 +480,7 @@
 				DB9B87F22945044300F2344B /* MealListPanel.swift in Sources */,
 				DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */,
 				DBDB329429D070F900248B12 /* WhatsNewPanel.swift in Sources */,
+				DBB9C5D72A3DB6050087BA99 /* IAPManager.swift in Sources */,
 				DBEAFBDB2A3786D30048797C /* CollaborationPanel.swift in Sources */,
 				DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */,
 				DB9D994E294F8EA10051BD63 /* AutoFillSheet.swift in Sources */,
