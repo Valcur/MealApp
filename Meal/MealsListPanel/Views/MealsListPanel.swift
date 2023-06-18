@@ -23,9 +23,9 @@ struct MealsListPanel: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 10) {
-                Text(NSLocalizedString("mealList_title", comment: "mealList_title"))
+                /*Text(NSLocalizedString("mealList_title", comment: "mealList_title"))
                     .largeTitle(style: .secondary, numberOfLine: 1)
-                
+                */
                 MealTypeSelectionRow(selectedMealType: $selectedMealType)
                 
                 HStack {

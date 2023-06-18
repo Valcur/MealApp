@@ -10,9 +10,9 @@
 "Vegan" = "Vegan";
 "Outside" = "Outside";
 
-"mealList_meat_intro" = "Meat";
-"mealList_vegan_intro" = "Vegan";
-"mealList_outside_intro" = "Outside";
+"mealList_meat_intro" = "Your non vegan dishes";
+"mealList_vegan_intro" = "Your vegan dishes";
+"mealList_outside_intro" = "To order when you don't want to cook";
 
 "this_week" = "This week";
 "next_week" = "Next week";
@@ -21,7 +21,7 @@
 "tab_meals" = "My meals";
 "tab_options" = "Configure";
 
-"autofill" = "AutoFill";
+"autofill" = "Auto";
 "autofill_intro" = "Fill each empty lunch with a random meal depending on what options you selected";
 "autofill_meat-vegan_title" = "Share between meat/vegan meal this week";
 "autofill_outside_title" = "Number of meal outside this week";

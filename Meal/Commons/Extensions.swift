@@ -73,7 +73,7 @@ extension Text {
             .foregroundColor(style == .primary ? .accentColor: Color("TextColor"))
             .frame(minHeight: CGFloat(30 * numberOfLine))
             .scaledToFit()
-            .minimumScaleFactor(0.5)
+            .minimumScaleFactor(0.4)
     }
     
     func title(style: UIStyle = .primary) -> some View {
@@ -200,7 +200,7 @@ struct ButtonLabel: View {
             Text(NSLocalizedString(title, comment: title))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-                .frame(minWidth: 100)
+                .frame(minWidth: isCompact && UIDevice.current.userInterfaceIdiom == .phone ? 60 : 100)
                 .roundedCornerRectangle(color: style == .primary ? .accentColor : .black)
             if !isCompact {
                 Spacer()

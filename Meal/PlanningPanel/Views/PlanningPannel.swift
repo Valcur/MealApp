@@ -16,19 +16,39 @@ struct PlanningPannel: View {
         ZStack(alignment: .top) {
             VStack(spacing: 20) {
                 HStack {
-                    Button(action: {
-                        planningPanelVM.switchToThisWeek()
-                    }, label: {
-                        Text(WichWeekIsIt.thisWeek.name())
-                            .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary)
-                    })
-                    Spacer()
-                    Button(action: {
-                        planningPanelVM.switchToNextWeek()
-                    }, label: {
-                        Text(WichWeekIsIt.nextWeek.name())
-                            .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary)
-                    })
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        VStack(spacing: 0) {
+                            Button(action: {
+                                planningPanelVM.switchToThisWeek()
+                            }, label: {
+                                Text(WichWeekIsIt.thisWeek.name())
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary, numberOfLine: 1)
+                            })
+                            Button(action: {
+                                planningPanelVM.switchToNextWeek()
+                            }, label: {
+                                Text(WichWeekIsIt.nextWeek.name())
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary, numberOfLine: 1)
+                            })
+                        }
+                    } else {
+                        HStack {
+                            Button(action: {
+                                planningPanelVM.switchToThisWeek()
+                            }, label: {
+                                Text(WichWeekIsIt.thisWeek.name())
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary)
+                            })
+                            Spacer()
+                            Button(action: {
+                                planningPanelVM.switchToNextWeek()
+                            }, label: {
+                                Text(WichWeekIsIt.nextWeek.name())
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary)
+                            })
+                        }
+                    }
+                    
                     Spacer()
                     Spacer()
                     

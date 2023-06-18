@@ -32,7 +32,7 @@
 "tab_meals" = "Mes plats";
 "tab_options" = "Options";
 
-"autofill" = "AutoFill";
+"autofill" = "Auto";
 "autofill_intro" = "Remplis la semaine avec vos plats, choisis aléatoirement";
 "autofill_meat-vegan_title" = "Choisissez le pourcentage de plat carné que vous souhaitez cette semaine (le reste sera vegan)";
 "autofill_outside_title" = "Choisissez le nombre de repas où vous souhaitez commander des plats déjà préparé cette semaine";
