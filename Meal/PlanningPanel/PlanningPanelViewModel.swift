@@ -45,8 +45,6 @@ class PlanningPanelViewModel: ObservableObject {
             saveWeek()
         }
         
-        updateWeekDatesIfNeeded()
-        
         // Load from cloud and update when data is retrieved
         updateData()
     }
@@ -66,10 +64,10 @@ class PlanningPanelViewModel: ObservableObject {
             nextWeek = WeekPlan(.nextWeek)
             configureVM.applyAllSchedulesTo(nextWeek)
             
-            switchToNextWeek()
-            saveWeek()
+            saveBothWeeks()
             switchToThisWeek()
-            saveWeek()
+            thisWeek.objectWillChange.send()
+            nextWeek.objectWillChange.send()
             return true
         }
         // Si la semaine actuelle correpsond a aucune des 2 semaines, on récréé 2 nouvelles semaines
@@ -80,10 +78,10 @@ class PlanningPanelViewModel: ObservableObject {
             configureVM.applyAllSchedulesTo(thisWeek)
             configureVM.applyAllSchedulesTo(nextWeek)
             
-            switchToNextWeek()
-            saveWeek()
+            saveBothWeeks()
             switchToThisWeek()
-            saveWeek()
+            thisWeek.objectWillChange.send()
+            nextWeek.objectWillChange.send()
             return true
         }
         return false
@@ -93,21 +91,35 @@ class PlanningPanelViewModel: ObservableObject {
         data.saveWeek(weekPlan: weekPlan, forWeek: selectedWeek)
         configureVM.calendarController.addWeeksToCalendar(thisWeek: thisWeek, nextWeek: nextWeek)
         
-        if cloudKitController.isSavingToCloud() && cloudKitController.cloudSyncStatus != .inProgress {
+        if cloudKitController.isSavingToCloud() {
+            //cloudKitController.saveWeeksPlanningToCloud(thisWeek: thisWeek, nexWeek: nextWeek)
+            cloudKitController.saveWeekPlanningToCloud(recordType: selectedWeek == .thisWeek ? RecordType.thisWeekPlan.rawValue : RecordType.nextWeekPlan.rawValue, plan: weekPlan)
+        }
+    }
+    
+    func saveBothWeeks() {
+        data.saveWeek(weekPlan: weekPlan, forWeek: .thisWeek)
+        data.saveWeek(weekPlan: weekPlan, forWeek: .nextWeek)
+        
+        configureVM.calendarController.addWeeksToCalendar(thisWeek: thisWeek, nextWeek: nextWeek)
+        
+        if cloudKitController.isSavingToCloud() {
             cloudKitController.saveWeeksPlanningToCloud(thisWeek: thisWeek, nexWeek: nextWeek)
         }
     }
     
-    func updateData() {
-        // SHOULD UMDATE LOCAL TOO ?
+    func updateData(forceUpdate: Bool = false) {
+        // SHOULD UMDATE LOCAL TOO (le updateweekdatesifneeded) ?
         // IF TRUE STIL IN CALENDAR
         if !cloudKitController.isSavingToCloud() {
+            updateWeekDatesIfNeeded()
+            print("User not saving to cloud")
             return
         }
         cloudKitController.thisWeekIniCompleted = false
         cloudKitController.nextWeekIniCompleted = false
         
-        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, localPlanning: thisWeek, completion: { thisWeekPlan in
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, localPlanning: thisWeek, forceUpdate: forceUpdate, completion: { thisWeekPlan in
             DispatchQueue.main.async {
                 if let thisWeekPlan = thisWeekPlan {
                     self.thisWeek = thisWeekPlan
@@ -129,7 +141,7 @@ class PlanningPanelViewModel: ObservableObject {
             }
         })
         
-        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, localPlanning: nextWeek, completion: { nextWeekPlan in
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, localPlanning: nextWeek, forceUpdate: forceUpdate, completion: { nextWeekPlan in
             DispatchQueue.main.async {
                 if let nextWeekPlan = nextWeekPlan {
                     self.nextWeek = nextWeekPlan

@@ -9,6 +9,8 @@ import Foundation
 import EventKit
 import Contacts
 
+// G PERDU MA SAVE QUAND J'AI ACTIVE LE CLOUD
+
 class CalendarController {
     private let data = MealsDataController()
     let eventStore: EKEventStore = EKEventStore()
@@ -160,6 +162,6 @@ class CalendarController {
         } catch let error as NSError {
             print("failed to save event with error : \(error)")
         }
-        print("Added \(meal.name) event")
+        //print("Added \(meal.name) event")
     }
 }

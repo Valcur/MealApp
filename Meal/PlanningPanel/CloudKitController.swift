@@ -9,7 +9,8 @@ import Foundation
 import CloudKit
 import SwiftUI
 
-// MARCHE PAS SI LE MEC UTILISE PAS LE CLOUD, LOGO CLOUD TOUJOURS VISIBLE
+// FAILED CRAETING KEY WITHOUT TEILLING ME ?
+// TROP DE SAVE NEXT WEEK ????
 
 class CloudKitController: ObservableObject {
     private let data = MealsDataController()
@@ -44,7 +45,7 @@ class CloudKitController: ObservableObject {
         useSharedPlanning = userDefaults.bool(forKey: CloudPreferenceKeys.useSharedPlanning.rawValue)
     }
     
-    func getWeekPlanningFromCloud(recordType: String, localPlanning: WeekPlan, completion: @escaping (WeekPlan?) -> ()) {
+    func getWeekPlanningFromCloud(recordType: String, localPlanning: WeekPlan, forceUpdate: Bool, completion: @escaping (WeekPlan?) -> ()) {
         self.setCloudSyncStatus(.inProgress)
         let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
         let query = CKQuery(recordType: recordType, predicate: predicate)
@@ -67,22 +68,24 @@ class CloudKitController: ObservableObject {
                     return
                 }
                 
-                let localModificationDate: Date? = self.data.getPlanningModificationDate(forWeek: recordType == RecordType.thisWeekPlan.rawValue ? .thisWeek : .nextWeek)
-                let cloudModificationDate: Date? = record.modificationDate
-                if let cloudModificationDate = cloudModificationDate, let localModificationDate = localModificationDate {
-                    if localModificationDate > cloudModificationDate {
-                        completion(localPlanning)
-                        self.setCloudSyncStatus(.completed)
-                        print("Local is more recent than cloud, using local for \(recordType)")
-                        return
+                if !forceUpdate {
+                    let localModificationDate: Date? = self.data.getPlanningModificationDate(forWeek: recordType == RecordType.thisWeekPlan.rawValue ? .thisWeek : .nextWeek)
+                    let cloudModificationDate: Date? = record.modificationDate
+                    if let cloudModificationDate = cloudModificationDate, let localModificationDate = localModificationDate {
+                        if localModificationDate > cloudModificationDate {
+                            completion(localPlanning)
+                            self.setCloudSyncStatus(.completed)
+                            print("Local is more recent than cloud, using local for \(recordType)")
+                            return
+                        } else {
+                            print("Cloud is more recent than local, using cloud for \(recordType)")
+                        }
                     } else {
-                        print("Cloud is more recent than local, using cloud for \(recordType)")
-                    }
-                } else {
-                    if cloudModificationDate == nil {
-                        print("Error : cloud modification date is nil for \(recordType)")
-                    } else if localModificationDate == nil {
-                        print("Error : local modification date is nil for \(recordType)")
+                        if cloudModificationDate == nil {
+                            print("Error : cloud modification date is nil for \(recordType)")
+                        } else if localModificationDate == nil {
+                            print("Error : local modification date is nil for \(recordType)")
+                        }
                     }
                 }
                 
@@ -102,7 +105,7 @@ class CloudKitController: ObservableObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss' 'Z'"
         var currentDate: Date = Date()
-        
+
         var i = 2
         while i < lines.count {
             if lines[i] == "monday" {
@@ -119,16 +122,16 @@ class CloudKitController: ObservableObject {
                 currentWeekDay = .saturday
             } else if lines[i] == "sunday" {
                 currentWeekDay = .sunday
-            } else if lines[i] == "##DATE##" {
+            } else if lines[i] == CloudTextSavingLabels.date.rawValue {
                 let dateStr = String(lines[i + 1])
                 currentDate = dateFormatter.date(from: dateStr) ?? Date()
                 i += 1
                 weekPlan.week[currentWeekDay.rawValue] = DayPlan(day: currentWeekDay, date: currentDate, midday: [], evening: [])
-            } else if lines[i] == "##MIDDAY##" {
+            } else if lines[i] == CloudTextSavingLabels.midday.rawValue {
                 currentTimeOfTheDay = .midday
-            } else if lines[i] == "##EVENING##" {
+            } else if lines[i] == CloudTextSavingLabels.evening.rawValue {
                 currentTimeOfTheDay = .evening
-            } else if lines[i] == "##MEAL##" {
+            } else if lines[i] == CloudTextSavingLabels.meal.rawValue {
                 let id = Int(lines[i + 1]) ?? 0
                 let name = String(lines[i + 2])
                 let type = Int(lines[i + 3])
@@ -139,40 +142,57 @@ class CloudKitController: ObservableObject {
                         sides.append(Side(key: sidesKey))
                     }
                 }
-                let notes = String(lines[i + 5])
+                
+                i += 5
+                var notes = ""
+                
+                while i < lines.count && lines[i] != CloudTextSavingLabels.endNotes.rawValue {
+                    notes += lines[i] + "\n"
+                    i += 1
+                }
+                /*
+                let notesArray = notes.split(whereSeparator: "a".first!)
+                print(notesArray)
+                */
                 let meal = Meal(id: id,
                                 name: name,
                                 type: type == 1 ? .meat : (type == 2 ? .vegan : .outside),
                                 sides: sides,
-                                notes: notes == " " ? nil : notes
+                                notes: notes == "" ? nil : "\(notes.dropFirst(2).dropLast(2))"
                 )
-                i += 5
+                // A VOIR SI CA GARDE BIEN TOUT
+
                 weekPlan.append(meal, day: currentWeekDay, time: currentTimeOfTheDay)
             }
             
             i += 1
         }
-        
+        // Recois bien les jours mais arrive pas a les ajouter
         return weekPlan
     }
     
     func saveWeeksPlanningToCloud(thisWeek: WeekPlan, nexWeek: WeekPlan) {
         weekSavingProgress = 0
-        saveWeekPlanningToCloud(recordType: RecordType.thisWeekPlan.rawValue, plan: thisWeek)
-        saveWeekPlanningToCloud(recordType: RecordType.nextWeekPlan.rawValue, plan: nexWeek)
+        savingWeekPlanningToCloud(recordType: RecordType.thisWeekPlan.rawValue, plan: thisWeek)
+        savingWeekPlanningToCloud(recordType: RecordType.nextWeekPlan.rawValue, plan: nexWeek)
     }
     
-    private func saveWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
+    func saveWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
+        weekSavingProgress = 1
+        savingWeekPlanningToCloud(recordType: recordType, plan: plan)
+    }
+    
+    private func savingWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
         self.setCloudSyncStatus(.inProgress)
         var text = "\(recordType)\n\n"
         for dayPlan in plan.week {
             text += "\(dayPlan.day)\n"
-            text += "##DATE##\n"
+            text += "\(CloudTextSavingLabels.date.rawValue)\n"
             text += "\(dayPlan.date)\n"
             
-            text += "##MIDDAY##\n"
+            text += "\(CloudTextSavingLabels.midday.rawValue)\n"
             for midday in dayPlan.midday {
-                text += "##MEAL##\n"
+                text += "\(CloudTextSavingLabels.meal.rawValue)\n"
                 text += "\(midday.id)\n"
                 text += "\(midday.name)\n"
                 text += "\(midday.type == .meat ? 1 : (midday.type == .vegan ? 2 : 3))\n"
@@ -181,13 +201,23 @@ class CloudKitController: ObservableObject {
                         text += "\(side.imageName)/"
                     }
                 }
+                let notes = midday.notes ?? ""
+                let notesArray = notes.replacingOccurrences(of: "\n", with: " \n").split(whereSeparator: \.isNewline)
                 text += " \n"
-                text += "\(midday.notes ?? " ")\n"
+                if notes != "" {
+                    text += "N:"
+                    for noteLine in notesArray {
+                        text += "\(noteLine)\n"
+                    }
+                } else {
+                    text += "N:\n"
+                }
+                text += "\(CloudTextSavingLabels.endNotes.rawValue)\n"
             }
             
-            text += "##EVENING##\n"
+            text += "\(CloudTextSavingLabels.evening.rawValue)\n"
             for evening in dayPlan.evening {
-                text += "##MEAL##\n"
+                text += "\(CloudTextSavingLabels.meal.rawValue)\n"
                 text += "\(evening.id)\n"
                 text += "\(evening.name)\n"
                 text += "\(evening.type == .meat ? 1 : (evening.type == .vegan ? 2 : 3))\n"
@@ -196,10 +226,22 @@ class CloudKitController: ObservableObject {
                         text += "\(side.imageName)/"
                     }
                 }
+                let notes = evening.notes ?? ""
+                let notesArray = notes.replacingOccurrences(of: "\n", with: " \n").split(whereSeparator: \.isNewline)
                 text += " \n"
-                text += "\(evening.notes ?? " ")\n"
+                if notes != "" {
+                    text += "N:"
+                    for noteLine in notesArray {
+                        text += "\(noteLine)\n"
+                    }
+                } else {
+                    text += "N:\n"
+                }
+                text += "\(CloudTextSavingLabels.endNotes.rawValue)\n"
             }
         }
+        
+        print("SAVING MY TEXT \(recordType)\n")
         
         let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
         let query = CKQuery(recordType: recordType, predicate: predicate)
@@ -220,6 +262,25 @@ class CloudKitController: ObservableObject {
                 
                 record["weekPlan"] = text
                 
+                let modifyRecords = CKModifyRecordsOperation(recordsToSave:[record], recordIDsToDelete: nil)
+                modifyRecords.savePolicy = .allKeys
+                modifyRecords.qualityOfService = QualityOfService.userInitiated
+                modifyRecords.modifyRecordsCompletionBlock = { savedRecords, deletedRecordIDs, error in
+                    if error == nil {
+                        print("Week updated successfully")
+                        self.weekSavingProgress += 1
+                        if self.weekSavingProgress == 2 {
+                            self.setCloudSyncStatus(.completed)
+                        }
+                    }else {
+                        print(error ?? "Error modifying record")
+                        self.setCloudSyncStatus(.error)
+                        self.weekSavingProgress = -1
+                    }
+                }
+                self.database.add(modifyRecords)
+                
+                /*
                 self.database.save(record) { _, error in
                     if let error = error {
                         print(error)
@@ -232,7 +293,7 @@ class CloudKitController: ObservableObject {
                             self.setCloudSyncStatus(.completed)
                         }
                     }
-                }
+                }*/
             }
         }
     }
@@ -395,6 +456,14 @@ extension CloudKitController {
         case sharedUUID = "SHARED_UUID"
         case useSharedPlanning = "IS_USING_SHARED_PLANNING"
         case shareYourPlanning = "IS_SHARING_PLANNING"
+    }
+    
+    enum CloudTextSavingLabels: String {
+        case date = "##_WEEK_PLAN_DATE_##"
+        case evening = "##_WEEK_PLAN_EVENING_##"
+        case midday = "##_WEEK_PLAN_MIDDAY_##"
+        case meal = "##_MEAL_DATA_##"
+        case endNotes = "##_END_NOTES_##"
     }
 }
 

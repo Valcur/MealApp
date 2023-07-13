@@ -17,7 +17,7 @@ struct PlanningPannel: View {
             VStack(spacing: 20) {
                 HStack {
                     if UIDevice.current.userInterfaceIdiom == .phone {
-                        VStack(spacing: 0) {
+                        VStack(alignment: .leading, spacing: 0) {
                             Button(action: {
                                 planningPanelVM.switchToThisWeek()
                             }, label: {
@@ -38,8 +38,7 @@ struct PlanningPannel: View {
                             }, label: {
                                 Text(WichWeekIsIt.thisWeek.name())
                                     .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary)
-                            })
-                            Spacer()
+                            }).padding(.trailing, 40)
                             Button(action: {
                                 planningPanelVM.switchToNextWeek()
                             }, label: {
@@ -50,7 +49,6 @@ struct PlanningPannel: View {
                     }
                     
                     Spacer()
-                    Spacer()
                     
                     ZStack {
                         ZStack {
@@ -60,7 +58,7 @@ struct PlanningPannel: View {
                             
                             Image(systemName: "arrow.clockwise")
                                 .font(.headline)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color(UIColor.systemBackground))
                         }.opacity(cloudKitController.cloudSyncStatus == .inProgress ? 1 : 0)
 
                         

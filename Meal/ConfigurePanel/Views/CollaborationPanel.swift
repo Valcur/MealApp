@@ -151,7 +151,10 @@ struct CollaborationPanel: View {
             configurePanelVM.cloudKitController.isKeyValid(keyUsed, completion: { keyValid in
                 if keyValid {
                     savePreferences()
-                    errorMessage = NSLocalizedString("Fuck UNTRANSLATED", comment: "options_calendar_title")
+                    errorMessage = NSLocalizedString("Key valid UNTRANSLATED", comment: "options_calendar_title")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        configurePanelVM.planningPanelVM!.updateData(forceUpdate: true)
+                    })
                 } else {
                     errorMessage = NSLocalizedString("collaboration.errorMessage.invalidKey", comment: "collaboration.errorMessage.invalidKey")
                 }
@@ -160,7 +163,9 @@ struct CollaborationPanel: View {
             configurePanelVM.cloudKitController.createWeekPlanningRecordIfNeeded(completion: { success in
                 if success {
                     savePreferences()
-                    configurePanelVM.planningPanelVM!.saveWeek()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                        configurePanelVM.planningPanelVM!.saveBothWeeks()
+                    })
                 } else {
                     errorMessage = NSLocalizedString("collaboration.errorMessage.tryAgain", comment: "collaboration.errorMessage.tryAgain")
                 }

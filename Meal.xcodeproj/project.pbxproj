@@ -679,11 +679,12 @@
 				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Meal Planner";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
 				INFOPLIST_KEY_NSContactsUsageDescription = "To choose on which calendar to add your menu";
@@ -697,7 +698,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -718,11 +719,12 @@
 				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Meal Planner";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
 				INFOPLIST_KEY_NSContactsUsageDescription = "To choose on which calendar to add your menu";
@@ -736,7 +738,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
