@@ -151,7 +151,7 @@ struct CollaborationPanel: View {
             configurePanelVM.cloudKitController.isKeyValid(keyUsed, completion: { keyValid in
                 if keyValid {
                     savePreferences()
-                    errorMessage = NSLocalizedString("Key valid UNTRANSLATED", comment: "options_calendar_title")
+                    errorMessage = ""
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                         configurePanelVM.planningPanelVM!.updateData(forceUpdate: true)
                     })
@@ -170,6 +170,8 @@ struct CollaborationPanel: View {
                     errorMessage = NSLocalizedString("collaboration.errorMessage.tryAgain", comment: "collaboration.errorMessage.tryAgain")
                 }
             })
+        } else if keyUsed.count == 0 && useSharedCalendar {
+            errorMessage = "collaboration.errorMessage.invalidKey".translate()
         } else {
             savePreferences()
         }
@@ -182,6 +184,8 @@ struct CollaborationPanel: View {
     
     struct SubscribePanel: View {
         @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
+        @State var showingBuyInfo = false
+        
         var body: some View {
             VStack(spacing: 20) {
                 Text(NSLocalizedString("collaboration.premium.description", comment: "collaboration.premium.description"))
@@ -198,9 +202,9 @@ struct CollaborationPanel: View {
                             .headLine()
      
                         Button(action: {
-                            configurePanelVM.isPremium = true
+                            showingBuyInfo = true
                         }, label: {
-                            ButtonLabel(title: "0.99$/month", style: .secondary)
+                            ButtonLabel(title: "\(IAPManager.shared.price() ?? "5.99")\("per_month".translate())", style: .secondary)
                         })
                     }
                     Spacer()
@@ -210,13 +214,44 @@ struct CollaborationPanel: View {
                             .fontWeight(.bold)
                             .headLine()
                         Button(action: {
-                            configurePanelVM.isPremium = true
+                            configurePanelVM.restore()
                         }, label: {
                             ButtonLabel(title: "collaboration.premium.restore.title", style: .secondary)
                         })
                     }
                 }
+
+                 HStack(spacing: 0) {
+                     Text("premium_viewOur".translate())
+                         .foregroundColor(.white)
+                     
+                     Link("premium_policy".translate(),
+                           destination: URL(string: "http://www.burning-beard.com/privacy-policy")!).foregroundColor(.blue)
+                     
+                     Text(", ")
+                         .foregroundColor(.white)
+                     
+                     Link("EULA",
+                           destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!).foregroundColor(.blue)
+                 }
+
             }.roundedCornerRectangle(color: Color.accentColor)
+                .alert(isPresented: $showingBuyInfo) {
+                    Alert(
+                        title: Text("premium_info_title".translate()),
+                        message: Text("premium_info_content".translate()),
+                        primaryButton: .destructive(
+                            Text("cancel".translate()),
+                            action: {showingBuyInfo = false}
+                        ),
+                        secondaryButton: .default(
+                            Text("continue".translate()),
+                            action: {
+                                configurePanelVM.buy()
+                            }
+                        )
+                    )
+                }
         }
     }
 }

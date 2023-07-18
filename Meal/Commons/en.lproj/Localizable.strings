@@ -87,7 +87,7 @@
 "intro_organize_auto" = "Use the autofill button to let the app fill your week randomly";
 
 "intro_end_title" = "One more thing";
-"intro_end_calendar" = "Head to the options if you want to automatically add your menus to your calendar and share them with your familly";
+"intro_end_calendar" = "Head to the options if you want to automatically add your menus to your calendar and share them with your family";
 "intro_end_schedule" = "You can create schedules to add the same meal every week at a specific time";
 
 "intro_continue" = "Continue";
@@ -115,7 +115,7 @@
 "flageolets" = "Flageolets";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "Fixed a bug preventing some users to choose on which calendar they wanted to add their lunch plan.";
+"whatsNew_content" = "Share your planning with your family to let everyone add meals to the menu (Options -> Collaboration).";
 "whatsNew_old_title" = "Previously";
 "whatsNew_old_content" = "You can add notes to your meals\n\nWant to keep track of a recipe ? A link to the website to order your favorite Pizza ? Those notes will be automatically added to your calendar events so that everyone you shared your calendar with will see them.\n\nNotes added in the 'week planning' panel won't be kept for the next time you assign this meal. Make sure to add recuring notes in the 'my meals' panel.";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
@@ -154,3 +154,11 @@ When using collaboration, if you save your planning to a calendar, make sure thi
 
 "copy" = "Copy";
 "paste" = "Paste";
+
+"premium_info_title" = "Subscription informations";
+"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($0.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will let you, for the duration of your subsription, share your planning with whoever you want.";
+"cancel" = "Cancel";
+"continue" = "Continue";
+"per_month" = "/month";
+"premium_viewOur" = "View our ";
+"premium_policy" = "Privacy policy";

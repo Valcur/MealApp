@@ -126,7 +126,7 @@
 "flageolets" = "Flageolets";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Correction d'un bug empêchant certains utilisateurs de choisir sur quel calendrier ils souhaitaient ajouter leur menu.";
+"whatsNew_content" = "Partagez votre menu avec vos proches et remplissez le tous enssemble (Options -> Collaboration)";
 "whatsNew_old_title" = "Précédemment";
 "whatsNew_old_content" = "Vous pouvez désormais écrire des notes pour vos plats.\n\nBesoin d'ajouter une recette ? Un lien vers le site internet de votre pizzeria préférée ? Ces notes seront automatiquement ajoutées à votre calendrier afin que tout le monde puisse les lire.\n\nLes notes dans l'onglet 'ma semaine' ne sont pas sauvegardées pour une prochaine utilisation du plat. Les notes récurentes doivent être ajoutées dans l'onglet 'mes plats'.";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
@@ -135,11 +135,11 @@
 "whatsNew_rateUs_noThanks" = "Non merci";
 
 "collaboration.title" = "Collaboration";
-"collaboration.description" = "Collaborer à plusieurs sur le même menu. Copiez votre code et envoyez le aux gens avec qui vous souhaitez collaborer.
+"collaboration.description" = "Collaborez à plusieurs sur le même menu. Copiez votre code et envoyez le aux gens avec qui vous souhaitez collaborer.
 
 Rejoindre un menu partagé est gratuit, partager votre menu est réservé aux utilisateurs premium.
 
-Lorsque vous collaborez, si vous sauvegardé votre menu sur un calendrier, assurez vous que le calendrier en question n'est utilisé que pour cette application ou certains évènements risqueraient d'être supprimé.
+Lorsque vous collaborez, si vous sauvegardez votre menu sur un calendrier, assurez vous que le calendrier en question n'est utilisé que pour cette application ou certains évènements risqueraient d'être supprimé.
 ";
 
 "collaboration.useSharedPlanning.title" = "Rejoindre un menu partagé";
@@ -166,3 +166,11 @@ Lorsque vous collaborez, si vous sauvegardé votre menu sur un calendrier, assur
 "copy" = "Copier";
 "paste" = "Coller";
 "tryAgain" = "XXXXX";
+
+"premium_info_title" = "Information sur l'abonnement";
+"premium_info_content" = "Vous pouvez acheter un abonnement avec renouvellement automatique par un achat In-App.\n\n • (en EUR) Premium - 1 mois (0.99€) \n\n • Votre abonnement sera facturé sur votre compte iTunes après confirmation de votre achat et sera automatiquelent renouvelé (à la fin de la durée selectionnée) à moins que le renouvellement automatique ne soit désactivé au moins 24h avant la fin de la période en cours.\n\n • L'abonnement en counrs ne peut pas être annulé durant la période active; cependant, vous pouvez gérer vos abonnements et/ou désactiver le renouvellement automatique en vous rendant dans les options de votre compte iTunes après l'achat\n\n • Etre premium vous offre, pour la durée de votre abonnement, la possibilité de partager votre menu avec qui vous voulez.";
+"cancel" = "Annuler";
+"continue" = "Continuer";
+"per_month" = "/mois";
+"premium_viewOur" = "Consultez notre ";
+"premium_policy" = "Politique de confidentialité";

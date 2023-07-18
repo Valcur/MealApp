@@ -75,7 +75,7 @@ struct WhatsNewView: View {
     }
     
     class WhatsNewController: ObservableObject {
-        private let updateDate = "27/03/2023"
+        private let updateDate = "18/07/2023"
         @Published var showWhatsNew: Bool
         
         init() {

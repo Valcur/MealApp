@@ -28,7 +28,7 @@ class PlanningPanelViewModel: ObservableObject {
         
         thisWeek = data.loadWeek(forWeek: .thisWeek)
         nextWeek = data.loadWeek(forWeek: .nextWeek)
-        
+
         weekPlan = thisWeek
         
         let WANT_TO_RESET = false
@@ -65,9 +65,11 @@ class PlanningPanelViewModel: ObservableObject {
             configureVM.applyAllSchedulesTo(nextWeek)
             
             saveBothWeeks()
-            switchToThisWeek()
-            thisWeek.objectWillChange.send()
-            nextWeek.objectWillChange.send()
+            if selectedWeek == .thisWeek {
+                weekPlan = thisWeek
+            } else {
+                weekPlan = nextWeek
+            }
             return true
         }
         // Si la semaine actuelle correpsond a aucune des 2 semaines, on récréé 2 nouvelles semaines
@@ -79,9 +81,11 @@ class PlanningPanelViewModel: ObservableObject {
             configureVM.applyAllSchedulesTo(nextWeek)
             
             saveBothWeeks()
-            switchToThisWeek()
-            thisWeek.objectWillChange.send()
-            nextWeek.objectWillChange.send()
+            if selectedWeek == .thisWeek {
+                weekPlan = thisWeek
+            } else {
+                weekPlan = nextWeek
+            }
             return true
         }
         return false
@@ -92,7 +96,6 @@ class PlanningPanelViewModel: ObservableObject {
         configureVM.calendarController.addWeeksToCalendar(thisWeek: thisWeek, nextWeek: nextWeek)
         
         if cloudKitController.isSavingToCloud() {
-            //cloudKitController.saveWeeksPlanningToCloud(thisWeek: thisWeek, nexWeek: nextWeek)
             cloudKitController.saveWeekPlanningToCloud(recordType: selectedWeek == .thisWeek ? RecordType.thisWeekPlan.rawValue : RecordType.nextWeekPlan.rawValue, plan: weekPlan)
         }
     }

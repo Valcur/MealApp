@@ -12,6 +12,10 @@ struct PlanningPannel: View {
     @ObservedObject var cloudKitController: CloudKitController
     @State private var showingAutoFillSheet = false
     
+    // To show ... when saving to the cloud
+    let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
+    @State var savingToCloudProgressDots = ""
+    
     var body: some View {
         ZStack(alignment: .top) {
             VStack(spacing: 20) {
@@ -56,9 +60,20 @@ struct PlanningPannel: View {
                                 .resizable()
                                 .frame(width: 50, height: 34)
                             
-                            Image(systemName: "arrow.clockwise")
+                            Text(savingToCloudProgressDots)
                                 .font(.headline)
                                 .foregroundColor(Color(UIColor.systemBackground))
+                                .onReceive(timer) { time in
+                                    if savingToCloudProgressDots == ""  {
+                                        savingToCloudProgressDots = "."
+                                    } else if savingToCloudProgressDots == "."  {
+                                        savingToCloudProgressDots = ".."
+                                    } else if savingToCloudProgressDots == ".."  {
+                                        savingToCloudProgressDots = "..."
+                                    } else {
+                                        savingToCloudProgressDots = ""
+                                    }
+                                }
                         }.opacity(cloudKitController.cloudSyncStatus == .inProgress ? 1 : 0)
 
                         

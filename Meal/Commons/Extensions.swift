@@ -229,3 +229,8 @@ struct StickyBottomButton: View {
     }
 }
 
+extension String {
+    func translate() -> String {
+        return NSLocalizedString(self, comment: self)
+    }
+}

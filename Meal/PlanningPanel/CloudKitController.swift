@@ -147,7 +147,8 @@ class CloudKitController: ObservableObject {
                 var notes = ""
                 
                 while i < lines.count && lines[i] != CloudTextSavingLabels.endNotes.rawValue {
-                    notes += lines[i] + "\n"
+                    let isLast = lines[i+1].contains(CloudTextSavingLabels.endNotes.rawValue)
+                    notes += "\(lines[i].dropFirst(2))\(isLast ? "" : "\n")"
                     i += 1
                 }
                 /*
@@ -158,16 +159,14 @@ class CloudKitController: ObservableObject {
                                 name: name,
                                 type: type == 1 ? .meat : (type == 2 ? .vegan : .outside),
                                 sides: sides,
-                                notes: notes == "" ? nil : "\(notes.dropFirst(2).dropLast(2))"
+                                notes: notes == "" ? nil : notes
                 )
-                // A VOIR SI CA GARDE BIEN TOUT
 
                 weekPlan.append(meal, day: currentWeekDay, time: currentTimeOfTheDay)
             }
             
             i += 1
         }
-        // Recois bien les jours mais arrive pas a les ajouter
         return weekPlan
     }
     
@@ -201,11 +200,12 @@ class CloudKitController: ObservableObject {
                         text += "\(side.imageName)/"
                     }
                 }
-                let notes = midday.notes ?? ""
-                let notesArray = notes.replacingOccurrences(of: "\n", with: " \n").split(whereSeparator: \.isNewline)
                 text += " \n"
+                
+                let notes = midday.notes ?? ""
                 if notes != "" {
-                    text += "N:"
+                    var notesArray = notes.replacingOccurrences(of: "\n", with: "\nN:").split(whereSeparator: \.isNewline)
+                    notesArray[0] = "N:\(notesArray[0])"
                     for noteLine in notesArray {
                         text += "\(noteLine)\n"
                     }
@@ -226,11 +226,12 @@ class CloudKitController: ObservableObject {
                         text += "\(side.imageName)/"
                     }
                 }
-                let notes = evening.notes ?? ""
-                let notesArray = notes.replacingOccurrences(of: "\n", with: " \n").split(whereSeparator: \.isNewline)
                 text += " \n"
+                
+                let notes = evening.notes ?? ""
                 if notes != "" {
-                    text += "N:"
+                    var notesArray = notes.replacingOccurrences(of: "\n", with: "\nN:").split(whereSeparator: \.isNewline)
+                    notesArray[0] = "N:\(notesArray[0])"
                     for noteLine in notesArray {
                         text += "\(noteLine)\n"
                     }
@@ -242,6 +243,7 @@ class CloudKitController: ObservableObject {
         }
         
         print("SAVING MY TEXT \(recordType)\n")
+        print(text)
         
         let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
         let query = CKQuery(recordType: recordType, predicate: predicate)

@@ -61,10 +61,15 @@ struct MealApp: App {
             })
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 UIApplication.shared.applicationIconBadgeNumber = 0
-                if cloudKitController.isIniComplete() {
+                if cloudKitController.isIniComplete() || !cloudKitController.isSavingToCloud() {
                     print("Going foreground from background")
                     planningVM.updateData()
                 }
+            }
+            .onAppear() {
+                // Not working from init
+                IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId()], sharedSecret: IAPManager.getSharedSecret())
+                configurePanelVM.testPremium()
             }
         }
     }

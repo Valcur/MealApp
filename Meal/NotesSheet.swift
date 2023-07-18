@@ -28,6 +28,7 @@ struct WeekPlanNotesSheet: View {
             } else if time == .evening && mealIndex >= 0 {
                 dayPlan.evening[mealIndex] = meal
             }
+            dayPlan.objectWillChange.send()
             planningPanelVM.saveWeek()
             presentationMode.wrappedValue.dismiss()
         }, label: {
