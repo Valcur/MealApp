@@ -14,8 +14,12 @@ extension View {
             .padding(padding)
             .cornerRadius(cornerRadius)
             .padding(margin)
-            .background(color.cornerRadius(cornerRadius).shadow(color: Color("ShadowColor"), radius: shadowRadius, y: shadowRadius / 2).padding(shadowRadius < 5 ? 5 : shadowRadius))
+            .background(color.cornerRadius(cornerRadius).shadowed(shadowRadius: shadowRadius).padding(shadowRadius < 5 ? 5 : shadowRadius))
             
+    }
+    
+    func shadowed(shadowRadius: CGFloat = ViewSizes._5()) -> some View {
+        self.shadow(color: Color("ShadowColor"), radius: shadowRadius, y: shadowRadius / 2)
     }
     
     func scrollableSheetVStack() -> some View {
@@ -52,10 +56,10 @@ extension View {
         }
     }
     
-    func textFieldBackground(hPadding: CGFloat = 10, vPadding: CGFloat = 10) -> some View {
+    func textFieldBackground(hPadding: CGFloat = 10, vPadding: CGFloat = 10, style: UIStyle = .primary) -> some View {
         self
             .padding(.horizontal, hPadding).padding(.vertical, vPadding)
-            .background(Color("BackgroundColor").cornerRadius(10))
+            .background(Color(style == .primary ? "BackgroundColor" : "WhiteBackgroundColor").cornerRadius(10))
     }
 }
 

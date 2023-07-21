@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB3663162A6827DA00F7894B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663152A6827DA00F7894B /* CardView.swift */; };
+		DB3663182A68280100F7894B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663172A68280100F7894B /* Colors.swift */; };
+		DB36631C2A68283B00F7894B /* Extensions_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36631B2A68283B00F7894B /* Extensions_Card.swift */; };
+		DB36631E2A68286500F7894B /* RecipesSearchPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36631D2A68286500F7894B /* RecipesSearchPanel.swift */; };
+		DB3663202A682CEB00F7894B /* RecipesSearchPanelVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36631F2A682CEB00F7894B /* RecipesSearchPanelVM.swift */; };
+		DB3663222A6965AC00F7894B /* RecipeInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663212A6965AC00F7894B /* RecipeInfoSheet.swift */; };
+		DB3663242A6967B600F7894B /* AddRecipeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663232A6967B600F7894B /* AddRecipeSheet.swift */; };
+		DB3663272A6AC30500F7894B /* TopSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663262A6AC30500F7894B /* TopSearchBar.swift */; };
 		DB6E0E7C2979825900BCDB96 /* MealsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */; };
 		DB6E0E7E297982DC00BCDB96 /* PlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */; };
 		DB6E0E80297AE14C00BCDB96 /* ViewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */; };
@@ -75,6 +83,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB3663152A6827DA00F7894B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		DB3663172A68280100F7894B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		DB36631B2A68283B00F7894B /* Extensions_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions_Card.swift; sourceTree = "<group>"; };
+		DB36631D2A68286500F7894B /* RecipesSearchPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesSearchPanel.swift; sourceTree = "<group>"; };
+		DB36631F2A682CEB00F7894B /* RecipesSearchPanelVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesSearchPanelVM.swift; sourceTree = "<group>"; };
+		DB3663212A6965AC00F7894B /* RecipeInfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInfoSheet.swift; sourceTree = "<group>"; };
+		DB3663232A6967B600F7894B /* AddRecipeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeSheet.swift; sourceTree = "<group>"; };
+		DB3663262A6AC30500F7894B /* TopSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSearchBar.swift; sourceTree = "<group>"; };
 		DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListTests.swift; sourceTree = "<group>"; };
 		DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningTests.swift; sourceTree = "<group>"; };
 		DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsTests.swift; sourceTree = "<group>"; };
@@ -156,6 +172,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB3663142A68276500F7894B /* MealsSearchPanel */ = {
+			isa = PBXGroup;
+			children = (
+				DB36631F2A682CEB00F7894B /* RecipesSearchPanelVM.swift */,
+				DB3663282A6AC33D00F7894B /* Views */,
+				DB3663172A68280100F7894B /* Colors.swift */,
+				DB36631B2A68283B00F7894B /* Extensions_Card.swift */,
+			);
+			path = MealsSearchPanel;
+			sourceTree = "<group>";
+		};
+		DB3663252A6AC2EC00F7894B /* RecipeSearchPanel */ = {
+			isa = PBXGroup;
+			children = (
+				DB36631D2A68286500F7894B /* RecipesSearchPanel.swift */,
+				DB3663262A6AC30500F7894B /* TopSearchBar.swift */,
+			);
+			path = RecipeSearchPanel;
+			sourceTree = "<group>";
+		};
+		DB3663282A6AC33D00F7894B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DB3663152A6827DA00F7894B /* CardView.swift */,
+				DB3663252A6AC2EC00F7894B /* RecipeSearchPanel */,
+				DB3663212A6965AC00F7894B /* RecipeInfoSheet.swift */,
+				DB3663232A6967B600F7894B /* AddRecipeSheet.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		DB9B8792293F4F9F00F2344B = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +226,7 @@
 		DB9B879D293F4F9F00F2344B /* Meal */ = {
 			isa = PBXGroup;
 			children = (
+				DB3663142A68276500F7894B /* MealsSearchPanel */,
 				DBEAFBD72A334B590048797C /* Meal.entitlements */,
 				DBA39EEB294A29BE00AC97E2 /* ConfigurePanel */,
 				DB9B87E12941F0CA00F2344B /* Commons */,
@@ -460,19 +508,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB9B87DA293F81C400F2344B /* NewMealSheet.swift in Sources */,
+				DB3663182A68280100F7894B /* Colors.swift in Sources */,
 				DB9D995329506D960051BD63 /* Schedule.swift in Sources */,
 				DB9D995D2951C8860051BD63 /* CalendarPanel.swift in Sources */,
 				DB9B87D1293F51C200F2344B /* MealTypeSelectionRow.swift in Sources */,
 				DB9B87E52942159A00F2344B /* WeekPlan.swift in Sources */,
 				DB9D9965295387B40051BD63 /* MealsDataController+Calendar.swift in Sources */,
 				DB9B87EC294503BB00F2344B /* MealList.swift in Sources */,
+				DB3663162A6827DA00F7894B /* CardView.swift in Sources */,
 				DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */,
+				DB3663242A6967B600F7894B /* AddRecipeSheet.swift in Sources */,
 				DBA7B1FC29C9D98000B04E38 /* WhatsNew.swift in Sources */,
 				DB9D995529506F9B0051BD63 /* MealPicker.swift in Sources */,
 				DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */,
+				DB36631C2A68283B00F7894B /* Extensions_Card.swift in Sources */,
 				DBB9C5D92A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift in Sources */,
 				DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */,
 				DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */,
+				DB3663222A6965AC00F7894B /* RecipeInfoSheet.swift in Sources */,
 				DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */,
 				DBA7B1FA29C3264900B04E38 /* NotesSheet.swift in Sources */,
 				DB9D99672954DEB60051BD63 /* ThanksPanel.swift in Sources */,
@@ -483,6 +536,7 @@
 				DBB9C5D72A3DB6050087BA99 /* IAPManager.swift in Sources */,
 				DBEAFBDB2A3786D30048797C /* CollaborationPanel.swift in Sources */,
 				DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */,
+				DB36631E2A68286500F7894B /* RecipesSearchPanel.swift in Sources */,
 				DB9D994E294F8EA10051BD63 /* AutoFillSheet.swift in Sources */,
 				DB9B87D8293F7A0900F2344B /* MealsDataController.swift in Sources */,
 				DB9B87E02941EAC400F2344B /* PlanningPannel.swift in Sources */,
@@ -494,8 +548,10 @@
 				DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */,
 				DB6E0E82297F05B300BCDB96 /* Side.swift in Sources */,
 				DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */,
+				DB3663272A6AC30500F7894B /* TopSearchBar.swift in Sources */,
 				DBEAFBD92A35C89C0048797C /* CloudKitController.swift in Sources */,
 				DB9D995029506D6B0051BD63 /* ConfigurePanelViewModel.swift in Sources */,
+				DB3663202A682CEB00F7894B /* RecipesSearchPanelVM.swift in Sources */,
 				DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
