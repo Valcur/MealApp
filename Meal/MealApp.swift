@@ -34,7 +34,7 @@ struct MealApp: App {
                     .environmentObject(RecipesSearchPanelViewModel())
                     .environmentObject(mealListVM)
                     .tabItem {
-                        Image(systemName: "gear")
+                        Image(systemName: "book")
                         Text("Recettes")
                 }
                 

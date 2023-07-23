@@ -29,6 +29,7 @@ struct CardView: View
     
     @State private var showRecipeInfoSheet = false
     @State private var image: UIImage? = nil
+    @State private var animationSpeed = CardViewConsts.springResponse
     
     private func getIconName(state: DayState) -> String
     {
@@ -83,8 +84,7 @@ struct CardView: View
         GeometryReader
         {
             geometry in
-            ZStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            {
+            ZStack(alignment: .top) {
                 if cardAlpha > 0.85 {
                     VStack {
                         if let image = image {
@@ -103,36 +103,29 @@ struct CardView: View
                                 Text(recipe.name.uppercased())
                                     .font(.system(size: CardViewConsts.labelTextSize))
                                     .kerning(CardViewConsts.labelTextKerning)
-                                    .foregroundColor(Color(AppColor.primaryTextColor.rawValue))
+                                    .foregroundColor(Color("TextColor"))
+                                
+                                Spacer()
                                 
                                 HStack {
-                                    Button(action: {
-                                        showRecipeInfoSheet = true
-                                    }, label: {
-                                        ButtonLabel(title: "Info", isCompact: true)
-                                    })
-                                    
-                                    Spacer()
-                                    
-                                    HStack {
-                                        RecipeInfoListElement(value: "164", title: "Calories / Serving")
-                                        RecipeInfoListElement(value: "8%", title: "Daily Value")
-                                        RecipeInfoListElement(value: "9", title: "Ingredients")
-                                    }
+                                    RecipeInfoListElement(value: "164", title: "Calories / Serving")
+                                    RecipeInfoListElement(value: "8%", title: "Daily Value")
+                                    RecipeInfoListElement(value: "9", title: "Ingredients")
                                 }.padding(.horizontal, 5)
-                            }
+                            }.padding(.vertical, 25).frame(height: 150, alignment: .center)
                         }
                         Spacer()
                     }
                 }
                 
-                VStack
-                {
+                VStack {
                     Spacer()
                     Image(systemName: getIconName(state: self.lastCardState))
                         .font(.system(size: CardViewConsts.iconSize.height, weight: .bold))
-                        .foregroundColor(.white)
-                        //.frame(width: CardViewConsts.iconSize.width, height: CardViewConsts.iconSize.height)
+                        .foregroundColor(self.lastCardState == .love ? .accentColor : .red)
+                        .padding(20)
+                        .background(Color("WhiteBackgroundColor"))
+                        .cornerRadius(CardViewConsts.iconSize.height)
                         .opacity(self.motionScale)
                         .scaleEffect(CGFloat(self.motionScale))
                     Spacer()
@@ -140,9 +133,21 @@ struct CardView: View
                     Spacer()
                     Spacer()
                 }
+                
+                if UIDevice.isIPhone && cardAlpha > 0.91 {
+                    HStack {
+                        Button(action: {
+                            showRecipeInfoSheet = true
+                        }, label: {
+                            ButtonLabel(title: "Info", isCompact: true)
+                        })
+                        Spacer()
+                    }.padding(.horizontal, 10).offset(y: geometry.size.height - 150 - 60)
+                }
+                
             }
             .frame(width: geometry.size.width, height: geometry.size.width * CardViewConsts.cardRatio)
-            .background(Color.white)
+            .background(Color("WhiteBackgroundColor"))
             .opacity(cardAlpha)
             .cornerRadius(CardViewConsts.cardCornerRadius)
             .shadow(
@@ -157,7 +162,7 @@ struct CardView: View
             )
             .offset(x: self.translation.width, y: self.translation.height)
             .animation(.interactiveSpring(
-                        response: CardViewConsts.springResponse,
+                        response: animationSpeed,
                         blendDuration: CardViewConsts.springBlendDur)
             )
             .gesture(
@@ -175,10 +180,12 @@ struct CardView: View
                                 toMax: CardViewConsts.motionRemapToMax
                             )
                             self.lastCardState = setCardState(offset: gesture.translation.width)
+                            self.animationSpeed = CardViewConsts.springResponseFast
                     }
                     .onEnded
                     {
                         gesture in
+                            self.animationSpeed = CardViewConsts.springResponse
                             self.gestureEnded(offset: gesture.translation.width)
                     }
             )
@@ -215,6 +222,7 @@ struct CardView: View
             VStack {
                 Text(value)
                     .font(.title2)
+                    .foregroundColor(Color("TextColor"))
                 Text(title.uppercased())
                     .font(.subheadline)
                     .foregroundColor(.accentColor)
@@ -243,7 +251,8 @@ private struct CardViewConsts
     static let motionRemapToMax: Double = 1.0
     
     static let springResponse: Double = 0.5
+    static let springResponseFast: Double = 0.1
     static let springBlendDur: Double = 0.3
     
-    static let iconSize: CGSize = CGSize(width: 96.0, height: 96.0)
+    static let iconSize: CGSize = CGSize(width: 76.0, height: 76.0)
 }

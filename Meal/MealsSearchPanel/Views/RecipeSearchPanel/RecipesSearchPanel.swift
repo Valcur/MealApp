@@ -51,30 +51,40 @@ struct RecipesSearchPanel: View
     var body: some View {
         ZStack {
             Color(AppColor.background.rawValue)
-            VStack {
-                TopBarView().frame(maxWidth: 600)
-                GeometryReader {
-                    geometry in VStack {
-                        Spacer()
-                        ZStack {
-                            ForEach (recipes, id: \.name) { recipe in
-                                CardView(recipe: recipe, cardAlpha: calculateCardAlpha(cardIndex: calculateItemInvertIndex(arr: recipes, item: recipe)), addRecipe: $showAddRecipeSheet)
-                                    .frame(width: calculateCardWidth(geo: geometry, offset: cardOffset, cardIndex: calculateItemInvertIndex(arr: recipes, item: recipe)), height: geometry.size.width * cardRatio)
-                                    .offset(x: 0, y: calculateCardYOffset(offset: cardOffset, cardIndex: calculateItemInvertIndex(arr: recipes, item: recipe)) * cardOffsetMultiplier)
+            HStack(spacing: 0) {
+                Spacer()
+                VStack {
+                    TopBarView()
+                    GeometryReader {
+                        geometry in VStack {
+                            Spacer()
+                            ZStack {
+                                ForEach (recipes, id: \.name) { recipe in
+                                    CardView(recipe: recipe, cardAlpha: calculateCardAlpha(cardIndex: calculateItemInvertIndex(arr: recipes, item: recipe)), addRecipe: $showAddRecipeSheet)
+                                        .frame(width: calculateCardWidth(geo: geometry, offset: cardOffset, cardIndex: calculateItemInvertIndex(arr: recipes, item: recipe)), height: geometry.size.width * cardRatio)
+                                        .offset(x: 0, y: calculateCardYOffset(offset: cardOffset, cardIndex: calculateItemInvertIndex(arr: recipes, item: recipe)) * cardOffsetMultiplier)
+                                }
                             }
+                            .offset(y: yCardsOffset)
+                            Spacer()
                         }
-                        .offset(y: yCardsOffset)
-                        Spacer()
                     }
+                    .onChange(of: showAddRecipeSheet, perform: { _ in
+                        if showAddRecipeSheet, let r = recipes.last {
+                            recipeToAdd = r
+                        }
+                    })
                 }
-                .onChange(of: showAddRecipeSheet, perform: { _ in
-                    if showAddRecipeSheet, let r = recipes.last {
-                        recipeToAdd = r
-                    }
-                })
+                .frame(maxWidth: 400)
+                .padding(cardOffset)
+                .zIndex(100)
+                
+                Spacer()
+                
+                if UIDevice.isIPad, let showedRecipe = recipesSearchVM.recipes.last {
+                    RecipeInfosSheet(recipe: showedRecipe).frame(maxWidth: 400).background(Color("WhiteBackgroundColor")).shadowed()
+                }
             }
-            .frame(maxWidth: 400)
-            .padding(cardOffset)
         }.ignoresSafeArea(.container)
         .sheet(isPresented: $showAddRecipeSheet) {
             AddRecipeSheet(recipe: recipeToAdd)

@@ -15,6 +15,7 @@
 		DB3663222A6965AC00F7894B /* RecipeInfoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663212A6965AC00F7894B /* RecipeInfoSheet.swift */; };
 		DB3663242A6967B600F7894B /* AddRecipeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663232A6967B600F7894B /* AddRecipeSheet.swift */; };
 		DB3663272A6AC30500F7894B /* TopSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663262A6AC30500F7894B /* TopSearchBar.swift */; };
+		DB36632B2A6C1E7100F7894B /* EdamamParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36632A2A6C1E7100F7894B /* EdamamParser.swift */; };
 		DB6E0E7C2979825900BCDB96 /* MealsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */; };
 		DB6E0E7E297982DC00BCDB96 /* PlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */; };
 		DB6E0E80297AE14C00BCDB96 /* ViewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */; };
@@ -91,6 +92,7 @@
 		DB3663212A6965AC00F7894B /* RecipeInfoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInfoSheet.swift; sourceTree = "<group>"; };
 		DB3663232A6967B600F7894B /* AddRecipeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeSheet.swift; sourceTree = "<group>"; };
 		DB3663262A6AC30500F7894B /* TopSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSearchBar.swift; sourceTree = "<group>"; };
+		DB36632A2A6C1E7100F7894B /* EdamamParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdamamParser.swift; sourceTree = "<group>"; };
 		DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListTests.swift; sourceTree = "<group>"; };
 		DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningTests.swift; sourceTree = "<group>"; };
 		DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsTests.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				DB3663282A6AC33D00F7894B /* Views */,
 				DB3663172A68280100F7894B /* Colors.swift */,
 				DB36631B2A68283B00F7894B /* Extensions_Card.swift */,
+				DB36632A2A6C1E7100F7894B /* EdamamParser.swift */,
 			);
 			path = MealsSearchPanel;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB36632B2A6C1E7100F7894B /* EdamamParser.swift in Sources */,
 				DB9B87DA293F81C400F2344B /* NewMealSheet.swift in Sources */,
 				DB3663182A68280100F7894B /* Colors.swift in Sources */,
 				DB9D995329506D960051BD63 /* Schedule.swift in Sources */,

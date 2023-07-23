@@ -8,19 +8,27 @@
 import SwiftUI
 
 extension RecipesSearchPanel {
-    private struct TopBarView: View {
+    internal struct TopBarView: View {
         @EnvironmentObject var recipesSearchVM: RecipesSearchPanelViewModel
         @State private var searchText: String = ""
+        private var infoMessgae: String {
+            if recipesSearchVM.recipes.count > 0 {
+                return "\(recipesSearchVM.recipes.count) " + recipesSearchVM.infoMessage
+            }
+            return recipesSearchVM.infoMessage
+        }
         var body: some View {
             VStack {
                 VStack(spacing: 5) {
                     HStack {
-                        TextField("Search recipe".translate(), text: $searchText)
+                        TextField("Search recipe".translate(), text: $searchText, onCommit: {
+                            recipesSearchVM.searchForRecipe(query: searchText)
+                        })
                             .textFieldBackground(vPadding: 15, style: .secondary)
                             .shadowed()
 
                         Button(action: {
-                            
+                            recipesSearchVM.searchForRecipe(query: searchText)
                         }, label: {
                             ButtonLabel(title: "Search", isCompact: true)
                         })
@@ -33,7 +41,8 @@ extension RecipesSearchPanel {
                         }
                     }
                     
-                    Text("\(recipesSearchVM.recipes.count) results for DDD")
+                    Text(infoMessgae)
+                        .opacity(0.5)
                 }
             }.padding(.top, 5)
         }

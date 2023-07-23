@@ -18,16 +18,18 @@ struct AddRecipeSheet: View {
     @State private var mealTypeField: MealType = .meat
     
     var body: some View {
-        VStack {
-            VStack(spacing: stackSpacing) {
-                Text("Title")
-                    .title()
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Add recipe".translate())
+                .title()
+            VStack(alignment: .leading, spacing: stackSpacing) {
+                Text("Name".translate())
+                    .subTitle()
                 
                 TextField("PLACEHOLDER".translate(), text: $mealNameField)
                     .textFieldBackground()
             }
             
-            VStack(spacing: stackSpacing) {
+            VStack(alignment: .leading, spacing: stackSpacing) {
                 Text("mealList_type_title".translate())
                     .subTitle()
                 
@@ -38,9 +40,9 @@ struct AddRecipeSheet: View {
                 }
             }
 
-            VStack(spacing: stackSpacing) {
+            VStack(alignment: .leading, spacing: stackSpacing) {
                 Text("Notes")
-                    .title()
+                    .subTitle()
                 
                 NotesTextField(mealNotesField: $mealNotesField)
                     .textFieldBackground()

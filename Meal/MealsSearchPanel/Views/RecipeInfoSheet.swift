@@ -12,26 +12,31 @@ struct RecipeInfosSheet: View {
     let recipe: Recipe
     private let stackSpacing: CGFloat = 15
     var body: some View {
-        VStack {
-            VStack(spacing: stackSpacing) {
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Recipe Info")
+                .title()
+            
+            VStack(alignment: .leading, spacing: stackSpacing) {
                 Text("Preparation")
-                    .title()
+                    .subTitle()
                 
-                Button(action: {
-                    
-                }, label: {
+                Link(destination: URL(string: recipe.preparation)!) {
                     ButtonLabel(title: "Instructions", isCompact: true)
-                })
+                }
             }
             
-            VStack(spacing: stackSpacing) {
+            VStack(alignment: .leading, spacing: stackSpacing) {
                 Text("Ingredients for \(recipe.nutrition.servings)")
-                    .title()
+                    .subTitle()
                 
                 ForEach(0..<recipe.ingredients.count, id: \.self) { i in
                     Text(recipe.ingredients[i])
                         .headLine()
                 }
+            }
+            
+            HStack {
+                Spacer()
             }
             
             Spacer()
