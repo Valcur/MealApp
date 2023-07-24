@@ -139,6 +139,7 @@ struct WeekPlanOrganiser: View {
             }
             
             struct MealView: View {
+                @EnvironmentObject var userPrefs: VisualUserPrefs
                 @EnvironmentObject var planningPanelVM: PlanningPanelViewModel
                 @State private var showingMealInfoSheet = false
                 @State private var showingNotesSheet = false
@@ -151,19 +152,18 @@ struct WeekPlanOrganiser: View {
                 
                 var body: some View {
                     ZStack {
-                        //meal.type.getColor().opacity(0.4)
                         Color("WhiteBackgroundColor")
                         
                         VStack(spacing: 1) {
                             Text(meal.name)
                                 .fontWeight(.bold)
-                                .foregroundColor(meal.type.getColor())
+                                .foregroundColor(meal.type.getColor(userPrefs: userPrefs))
                                 .padding(.horizontal, 30)
                             if meal.sides?.count ?? 0 > 0 {
                                 Text(Side.sidesNameDescription(meal.sides ?? []))
                                     .font(.caption)
                                     .fontWeight(.bold)
-                                    .foregroundColor(meal.type.getColor())
+                                    .foregroundColor(meal.type.getColor(userPrefs: userPrefs))
                                     .padding(.horizontal, 10)
                             }
                         }.allowsHitTesting(false)
@@ -173,7 +173,7 @@ struct WeekPlanOrganiser: View {
                                 Image(systemName: "slider.horizontal.3")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                    .foregroundColor(meal.type.getColor())
+                                    .foregroundColor(meal.type.getColor(userPrefs: userPrefs))
                                     .onTapGesture {
                                         showingMealInfoSheet = true
                                     }
@@ -183,7 +183,7 @@ struct WeekPlanOrganiser: View {
                                 Image(systemName: mealHasNotes ? "note.text" : "plus")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                    .foregroundColor(meal.type.getColor())
+                                    .foregroundColor(meal.type.getColor(userPrefs: userPrefs))
                                     .onTapGesture {
                                         showingNotesSheet = true
                                     }.opacity(mealHasNotes ? 1 : 0.3)

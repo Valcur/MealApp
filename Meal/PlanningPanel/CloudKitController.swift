@@ -242,8 +242,8 @@ class CloudKitController: ObservableObject {
             }
         }
         
-        print("SAVING MY TEXT \(recordType)\n")
-        print(text)
+        //print("SAVING MY TEXT \(recordType)\n")
+        //print(text)
         
         let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
         let query = CKQuery(recordType: recordType, predicate: predicate)
@@ -253,11 +253,13 @@ class CloudKitController: ObservableObject {
                 self.setCloudSyncStatus(.error)
             } else {
                 guard let records = ckRecords else {
+                    print("1111")
                     self.setCloudSyncStatus(.error)
                     return
                 }
                 
                 guard let record = records.first else {
+                    print("2222")
                     self.setCloudSyncStatus(.error)
                     return
                 }

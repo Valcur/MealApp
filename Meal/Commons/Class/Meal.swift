@@ -51,25 +51,25 @@ enum MealType: Codable {
     case vegan
     case outside
     
-    func getColor() -> Color {
+    func getColor(userPrefs: VisualUserPrefs) -> Color {
         switch self {
         case .meat:
-            return Color("MeatColor")
+            return Color(userPrefs.meatColor)
         case .vegan:
-            return Color("VeganColor")
+            return Color(userPrefs.veganColor)
         case .outside:
-            return Color("OutsideColor")
+            return Color(userPrefs.outsideColor)
         }
     }
     
-    func getName() -> String {
+    func getName(userPrefs: VisualUserPrefs) -> String {
         switch self {
         case .meat:
-            return NSLocalizedString("Meat", comment: "Meat")
+            return userPrefs.meatTitle
         case .vegan:
-            return NSLocalizedString("Vegan", comment: "Vegan")
+            return userPrefs.veganTitle
         case .outside:
-            return NSLocalizedString("Outside", comment: "Outside")
+            return "Outside".translate()
         }
     }
     

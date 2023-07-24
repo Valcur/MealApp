@@ -26,6 +26,7 @@ extension MealsListPanel {
     }
     
     struct MealTypeSelector: View {
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         let mealType: MealType
         @Binding var selectedMealType: MealType
         var isSelected: Bool {
@@ -41,12 +42,12 @@ extension MealsListPanel {
                 }, label: {
                     ZStack(alignment: .bottomLeading) {
                         EmojiBackground(mealType: mealType, isSelected: isSelected)
-                        Text(mealType.getName())
+                        Text(mealType.getName(userPrefs: userPrefs))
                             .font(ViewSizes._largeTitle())
                             .fontWeight(.bold)
                             .scaledToFit()
                             .minimumScaleFactor(0.01)
-                            .foregroundColor(isSelected ? .white : mealType.getColor())
+                            .foregroundColor(isSelected ? Color("TextColor") : mealType.getColor(userPrefs: userPrefs))
                             .padding(ViewSizes._15())
                     }
                 }).frame(height: 120).overlay(
@@ -58,29 +59,31 @@ extension MealsListPanel {
     }
     
     struct EmojiBackground: View {
-        
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         let mealType: MealType
         let isSelected: Bool
         
         var image: Image {
             switch mealType {
             case .meat:
-                return Image("Meat")
+                return Image(userPrefs.meatImage)
             case .vegan:
-                return Image("Vegan")
+                return Image(userPrefs.veganImage)
             case .outside:
-                return Image("Outside")
+                return Image(userPrefs.outsideImage)
             }
         }
         
         var body: some View {
             ZStack(alignment: .trailing) {
-                mealType.getColor()
+                LinearGradient(gradient: Gradient(colors: [mealType.getColor(userPrefs: userPrefs).opacity(0.5), mealType.getColor(userPrefs: userPrefs)]), startPoint: .top, endPoint: .bottom)
                     .opacity(isSelected ? 1 : 0)
+                    
                 
                 image
                     .resizable()
                     .frame(width: isSelected ? ViewSizes._200() : ViewSizes._100(), height: isSelected ? ViewSizes._200() : ViewSizes._100())
+                    .scaledToFit()
                     .offset(x: isSelected ? ViewSizes._50() : -15, y: isSelected ? ViewSizes._30() : 0)
             }.frame(height: 120)
         }

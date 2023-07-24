@@ -16,7 +16,7 @@ struct DayPlanNewMealSheet: View {
     @State var startChoice: DayPlanSheet.EditMealChoice = .choose
 
     var body: some View {
-        DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: .vegan, editChoice: $startChoice, showBin: false)
+        DayPlanSheet(sheetTitle: "mealPlan_new_title", sheetIntro: "mealPlan_new_subtitle", dayPlan: dayPlan, time: time, meal: $newMeal, mealType: mealType, editChoice: $startChoice, showBin: false)
             .onChange(of: newMeal) { _ in
                 DispatchQueue.main.async {
                     planningPanelVM.addMeal(newMeal, day: dayPlan.day, time: time)

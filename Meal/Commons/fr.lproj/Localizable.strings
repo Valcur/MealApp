@@ -140,6 +140,8 @@
 Rejoindre un menu partagé est gratuit, partager votre menu est réservé aux utilisateurs premium.
 
 Lorsque vous collaborez, si vous sauvegardez votre menu sur un calendrier, assurez vous que le calendrier en question n'est utilisé que pour cette application ou certains évènements risqueraient d'être supprimé.
+
+Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous dans les options de votre appareil -> 'Nom de votre compte' -> iCloud -> iCloud Drive, et assurez vous que 'Synchroniser cet appareil' est bien activé.
 ";
 
 "collaboration.useSharedPlanning.title" = "Rejoindre un menu partagé";
@@ -163,9 +165,18 @@ Lorsque vous collaborez, si vous sauvegardez votre menu sur un calendrier, assur
 "collaboration.errorMessage.tryAgain" = "Erreur, veuillez réessayer";
 
 
+"customization.title" = "Personnalisation";
+"customization.intro" = "Si les catégories par défaut ne vous conviennent pas, changez ce que vous souhaitez ci-dessous.";
+"customization.category" = "Categorie";
+"customization.title.placeholder" = "Nom de la catégorie";
+"customization.color.title" = "Couleur :";
+"customization.image.title" = "Image :";
+
+
 "copy" = "Copier";
 "paste" = "Coller";
-"tryAgain" = "XXXXX";
+"tryAgain" = "Réessayez";
+
 
 "premium_info_title" = "Information sur l'abonnement";
 "premium_info_content" = "Vous pouvez acheter un abonnement avec renouvellement automatique par un achat In-App.\n\n • (en EUR) Premium - 1 mois (0.99€) \n\n • Votre abonnement sera facturé sur votre compte iTunes après confirmation de votre achat et sera automatiquelent renouvelé (à la fin de la durée selectionnée) à moins que le renouvellement automatique ne soit désactivé au moins 24h avant la fin de la période en cours.\n\n • L'abonnement en counrs ne peut pas être annulé durant la période active; cependant, vous pouvez gérer vos abonnements et/ou désactiver le renouvellement automatique en vous rendant dans les options de votre compte iTunes après l'achat\n\n • Etre premium vous offre, pour la durée de votre abonnement, la possibilité de partager votre menu avec qui vous voulez.";

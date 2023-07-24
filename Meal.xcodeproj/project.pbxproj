@@ -16,6 +16,9 @@
 		DB3663242A6967B600F7894B /* AddRecipeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663232A6967B600F7894B /* AddRecipeSheet.swift */; };
 		DB3663272A6AC30500F7894B /* TopSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663262A6AC30500F7894B /* TopSearchBar.swift */; };
 		DB36632B2A6C1E7100F7894B /* EdamamParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36632A2A6C1E7100F7894B /* EdamamParser.swift */; };
+		DB36632D2A6D44C700F7894B /* CustomizationPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36632C2A6D44C700F7894B /* CustomizationPanel.swift */; };
+		DB36632F2A6D5C4700F7894B /* MealsDataController+Customization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36632E2A6D5C4700F7894B /* MealsDataController+Customization.swift */; };
+		DB3663312A6D60BF00F7894B /* VisualUserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663302A6D60BF00F7894B /* VisualUserPrefs.swift */; };
 		DB6E0E7C2979825900BCDB96 /* MealsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */; };
 		DB6E0E7E297982DC00BCDB96 /* PlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */; };
 		DB6E0E80297AE14C00BCDB96 /* ViewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */; };
@@ -93,6 +96,10 @@
 		DB3663232A6967B600F7894B /* AddRecipeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeSheet.swift; sourceTree = "<group>"; };
 		DB3663262A6AC30500F7894B /* TopSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopSearchBar.swift; sourceTree = "<group>"; };
 		DB36632A2A6C1E7100F7894B /* EdamamParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdamamParser.swift; sourceTree = "<group>"; };
+		DB36632C2A6D44C700F7894B /* CustomizationPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizationPanel.swift; sourceTree = "<group>"; };
+		DB36632E2A6D5C4700F7894B /* MealsDataController+Customization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealsDataController+Customization.swift"; sourceTree = "<group>"; };
+		DB3663302A6D60BF00F7894B /* VisualUserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualUserPrefs.swift; sourceTree = "<group>"; };
+		DB3663322A6D9FEB00F7894B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListTests.swift; sourceTree = "<group>"; };
 		DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningTests.swift; sourceTree = "<group>"; };
 		DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsTests.swift; sourceTree = "<group>"; };
@@ -229,6 +236,7 @@
 		DB9B879D293F4F9F00F2344B /* Meal */ = {
 			isa = PBXGroup;
 			children = (
+				DB3663322A6D9FEB00F7894B /* Info.plist */,
 				DB3663142A68276500F7894B /* MealsSearchPanel */,
 				DBEAFBD72A334B590048797C /* Meal.entitlements */,
 				DBA39EEB294A29BE00AC97E2 /* ConfigurePanel */,
@@ -360,6 +368,7 @@
 				DB9D99662954DEB60051BD63 /* ThanksPanel.swift */,
 				DBDB329329D070F900248B12 /* WhatsNewPanel.swift */,
 				DBEAFBDA2A3786D30048797C /* CollaborationPanel.swift */,
+				DB36632C2A6D44C700F7894B /* CustomizationPanel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -370,9 +379,11 @@
 				DB9D994F29506D6B0051BD63 /* ConfigurePanelViewModel.swift */,
 				DB9D9956295092B40051BD63 /* MealsDataController+Schedule.swift */,
 				DB9D9964295387B40051BD63 /* MealsDataController+Calendar.swift */,
+				DB36632E2A6D5C4700F7894B /* MealsDataController+Customization.swift */,
 				DB9D995A2951C5B30051BD63 /* CalendarController.swift */,
 				DBB9C5D82A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift */,
 				DB9D995129506D750051BD63 /* Views */,
+				DB3663302A6D60BF00F7894B /* VisualUserPrefs.swift */,
 			);
 			path = ConfigurePanel;
 			sourceTree = "<group>";
@@ -538,6 +549,7 @@
 				DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */,
 				DBDB329429D070F900248B12 /* WhatsNewPanel.swift in Sources */,
 				DBB9C5D72A3DB6050087BA99 /* IAPManager.swift in Sources */,
+				DB36632D2A6D44C700F7894B /* CustomizationPanel.swift in Sources */,
 				DBEAFBDB2A3786D30048797C /* CollaborationPanel.swift in Sources */,
 				DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */,
 				DB36631E2A68286500F7894B /* RecipesSearchPanel.swift in Sources */,
@@ -552,11 +564,13 @@
 				DBA39EEF294C9F9D00AC97E2 /* MealScheduleSheet.swift in Sources */,
 				DB6E0E82297F05B300BCDB96 /* Side.swift in Sources */,
 				DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */,
+				DB36632F2A6D5C4700F7894B /* MealsDataController+Customization.swift in Sources */,
 				DB3663272A6AC30500F7894B /* TopSearchBar.swift in Sources */,
 				DBEAFBD92A35C89C0048797C /* CloudKitController.swift in Sources */,
 				DB9D995029506D6B0051BD63 /* ConfigurePanelViewModel.swift in Sources */,
 				DB3663202A682CEB00F7894B /* RecipesSearchPanelVM.swift in Sources */,
 				DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */,
+				DB3663312A6D60BF00F7894B /* VisualUserPrefs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -744,6 +758,7 @@
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Meal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Meal Planner";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
@@ -758,7 +773,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3;
+				MARKETING_VERSION = 2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -784,6 +799,7 @@
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Meal/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Meal Planner";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSCalendarsUsageDescription = "Add your lunch plan to your calendar";
@@ -798,7 +814,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3;
+				MARKETING_VERSION = 2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

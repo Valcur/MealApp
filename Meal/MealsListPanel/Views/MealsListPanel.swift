@@ -27,20 +27,18 @@ struct MealsListPanel: View {
                     .largeTitle(style: .secondary, numberOfLine: 1)
                 */
                 MealTypeSelectionRow(selectedMealType: $selectedMealType)
-                
-                HStack {
-                    MealTypeDesription(text: selectedMealIntroString)
-                    
-                    Spacer()
-                    
-                    NewMealButton(showingNewMealSheet: $showingNewMealSheet)
-                        .sheet(isPresented: $showingNewMealSheet) {
-                            NewMealSheet(mealType: selectedMealType)
-                        }
-                } 
             }.padding(15).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4).mask(Rectangle().padding(.bottom, -20))).zIndex(1)
 
-            MealList(selectedMealType: $selectedMealType)
+            ZStack(alignment: .bottomTrailing) {
+                MealList(selectedMealType: $selectedMealType)
+                
+                NewMealButton(showingNewMealSheet: $showingNewMealSheet)
+                    .padding(5)
+                    .sheet(isPresented: $showingNewMealSheet) {
+                        NewMealSheet(mealType: selectedMealType)
+                    }
+            }
+            
         }.background(Color("BackgroundColor"))
     }
     
@@ -53,15 +51,6 @@ struct MealsListPanel: View {
             }, label: {
                 ButtonLabel(title: "+", isCompact: true)
             })
-        }
-    }
-    
-    struct MealTypeDesription: View {
-        let text: String
-        
-        var body: some View {
-            Text(NSLocalizedString(text, comment: text))
-                .headLine()
         }
     }
 }

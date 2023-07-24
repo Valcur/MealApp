@@ -13,6 +13,7 @@ struct MealApp: App {
     let mealListVM: MealsListPanelViewModel
     let configurePanelVM: ConfigurePanelViewModel
     let cloudKitController: CloudKitController
+    let userPrefs: VisualUserPrefs
     @State var showIntro: Bool
     
     init() {
@@ -21,6 +22,7 @@ struct MealApp: App {
         configurePanelVM = ConfigurePanelViewModel(cloudKitController: cloudKitController)
         planningVM = PlanningPanelViewModel(mealsVM: mealListVM, configureVM: configurePanelVM, cloudKitController: cloudKitController)
         configurePanelVM.planningPanelVM = planningVM
+        userPrefs = VisualUserPrefs()
         
         // Show intro for as long as there is no meal saved by the user
         let mealsCount = mealListVM.meals.count()
@@ -30,17 +32,20 @@ struct MealApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
+                /*
                 RecipesSearchPanel()
                     .environmentObject(RecipesSearchPanelViewModel())
                     .environmentObject(mealListVM)
+                    .environmentObject(userPrefs)
                     .tabItem {
                         Image(systemName: "book")
                         Text("Recettes")
-                }
+                }*/
                 
                 PlanningPannel(cloudKitController: cloudKitController)
                     .ignoresSafeArea(.keyboard)
                     .environmentObject(planningVM)
+                    .environmentObject(userPrefs)
                     .tabItem {
                         Image(systemName: "calendar")
                         Text(NSLocalizedString("tab_week", comment: "My week"))
@@ -48,6 +53,7 @@ struct MealApp: App {
                 
                 MealsListPanel()
                     .environmentObject(mealListVM)
+                    .environmentObject(userPrefs)
                     .tabItem {
                         Image(systemName: "list.dash")
                         Text(NSLocalizedString("tab_meals", comment: "My meals"))
@@ -56,6 +62,7 @@ struct MealApp: App {
                 ConfigurePanel()
                     .environmentObject(configurePanelVM)
                     .environmentObject(mealListVM)
+                    .environmentObject(userPrefs)
                     .tabItem {
                         Image(systemName: "gear")
                         Text(NSLocalizedString("tab_options", comment: "Options"))

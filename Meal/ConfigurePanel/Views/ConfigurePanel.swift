@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ConfigurePanel: View {
     @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
+    @EnvironmentObject var userPrefs: VisualUserPrefs
     
     var body: some View {
         NavigationView {
@@ -27,6 +28,9 @@ struct ConfigurePanel: View {
                     }
                 }
                 Section(header: Text("Options")) {
+                    NavigationLink(destination: CustomizationPanel(userPrefs: userPrefs)) {
+                        Text("customization.title".translate())
+                    }
                     NavigationLink(destination: CollaborationPanel()) {
                         Text(NSLocalizedString("collaboration.title", comment: "collaboration.title"))
                     }

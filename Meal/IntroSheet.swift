@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct IntroSheet: View {
-    
     @Environment(\.presentationMode) var presentationMode
     let introPannels: [AnyView]
     @State var selectedPannelId = 0
@@ -62,7 +61,7 @@ struct IntroSheet: View {
                     Image("Meat")
                         .resizable()
                         .frame(width: 50, height: 50)
-                }.roundedCornerRectangle(color: MealType.meat.getColor())
+                }.roundedCornerRectangle(color: Color("MeatColor"))
                 
                 HStack {
                     Text(NSLocalizedString("intro_addMeal_vegan", comment: "intro_addMeal_vegan"))
@@ -73,7 +72,7 @@ struct IntroSheet: View {
                     Image("Vegan")
                         .resizable()
                         .frame(width: 50, height: 50)
-                }.roundedCornerRectangle(color: MealType.vegan.getColor())
+                }.roundedCornerRectangle(color: Color("VeganColor"))
                 
                 HStack {
                     Text(NSLocalizedString("intro_addMeal_outside", comment: "intro_addMeal_outside"))
@@ -84,7 +83,7 @@ struct IntroSheet: View {
                     Image("Outside")
                         .resizable()
                         .frame(width: 50, height: 50)
-                }.roundedCornerRectangle(color: MealType.outside.getColor())
+                }.roundedCornerRectangle(color: Color("OutsideColor"))
             }.padding(.bottom, 100).scrollableSheetVStack()
         }
         

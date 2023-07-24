@@ -142,6 +142,7 @@ struct MealInfoSheet: View {
 }
 
 struct MealTypeSelector: View {
+    @EnvironmentObject var userPrefs: VisualUserPrefs
     let mealType: MealType
     @Binding var selectedMealType: MealType
     var isSelected: Bool {
@@ -153,8 +154,8 @@ struct MealTypeSelector: View {
             selectedMealType = mealType
         }, label: {
             ZStack {
-                mealType.getColor()
-                Text(mealType.getName())
+                mealType.getColor(userPrefs: userPrefs)
+                Text(mealType.getName(userPrefs: userPrefs))
                     .fontWeight(.semibold)
                     .foregroundColor(Color("TextColor"))
             }.frame(height: 40).roundedCornerRectangle(padding: 0, cornerRadius: 10).opacity(isSelected ? 1 : 0.5)

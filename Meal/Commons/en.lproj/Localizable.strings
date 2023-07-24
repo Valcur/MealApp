@@ -129,6 +129,8 @@
 Joining a shared planning is free, sharing your planning is for premium users only.
 
 When using collaboration, if you save your planning to a calendar, make sure this specific calendar is only used for this app or other events on it could be deleted.
+
+Once activated if you have an error during synchronization, check your device's options -> 'Account name' -> iCloud -> iCloud Drive, and make sure that 'Synchronize this device' is enabled.
 ";
 
 "collaboration.useSharedPlanning.title" = "Join a shared planning";
@@ -151,9 +153,18 @@ When using collaboration, if you save your planning to a calendar, make sure thi
 "collaboration.errorMessage.invalidKey" = "Invalid code";
 "collaboration.errorMessage.tryAgain" = "Error, please try again";
 
+"customization.title" = "Customization";
+"customization.intro" = "If the default categories doesn't suit you, change them below.";
+"customization.category" = "Category";
+"customization.title.placeholder" = "Category name";
+"customization.color.title" = "Color :";
+"customization.image.title" = "Image :";
+
 
 "copy" = "Copy";
 "paste" = "Paste";
+"tryAgain" = "Try again";
+
 
 "premium_info_title" = "Subscription informations";
 "premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($0.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will let you, for the duration of your subsription, share your planning with whoever you want.";

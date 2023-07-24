@@ -85,7 +85,7 @@ struct PlanningPannel: View {
                                     .resizable()
                                     .frame(width: 50, height: 34)
                                 
-                                Text("Try again")
+                                Text("tryAgain".translate())
                                     .font(.caption)
                                     .offset(y: 25)
                             }
