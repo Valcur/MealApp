@@ -32,7 +32,7 @@ struct MealApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                /*
+                
                 RecipesSearchPanel()
                     .environmentObject(RecipesSearchPanelViewModel())
                     .environmentObject(mealListVM)
@@ -40,7 +40,7 @@ struct MealApp: App {
                     .tabItem {
                         Image(systemName: "book")
                         Text("Recettes")
-                }*/
+                }
                 
                 PlanningPannel(cloudKitController: cloudKitController)
                     .ignoresSafeArea(.keyboard)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Welcome
+// MARK: - RecipeQuery
 struct RecipeQuery: Codable {
     let from, to, count: Int
     let links: RecipeQueryLinks
@@ -21,7 +21,7 @@ struct RecipeQuery: Codable {
     
     // MARK: - Hit
     struct Hit: Codable {
-        let recipe: Recipe
+        let recipe: RecipeData
         let links: HitLinks
 
         enum CodingKeys: String, CodingKey {
@@ -51,17 +51,69 @@ struct RecipeQuery: Codable {
     }
 
     // MARK: - Recipe
-    struct Recipe: Codable {
+    struct RecipeData: Codable {
+        let uri: String
         let label: String
-        let image: String
+        let images: Images
         let url: String
-        let yield: Int
+        let yield: Int?
         let ingredientLines: [String]
+        let ingredients: [Ingredient]
         let calories: Double
+        let totalTime: Int
+        let totalDaily: [String: TotalDaily]
     }
 
-    // MARK: - WelcomeLinks
-    struct RecipeQueryLinks: Codable {
-        let next: Next
+    // MARK: - Images
+    struct Images: Codable {
+        let thumbnail, small, regular: Large?
+        let large: Large?
+
+        enum CodingKeys: String, CodingKey {
+            case thumbnail = "THUMBNAIL"
+            case small = "SMALL"
+            case regular = "REGULAR"
+            case large = "LARGE"
+        }
     }
+
+    // MARK: - Large
+    struct Large: Codable {
+        let url: String
+        let width, height: Int
+    }
+
+    // MARK: - Ingredient
+    struct Ingredient: Codable {
+        let text: String
+        let quantity: Double
+        let measure: String?
+        let food: String
+        let weight: Double
+        let foodCategory, foodID: String
+        let image: String?
+
+        enum CodingKeys: String, CodingKey {
+            case text, quantity, measure, food, weight, foodCategory
+            case foodID = "foodId"
+            case image
+        }
+    }
+
+    // MARK: - TotalDaily
+    struct TotalDaily: Codable {
+        let label: String
+        let quantity: Double
+        let unit: Unit
+    }
+
+    enum Unit: String, Codable {
+        case empty = "%"
+    }
+
+    // MARK: - RecipeQueryLinks
+    struct RecipeQueryLinks: Codable {
+        let next: Next?
+    }
+
 }

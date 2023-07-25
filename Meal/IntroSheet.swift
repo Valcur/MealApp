@@ -52,38 +52,47 @@ struct IntroSheet: View {
                 Text(NSLocalizedString("intro_addMeal_category", comment: "intro_addMeal_category"))
                     .headLine()
                 
-                HStack {
-                    Text(NSLocalizedString("intro_addMeal_meat", comment: "intro_addMeal_meat"))
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .frame(height: 50)
-                    Spacer()
-                    Image("Meat")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                }.roundedCornerRectangle(color: Color("MeatColor"))
+                ZStack {
+                    LinearGradient(gradient: Gradient(colors: [Color("MeatColor").opacity(0.5), Color("MeatColor")]), startPoint: .top, endPoint: .bottom)
+                    HStack {
+                        Text(NSLocalizedString("intro_addMeal_meat", comment: "intro_addMeal_meat"))
+                            .foregroundColor(.black)
+                            .font(.headline)
+                            .frame(height: 50)
+                        Spacer()
+                        Image("Meat")
+                            .resizable()
+                            .frame(width: 130, height: 130).offset(y: 15)
+                    }.frame(height: 50).padding(15)
+                }.roundedCornerRectangle(padding: 0)
                 
-                HStack {
-                    Text(NSLocalizedString("intro_addMeal_vegan", comment: "intro_addMeal_vegan"))
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .frame(height: 50)
-                    Spacer()
-                    Image("Vegan")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                }.roundedCornerRectangle(color: Color("VeganColor"))
+                ZStack {
+                    LinearGradient(gradient: Gradient(colors: [Color("VeganColor").opacity(0.5), Color("VeganColor")]), startPoint: .top, endPoint: .bottom)
+                    HStack {
+                        Text(NSLocalizedString("intro_addMeal_vegan", comment: "intro_addMeal_vegan"))
+                            .foregroundColor(.black)
+                            .font(.headline)
+                            .frame(height: 50)
+                        Spacer()
+                        Image("Vegan")
+                            .resizable()
+                            .frame(width: 130, height: 130).offset(y: 15)
+                    }.frame(height: 50).padding(15)
+                }.roundedCornerRectangle(padding: 0)
                 
-                HStack {
-                    Text(NSLocalizedString("intro_addMeal_outside", comment: "intro_addMeal_outside"))
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .frame(height: 50)
-                    Spacer()
-                    Image("Outside")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                }.roundedCornerRectangle(color: Color("OutsideColor"))
+                ZStack {
+                    LinearGradient(gradient: Gradient(colors: [Color("OutsideColor").opacity(0.5), Color("OutsideColor")]), startPoint: .top, endPoint: .bottom)
+                    HStack {
+                        Text(NSLocalizedString("intro_addMeal_outside", comment: "intro_addMeal_outside"))
+                            .foregroundColor(.black)
+                            .font(.headline)
+                            .frame(height: 50)
+                        Spacer()
+                        Image("Outside")
+                            .resizable()
+                            .frame(width: 130, height: 130).offset(y: 15)
+                    }.frame(height: 50).padding(15)
+                }.roundedCornerRectangle(padding: 0)
             }.padding(.bottom, 100).scrollableSheetVStack()
         }
         
@@ -141,6 +150,9 @@ struct IntroSheet: View {
                     .headLine()
                 
                 Text(NSLocalizedString("intro_end_schedule", comment: "intro_end_schedule"))
+                    .headLine()
+                
+                Text("intro_end_collaboration".translate())
                     .headLine()
             }.padding(.bottom, 100).scrollableSheetVStack()
         }

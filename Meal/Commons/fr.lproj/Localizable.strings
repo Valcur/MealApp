@@ -85,7 +85,7 @@
 "intro_addMeal_title" = "Ajouter des plats";
 "intro_addMeal_intro" = "Dans un premier temps, il vous faut ajouter des plats que vous aimez. Dirigez vous vers l'onglet 'Mes plats'";
 "intro_addMeal_add" = "Utilisez ce bouton pour enregisrer un nouveau plat";
-"intro_addMeal_category" = "Vos plats peuvent être rangés dans 3 categories :";
+"intro_addMeal_category" = "Par défaut, vos plats peuvent être rangés dans 3 categories (vous pouvez les renommer/changer leur apparence à tout moment dans les options si vous souhaitez ranger vos recettes différements) :";
 "intro_addMeal_meat" = "Vos plats non vegan";
 "intro_addMeal_vegan" = "Vos plats vegan";
 "intro_addMeal_outside" = "Les endroits où vous aimez commander";
@@ -95,11 +95,12 @@
 "intro_organize_+" = "Ajouter un plat précis";
 "intro_organize_?" = "Ajouter un plat vegan/non vegan aléatoire que vous n'avez pas mangé depuis longtemps";
 "intro_organize_hold" = "Changé d'avis ? Gardez appuyer un plat pour le déplacer à un autre jour";
-"intro_organize_auto" = "Utilisez le bouton autofill pour laisser l'application finir de remplir votre semaine aléatoirement";
+"intro_organize_auto" = "Utilisez le bouton auto pour laisser l'application finir de remplir votre semaine aléatoirement";
 
 "intro_end_title" = "Dernier point";
 "intro_end_calendar" = "Dirigez vous vers les options si vous souhaitez que votre menu soit automatiquement ajouté à votre calendrier et ainsi pouvoir le partager avec votre famille";
 "intro_end_schedule" = "Créez un nouveau programme pour ajouter un plat specifique automatiquement chaque semaine";
+"intro_end_collaboration" = "Rendez-vous dans le menu 'Collaboration' si vous souhaitez que plusieurs personnes puissent remplir le même menu.";
 
 "intro_continue" = "Continuer";
 "intro_start" = "Commencer";

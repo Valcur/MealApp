@@ -100,19 +100,22 @@ struct CardView: View
                         Spacer()
                         if cardAlpha > 0.91 {
                             VStack {
-                                Text(recipe.name.uppercased())
+                                Text(recipe.name)
                                     .font(.system(size: CardViewConsts.labelTextSize))
-                                    .kerning(CardViewConsts.labelTextKerning)
+                                    .fontWeight(.semibold)
+                                    //.kerning(CardViewConsts.labelTextKerning)
                                     .foregroundColor(Color("TextColor"))
+                                    .lineLimit(2)
+                                    .padding(.horizontal, 15)
                                 
                                 Spacer()
                                 
                                 HStack {
-                                    RecipeInfoListElement(value: "164", title: "Calories / Serving")
-                                    RecipeInfoListElement(value: "8%", title: "Daily Value")
-                                    RecipeInfoListElement(value: "9", title: "Ingredients")
+                                    RecipeInfoListElement(value: recipe.nutrition.calories, title: "Calories / Serving")
+                                    RecipeInfoListElement(value: recipe.nutrition.dailyValue, title: "Daily Kcal")
+                                    RecipeInfoListElement(value: "\(recipe.ingredients.count)", title: "Ingredients")
                                 }.padding(.horizontal, 5)
-                            }.padding(.vertical, 25).frame(height: 150, alignment: .center)
+                            }.padding(.vertical, 15).frame(height: 150, alignment: .center)
                         }
                         Spacer()
                     }

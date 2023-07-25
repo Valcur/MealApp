@@ -22,7 +22,7 @@ extension MealsDataController {
                 return categories
             }
         }
-        return CategoriesCustomizationData(meatTitle: "Meat".translate(), meatColorId: 6, meatImageId: 0, veganTitle: "Vegan".translate(), veganColorID: 7, veganImageId: 1, outsideColorId: 0, outsideImageId: 2)
+        return CategoriesCustomizationData(meatTitle: "Meat".translate(), meatColorId: 0, meatImageId: 0, veganTitle: "Vegan".translate(), veganColorID: 1, veganImageId: 1, outsideColorId: 2, outsideImageId: 2)
     }
 }
 

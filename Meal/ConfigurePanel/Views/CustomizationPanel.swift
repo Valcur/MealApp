@@ -18,6 +18,9 @@ struct CustomizationPanel: View {
     @State private var veganImageId: Int = 1
     @State private var outsideImageId: Int = 2
     
+    private let numberOfColor: Int = 9
+    private let numberOfImages: Int = 10
+    
     init(userPrefs: VisualUserPrefs) {
         self.userPrefs = userPrefs
         
@@ -42,19 +45,19 @@ struct CustomizationPanel: View {
                 ScrollView(.horizontal) {
                     HStack {
                         Text("customization.color.title".translate()).padding(.trailing, 10)
-                        ForEach(0..<8) { n in
+                        ForEach(0..<numberOfColor) { n in
                             ColorPickerView(colorId: n, selectedColor: $meatCategorieColorId)
                         }
-                    }
+                    }.padding(.bottom, 5)
                 }
                 
                 ScrollView(.horizontal) {
                     HStack {
                         Text("customization.image.title".translate()).padding(.trailing, 10)
-                        ForEach(0..<6) { n in
+                        ForEach(0..<numberOfImages) { n in
                             ImagePickerView(imageId: n, selectedImage: $meatImageId)
                         }
-                    }
+                    }.padding(.bottom, 8)
                 }
             }
                 
@@ -68,19 +71,19 @@ struct CustomizationPanel: View {
                 ScrollView(.horizontal) {
                     HStack {
                         Text("customization.color.title".translate()).padding(.trailing, 10)
-                        ForEach(0..<8) { n in
+                        ForEach(0..<numberOfColor) { n in
                             ColorPickerView(colorId: n, selectedColor: $veganCategorieColorId)
                         }
-                    }
+                    }.padding(.bottom, 5)
                 }
                 
                 ScrollView(.horizontal) {
                     HStack {
                         Text("customization.image.title".translate()).padding(.trailing, 10)
-                        ForEach(0..<6) { n in
+                        ForEach(0..<numberOfImages) { n in
                             ImagePickerView(imageId: n, selectedImage: $veganImageId)
                         }
-                    }
+                    }.padding(.bottom, 8)
                 }
             }
             
@@ -91,19 +94,19 @@ struct CustomizationPanel: View {
                 ScrollView(.horizontal) {
                     HStack {
                         Text("customization.color.title".translate()).padding(.trailing, 10)
-                        ForEach(0..<8) { n in
+                        ForEach(0..<numberOfColor) { n in
                             ColorPickerView(colorId: n, selectedColor: $outsideCategorieColorId)
                         }
-                    }
+                    }.padding(.bottom, 5)
                 }
                 
                 ScrollView(.horizontal) {
                     HStack {
                         Text("customization.image.title".translate()).padding(.trailing, 10)
-                        ForEach(0..<6) { n in
+                        ForEach(0..<numberOfImages) { n in
                             ImagePickerView(imageId: n, selectedImage: $outsideImageId)
                         }
-                    }
+                    }.padding(.bottom, 8)
                 }
             }
                 

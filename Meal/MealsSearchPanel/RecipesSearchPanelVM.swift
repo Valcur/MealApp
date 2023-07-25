@@ -20,7 +20,7 @@ class RecipesSearchPanelViewModel: ObservableObject {
         Recipe(name: "zrgrzzrr"),
         Recipe(name: "z rgzrrrg"),
         Recipe(name: "zrslgppfsp"),
-        Recipe(name: "zeazzzzzzz")
+        Recipe(name: "zeazzzzzzz  raeaer ae r aher bhaerb haer hae raber hbaerhjaejhrb aj")
     ]
     @Published var selectedSearchTags: [SearchTag] = []
     @Published var infoMessage: String = ""
@@ -38,7 +38,7 @@ class RecipesSearchPanelViewModel: ObservableObject {
         infoMessage = InfoMessage.searching.rawValue
         
         
-        let urlString = "https://api.edamam.com/api/recipes/v2?type=public&q=\(query)&app_id=\(IAPManager.EdamamAppId)&app_key=\(IAPManager.EdamamAppKey)&imageSize=LARGE&field=label&field=image&field=url&field=yield&field=ingredientLines&field=calories"
+        let urlString = "https://api.edamam.com/api/recipes/v2?type=public&q=\(query.replacingOccurrences(of: " ", with: "%20"))&app_id=\(IAPManager.EdamamAppId)&app_key=\(IAPManager.EdamamAppKey)&imageSize=LARGE&field=uri&field=label&field=images&field=url&field=yield&field=ingredientLines&field=ingredients&field=calories&field=totalTime&field=totalDaily"
         
         if let url = URL(string: urlString) {
             URLSession.shared.dataTask(with: url) {data, res, err in
@@ -49,7 +49,15 @@ class RecipesSearchPanelViewModel: ObservableObject {
                         DispatchQueue.main.async {
                             for r in json.hits {
                                 let recipe = r.recipe
-                                let newRecipe = Recipe(name: recipe.label, imageUrl: recipe.image, ingredients: recipe.ingredientLines, nutrition: Recipe.NutritionInfo(calories: "\(recipe.calories)", servings: "\(recipe.yield)"), preparation: recipe.url)
+                                let yield = Double(recipe.yield ?? 1)
+                                let daily = recipe.totalDaily["ENERC_KCAL"] != nil ? recipe.totalDaily["ENERC_KCAL"]!.quantity / yield : 0.0
+                                let newRecipe = Recipe(name: recipe.label,
+                                                       imageUrl: (recipe.images.large != nil) ? recipe.images.large!.url : ((recipe.images.regular != nil) ? recipe.images.regular!.url : ((recipe.images.small != nil) ? recipe.images.small!.url : "")),
+                                                       ingredients: recipe.ingredientLines,
+                                                       nutrition: Recipe.NutritionInfo(calories: "\(Int((recipe.calories / yield).rounded(.toNearestOrAwayFromZero)))",
+                                                                                       dailyValue: "\(Int(daily.rounded(.toNearestOrAwayFromZero)))%",
+                                                                                       servings: "\(Int(yield.rounded(.toNearestOrAwayFromZero)))"),
+                                                       preparation: recipe.url)
                                 self.recipes.append(newRecipe)
                             }
                             self.infoMessage = InfoMessage.searchresult.rawValue.translate() + " \(query)"
