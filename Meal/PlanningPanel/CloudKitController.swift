@@ -451,6 +451,11 @@ extension CloudKitController {
         }
     }
     
+    func userNotPremium() {
+        shareYourPlanning = false
+        self.updateSharedWeekPlanId()
+    }
+    
     func isSavingToCloud() -> Bool {
         return sharedWeekPlanId.count > 0
     }
