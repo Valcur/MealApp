@@ -15,10 +15,10 @@ struct WhatsNewPanel: View {
             
             HStack {
                 Spacer()
-                Image("WhatsNew")
+                /*Image("WhatsNew")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 200)
+                    .frame(maxWidth: 200)*/
                 Spacer()
             }.padding(.horizontal, 50)
             

@@ -129,9 +129,9 @@
 "flageolets" = "Flageolets";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Partagez votre menu avec vos proches et remplissez le tous enssemble (Options -> Collaboration)";
+"whatsNew_content" = "Une 4ème catégorie est désormais disponible pour ranger vos plats. Les deux premières catégories restent les seuls choisies si vous ajoutez un plat aléatoire.\n\nVous pouvez maintenant renommer/personaliser les catégories selon vos besoins (Options -> Personnalisation).";
 "whatsNew_old_title" = "Précédemment";
-"whatsNew_old_content" = "Vous pouvez désormais écrire des notes pour vos plats.\n\nBesoin d'ajouter une recette ? Un lien vers le site internet de votre pizzeria préférée ? Ces notes seront automatiquement ajoutées à votre calendrier afin que tout le monde puisse les lire.\n\nLes notes dans l'onglet 'ma semaine' ne sont pas sauvegardées pour une prochaine utilisation du plat. Les notes récurentes doivent être ajoutées dans l'onglet 'mes plats'.";
+"whatsNew_old_content" = "Partagez votre menu avec vos proches et remplissez le tous enssemble (Options -> Collaboration)";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -174,6 +174,8 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "customization.title.placeholder" = "Nom de la catégorie";
 "customization.color.title" = "Couleur :";
 "customization.image.title" = "Image :";
+
+"options_other_title" = "Autres";
 
 
 "copy" = "Copier";

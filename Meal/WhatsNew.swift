@@ -29,10 +29,10 @@ struct WhatsNewView: View {
                 
                 HStack {
                     Spacer()
-                    Image("WhatsNew")
+                    /*Image("WhatsNew")
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: 400)
+                        .frame(maxWidth: 400)*/
                     Spacer()
                 }.padding(.horizontal, 50)
                 
@@ -75,7 +75,7 @@ struct WhatsNewView: View {
     }
     
     class WhatsNewController: ObservableObject {
-        private let updateDate = "18/07/2023"
+        private let updateDate = "26/07/2023"
         @Published var showWhatsNew: Bool
         
         init() {

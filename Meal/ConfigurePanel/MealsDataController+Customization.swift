@@ -28,7 +28,7 @@ extension MealsDataController {
                                            veganTitle: "Vegan".translate(),
                                            veganColorID: 1,
                                            veganImageId: 1,
-                                           otherTitle: "Dessert".translate(),
+                                           otherTitle: "Other".translate(),
                                            otherColorID: 2,
                                            otherImageId: 2,
                                            outsideColorId: 3,

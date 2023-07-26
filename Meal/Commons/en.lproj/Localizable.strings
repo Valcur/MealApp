@@ -118,9 +118,9 @@
 "flageolets" = "Flageolets";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "Share your planning with your family to let everyone add meals to the menu (Options -> Collaboration).";
+"whatsNew_content" = "A 4th category is now available to add your meals. The firt two remain the only categories picked when randomly adding a meal.\n\nYou can rename/customize the categories (Options -> Customization)";
 "whatsNew_old_title" = "Previously";
-"whatsNew_old_content" = "You can add notes to your meals\n\nWant to keep track of a recipe ? A link to the website to order your favorite Pizza ? Those notes will be automatically added to your calendar events so that everyone you shared your calendar with will see them.\n\nNotes added in the 'week planning' panel won't be kept for the next time you assign this meal. Make sure to add recuring notes in the 'my meals' panel.";
+"whatsNew_old_content" = "Share your planning with your family to let everyone add meals to the menu (Options -> Collaboration).";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
@@ -162,6 +162,8 @@ Once activated if you have an error during synchronization, check your device's 
 "customization.title.placeholder" = "Category name";
 "customization.color.title" = "Color :";
 "customization.image.title" = "Image :";
+
+"options_other_title" = "Other";
 
 
 "copy" = "Copy";
