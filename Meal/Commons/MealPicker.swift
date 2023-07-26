@@ -18,6 +18,8 @@ struct MealPicker: View {
             return mealsList.meatMeals
         case .vegan:
             return mealsList.veganMeals
+        case .other:
+            return mealsList.otherMeals
         case .outside:
             return mealsList.outsideMeals
         }
@@ -25,11 +27,7 @@ struct MealPicker: View {
     
     var body: some View {
         VStack {
-            HStack {
-                MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
-                MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
-                MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
-            }
+            MealTypeSelection(selectedMealType: $mealType)
             
             Picker("Meals to choose from", selection: $selection) {
                 ForEach(0..<mealsAvailable.count, id: \.self) { mealId in

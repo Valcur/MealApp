@@ -17,6 +17,9 @@ class VisualUserPrefs: ObservableObject {
     var veganTitle: String {
         categoriesPrefs.veganTitle
     }
+    var otherTitle: String {
+        categoriesPrefs.otherTitle
+    }
     
     var meatColorId: Int {
         categoriesPrefs.meatColorId
@@ -24,8 +27,24 @@ class VisualUserPrefs: ObservableObject {
     var veganColorId: Int {
         categoriesPrefs.veganColorID
     }
+    var otherColorId: Int {
+        categoriesPrefs.otherColorID
+    }
     var outsideColorId: Int {
         categoriesPrefs.outsideColorId
+    }
+    
+    var meatImageId: Int {
+        categoriesPrefs.meatImageId
+    }
+    var veganImageId: Int {
+        categoriesPrefs.veganImageId
+    }
+    var otherImageId: Int {
+        categoriesPrefs.otherImageId
+    }
+    var outsideImageId: Int {
+        categoriesPrefs.outsideImageId
     }
     
     var meatColor: String {
@@ -33,6 +52,9 @@ class VisualUserPrefs: ObservableObject {
     }
     var veganColor: String {
         "ColorChoice \(veganColorId)"
+    }
+    var otherColor: String {
+        "ColorChoice \(otherColorId)"
     }
     var outsideColor: String {
         "ColorChoice \(outsideColorId)"
@@ -43,6 +65,9 @@ class VisualUserPrefs: ObservableObject {
     }
     var veganImage: String {
         "ImageChoice \(categoriesPrefs.veganImageId)"
+    }
+    var otherImage: String {
+        "ImageChoice \(categoriesPrefs.otherImageId)"
     }
     var outsideImage: String {
         "ImageChoice \(categoriesPrefs.outsideImageId)"

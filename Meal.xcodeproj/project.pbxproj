@@ -19,6 +19,7 @@
 		DB36632D2A6D44C700F7894B /* CustomizationPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36632C2A6D44C700F7894B /* CustomizationPanel.swift */; };
 		DB36632F2A6D5C4700F7894B /* MealsDataController+Customization.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36632E2A6D5C4700F7894B /* MealsDataController+Customization.swift */; };
 		DB3663312A6D60BF00F7894B /* VisualUserPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663302A6D60BF00F7894B /* VisualUserPrefs.swift */; };
+		DB3663342A6FFED000F7894B /* MealTypeSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663332A6FFED000F7894B /* MealTypeSelection.swift */; };
 		DB6E0E7C2979825900BCDB96 /* MealsListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */; };
 		DB6E0E7E297982DC00BCDB96 /* PlanningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */; };
 		DB6E0E80297AE14C00BCDB96 /* ViewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */; };
@@ -100,6 +101,7 @@
 		DB36632E2A6D5C4700F7894B /* MealsDataController+Customization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealsDataController+Customization.swift"; sourceTree = "<group>"; };
 		DB3663302A6D60BF00F7894B /* VisualUserPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualUserPrefs.swift; sourceTree = "<group>"; };
 		DB3663322A6D9FEB00F7894B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DB3663332A6FFED000F7894B /* MealTypeSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypeSelection.swift; sourceTree = "<group>"; };
 		DB6E0E7B2979825900BCDB96 /* MealsListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListTests.swift; sourceTree = "<group>"; };
 		DB6E0E7D297982DC00BCDB96 /* PlanningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningTests.swift; sourceTree = "<group>"; };
 		DB6E0E7F297AE14C00BCDB96 /* ViewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsTests.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				DB9D99622951F25A0051BD63 /* Localizable.strings */,
 				DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */,
 				DBDB329029D0588600248B12 /* InfoPlist.strings */,
+				DB3663332A6FFED000F7894B /* MealTypeSelection.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				DB3663242A6967B600F7894B /* AddRecipeSheet.swift in Sources */,
 				DBA7B1FC29C9D98000B04E38 /* WhatsNew.swift in Sources */,
 				DB9D995529506F9B0051BD63 /* MealPicker.swift in Sources */,
+				DB3663342A6FFED000F7894B /* MealTypeSelection.swift in Sources */,
 				DB9B87D5293F79C500F2344B /* MealsListPanelViewModel.swift in Sources */,
 				DB36631C2A68283B00F7894B /* Extensions_Card.swift in Sources */,
 				DBB9C5D92A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift in Sources */,
@@ -773,7 +777,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.9;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -814,7 +818,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.9;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

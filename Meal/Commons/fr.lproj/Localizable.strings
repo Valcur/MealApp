@@ -9,6 +9,7 @@
 "Meat" = "Carné";
 "Vegan" = "Vegan";
 "Outside" = "Extérieur";
+"Other" = "Desserts";
 
 "mealList_meat_intro" = "Vos plats non vegan";
 "mealList_vegan_intro" = "Vos plats vegan";
@@ -34,7 +35,7 @@
 
 "autofill" = "Auto";
 "autofill_intro" = "Remplis la semaine avec vos plats, choisis aléatoirement";
-"autofill_meat-vegan_title" = "Choisissez le pourcentage de plat carné que vous souhaitez cette semaine (le reste sera vegan)";
+"autofill_meat-vegan_title" = "Choisissez le pourcentage de plat %@ que vous souhaitez cette semaine (le reste sera %@)";
 "autofill_outside_title" = "Choisissez le nombre de repas où vous souhaitez commander des plats déjà préparé cette semaine";
 
 "mealPlan_edit_title" = "Modifier les informations";
@@ -85,9 +86,10 @@
 "intro_addMeal_title" = "Ajouter des plats";
 "intro_addMeal_intro" = "Dans un premier temps, il vous faut ajouter des plats que vous aimez. Dirigez vous vers l'onglet 'Mes plats'";
 "intro_addMeal_add" = "Utilisez ce bouton pour enregisrer un nouveau plat";
-"intro_addMeal_category" = "Par défaut, vos plats peuvent être rangés dans 3 categories (vous pouvez les renommer/changer leur apparence à tout moment dans les options si vous souhaitez ranger vos recettes différements) :";
+"intro_addMeal_category" = "Par défaut, vos plats peuvent être rangés dans 4 categories (vous pouvez les renommer/changer leur apparence à tout moment dans les options si vous souhaitez ranger vos recettes différements) :";
 "intro_addMeal_meat" = "Vos plats non vegan";
 "intro_addMeal_vegan" = "Vos plats vegan";
+"intro_addMeal_other" = "Vos desserts";
 "intro_addMeal_outside" = "Les endroits où vous aimez commander";
 
 "intro_organize_title" = "Plannifier sa semaine";

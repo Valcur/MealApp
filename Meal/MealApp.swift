@@ -26,13 +26,13 @@ struct MealApp: App {
         
         // Show intro for as long as there is no meal saved by the user
         let mealsCount = mealListVM.meals.count()
-        showIntro = mealsCount.0 == 0 && mealsCount.1 == 0 && mealsCount.2 == 0
+        showIntro = mealsCount.0 == 0 && mealsCount.1 == 0 && mealsCount.2 == 0 && mealsCount.3 == 0
     }
     
     var body: some Scene {
         WindowGroup {
             TabView {
-                
+                /*
                 RecipesSearchPanel()
                     .environmentObject(RecipesSearchPanelViewModel())
                     .environmentObject(mealListVM)
@@ -41,7 +41,7 @@ struct MealApp: App {
                         Image(systemName: "book")
                         Text("Recettes")
                 }
-                
+                */
                 PlanningPannel(cloudKitController: cloudKitController)
                     .ignoresSafeArea(.keyboard)
                     .environmentObject(planningVM)

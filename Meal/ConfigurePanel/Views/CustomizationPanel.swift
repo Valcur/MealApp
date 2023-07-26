@@ -11,11 +11,16 @@ struct CustomizationPanel: View {
     var userPrefs: VisualUserPrefs
     @State private var meatCategorieName: String
     @State private var veganCategorieName: String
+    @State private var otherCategorieName: String
+    
     @State private var meatCategorieColorId: Int
     @State private var veganCategorieColorId: Int
-    @State private var outsideCategorieColorId: Int = 2
+    @State private var otherCategorieColorId: Int
+    @State private var outsideCategorieColorId: Int
+    
     @State private var meatImageId: Int = 0
     @State private var veganImageId: Int = 1
+    @State private var otherImageId: Int = 3
     @State private var outsideImageId: Int = 2
     
     private let numberOfColor: Int = 9
@@ -26,8 +31,17 @@ struct CustomizationPanel: View {
         
         meatCategorieName = userPrefs.meatTitle
         veganCategorieName = userPrefs.veganTitle
+        otherCategorieName = userPrefs.otherTitle
+        
         meatCategorieColorId = userPrefs.meatColorId
         veganCategorieColorId = userPrefs.veganColorId
+        otherCategorieColorId = userPrefs.otherColorId
+        outsideCategorieColorId = userPrefs.outsideColorId
+        
+        meatImageId = userPrefs.meatImageId
+        veganImageId = userPrefs.veganImageId
+        otherImageId = userPrefs.otherImageId
+        outsideImageId = userPrefs.outsideImageId
     }
     
     var body: some View {
@@ -62,7 +76,7 @@ struct CustomizationPanel: View {
             }
                 
             VStack(alignment: .leading, spacing: 20)  {
-                Text("\("customization.category".translate()) 1")
+                Text("\("customization.category".translate()) 2")
                     .subTitle()
                 
                 TextField("customization.title.placeholder".translate(), text: $veganCategorieName)
@@ -82,6 +96,32 @@ struct CustomizationPanel: View {
                         Text("customization.image.title".translate()).padding(.trailing, 10)
                         ForEach(0..<numberOfImages) { n in
                             ImagePickerView(imageId: n, selectedImage: $veganImageId)
+                        }
+                    }.padding(.bottom, 8)
+                }
+            }
+            
+            VStack(alignment: .leading, spacing: 20)  {
+                Text("\("customization.category".translate()) 3")
+                    .subTitle()
+                
+                TextField("customization.title.placeholder".translate(), text: $otherCategorieName)
+                    .textFieldBackground()
+                
+                ScrollView(.horizontal) {
+                    HStack {
+                        Text("customization.color.title".translate()).padding(.trailing, 10)
+                        ForEach(0..<numberOfColor) { n in
+                            ColorPickerView(colorId: n, selectedColor: $otherCategorieColorId)
+                        }
+                    }.padding(.bottom, 5)
+                }
+                
+                ScrollView(.horizontal) {
+                    HStack {
+                        Text("customization.image.title".translate()).padding(.trailing, 10)
+                        ForEach(0..<numberOfImages) { n in
+                            ImagePickerView(imageId: n, selectedImage: $otherImageId)
                         }
                     }.padding(.bottom, 8)
                 }
@@ -120,6 +160,9 @@ struct CustomizationPanel: View {
                                                                    veganTitle: veganCategorieName,
                                                                    veganColorID: veganCategorieColorId,
                                                                    veganImageId: veganImageId,
+                                                                   otherTitle: otherCategorieName,
+                                                                   otherColorID: otherCategorieColorId,
+                                                                   otherImageId: otherImageId,
                                                                    outsideColorId: outsideCategorieColorId,
                                                                    outsideImageId: outsideImageId))
             }, label: {

@@ -157,7 +157,7 @@ class CloudKitController: ObservableObject {
                 */
                 let meal = Meal(id: id,
                                 name: name,
-                                type: type == 1 ? .meat : (type == 2 ? .vegan : .outside),
+                                type: type == 1 ? .meat : (type == 2 ? .vegan : (type == 3 ? .outside : .other)),
                                 sides: sides,
                                 notes: notes == "" ? nil : notes
                 )
@@ -194,7 +194,7 @@ class CloudKitController: ObservableObject {
                 text += "\(CloudTextSavingLabels.meal.rawValue)\n"
                 text += "\(midday.id)\n"
                 text += "\(midday.name)\n"
-                text += "\(midday.type == .meat ? 1 : (midday.type == .vegan ? 2 : 3))\n"
+                text += "\(midday.type == .meat ? 1 : (midday.type == .vegan ? 2 : (midday.type == .outside ? 3 : 4)))\n"
                 if let sides = midday.sides {
                     for side in sides {
                         text += "\(side.imageName)/"
@@ -220,7 +220,7 @@ class CloudKitController: ObservableObject {
                 text += "\(CloudTextSavingLabels.meal.rawValue)\n"
                 text += "\(evening.id)\n"
                 text += "\(evening.name)\n"
-                text += "\(evening.type == .meat ? 1 : (evening.type == .vegan ? 2 : 3))\n"
+                text += "\(evening.type == .meat ? 1 : (evening.type == .vegan ? 2 : (evening.type == .outside ? 3 : 4)))\n"
                 if let sides = evening.sides {
                     for side in sides {
                         text += "\(side.imageName)/"
@@ -453,6 +453,7 @@ extension CloudKitController {
     
     func userNotPremium() {
         shareYourPlanning = false
+        UserDefaults.standard.set(false, forKey: CloudPreferenceKeys.shareYourPlanning.rawValue)
         self.updateSharedWeekPlanId()
     }
     

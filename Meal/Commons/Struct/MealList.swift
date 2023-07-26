@@ -10,6 +10,7 @@ import Foundation
 struct MealList {
     var meatMeals: [Meal]
     var veganMeals: [Meal]
+    var otherMeals: [Meal]
     var outsideMeals: [Meal]
     
     mutating func append(_ meal: Meal) {
@@ -18,6 +19,8 @@ struct MealList {
             meatMeals.append(meal)
         case .vegan:
             veganMeals.append(meal)
+        case .other:
+            otherMeals.append(meal)
         case .outside:
             outsideMeals.append(meal)
         }
@@ -27,6 +30,7 @@ struct MealList {
         // Remove the old meal
         meatMeals.removeAll(where: {$0.id == meal.id})
         veganMeals.removeAll(where: {$0.id == meal.id})
+        otherMeals.removeAll(where: {$0.id == meal.id})
         outsideMeals.removeAll(where: {$0.id == meal.id})
         
         // Add the new one
@@ -36,17 +40,19 @@ struct MealList {
     mutating func removeWithId(_ id: Int) {
         meatMeals.removeAll(where: {$0.id == id})
         veganMeals.removeAll(where: {$0.id == id})
+        otherMeals.removeAll(where: {$0.id == id})
         outsideMeals.removeAll(where: {$0.id == id})
     }
     
     mutating func sort() {
         meatMeals = meatMeals.sorted { $0.name < $1.name }
         veganMeals = veganMeals.sorted { $0.name < $1.name }
+        otherMeals = otherMeals.sorted { $0.name < $1.name }
         outsideMeals = outsideMeals.sorted { $0.name < $1.name }
     }
     
-    func count() -> (Int, Int, Int) {
-        return (meatMeals.count, veganMeals.count, outsideMeals.count)
+    func count() -> (Int, Int, Int, Int) {
+        return (meatMeals.count, veganMeals.count, outsideMeals.count, otherMeals.count)
     }
     
     func getRandomElement(type: MealType) -> Meal? {
@@ -55,6 +61,8 @@ struct MealList {
             return meatMeals.randomElement()
         case .vegan:
             return veganMeals.randomElement()
+        case .other:
+            return otherMeals.randomElement()
         case .outside:
             return outsideMeals.randomElement()
         }

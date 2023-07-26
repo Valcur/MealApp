@@ -19,6 +19,8 @@ extension MealsListPanel {
                     MealList(mealList: mealsListPanelVM.meals.meatMeals)
                 } else if selectedMealType == .vegan {
                     MealList(mealList: mealsListPanelVM.meals.veganMeals)
+                }  else if selectedMealType == .other {
+                    MealList(mealList: mealsListPanelVM.meals.otherMeals)
                 } else {
                     MealList(mealList: mealsListPanelVM.meals.outsideMeals)
                 }

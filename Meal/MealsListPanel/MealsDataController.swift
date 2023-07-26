@@ -31,7 +31,7 @@ class MealsDataController {
     
     // Retourne un tableau de "Meal" contenant tout les plats enregistrés par l'utilisateur
     func loadAllMeals() -> MealList {
-        var mealList = MealList(meatMeals: [], veganMeals: [], outsideMeals: [])
+        var mealList = MealList(meatMeals: [], veganMeals: [], otherMeals: [], outsideMeals: [])
         
         guard mealCount > 0 else {
             return mealList

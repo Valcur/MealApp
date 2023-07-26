@@ -13,14 +13,34 @@ extension MealsListPanel {
         @Binding var selectedMealType: MealType
         
         var body: some View {
-            HStack {
-                MealTypeSelector(mealType: .meat, selectedMealType: $selectedMealType)
-                Spacer()
-                    .frame(width: ViewSizes._mealType_spacerWidth())
-                MealTypeSelector(mealType: .vegan, selectedMealType: $selectedMealType)
-                Spacer()
-                    .frame(width: ViewSizes._mealType_spacerWidth())
-                MealTypeSelector(mealType: .outside, selectedMealType: $selectedMealType)
+            if UIDevice.isIPhone {
+                VStack {
+                    HStack {
+                        MealTypeSelector(mealType: .meat, selectedMealType: $selectedMealType)
+                        Spacer()
+                            .frame(width: ViewSizes._mealType_spacerWidth())
+                        MealTypeSelector(mealType: .vegan, selectedMealType: $selectedMealType)
+                    }
+                    HStack {
+                        MealTypeSelector(mealType: .other, selectedMealType: $selectedMealType)
+                        Spacer()
+                            .frame(width: ViewSizes._mealType_spacerWidth())
+                        MealTypeSelector(mealType: .outside, selectedMealType: $selectedMealType)
+                    }
+                }
+            } else {
+                HStack {
+                    MealTypeSelector(mealType: .meat, selectedMealType: $selectedMealType)
+                    Spacer()
+                        .frame(width: ViewSizes._mealType_spacerWidth())
+                    MealTypeSelector(mealType: .vegan, selectedMealType: $selectedMealType)
+                    Spacer()
+                        .frame(width: ViewSizes._mealType_spacerWidth())
+                    MealTypeSelector(mealType: .other, selectedMealType: $selectedMealType)
+                    Spacer()
+                        .frame(width: ViewSizes._mealType_spacerWidth())
+                    MealTypeSelector(mealType: .outside, selectedMealType: $selectedMealType)
+                }
             }
         }
     }
@@ -50,7 +70,7 @@ extension MealsListPanel {
                             .foregroundColor(isSelected ? Color("TextColor") : mealType.getColor(userPrefs: userPrefs))
                             .padding(ViewSizes._15())
                     }
-                }).frame(height: 120).overlay(
+                }).frame(height: ViewSizes._120()).overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color("BackgroundColor"), lineWidth: isSelected ? 0 : 2)
                 ).roundedCornerRectangle(padding: 0, shadowRadius: isSelected ? 4 : 0)
@@ -69,6 +89,8 @@ extension MealsListPanel {
                 return Image(userPrefs.meatImage)
             case .vegan:
                 return Image(userPrefs.veganImage)
+            case .other:
+                return Image(userPrefs.otherImage)
             case .outside:
                 return Image(userPrefs.outsideImage)
             }
@@ -85,7 +107,7 @@ extension MealsListPanel {
                     .frame(width: isSelected ? ViewSizes._200() : ViewSizes._100(), height: isSelected ? ViewSizes._200() : ViewSizes._100())
                     .scaledToFit()
                     .offset(x: isSelected ? ViewSizes._50() : -15, y: isSelected ? ViewSizes._30() : 0)
-            }.frame(height: 120)
+            }.frame(height: ViewSizes._120())
         }
     }
 }

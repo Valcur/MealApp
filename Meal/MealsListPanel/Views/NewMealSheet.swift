@@ -10,7 +10,7 @@ import SwiftUI
 struct NewMealSheet: View {
     @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
     @State var mealName: String = ""
-    @State var mealType: MealType
+    @Binding var mealType: MealType
     @State var mealNotes: String? = ""
     @Environment(\.presentationMode) var presentationMode
     
@@ -100,11 +100,7 @@ struct MealInfoSheet: View {
             Text(NSLocalizedString("mealList_type_title", comment: "mealList_type_title"))
                 .subTitle()
             
-            HStack {
-                MealTypeSelector(mealType: .meat, selectedMealType: $mealTypeField)
-                MealTypeSelector(mealType: .vegan, selectedMealType: $mealTypeField)
-                MealTypeSelector(mealType: .outside, selectedMealType: $mealTypeField)
-            }
+            MealTypeSelection(selectedMealType: $mealTypeField)
             
             Text(NSLocalizedString("mealList_notes_title", comment: "mealList_notes_title"))
                 .subTitle()
@@ -140,28 +136,6 @@ struct MealInfoSheet: View {
             }
     }
 }
-
-struct MealTypeSelector: View {
-    @EnvironmentObject var userPrefs: VisualUserPrefs
-    let mealType: MealType
-    @Binding var selectedMealType: MealType
-    var isSelected: Bool {
-        mealType == selectedMealType
-    }
-    
-    var body: some View {
-        Button(action: {
-            selectedMealType = mealType
-        }, label: {
-            ZStack {
-                mealType.getColor(userPrefs: userPrefs)
-                Text(mealType.getName(userPrefs: userPrefs))
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color("TextColor"))
-            }.frame(height: 40).roundedCornerRectangle(padding: 0, cornerRadius: 10).opacity(isSelected ? 1 : 0.5)
-        })
-    }
-}
                       
 struct MealInfoSheetData {
     let sheetType: SheetType
@@ -171,12 +145,5 @@ struct MealInfoSheetData {
     enum SheetType {
       case newMeal
       case editMeal
-    }
-}
-
-struct NewMealSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        NewMealSheet(mealType: .meat)
-            .environmentObject(MealsListPanelViewModel())
     }
 }

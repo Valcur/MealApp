@@ -31,7 +31,7 @@ class ViewSizes {
     
     static func _30() -> CGFloat {
         if UIDevice.current.userInterfaceIdiom == .phone {
-            return -15
+            return 15
         }
         return 30
     }
@@ -57,6 +57,13 @@ class ViewSizes {
         return 100
     }
     
+    static func _120() -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return 80
+        }
+        return 120
+    }
+    
     static func _200() -> CGFloat {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return 100
@@ -68,7 +75,7 @@ class ViewSizes {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return 5
         }
-        return 50
+        return 20
     }
     
     static func _largeTitle() -> Font {

@@ -88,6 +88,8 @@ struct DayPlanSheet: View {
             return planningPanelVM.mealsVM.meals.meatMeals
         case .vegan:
             return planningPanelVM.mealsVM.meals.veganMeals
+        case .other:
+            return planningPanelVM.mealsVM.meals.otherMeals
         case .outside:
             return planningPanelVM.mealsVM.meals.outsideMeals
         }
@@ -122,11 +124,7 @@ struct DayPlanSheet: View {
             EditChoicePicker(editChoice: $editChoice)
             
             if editChoice != .leftOver {
-                HStack {
-                    MealTypeSelector(mealType: .meat, selectedMealType: $mealType)
-                    MealTypeSelector(mealType: .vegan, selectedMealType: $mealType)
-                    MealTypeSelector(mealType: .outside, selectedMealType: $mealType)
-                }
+                MealTypeSelection(selectedMealType: $mealType)
             }
             
             if editChoice == .choose {

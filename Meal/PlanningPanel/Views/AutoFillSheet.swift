@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AutoFillSheet: View {
     @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
+    @EnvironmentObject var userPrefs: VisualUserPrefs
     @Environment(\.presentationMode) var presentationMode
     @State private var meatPercentageThisWeek: Double = 0
     @State private var outsideThisWeek: Double = 0
@@ -21,7 +22,7 @@ struct AutoFillSheet: View {
             Text(NSLocalizedString("autofill_intro", comment: "autofill_intro"))
                 .subTitle()
             
-            Text(NSLocalizedString("autofill_meat-vegan_title", comment: "autofill_meat-vegan_title"))
+            Text(String(format: "autofill_meat-vegan_title".translate(), userPrefs.meatTitle, userPrefs.veganTitle))
             
             HStack {
                 Text("\(meatPercentageThisWeek, specifier: "%.0f")%")

@@ -22,7 +22,17 @@ extension MealsDataController {
                 return categories
             }
         }
-        return CategoriesCustomizationData(meatTitle: "Meat".translate(), meatColorId: 0, meatImageId: 0, veganTitle: "Vegan".translate(), veganColorID: 1, veganImageId: 1, outsideColorId: 2, outsideImageId: 2)
+        return CategoriesCustomizationData(meatTitle: "Meat".translate(),
+                                           meatColorId: 0,
+                                           meatImageId: 0,
+                                           veganTitle: "Vegan".translate(),
+                                           veganColorID: 1,
+                                           veganImageId: 1,
+                                           otherTitle: "Dessert".translate(),
+                                           otherColorID: 2,
+                                           otherImageId: 2,
+                                           outsideColorId: 3,
+                                           outsideImageId: 3)
     }
 }
 
@@ -34,6 +44,10 @@ struct CategoriesCustomizationData: Codable {
     var veganTitle: String
     var veganColorID: Int
     var veganImageId: Int
+    
+    var otherTitle: String
+    var otherColorID: Int
+    var otherImageId: Int
     
     var outsideColorId: Int
     var outsideImageId: Int

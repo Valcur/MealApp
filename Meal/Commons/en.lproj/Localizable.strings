@@ -9,6 +9,7 @@
 "Meat" = "Meat";
 "Vegan" = "Vegan";
 "Outside" = "Outside";
+"Other" = "Desserts";
 
 "mealList_meat_intro" = "Your non vegan dishes";
 "mealList_vegan_intro" = "Your vegan dishes";
@@ -23,7 +24,7 @@
 
 "autofill" = "Auto";
 "autofill_intro" = "Fill each empty lunch with a random meal depending on what options you selected";
-"autofill_meat-vegan_title" = "Share between meat/vegan meal this week";
+"autofill_meat-vegan_title" = "Share between %@/%@ meal this week";
 "autofill_outside_title" = "Number of meal outside this week";
 
 "mealPlan_edit_title" = "Edit info";
@@ -74,15 +75,16 @@
 "intro_addMeal_title" = "Add meals";
 "intro_addMeal_intro" = "First, we need to add the meals you like. Head to the 'my meals' tab";
 "intro_addMeal_add" = "Use this button to create a new meal";
-"intro_addMeal_category" = "By default, your meals can be stored in 3 categories (you can rename the categories at any time in the options if you want to store your recipes differently) :";
+"intro_addMeal_category" = "By default, your meals can be stored in 4 categories (you can rename the categories at any time in the options if you want to store your recipes differently) :";
 "intro_addMeal_meat" = "Your meals that contains meat";
 "intro_addMeal_vegan" = "Your vegan meals";
+"intro_addMeal_other" = "Your desserts";
 "intro_addMeal_outside" = "The places where you like to order, like your favorite sushi place";
 
 "intro_organize_title" = "Plan your week";
 "intro_organize_intro" = "Once you have created a few meals, head to the 'my week' pannel. Here, you can fill your days";
 "intro_organize_+" = "Press this to add a specific meal";
-"intro_organize_?" = "Press this to add a random vegan/not vegan meal. The app will try to add meals that you haven't picked for a while";
+"intro_organize_?" = "Press this to add a random vegan/not vegan meal. The app will try to add meals that you haven't picked for a while.";
 "intro_organize_hold" = "Changed your mind ? Hold a meal in the menu to move it to another day";
 "intro_organize_auto" = "Use the auto button to let the app fill your week randomly";
 

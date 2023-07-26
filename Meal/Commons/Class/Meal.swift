@@ -49,6 +49,7 @@ class Meal: Hashable, Codable, Identifiable {
 enum MealType: Codable {
     case meat
     case vegan
+    case other
     case outside
     
     func getColor(userPrefs: VisualUserPrefs) -> Color {
@@ -57,6 +58,8 @@ enum MealType: Codable {
             return Color(userPrefs.meatColor)
         case .vegan:
             return Color(userPrefs.veganColor)
+        case .other:
+            return Color(userPrefs.otherColor)
         case .outside:
             return Color(userPrefs.outsideColor)
         }
@@ -68,6 +71,8 @@ enum MealType: Codable {
             return userPrefs.meatTitle
         case .vegan:
             return userPrefs.veganTitle
+        case .other:
+            return userPrefs.otherTitle
         case .outside:
             return "Outside".translate()
         }

@@ -33,11 +33,7 @@ struct AddRecipeSheet: View {
                 Text("mealList_type_title".translate())
                     .subTitle()
                 
-                HStack {
-                    MealTypeSelector(mealType: .meat, selectedMealType: $mealTypeField)
-                    MealTypeSelector(mealType: .vegan, selectedMealType: $mealTypeField)
-                    MealTypeSelector(mealType: .outside, selectedMealType: $mealTypeField)
-                }
+                MealTypeSelection(selectedMealType: $mealTypeField)
             }
 
             VStack(alignment: .leading, spacing: stackSpacing) {
