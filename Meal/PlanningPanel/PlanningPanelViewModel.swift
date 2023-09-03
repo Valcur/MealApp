@@ -101,8 +101,8 @@ class PlanningPanelViewModel: ObservableObject {
     }
     
     func saveBothWeeks() {
-        data.saveWeek(weekPlan: weekPlan, forWeek: .thisWeek)
-        data.saveWeek(weekPlan: weekPlan, forWeek: .nextWeek)
+        data.saveWeek(weekPlan: thisWeek, forWeek: .thisWeek)
+        data.saveWeek(weekPlan: nextWeek, forWeek: .nextWeek)
         
         configureVM.calendarController.addWeeksToCalendar(thisWeek: thisWeek, nextWeek: nextWeek)
         

@@ -17,7 +17,7 @@ extension MealsDataController {
                 userDefaults.set(data, forKey: "\(weekKey)_\(DAYPLAN_KEY)_\(day.day.rawValue)")
             }
         }
-        
+        print("Saving week locally")
         savePlanningModificationDate(forWeek: forWeek)
     }
     
@@ -54,7 +54,7 @@ extension MealsDataController {
     private func savePlanningModificationDate(forWeek: WichWeekIsIt) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss' 'Z'"
-        var currentDate = dateFormatter.string(from: Date())
+        let currentDate = dateFormatter.string(from: Date())
         
         if forWeek == .thisWeek {
             userDefaults.set(currentDate, forKey: THIS_WEEK_LAST_MODIFY_KEY)
