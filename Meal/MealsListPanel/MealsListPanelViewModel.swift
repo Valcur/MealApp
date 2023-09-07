@@ -13,11 +13,13 @@ class MealsListPanelViewModel: ObservableObject {
     @Published var meals: MealList
     var recentlyPickedMealsId: AlreadyPickedIds
     var availableMeals: MealList
+    var sides: [Side]
     
     init() {
         meals = data.loadAllMeals()
         recentlyPickedMealsId = AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOutsideIds: [])
         availableMeals = MealList(meatMeals: [], veganMeals: [], otherMeals: [], outsideMeals: [])
+        sides = data.loadAllUserSides()
         
         iniPickedAndAvailableMealsList()
         meals.sort()
@@ -120,5 +122,13 @@ extension MealsListPanelViewModel {
             availableMeals.removeWithId(meal.id)
             data.deleteMeal(meal: meal)
         }
+    }
+}
+
+// Sides
+extension MealsListPanelViewModel {
+    func saveSides(_ sides: [Side]) {
+        data.saveUserSides(sides)
+        self.sides = sides
     }
 }

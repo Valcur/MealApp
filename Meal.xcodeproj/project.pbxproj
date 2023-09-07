@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB24CA392AA7295D0002E17B /* SidesManagerPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB24CA382AA7295D0002E17B /* SidesManagerPanel.swift */; };
 		DB3663162A6827DA00F7894B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663152A6827DA00F7894B /* CardView.swift */; };
 		DB3663182A68280100F7894B /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3663172A68280100F7894B /* Colors.swift */; };
 		DB36631C2A68283B00F7894B /* Extensions_Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36631B2A68283B00F7894B /* Extensions_Card.swift */; };
@@ -88,6 +89,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB24CA382AA7295D0002E17B /* SidesManagerPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidesManagerPanel.swift; sourceTree = "<group>"; };
 		DB3663152A6827DA00F7894B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		DB3663172A68280100F7894B /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		DB36631B2A68283B00F7894B /* Extensions_Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions_Card.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				DBDB329329D070F900248B12 /* WhatsNewPanel.swift */,
 				DBEAFBDA2A3786D30048797C /* CollaborationPanel.swift */,
 				DB36632C2A6D44C700F7894B /* CustomizationPanel.swift */,
+				DB24CA382AA7295D0002E17B /* SidesManagerPanel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				DB9B87D8293F7A0900F2344B /* MealsDataController.swift in Sources */,
 				DB9B87E02941EAC400F2344B /* PlanningPannel.swift in Sources */,
 				DB9B87E92943A4AE00F2344B /* DayPlanSheet.swift in Sources */,
+				DB24CA392AA7295D0002E17B /* SidesManagerPanel.swift in Sources */,
 				DB9B87C9293F4FB900F2344B /* Meal.swift in Sources */,
 				DB9B87E72942176B00F2344B /* PlanningPanelViewModel.swift in Sources */,
 				DB9D995B2951C5B30051BD63 /* CalendarController.swift in Sources */,
@@ -757,7 +761,7 @@
 				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
@@ -777,7 +781,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -798,7 +802,7 @@
 				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
@@ -818,7 +822,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4;
+				MARKETING_VERSION = 4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

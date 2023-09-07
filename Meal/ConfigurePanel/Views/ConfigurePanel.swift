@@ -31,6 +31,9 @@ struct ConfigurePanel: View {
                     NavigationLink(destination: CustomizationPanel(userPrefs: userPrefs)) {
                         Text("customization.title".translate())
                     }
+                    NavigationLink(destination: SidesManagerPanel()) {
+                        Text("sides".translate())
+                    }
                     NavigationLink(destination: CollaborationPanel()) {
                         Text(NSLocalizedString("collaboration.title", comment: "collaboration.title"))
                     }

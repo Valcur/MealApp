@@ -24,6 +24,7 @@ class MealsDataController {
     internal let THIS_WEEK_LAST_MODIFY_KEY = "THIS_WEEK_LAST_MODIFY"
     internal let NEXT_WEEK_LAST_MODIFY_KEY = "NEXT_WEEK_LAST_MODIFY"
     internal let CATEGORIES_CUSTOMIZATION_KEY = "CATEGORIES_CUSTOMIZATION"
+    internal let USER_SIDES_KEY = "USER_SIDES"
     
     init() {
         mealCount = userDefaults.integer(forKey: MEAL_COUNT_KEY)
@@ -102,5 +103,24 @@ extension MealsDataController {
             }
         }
         return AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOutsideIds: [])
+    }
+}
+
+extension MealsDataController {
+    func saveUserSides(_ sides: [Side]) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(sides) {
+            userDefaults.set(data, forKey: "\(USER_SIDES_KEY)")
+        }
+    }
+    
+    func loadAllUserSides() -> [Side] {
+        if let data = userDefaults.object(forKey: "\(USER_SIDES_KEY)") as? Data {
+            let decoder = JSONDecoder()
+            if let sides = try? decoder.decode([Side].self, from: data) {
+                return sides
+            }
+        }
+        return []
     }
 }

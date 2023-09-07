@@ -7,13 +7,21 @@
 
 import SwiftUI
 
-struct Side: Codable {
+struct Side: Codable, Equatable {
+    var id: String
     var name: String
     var imageName: String
     
     init(key: String) {
         self.name = NSLocalizedString(key, comment: key)
         self.imageName = key
+        self.id = "default-side-" + key
+    }
+    
+    init(key: String, id: String) {
+        self.name = NSLocalizedString(key, comment: key)
+        self.imageName = ""
+        self.id = id
     }
     
     static func ==(lhs: Side, rhs: Side) -> Bool {
@@ -46,11 +54,8 @@ struct Side: Codable {
         }
         return description
     }
-}
-
-struct SidePickerView: View {
-    let columns = [GridItem(.adaptive(minimum: 65))]
-    let sides =  [
+    
+    static let defaultSides: [Side] = [
         Side(key: "pates"),
         Side(key: "riz"),
         Side(key: "semoule"),
@@ -69,6 +74,37 @@ struct SidePickerView: View {
         Side(key: "pomme-noisette"),
         Side(key: "flageolets")
     ].sorted(by: {$0.name < $1.name})
+    
+    static let sides: [Side] = [
+        Side(key: "pates"),
+        Side(key: "riz"),
+        Side(key: "semoule"),
+        Side(key: "pomme-de-terre"),
+        Side(key: "haricots-verts"),
+        Side(key: "puree"),
+        Side(key: "salade"),
+        Side(key: "gnocchi"),
+        Side(key: "legumes"),
+        Side(key: "pois-chiche"),
+        Side(key: "galette-patate"),
+        Side(key: "polenta"),
+        Side(key: "chou"),
+        Side(key: "crudite"),
+        Side(key: "taboule"),
+        Side(key: "pomme-noisette"),
+        Side(key: "flageolets"),
+        
+        Side(key: "poivron"),
+        Side(key: "avocat"),
+        Side(key: "petit-pois"),
+        Side(key: "carrotes"),
+    ].sorted(by: {$0.name < $1.name})
+}
+
+struct SidePickerView: View {
+    @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
+    let columns = [GridItem(.adaptive(minimum: 65))]
+    @State var sides: [Side] = []
     @Binding var selectedSides: [Side]
     
     var body: some View {
@@ -77,19 +113,31 @@ struct SidePickerView: View {
                 SideView(side: sides[i], selectedSides: $selectedSides)
             }
         }
+        .onChange(of: selectedSides) { _ in
+            // A REFAIRE PAS DANS UN ONCHANGE A L'OCCASION
+            for side in selectedSides {
+                if !sides.contains(where: { $0.name == side.name }) {
+                    sides.append(side)
+                }
+            }
+            sides = sides.sorted(by: {$0.name < $1.name})
+        }
+        .onAppear() {
+            sides = mealsListPanelVM.sides
+        }
     }
     
     struct SideView: View {
         let side: Side
         @Binding var selectedSides: [Side]
         var isSelected: Bool {
-            selectedSides.contains(where: {side == $0})
+            selectedSides.contains(where: {side.id == $0.id})
         }
         
         var body: some View {
             Button(action: {
                 if isSelected {
-                    selectedSides.removeAll(where: {side == $0})
+                    selectedSides.removeAll(where: {side.id == $0.id})
                 } else {
                     selectedSides.append(side)
                 }

@@ -92,11 +92,11 @@
 "intro_addMeal_other" = "Vos desserts";
 "intro_addMeal_outside" = "Les endroits où vous aimez commander";
 
-"intro_organize_title" = "Plannifier sa semaine";
+"intro_organize_title" = "Planifier sa semaine";
 "intro_organize_intro" = "Une fois que vous avez créé assez de plats, dirigez vous vers l'onglet 'Ma semaine'. Ici, vous allez pouvoir remplir le menu de la semaine";
 "intro_organize_+" = "Ajouter un plat précis";
 "intro_organize_?" = "Ajouter un plat vegan/non vegan aléatoire que vous n'avez pas mangé depuis longtemps";
-"intro_organize_hold" = "Changé d'avis ? Gardez appuyer un plat pour le déplacer à un autre jour";
+"intro_organize_hold" = "Changé d'avis ? Gardez appuyé un plat pour le déplacer à un autre jour";
 "intro_organize_auto" = "Utilisez le bouton auto pour laisser l'application finir de remplir votre semaine aléatoirement";
 
 "intro_end_title" = "Dernier point";
@@ -129,9 +129,9 @@
 "flageolets" = "Flageolets";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Une 4ème catégorie est désormais disponible pour ranger vos plats. Les deux premières catégories restent les seuls choisies si vous ajoutez un plat aléatoire.\n\nVous pouvez maintenant renommer/personaliser les catégories selon vos besoins (Options -> Personnalisation).";
+"whatsNew_content" = "Une 4ème catégorie est désormais disponible pour ranger vos plats. Les deux premières catégories restent les seules choisies si vous ajoutez un plat aléatoire.\n\nVous pouvez maintenant renommer/personnaliser les catégories selon vos besoins (Options -> Personnalisation).";
 "whatsNew_old_title" = "Précédemment";
-"whatsNew_old_content" = "Partagez votre menu avec vos proches et remplissez le tous enssemble (Options -> Collaboration)";
+"whatsNew_old_content" = "Partagez votre menu avec vos proches et remplissez le tous ensemble (Options -> Collaboration)";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";

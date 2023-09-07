@@ -59,6 +59,9 @@ struct DayPlanMealEditSheet: View {
                     startChoice = .leftOver
                 } else if meal.id < 0 {
                     startChoice = .write
+                } else if planningPanelVM.mealsVM.meals.getAll().firstIndex(where: {$0.name == meal.name}) ?? -1 == -1 {
+                    // Si le plat a été ajouté par une autre personne et est inconnu de l'utilisateur
+                    startChoice = .write
                 }
             }
     }
@@ -160,6 +163,7 @@ struct DayPlanSheet: View {
                 Text(NSLocalizedString("sidepicker_title", comment: "sidepicker_title"))
                     .subTitle()
                 SidePickerView(selectedSides: $selectedSides)
+                    .environmentObject(planningPanelVM.mealsVM)
                     .onAppear {
                         selectedSides = meal.sides ?? []
                     }

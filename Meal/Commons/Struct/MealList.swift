@@ -67,6 +67,10 @@ struct MealList {
             return outsideMeals.randomElement()
         }
     }
+    
+    func getAll() -> [Meal] {
+        return meatMeals + veganMeals + outsideMeals + otherMeals
+    }
 }
 
 struct AlreadyPickedIds: Codable {
