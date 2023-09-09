@@ -52,12 +52,23 @@ extension MealsListPanel {
         
         var body: some View {
             HStack {
-                Text(meal.name)
-                    .fontWeight(.bold)
-                    .headLine()
-                    .lineLimit(2)
-                    .frame(height: ViewSizes._50())
+                VStack(spacing: 1) {
+                    Text(meal.name)
+                        .fontWeight(.bold)
+                        .headLine()
+                        .lineLimit(2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    if meal.sides?.count ?? 0 > 0 {
+                        Text(Side.sidesNameDescription(meal.sides ?? []))
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color("TextColor"))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }.frame(height: ViewSizes._50())
+                
                 Spacer()
+                
                 Button(action: {
                     showingMealInfoSheet = true
                 }, label: {

@@ -42,6 +42,7 @@ struct DayPlanMealEditSheet: View {
                         dayPlan.midday[mealIndex] = meal
                     } else if time == .evening && mealIndex >= 0 {
                         dayPlan.evening[mealIndex] = meal
+                        dayPlan.evening[mealIndex] = meal
                     }
                     planningPanelVM.mealsVM.mealHasBeenPicked(meal)
                     dayPlan.objectWillChange.send()
@@ -137,6 +138,7 @@ struct DayPlanSheet: View {
                     }
                 }.onChange(of: mealsAvailable) { _ in
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
+                    selectedSides = mealsAvailable[selection].sides ?? []
                 }.onAppear() {
                     customMealName = meal.name
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
@@ -166,6 +168,9 @@ struct DayPlanSheet: View {
                     .environmentObject(planningPanelVM.mealsVM)
                     .onAppear {
                         selectedSides = meal.sides ?? []
+                    }
+                    .onChange(of: selection) { _ in
+                        selectedSides = mealsAvailable[selection].sides ?? []
                     }
             }
             

@@ -12,6 +12,7 @@ struct NewMealSheet: View {
     @State var mealName: String = ""
     @Binding var mealType: MealType
     @State var mealNotes: String? = ""
+    @State var mealSides: [Side] = []
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -19,11 +20,12 @@ struct NewMealSheet: View {
             mealName: $mealName,
             mealType: $mealType,
             mealNotes: $mealNotes,
+            mealSides: $mealSides,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_new_title", intro: "mealList_new_subtitle"),
             trashButton: AnyView(Spacer()),
             confirmButton:
                 AnyView(Button(action: {
-                    mealsListPanelVM.createNewMealWith(name: mealName, type: mealType, notes: mealNotes)
+                    mealsListPanelVM.createNewMealWith(name: mealName, type: mealType, notes: mealNotes, sides: mealSides)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ButtonLabel(title: "done")
@@ -36,12 +38,14 @@ struct EditMealSheet: View {
     @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
     @Binding var meal: Meal
     @Environment(\.presentationMode) var presentationMode
+    @State var defaultSides = [Side]()
     
     var body: some View {
         MealInfoSheet(
             mealName: $meal.name,
             mealType: $meal.type,
             mealNotes: $meal.notes,
+            mealSides: $defaultSides,
             sheetInfo: MealInfoSheetData(sheetType: .newMeal, title: "mealList_edit_title", intro: "mealList_edit_subtitle"),
             trashButton:
                 AnyView(Button(action: {
@@ -55,12 +59,16 @@ struct EditMealSheet: View {
                 })),
             confirmButton:
                 AnyView(Button(action: {
+                    meal.sides = defaultSides
                     mealsListPanelVM.updateMealInfo(meal: meal)
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ButtonLabel(title: "confirmChangesButton")
                 }))
         )
+        .onAppear() {
+            defaultSides = meal.sides ?? []
+        }
     }
 }
 
@@ -69,6 +77,7 @@ struct MealInfoSheet: View {
     @Binding var mealName: String
     @Binding var mealType: MealType
     @Binding var mealNotes: String?
+    @Binding var mealSides: [Side]
     let sheetInfo: MealInfoSheetData
     let trashButton: AnyView
     let confirmButton: AnyView
@@ -88,28 +97,37 @@ struct MealInfoSheet: View {
                 trashButton
             }
             
-            Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
-                .headLine()
-            
-            Text(NSLocalizedString("mealList_name_title", comment: "mealList_name_title"))
-                .subTitle()
-            
-            TextField(NSLocalizedString("mealList_name_placeholder", comment: "mealList_name_placeholder"), text: $mealNameField)
-                .textFieldBackground()
-            
-            Text(NSLocalizedString("mealList_type_title", comment: "mealList_type_title"))
-                .subTitle()
-            
-            MealTypeSelection(selectedMealType: $mealTypeField)
-            
-            Text(NSLocalizedString("mealList_notes_title", comment: "mealList_notes_title"))
-                .subTitle()
+            Group {
+                Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
+                    .headLine()
+                
+                Text(NSLocalizedString("mealList_name_title", comment: "mealList_name_title"))
+                    .subTitle()
+                
+                TextField(NSLocalizedString("mealList_name_placeholder", comment: "mealList_name_placeholder"), text: $mealNameField)
+                    .textFieldBackground()
+                
+                Text(NSLocalizedString("mealList_type_title", comment: "mealList_type_title"))
+                    .subTitle()
+                
+                MealTypeSelection(selectedMealType: $mealTypeField)
+                
+                Text(NSLocalizedString("mealList_notes_title", comment: "mealList_notes_title"))
+                    .subTitle()
+            }
             
             Button(action: {
                 showingNotesSheet = true
             }, label: {
                 ButtonLabel(title: "mealPlan_notes_edit_title", isCompact: true)
             })
+            
+            Group {
+                Text("default-sides".translate())
+                    .subTitle()
+                
+                SidePickerView(selectedSides: $mealSides)
+            }
             
             Spacer()
         }.scrollableSheetVStackWithStickyButton(button: confirmButton)

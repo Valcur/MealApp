@@ -95,9 +95,9 @@ extension MealsListPanelViewModel {
 
 // Buttons
 extension MealsListPanelViewModel {
-    func createNewMealWith(name: String, type: MealType, notes: String?) {
+    func createNewMealWith(name: String, type: MealType, notes: String?, sides: [Side] = []) {
         withAnimation(.easeInOut(duration: 0.3)) {
-            let newMealTmp = Meal(id: data.mealCount + 1, name: name, type: type, notes: notes)
+            let newMealTmp = Meal(id: data.mealCount + 1, name: name, type: type, sides: sides, notes: notes)
             data.createNewMeal(meal: newMealTmp)
             meals.append(newMealTmp)
             meals.sort()
