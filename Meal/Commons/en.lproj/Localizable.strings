@@ -163,12 +163,19 @@ Once activated if you have an error during synchronization, check your device's 
 "customization.color.title" = "Color :";
 "customization.image.title" = "Image :";
 
+"sides-manager.title" = "Sides";
+"sides-manager.reset.title" = "Reset sides list";
+"sides-manager.reset.content" = "Use this button to remove all custom sides you have added and recover all default sides you have deleted.";
+"sides-manager.custom.title" = "Your sides";
+"sides-manager.custom.placeholder" = "Side name";
+
 "options_other_title" = "Other";
 
 
 "copy" = "Copy";
 "paste" = "Paste";
 "tryAgain" = "Try again";
+"reset" = "Reset";
 
 
 "premium_info_title" = "Subscription informations";

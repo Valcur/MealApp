@@ -12,35 +12,40 @@ struct SidesManagerPanel: View {
     @State var selectedSides: [Side] = Side.defaultSides
     @State var customSides: [Side] = []
     var body: some View {
-        VStack(alignment: .leading, spacing: 30)  {
-            Text("Reset sides")
-                .subTitle()
-            HStack {
-                Text("Reset")
+        VStack(alignment: .leading, spacing: 40)  {
+            VStack(alignment: .leading, spacing: 20) {
+                HStack {
+                    Text("sides-manager.custom.title".translate())
+                        .subTitle()
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        customSides.insert(Side(name: "", id: UUID().uuidString), at: 0)
+                    }, label: {
+                        ButtonLabel(title: "+", isCompact: true)
+                    })
+                }
                 
-                Button(action: {
-                    customSides = Side.defaultSides
-                }, label: {
-                    ButtonLabel(title: "Reset")
-                })
+                ForEach(0..<customSides.count, id:\.self) { i in
+                    CustomSide(sideIndex: i, customSides: $customSides)
+                        .id(customSides[i].id)
+                }
             }
-            HStack {
-                Text("Your sides")
+            VStack(alignment: .leading, spacing: 20) {
+                Text("sides-manager.reset.title".translate())
                     .subTitle()
-                
-                Spacer()
-                
-                Button(action: {
-                    customSides.append(Side(name: "", id: UUID().uuidString))
-                }, label: {
-                    ButtonLabel(title: "+", isCompact: true)
-                })
+                HStack {
+                    Text("sides-manager.reset.content".translate()).padding(.trailing, 20)
+                    Spacer()
+                    Button(action: {
+                        customSides = Side.defaultSides
+                    }, label: {
+                        ButtonLabel(title: "reset", isCompact: true)
+                    })
+                }
             }
-            ForEach(0..<customSides.count, id:\.self) { i in
-                CustomSide(sideIndex: i, customSides: $customSides)
-                    .id(customSides[i].id)
-            }
-        }.padding(20)
+        }
         .safeAreaScrollableSheetVStackWithStickyButton(button: AnyView(
             Button(action: {
                 mealsListPanelVM.saveSides(customSides)
@@ -48,7 +53,7 @@ struct SidesManagerPanel: View {
                 ButtonLabel(title: "confirmChangesButton")
             })
         ))
-        .navigationTitle("Sides")
+        .navigationTitle("sides-manager.title".translate())
         .onAppear() {
             customSides = mealsListPanelVM.sides
         }
@@ -70,7 +75,7 @@ struct SidesManagerPanel: View {
                             .opacity(0.00000001)
                             .frame(width: 40, height: 40)
                     }
-                    TextField("PLACEHOLDER".translate(), text: $sideName)
+                    TextField("sides-manager.custom.placeholder".translate(), text: $sideName)
                         .frame(maxWidth: .infinity)
                         .textFieldBackground()
                         .onAppear() {

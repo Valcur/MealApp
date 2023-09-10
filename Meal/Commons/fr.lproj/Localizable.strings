@@ -175,12 +175,20 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "customization.color.title" = "Couleur :";
 "customization.image.title" = "Image :";
 
+
+"sides-manager.title" = "Accompagnements";
+"sides-manager.reset.title" = "Réinitialiser les accompagnements";
+"sides-manager.reset.content" = "Utilisez ce bouton pour supprimer tous les accompagnements que vous avez ajoutés et faire réapparaître tous les accompagnements que vous avez supprimés.";
+"sides-manager.custom.title" = "Vos accompagnements";
+"sides-manager.custom.placeholder" = "Nom de l'accompagnements";
+
 "options_other_title" = "Autres";
 
 
 "copy" = "Copier";
 "paste" = "Coller";
 "tryAgain" = "Réessayez";
+"reset" = "Réinitialiser";
 
 
 "premium_info_title" = "Information sur l'abonnement";
