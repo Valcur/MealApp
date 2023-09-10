@@ -31,13 +31,14 @@ struct SidesManagerPanel: View {
                 Spacer()
                 
                 Button(action: {
-                    customSides.append(Side(key: "", id: UUID().uuidString))
+                    customSides.append(Side(name: "", id: UUID().uuidString))
                 }, label: {
                     ButtonLabel(title: "+", isCompact: true)
                 })
             }
             ForEach(0..<customSides.count, id:\.self) { i in
                 CustomSide(sideIndex: i, customSides: $customSides)
+                    .id(customSides[i].id)
             }
         }.padding(20)
         .safeAreaScrollableSheetVStackWithStickyButton(button: AnyView(
@@ -73,12 +74,12 @@ struct SidesManagerPanel: View {
                         .frame(maxWidth: .infinity)
                         .textFieldBackground()
                         .onAppear() {
-                            sideName = customSides[sideIndex].name
+                            if sideIndex < customSides.count {
+                                sideName = customSides[sideIndex].name
+                            }
                         }
                         .onChange(of: sideName) { _ in
-                            // Raccourcir si trop long
-                            
-                            customSides[sideIndex].name = sideName
+                            customSides[sideIndex].updateName(sideName)
                         }
                     
                     Button(action: {

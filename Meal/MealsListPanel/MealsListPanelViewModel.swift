@@ -128,7 +128,7 @@ extension MealsListPanelViewModel {
 // Sides
 extension MealsListPanelViewModel {
     func saveSides(_ sides: [Side]) {
-        data.saveUserSides(sides)
-        self.sides = sides
+        self.sides = sides.sorted(by: {$0.name < $1.name})
+        data.saveUserSides(self.sides)
     }
 }

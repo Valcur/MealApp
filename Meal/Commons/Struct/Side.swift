@@ -11,17 +11,33 @@ struct Side: Codable, Equatable {
     var id: String
     var name: String
     var imageName: String
+    var isDefaultSide: Bool
     
     init(key: String) {
         self.name = NSLocalizedString(key, comment: key)
         self.imageName = key
         self.id = "default-side-" + key
+        self.isDefaultSide = true
     }
     
-    init(key: String, id: String) {
-        self.name = NSLocalizedString(key, comment: key)
+    init(name: String, id: String) {
+        self.name = name
         self.imageName = ""
         self.id = id
+        self.isDefaultSide = false
+    }
+    
+    mutating func updateName(_ newName: String) {
+        // Raccourcir si trop long
+        self.name = newName
+        if !isDefaultSide {
+            let words = name.components(separatedBy: " ")
+            if words.count == 2 {
+                self.imageName = words[0].prefix(1).uppercased() + words[1].prefix(1).uppercased()
+            } else if words.count >= 1 {
+                self.imageName = name.prefix(2).capitalized
+            }
+        }
     }
     
     static func ==(lhs: Side, rhs: Side) -> Bool {
@@ -56,26 +72,6 @@ struct Side: Codable, Equatable {
     }
     
     static let defaultSides: [Side] = [
-        Side(key: "pates"),
-        Side(key: "riz"),
-        Side(key: "semoule"),
-        Side(key: "pomme-de-terre"),
-        Side(key: "haricots-verts"),
-        Side(key: "puree"),
-        Side(key: "salade"),
-        Side(key: "gnocchi"),
-        Side(key: "legumes"),
-        Side(key: "pois-chiche"),
-        Side(key: "galette-patate"),
-        Side(key: "polenta"),
-        Side(key: "chou"),
-        Side(key: "crudite"),
-        Side(key: "taboule"),
-        Side(key: "pomme-noisette"),
-        Side(key: "flageolets")
-    ].sorted(by: {$0.name < $1.name})
-    
-    static let sides: [Side] = [
         Side(key: "pates"),
         Side(key: "riz"),
         Side(key: "semoule"),
@@ -143,11 +139,21 @@ struct SidePickerView: View {
                 }
             }, label: {
                 VStack {
-                    Image(side.imageName)
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .padding(.vertical, 10)
-                        .roundedCornerRectangle(padding: 10, color: isSelected ? .accentColor : Color("BackgroundColor"))
+                    ZStack {
+                        if side.isDefaultSide {
+                            Image(side.imageName)
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                        } else {
+                            Text(side.imageName)
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("TextColor"))
+                                .frame(width: 40, height: 40)
+                        }
+                    }.padding(.vertical, 10)
+                    .roundedCornerRectangle(padding: 10, color: isSelected ? .accentColor : Color("BackgroundColor"))
+                    
                     Text(side.name)
                         .font(.caption)
                         .multilineTextAlignment(.center)
