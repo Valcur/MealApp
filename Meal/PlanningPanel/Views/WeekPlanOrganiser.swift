@@ -13,11 +13,22 @@ struct WeekPlanOrganiser: View {
     
     var body: some View {
         ScrollView(.horizontal) {
-            HStack {
-                HorizontalDayTime()
-                
-                ForEach(planningPanelVM.weekPlan.week) { day in
-                    DayView(dayPlan: day)
+            ScrollViewReader { reader in
+                HStack {
+                    HorizontalDayTime()
+                    
+                    ForEach(planningPanelVM.weekPlan.week) { day in
+                        DayView(dayPlan: day)
+                            .id(day.day)
+                    }
+                }
+                .padding(.trailing, 20)
+                .onAppear() {
+                    for day in planningPanelVM.weekPlan.week {
+                        if Calendar.current.isDateInToday(day.date) {
+                            reader.scrollTo(day.day)
+                        }
+                    }
                 }
             }
         }
