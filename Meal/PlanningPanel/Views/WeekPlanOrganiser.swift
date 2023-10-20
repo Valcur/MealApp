@@ -22,11 +22,16 @@ struct WeekPlanOrganiser: View {
                             .id(day.day)
                     }
                 }
-                .padding(.trailing, 20)
+                .padding(.trailing, UIDevice.isIPhone ? 100 : 20)
                 .onAppear() {
                     for day in planningPanelVM.weekPlan.week {
                         if Calendar.current.isDateInToday(day.date) {
-                            reader.scrollTo(day.day)
+                            //reader.scrollTo(day.day, anchor: .center)
+                            if UIDevice.isIPhone {
+                                reader.scrollTo(planningPanelVM.weekPlan.week.randomElement()!.day, anchor: .center)
+                            } else {
+                                reader.scrollTo(planningPanelVM.weekPlan.week.randomElement()!.day)
+                            }
                         }
                     }
                 }
@@ -82,12 +87,12 @@ struct WeekPlanOrganiser: View {
                 Divider()
                 
                 VStack {
-                    DayMealView(dayPlan: dayPlan, time: .midday, meals: dayPlan.midday)
+                    DayMealView(dayPlan: dayPlan, time: .midday, meals: dayPlan.midday, isToday: isToday)
                     
                     Divider()
                         .frame(maxHeight: 10)
                     
-                    DayMealView(dayPlan: dayPlan, time: .evening, meals: dayPlan.evening)
+                    DayMealView(dayPlan: dayPlan, time: .evening, meals: dayPlan.evening, isToday: isToday)
                 }
                 
                 Spacer()
@@ -101,12 +106,13 @@ struct WeekPlanOrganiser: View {
             @State private var showingNewMealSheet = false
             let time: TimeOfTheDay
             let meals: [Meal]
+            let isToday: Bool
                 
             var body: some View {
                 VStack {
                     if meals.count > 0 {
                         ForEach(meals, id: \.uuid) { meal in
-                            MealView(dayPlan: dayPlan, time: time, meal: meal)
+                            MealView(dayPlan: dayPlan, time: time, meal: meal, isToday: isToday)
                         }
                     }
                     if meals.count < 3 {
@@ -119,7 +125,7 @@ struct WeekPlanOrganiser: View {
                                     Image(systemName: "plus")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                        .foregroundColor(Color("TextColor"))
+                                        .foregroundColor(isToday ? Color.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                                     .sheet(isPresented: $showingNewMealSheet) {
                                         DayPlanNewMealSheet(dayPlan: dayPlan, time: time)
@@ -132,7 +138,7 @@ struct WeekPlanOrganiser: View {
                                     Image(systemName: "questionmark.square")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                        .foregroundColor(Color("TextColor"))
+                                        .foregroundColor(isToday ? Color.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                             } else {
                                 Button(action: {
@@ -141,7 +147,7 @@ struct WeekPlanOrganiser: View {
                                     Image(systemName: "doc.on.clipboard")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                        .foregroundColor(Color("TextColor"))
+                                        .foregroundColor(isToday ? Color.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                             }
                         }
@@ -160,6 +166,7 @@ struct WeekPlanOrganiser: View {
                 var mealHasNotes: Bool {
                     return meal.notes != nil && meal.notes! != ""
                 }
+                let isToday: Bool
                 
                 var body: some View {
                     ZStack {
@@ -201,7 +208,12 @@ struct WeekPlanOrganiser: View {
                             }.padding(8)
                             Spacer()
                         }
-                    }.roundedCornerRectangle(padding: 2).frame(maxWidth: .infinity)
+                    }.padding(2)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(isToday ? Color.accentColor : Color.clear, lineWidth: 4)
+                    )
+                    .roundedCornerRectangle(padding: 0).frame(maxWidth: .infinity)
                     .onTapGesture {  }
                     .onLongPressGesture(minimumDuration: 0.5) {
                         planningPanelVM.copyClipboardMeal(meal, day: dayPlan, time: time)

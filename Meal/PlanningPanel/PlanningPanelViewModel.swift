@@ -63,6 +63,7 @@ class PlanningPanelViewModel: ObservableObject {
             thisWeek = nextWeek
             nextWeek = WeekPlan(.nextWeek)
             configureVM.applyAllSchedulesTo(nextWeek)
+            UserDefaults.standard.set(nextWeek.week[0].date.timeIntervalSince1970, forKey: "LAST_SCHEDULE_APPLIED_DATE")
             
             saveBothWeeks()
             if selectedWeek == .thisWeek {
@@ -79,6 +80,7 @@ class PlanningPanelViewModel: ObservableObject {
             nextWeek = WeekPlan(.nextWeek)
             configureVM.applyAllSchedulesTo(thisWeek)
             configureVM.applyAllSchedulesTo(nextWeek)
+            UserDefaults.standard.set(nextWeek.week[0].date.timeIntervalSince1970, forKey: "LAST_SCHEDULE_APPLIED_DATE")
             
             saveBothWeeks()
             if selectedWeek == .thisWeek {
@@ -119,6 +121,7 @@ class PlanningPanelViewModel: ObservableObject {
             print("User not saving to cloud")
             return
         }
+        
         cloudKitController.thisWeekIniCompleted = false
         cloudKitController.nextWeekIniCompleted = false
         
@@ -139,6 +142,7 @@ class PlanningPanelViewModel: ObservableObject {
                         }
                         
                         print("PLANNING INI FROM CLOUD COMPLETED")
+                        self.applySchedulesIfNotAlready()
                     }
                 }
             }
@@ -158,9 +162,59 @@ class PlanningPanelViewModel: ObservableObject {
                     }
                     
                     print("PLANNING INI FROM CLOUD COMPLETED")
+                    self.applySchedulesIfNotAlready()
                 }
             }
         })
+    }
+    
+    func applySchedulesIfNotAlready() {
+        let SCHEDUlE_KEY = "LAST_SCHEDULE_APPLIED_DATE"
+        // Recupere date plus recente ou schedule ajouté
+        var latestScheduleAppliedDate = UserDefaults.standard.double(forKey: SCHEDUlE_KEY)
+        
+        let thisWeekDate = thisWeek.week[0].date.timeIntervalSince1970
+        let nextWeekDate = nextWeek.week[1].date.timeIntervalSince1970
+        
+        print("Last schedule date")
+        print(latestScheduleAppliedDate)
+        print("this week")
+        print(thisWeekDate)
+        print(thisWeekDate - latestScheduleAppliedDate)
+        print("next week")
+        print(nextWeekDate)
+        print(nextWeekDate - latestScheduleAppliedDate)
+        
+        // Si pas encore defini
+        if latestScheduleAppliedDate == 0 {
+            UserDefaults.standard.set(nextWeekDate, forKey: SCHEDUlE_KEY)
+            return
+        }
+        
+        // Regarde date cette semaine
+        // Si date > schedule, on apply schedule
+        if thisWeekDate > latestScheduleAppliedDate {
+            print("doit ajouter a cette semaine")
+            configureVM.applyAllSchedulesTo(thisWeek)
+            saveBothWeeks()
+            latestScheduleAppliedDate = thisWeekDate
+            UserDefaults.standard.set(latestScheduleAppliedDate, forKey: SCHEDUlE_KEY)
+        }
+        // Pareil pour next week
+        if nextWeekDate > latestScheduleAppliedDate{
+            print("doit ajouter a la semaine prochaine")
+            configureVM.applyAllSchedulesTo(nextWeek)
+            saveBothWeeks()
+            latestScheduleAppliedDate = nextWeekDate
+            UserDefaults.standard.set(latestScheduleAppliedDate, forKey: SCHEDUlE_KEY)
+        }
+        
+        // On actualise
+        if selectedWeek == .thisWeek {
+            weekPlan = thisWeek
+        } else {
+            weekPlan = nextWeek
+        }
     }
 }
 

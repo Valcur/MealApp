@@ -121,6 +121,6 @@ extension MealsDataController {
                 return sides
             }
         }
-        return []
+        return Side.defaultSides
     }
 }

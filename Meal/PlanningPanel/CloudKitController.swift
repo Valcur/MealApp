@@ -139,7 +139,11 @@ class CloudKitController: ObservableObject {
                 let sidesKeys = String(lines[i + 4]).components(separatedBy: "/")
                 for sidesKey in sidesKeys {
                     if sidesKey.count > 1 {
-                        sides.append(Side(key: sidesKey))
+                        if sidesKey.contains("CUSTOM-") {
+                            sides.append(Side(name: String(sidesKey.dropFirst(7)), id: UUID().uuidString))
+                        } else {
+                            sides.append(Side(key: sidesKey))
+                        }
                     }
                 }
                 
@@ -197,7 +201,12 @@ class CloudKitController: ObservableObject {
                 text += "\(midday.type == .meat ? 1 : (midday.type == .vegan ? 2 : (midday.type == .outside ? 3 : 4)))\n"
                 if let sides = midday.sides {
                     for side in sides {
-                        text += "\(side.imageName)/"
+                        if side.isDefaultSide {
+                            text += "\(side.imageName)/"
+                        } else {
+                            print("Adding custom side \(side.name)")
+                            text += "CUSTOM-\(side.name)/"
+                        }
                     }
                 }
                 text += " \n"
@@ -223,7 +232,12 @@ class CloudKitController: ObservableObject {
                 text += "\(evening.type == .meat ? 1 : (evening.type == .vegan ? 2 : (evening.type == .outside ? 3 : 4)))\n"
                 if let sides = evening.sides {
                     for side in sides {
-                        text += "\(side.imageName)/"
+                        if side.isDefaultSide {
+                            text += "\(side.imageName)/"
+                        } else {
+                            print("Adding custom side \(side.name)")
+                            text += "CUSTOM-\(side.name)/"
+                        }
                     }
                 }
                 text += " \n"

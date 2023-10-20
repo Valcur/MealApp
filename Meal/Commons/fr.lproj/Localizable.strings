@@ -68,7 +68,7 @@
 "options_schedule_new_title" = "Nouveau programme";
 "options_schedule_new_mealChoice_subtitle" = "Choisissez le plat que vous souhaitez voir répéter chaque semaine";
 "options_schedule_edit_title" = "Modifier programme";
-"options_schedule_edit_mealChoice_subtitle" = "Changer le plat de répété";
+"options_schedule_edit_mealChoice_subtitle" = "Changer le plat répété";
 "options_schedule_new_subtitle" = "Choissez les jours et le repas où vous souhaitez voir ce plat se répéter";
 "options_schedule_new_confirmButton" = "Ajouter programme";
 "confirmChangesButton" = "Confirmer les changements";
@@ -129,9 +129,9 @@
 "flageolets" = "Flageolets";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Une 4ème catégorie est désormais disponible pour ranger vos plats. Les deux premières catégories restent les seules choisies si vous ajoutez un plat aléatoire.\n\nVous pouvez maintenant renommer/personnaliser les catégories selon vos besoins (Options -> Personnalisation).";
+"whatsNew_content" = "Vous pouvez désormais ajouter vos propres accompagnements et supprimer ceux existant que vous n'utilisez pas. Ajoutez un acoompagnement par défaut à vos plats pour que celui-ci soit automatiquement sélectionné lorque vous ajoutez ce plat à votre menu.";
 "whatsNew_old_title" = "Précédemment";
-"whatsNew_old_content" = "Partagez votre menu avec vos proches et remplissez le tous ensemble (Options -> Collaboration)";
+"whatsNew_old_content" = "Une 4ème catégorie est désormais disponible pour ranger vos plats. Les deux premières catégories restent les seules choisies si vous ajoutez un plat aléatoire.\n\nVous pouvez maintenant renommer/personnaliser les catégories selon vos besoins (Options -> Personnalisation).";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -180,7 +180,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "sides-manager.reset.title" = "Réinitialiser les accompagnements";
 "sides-manager.reset.content" = "Utilisez ce bouton pour supprimer tous les accompagnements que vous avez ajoutés et faire réapparaître tous les accompagnements que vous avez supprimés.";
 "sides-manager.custom.title" = "Vos accompagnements";
-"sides-manager.custom.placeholder" = "Nom de l'accompagnements";
+"sides-manager.custom.placeholder" = "Nom de l'accompagnement";
 
 "options_other_title" = "Autres";
 

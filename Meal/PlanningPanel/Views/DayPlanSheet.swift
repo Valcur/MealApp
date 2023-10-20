@@ -138,7 +138,9 @@ struct DayPlanSheet: View {
                     }
                 }.onChange(of: mealsAvailable) { _ in
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
-                    selectedSides = mealsAvailable[selection].sides ?? []
+                    if selection > mealsAvailable.count {
+                        selectedSides = mealsAvailable[selection].sides ?? []
+                    }
                 }.onAppear() {
                     customMealName = meal.name
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0

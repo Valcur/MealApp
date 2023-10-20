@@ -127,8 +127,22 @@ extension MealsListPanelViewModel {
 
 // Sides
 extension MealsListPanelViewModel {
-    func saveSides(_ sides: [Side]) {
-        self.sides = sides.sorted(by: {$0.name < $1.name})
+    func saveSides(_ newSides: [Side]) {
+        var oldSides = self.sides
+        self.sides = newSides.sorted(by: {$0.name < $1.name})
+        /*
+        for i in 0..<self.sides.count {
+            if !self.sides[i].isDefaultSide {
+                if let oldSide = oldSides.first(where: { $0.id == self.sides[i].id }) {
+                    if oldSide.name != self.sides[i].name {
+                        self.sides[i].id = UUID().uuidString
+                        print("Changing id for old")
+                    }
+                } else {
+                    print("new side")
+                }
+            }
+        }*/
         data.saveUserSides(self.sides)
     }
 }

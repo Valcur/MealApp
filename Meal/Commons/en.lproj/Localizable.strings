@@ -118,9 +118,9 @@
 "flageolets" = "Flageolets";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "A 4th category is now available to add your meals. The firt two remain the only categories picked when randomly adding a meal.\n\nYou can rename/customize the categories (Options -> Customization)";
+"whatsNew_content" = "You can now rename/delete any of the existing sides and add your own.\nAdd default sides to your meals to have them always been added with that sides automatically.";
 "whatsNew_old_title" = "Previously";
-"whatsNew_old_content" = "Share your planning with your family to let everyone add meals to the menu (Options -> Collaboration).";
+"whatsNew_old_content" = "A 4th category is now available to add your meals. The firt two remain the only categories picked when randomly adding a meal.\n\nYou can rename/customize the categories (Options -> Customization)";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";

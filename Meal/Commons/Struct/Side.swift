@@ -94,6 +94,9 @@ struct Side: Codable, Equatable {
         Side(key: "avocat"),
         Side(key: "petit-pois"),
         Side(key: "carrotes"),
+        Side(key: "aubergine"),
+        Side(key: "mais"),
+        Side(key: "concombre"),
     ].sorted(by: {$0.name < $1.name})
 }
 
@@ -113,7 +116,9 @@ struct SidePickerView: View {
             // A REFAIRE PAS DANS UN ONCHANGE A L'OCCASION
             for side in selectedSides {
                 if !sides.contains(where: { $0.name == side.name }) {
-                    sides.append(side)
+                    var sideTmp = side
+                    sideTmp.updateName(sideTmp.name)
+                    sides.append(sideTmp)
                 }
             }
             sides = sides.sorted(by: {$0.name < $1.name})
@@ -127,13 +132,13 @@ struct SidePickerView: View {
         let side: Side
         @Binding var selectedSides: [Side]
         var isSelected: Bool {
-            selectedSides.contains(where: {side.id == $0.id})
+            selectedSides.contains(where: {side.name == $0.name})
         }
         
         var body: some View {
             Button(action: {
                 if isSelected {
-                    selectedSides.removeAll(where: {side.id == $0.id})
+                    selectedSides.removeAll(where: {side.name == $0.name})
                 } else {
                     selectedSides.append(side)
                 }
@@ -155,9 +160,9 @@ struct SidePickerView: View {
                     .roundedCornerRectangle(padding: 10, color: isSelected ? .accentColor : Color("BackgroundColor"))
                     
                     Text(side.name)
-                        .font(.caption)
+                        .font(.system(size: 12))
                         .multilineTextAlignment(.center)
-                        .frame(width: 60, height: 35)
+                        .frame(width: 70, height: 35)
                         .offset(y: -10)
                 }
             })

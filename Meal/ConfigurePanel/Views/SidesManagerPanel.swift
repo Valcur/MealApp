@@ -66,35 +66,44 @@ struct SidesManagerPanel: View {
         var body: some View {
             if sideIndex < customSides.count {
                 HStack(spacing: 20) {
-                    if let imageName = customSides[sideIndex].imageName, imageName != "" {
-                        Image(imageName)
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                    } else {
-                        Rectangle()
-                            .opacity(0.00000001)
-                            .frame(width: 40, height: 40)
+                    if let side = customSides[sideIndex] {
+                        if side.isDefaultSide {
+                            Image(side.imageName)
+                               .resizable()
+                               .frame(width: 40, height: 40)
+                        } else {
+                            Text(side.imageName)
+                               .font(.title2)
+                               .fontWeight(.bold)
+                               .foregroundColor(Color("TextColor"))
+                               .frame(width: 40, height: 40)
+                        }
+                        
+                        ZStack {
+                            TextField("sides-manager.custom.placeholder".translate(), text: $sideName)
+                                .allowsHitTesting(!side.isDefaultSide)
+                                .frame(maxWidth: .infinity)
+                                .textFieldBackground(style: side.isDefaultSide ? .secondary : .primary)
+                                .onAppear() {
+                                    if sideIndex < customSides.count {
+                                        sideName = customSides[sideIndex].name
+                                    }
+                                }
+                                .onChange(of: sideName) { _ in
+                                    sideName = String(sideName.prefix(15))
+                                    customSides[sideIndex].updateName(sideName)
+                                }
+                        }
+                        
+                        Button(action: {
+                            customSides.remove(at: sideIndex)
+                        }, label: {
+                            Image(systemName: "trash")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.red)
+                        })
                     }
-                    TextField("sides-manager.custom.placeholder".translate(), text: $sideName)
-                        .frame(maxWidth: .infinity)
-                        .textFieldBackground()
-                        .onAppear() {
-                            if sideIndex < customSides.count {
-                                sideName = customSides[sideIndex].name
-                            }
-                        }
-                        .onChange(of: sideName) { _ in
-                            customSides[sideIndex].updateName(sideName)
-                        }
-                    
-                    Button(action: {
-                        customSides.remove(at: sideIndex)
-                    }, label: {
-                        Image(systemName: "trash")
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.red)
-                    })
                 }
             }
         }
