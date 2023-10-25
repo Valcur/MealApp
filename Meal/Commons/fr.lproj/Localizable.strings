@@ -127,9 +127,16 @@
 "taboule" = "Taboulé";
 "pomme-noisette" = "Patates frites";
 "flageolets" = "Flageolets";
+"poivron" = "Poivrons";
+"avocat" = "Avocats";
+"petit-pois" = "Petits Pois";
+"carrotes" = "Carottes";
+"mais" = "Maïs";
+"concombre" = "Concombre";
+"champignons" = "Champi";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Vous pouvez désormais ajouter vos propres accompagnements et supprimer ceux existant que vous n'utilisez pas. Ajoutez un acoompagnement par défaut à vos plats pour que celui-ci soit automatiquement sélectionné lorque vous ajoutez ce plat à votre menu.";
+"whatsNew_content" = "- Vous pouvez désormais ajouter vos propres accompagnements et supprimer ceux que vous n'utilisez pas.\n\n- Ajoutez un acompagnement par défaut à vos plats pour que celui-ci soit automatiquement sélectionné lorque vous ajoutez ce plat à votre menu.\n\n- Correction de bugs relatifs à l'usage de l'option collaborative";
 "whatsNew_old_title" = "Précédemment";
 "whatsNew_old_content" = "Une 4ème catégorie est désormais disponible pour ranger vos plats. Les deux premières catégories restent les seules choisies si vous ajoutez un plat aléatoire.\n\nVous pouvez maintenant renommer/personnaliser les catégories selon vos besoins (Options -> Personnalisation).";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
@@ -178,7 +185,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 
 "sides-manager.title" = "Accompagnements";
 "sides-manager.reset.title" = "Réinitialiser les accompagnements";
-"sides-manager.reset.content" = "Utilisez ce bouton pour supprimer tous les accompagnements que vous avez ajoutés et faire réapparaître tous les accompagnements que vous avez supprimés.";
+"sides-manager.reset.content" = "Utilisez ce bouton pour supprimer tous les accompagnements que vous avez ajouté et faire réapparaître tous les accompagnements que vous avez supprimé.";
 "sides-manager.custom.title" = "Vos accompagnements";
 "sides-manager.custom.placeholder" = "Nom de l'accompagnement";
 

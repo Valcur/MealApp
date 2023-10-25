@@ -19,6 +19,8 @@ struct WhatsNewView: View {
     
     struct WhatsNewPanel: View {
         @Environment(\.presentationMode) var presentationMode
+        let showPreviousVersion = false
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
                 Text(NSLocalizedString("whatsNew_title", comment: "whatsNew_title"))
@@ -36,7 +38,7 @@ struct WhatsNewView: View {
                     Spacer()
                 }.padding(.horizontal, 50)
                 
-                if true {
+                if showPreviousVersion {
                     Text(NSLocalizedString("whatsNew_old_title", comment: "whatsNew_title"))
                         .largeTitle(style: .secondary)
                     
@@ -75,7 +77,7 @@ struct WhatsNewView: View {
     }
     
     class WhatsNewController: ObservableObject {
-        private let updateDate = "26/07/2023"
+        private let updateDate = "24/10/2023"
         @Published var showWhatsNew: Bool
         
         init() {
@@ -86,7 +88,11 @@ struct WhatsNewView: View {
                     key: true
                 ]
             )
-            showWhatsNew = UserDefaults.standard.bool(forKey: key)
+            if false {
+                showWhatsNew = true
+            } else {
+                showWhatsNew = UserDefaults.standard.bool(forKey: key)
+            }
             UserDefaults.standard.setValue(false, forKey: key)
         }
     }

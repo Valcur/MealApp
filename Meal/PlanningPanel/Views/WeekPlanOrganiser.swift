@@ -16,21 +16,21 @@ struct WeekPlanOrganiser: View {
             ScrollViewReader { reader in
                 HStack {
                     HorizontalDayTime()
+                        .id(-1)
                     
                     ForEach(planningPanelVM.weekPlan.week) { day in
                         DayView(dayPlan: day)
                             .id(day.day)
                     }
                 }
-                .padding(.trailing, UIDevice.isIPhone ? 100 : 20)
+                .padding(.trailing, 20)
                 .onAppear() {
                     for day in planningPanelVM.weekPlan.week {
                         if Calendar.current.isDateInToday(day.date) {
-                            //reader.scrollTo(day.day, anchor: .center)
-                            if UIDevice.isIPhone {
-                                reader.scrollTo(planningPanelVM.weekPlan.week.randomElement()!.day, anchor: .center)
+                            if day.day == .monday {
+                                reader.scrollTo(-1, anchor: .leading)
                             } else {
-                                reader.scrollTo(planningPanelVM.weekPlan.week.randomElement()!.day)
+                                reader.scrollTo(day.day)
                             }
                         }
                     }

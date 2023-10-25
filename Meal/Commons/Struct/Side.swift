@@ -94,8 +94,8 @@ struct Side: Codable, Equatable {
         Side(key: "avocat"),
         Side(key: "petit-pois"),
         Side(key: "carrotes"),
-        Side(key: "aubergine"),
         Side(key: "mais"),
+        Side(key: "champignons"),
         Side(key: "concombre"),
     ].sorted(by: {$0.name < $1.name})
 }
@@ -159,11 +159,19 @@ struct SidePickerView: View {
                     }.padding(.vertical, 10)
                     .roundedCornerRectangle(padding: 10, color: isSelected ? .accentColor : Color("BackgroundColor"))
                     
-                    Text(side.name)
-                        .font(.system(size: 12))
-                        .multilineTextAlignment(.center)
-                        .frame(width: 70, height: 35)
-                        .offset(y: -10)
+                    if side.imageName == "champignons" {
+                        Text(side.name)
+                            .font(.system(size: 12))
+                            .multilineTextAlignment(.center)
+                            .frame(width: 80, height: 35)
+                            .offset(y: -10)
+                    } else {
+                        Text(side.name)
+                            .font(.system(size: 12))
+                            .multilineTextAlignment(.center)
+                            .frame(width: 70, height: 35)
+                            .offset(y: -10)
+                    }
                 }
             })
         }

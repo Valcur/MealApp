@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SidesManagerPanel: View {
     @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
-    @State var selectedSides: [Side] = Side.defaultSides
+    //@State var selectedSides: [Side] = Side.defaultSides
     @State var customSides: [Side] = []
     var body: some View {
         VStack(alignment: .leading, spacing: 40)  {
@@ -20,11 +20,15 @@ struct SidesManagerPanel: View {
                     
                     Spacer()
                     
-                    Button(action: {
-                        customSides.insert(Side(name: "", id: UUID().uuidString), at: 0)
-                    }, label: {
-                        ButtonLabel(title: "+", isCompact: true)
-                    })
+                    if customSides.count <= 30 {
+                        Button(action: {
+                            if customSides.count <= 30 {
+                                customSides.insert(Side(name: "", id: UUID().uuidString), at: 0)
+                            }
+                        }, label: {
+                            ButtonLabel(title: "+", isCompact: true)
+                        })
+                    }
                 }
                 
                 ForEach(0..<customSides.count, id:\.self) { i in
@@ -90,7 +94,7 @@ struct SidesManagerPanel: View {
                                     }
                                 }
                                 .onChange(of: sideName) { _ in
-                                    sideName = String(sideName.prefix(15))
+                                    sideName = String(sideName.prefix(20))
                                     customSides[sideIndex].updateName(sideName)
                                 }
                         }

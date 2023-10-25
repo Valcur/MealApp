@@ -130,15 +130,22 @@ class PlanningPanelViewModel: ObservableObject {
                 if let thisWeekPlan = thisWeekPlan {
                     self.thisWeek = thisWeekPlan
                     
-                    self.weekPlan = thisWeekPlan
-                    self.selectedWeek = .thisWeek
+                    //self.weekPlan = thisWeekPlan
+                    //self.selectedWeek = .thisWeek
                     
                     self.cloudKitController.thisWeekIniCompleted = true
                     
                     if self.cloudKitController.isIniComplete() {
                         self.objectWillChange.send()
                         if !self.updateWeekDatesIfNeeded() {
-                            self.saveWeek()
+                            //self.saveWeek()
+                            self.saveBothWeeks()
+                            
+                            if self.selectedWeek == .thisWeek {
+                                self.weekPlan = self.thisWeek
+                            } else {
+                                self.weekPlan = self.nextWeek
+                            }
                         }
                         
                         print("PLANNING INI FROM CLOUD COMPLETED")
@@ -158,7 +165,14 @@ class PlanningPanelViewModel: ObservableObject {
                 if self.cloudKitController.isIniComplete() {
                     self.objectWillChange.send()
                     if !self.updateWeekDatesIfNeeded() {
-                        self.saveWeek()
+                        //self.saveWeek()
+                        self.saveBothWeeks()
+                        
+                        if self.selectedWeek == .thisWeek {
+                            self.weekPlan = self.thisWeek
+                        } else {
+                            self.weekPlan = self.nextWeek
+                        }
                     }
                     
                     print("PLANNING INI FROM CLOUD COMPLETED")
