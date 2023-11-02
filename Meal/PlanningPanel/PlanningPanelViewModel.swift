@@ -62,8 +62,10 @@ class PlanningPanelViewModel: ObservableObject {
             print("Nouvelle semaine !")
             thisWeek = nextWeek
             nextWeek = WeekPlan(.nextWeek)
-            configureVM.applyAllSchedulesTo(nextWeek)
-            UserDefaults.standard.set(nextWeek.week[0].date.timeIntervalSince1970, forKey: "LAST_SCHEDULE_APPLIED_DATE")
+            if !cloudKitController.isSavingToCloud() {
+                configureVM.applyAllSchedulesTo(nextWeek)
+                UserDefaults.standard.set(nextWeek.week[0].date.timeIntervalSince1970, forKey: "LAST_SCHEDULE_APPLIED_DATE")
+            }
             
             saveBothWeeks()
             if selectedWeek == .thisWeek {
@@ -78,9 +80,11 @@ class PlanningPanelViewModel: ObservableObject {
             print("L'app n'a pas été ouverte depuis plus de 2 semaines")
             thisWeek = WeekPlan(.thisWeek)
             nextWeek = WeekPlan(.nextWeek)
-            configureVM.applyAllSchedulesTo(thisWeek)
-            configureVM.applyAllSchedulesTo(nextWeek)
-            UserDefaults.standard.set(nextWeek.week[0].date.timeIntervalSince1970, forKey: "LAST_SCHEDULE_APPLIED_DATE")
+            if !cloudKitController.isSavingToCloud() {
+                configureVM.applyAllSchedulesTo(thisWeek)
+                configureVM.applyAllSchedulesTo(nextWeek)
+                UserDefaults.standard.set(nextWeek.week[0].date.timeIntervalSince1970, forKey: "LAST_SCHEDULE_APPLIED_DATE")
+            }
             
             saveBothWeeks()
             if selectedWeek == .thisWeek {

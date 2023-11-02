@@ -30,7 +30,15 @@ struct WeekPlanOrganiser: View {
                             if day.day == .monday {
                                 reader.scrollTo(-1, anchor: .leading)
                             } else {
-                                reader.scrollTo(day.day)
+                                if UIDevice.isIPhone {
+                                    if day.day == .sunday {
+                                        reader.scrollTo(day.day, anchor: .trailing)
+                                    } else {
+                                        reader.scrollTo(day.day, anchor: .leading)
+                                    }
+                                } else {
+                                    reader.scrollTo(day.day)
+                                }
                             }
                         }
                     }
