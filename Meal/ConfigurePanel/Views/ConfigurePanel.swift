@@ -42,6 +42,9 @@ struct ConfigurePanel: View {
                     }
                 }
                 Section(header: Text("options_other_title")) {
+                    NavigationLink(destination: AlreadyPickedPanel()) {
+                        Text("availableMeals_title".translate())
+                    }
                     NavigationLink(destination: WhatsNewPanel()) {
                         Text(NSLocalizedString("whatsNew_title", comment: "whatsNew_title"))
                     }

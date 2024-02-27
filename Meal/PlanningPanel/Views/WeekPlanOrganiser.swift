@@ -112,6 +112,7 @@ struct WeekPlanOrganiser: View {
             @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
             @ObservedObject var dayPlan: DayPlan
             @State private var showingNewMealSheet = false
+            @State private var showingRandomMealSheet = false
             let time: TimeOfTheDay
             let meals: [Meal]
             let isToday: Bool
@@ -141,13 +142,16 @@ struct WeekPlanOrganiser: View {
                                     }
                                 
                                 Button(action: {
-                                    planningPanelVM.addRandomMeal(day: dayPlan.day, time: time)
+                                    showingRandomMealSheet = true
                                 }, label: {
                                     Image(systemName: "questionmark.square")
                                         .resizable()
                                         .frame(width: 30, height: 30)
                                         .foregroundColor(isToday ? Color.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
+                                    .sheet(isPresented: $showingRandomMealSheet) {
+                                        RandomMeelSheet(day: dayPlan.day, time: time)
+                                    }
                             } else {
                                 Button(action: {
                                     planningPanelVM.addClipboardMeal(day: dayPlan.day, time: time)
@@ -175,6 +179,8 @@ struct WeekPlanOrganiser: View {
                     return meal.notes != nil && meal.notes! != ""
                 }
                 let isToday: Bool
+                @State var isLongPressing = false
+                @State var longPressProgress: CGFloat = 0
                 
                 var body: some View {
                     ZStack {
@@ -222,10 +228,37 @@ struct WeekPlanOrganiser: View {
                             .stroke(isToday ? Color.accentColor : Color.clear, lineWidth: 4)
                     )
                     .roundedCornerRectangle(padding: 0).frame(maxWidth: .infinity)
-                    .onTapGesture {  }
-                    .onLongPressGesture(minimumDuration: 0.5) {
-                        planningPanelVM.copyClipboardMeal(meal, day: dayPlan, time: time)
+                    
+                    .scaleEffect(1 - longPressProgress)
+                    .opacity(1 - longPressProgress)
+                    .delaysTouches(for: 0.05) {
+                        //some code here, if needed
                     }
+                    .gesture(DragGesture(minimumDistance: 0)
+                        .onChanged({ _ in
+                            if !isLongPressing {
+                                isLongPressing = true
+                                withAnimation(.easeInOut(duration: 0.5)) {
+                                    longPressProgress = 0.2
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                                    if isLongPressing {
+                                        isLongPressing = false
+                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                            longPressProgress = 0
+                                        }
+                                        planningPanelVM.copyClipboardMeal(meal, day: dayPlan, time: time)
+                                    }
+                                })
+                            }
+                        })
+                        .onEnded({ _ in
+                            isLongPressing = false
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                longPressProgress = 0
+                            }
+                        })
+                    )
                     .sheet(isPresented: $showingMealInfoSheet) {
                         DayPlanMealEditSheet(dayPlan: dayPlan, time: time, meal: $meal, mealType: meal.type)
                             .environmentObject(planningPanelVM)
@@ -233,6 +266,7 @@ struct WeekPlanOrganiser: View {
                     .sheet(isPresented: $showingNotesSheet) {
                         WeekPlanNotesSheet(dayPlan: dayPlan, time: time, meal: $meal)
                     }
+                    
                 }
             }
         }

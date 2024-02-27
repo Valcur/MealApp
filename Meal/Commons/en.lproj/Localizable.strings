@@ -22,6 +22,10 @@
 "tab_meals" = "My meals";
 "tab_options" = "Configure";
 
+/*
+"Midday" = "Midday"; // Lunch ??
+"Evening" = "Evening";
+*/
 "autofill" = "Auto";
 "autofill_intro" = "Fill each empty lunch with a random meal depending on what options you selected";
 "autofill_meat-vegan_title" = "Share between %@/%@ meal this week";
@@ -125,9 +129,9 @@
 "champignons" = "Mushrooms";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- You can now delete any of the existing sides and add your own.\n\n- Add default sides to your meals to have them added automatically.";
+"whatsNew_content" = "- Pick between 3 choices when adding a random meal.\n\n- Added an animation when holding on a meal to move it to another day.\n\n- Visualize the list of meals you haven't eaten for a long time.";
 "whatsNew_old_title" = "Previously";
-"whatsNew_old_content" = "A 4th category is now available to add your meals. The firt two remain the only categories picked when randomly adding a meal.\n\nYou can rename/customize the categories (Options -> Customization)";
+"whatsNew_old_content" = "- You can now delete any of the existing sides and add your own.\n\n- Add default sides to your meals to have them added automatically.";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
@@ -192,3 +196,10 @@ Once activated if you have an error during synchronization, check your device's 
 "per_month" = "/month";
 "premium_viewOur" = "View our ";
 "premium_policy" = "Privacy policy";
+
+
+"randomMeals_title" = "Random meals";
+"randomMeals_content" = "Pick a meal for";
+"randomMeals_refresh" = "Change meals";
+"availableMeals_title" = "Recommended meals";
+"availableMeals_content" = "All meals you haven't picked for a long time which will be added to your week when choosing randomly. You can reset those lists at any time.";

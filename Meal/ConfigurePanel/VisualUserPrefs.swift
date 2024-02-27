@@ -20,6 +20,9 @@ class VisualUserPrefs: ObservableObject {
     var otherTitle: String {
         categoriesPrefs.otherTitle
     }
+    var outsideTitle: String {
+        "Outside".translate()
+    }
     
     var meatColorId: Int {
         categoriesPrefs.meatColorId

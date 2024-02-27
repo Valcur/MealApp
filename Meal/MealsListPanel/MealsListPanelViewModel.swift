@@ -12,12 +12,12 @@ class MealsListPanelViewModel: ObservableObject {
     private let data = MealsDataController()
     @Published var meals: MealList
     var recentlyPickedMealsId: AlreadyPickedIds
-    var availableMeals: MealList
+    @Published var availableMeals: MealList
     var sides: [Side]
     
     init() {
         meals = data.loadAllMeals()
-        recentlyPickedMealsId = AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOutsideIds: [])
+        recentlyPickedMealsId = AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOtherIds: [], pickedOutsideIds: [])
         availableMeals = MealList(meatMeals: [], veganMeals: [], otherMeals: [], outsideMeals: [])
         sides = data.loadAllUserSides()
         
@@ -39,6 +39,9 @@ class MealsListPanelViewModel: ObservableObject {
         for id in recentlyPickedMealsId.pickedVeganIds {
             availableMeals.veganMeals.removeAll(where: {$0.id == id})
         }
+        for id in recentlyPickedMealsId.pickedOtherIds {
+            availableMeals.otherMeals.removeAll(where: {$0.id == id})
+        }
         for id in recentlyPickedMealsId.pickedOutsideIds {
             availableMeals.outsideMeals.removeAll(where: {$0.id == id})
         }
@@ -46,32 +49,59 @@ class MealsListPanelViewModel: ObservableObject {
     
     public func mealHasBeenPicked(_ meal: Meal) {
         guard meal.id >= 0 else { return } // Don't do anything if leftover or custom meal
-        guard meal.type == .other else { return } // Don't do anything if category other
         availableMeals.removeWithId(meal.id)
         recentlyPickedMealsId.append(meal.id, type: meal.type)
-        
+        print("\(meal.name) has been picked")
         let availableMealCount = availableMeals.count()
-        print("Available : \(availableMealCount.0)-\(availableMealCount.1)-\(availableMealCount.2), already picked : \(recentlyPickedMealsId.pickedMeatIds.count)-\(recentlyPickedMealsId.pickedVeganIds.count)-\(recentlyPickedMealsId.pickedOutsideIds.count)")
         
         let mealCount = meals.count()
         // Si available trop petit, on reset tout
-        if availableMealCount.0 <= mealCount.0 / 5 {
+        if availableMealCount.0 <= mealCount.0 / 4 {
             print("Available meat meals too small, reseting")
             availableMeals.meatMeals = meals.meatMeals
             recentlyPickedMealsId.pickedMeatIds = []
         }
-        if availableMealCount.1 <= mealCount.1 / 5 {
+        if availableMealCount.1 <= mealCount.1 / 4 {
             print("Available vegan meals too small, reseting")
             availableMeals.veganMeals = meals.veganMeals
             recentlyPickedMealsId.pickedVeganIds = []
         }
-        if availableMealCount.2 <= mealCount.2 / 5 {
+        if availableMealCount.2 <= mealCount.2 / 4 {
+            print("Available other meals too small, reseting")
+            availableMeals.otherMeals = meals.otherMeals
+            recentlyPickedMealsId.pickedOtherIds = []
+        }
+        if availableMealCount.3 <= mealCount.3 / 4 {
             print("Available outside meals too small, reseting")
             availableMeals.outsideMeals = meals.outsideMeals
             recentlyPickedMealsId.pickedOutsideIds = []
         }
         
         // SAVE RECENTLY PICKED
+        data.saveAlreadyPickedIds(recentlyPickedMealsId)
+    }
+    
+    func resetMeatMeals() {
+        availableMeals.meatMeals = meals.meatMeals
+        recentlyPickedMealsId.pickedMeatIds = []
+        data.saveAlreadyPickedIds(recentlyPickedMealsId)
+    }
+    
+    func resetVeganMeals() {
+        availableMeals.veganMeals = meals.veganMeals
+        recentlyPickedMealsId.pickedVeganIds = []
+        data.saveAlreadyPickedIds(recentlyPickedMealsId)
+    }
+    
+    func resetOtherMeals() {
+        availableMeals.otherMeals = meals.otherMeals
+        recentlyPickedMealsId.pickedOtherIds = []
+        data.saveAlreadyPickedIds(recentlyPickedMealsId)
+    }
+    
+    func resetOutsideMeals() {
+        availableMeals.outsideMeals = meals.outsideMeals
+        recentlyPickedMealsId.pickedOutsideIds = []
         data.saveAlreadyPickedIds(recentlyPickedMealsId)
     }
 }
@@ -84,12 +114,18 @@ extension MealsListPanelViewModel {
         return meal.new()
     }
     
-    func getRandomMealMeatOrVegan() -> Meal? {
-        let availableMealsMeatOrVegan = availableMeals.meatMeals + availableMeals.veganMeals
-        let meal = availableMealsMeatOrVegan.randomElement()
-        guard let meal = meal else { return nil }
-        mealHasBeenPicked(meal)
-        return meal.new()
+    func getRandomMealsMeatOrVegan(count: Int = 1) -> [Meal] {
+        var meals = [Meal]()
+        var availableMealsMeatOrVegan = availableMeals.meatMeals + availableMeals.veganMeals
+        for _ in 1...count {
+            if let meal = availableMealsMeatOrVegan.removeRandom() {
+                meals.append(meal.new())
+            }
+        }
+        //let meal = availableMealsMeatOrVegan.randomElement()
+        //guard let meal = meal else { return nil }
+        //mealHasBeenPicked(meal)
+        return meals
     }
 }
 

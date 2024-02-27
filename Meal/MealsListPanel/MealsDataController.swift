@@ -102,7 +102,7 @@ extension MealsDataController {
                 return picked
             }
         }
-        return AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOutsideIds: [])
+        return AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOtherIds: [], pickedOutsideIds: [])
     }
 }
 

@@ -136,9 +136,9 @@
 "champignons" = "Champi";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Vous pouvez désormais ajouter vos propres accompagnements et supprimer ceux que vous n'utilisez pas.\n\n- Ajoutez un acompagnement par défaut à vos plats pour que celui-ci soit automatiquement sélectionné lorque vous ajoutez ce plat à votre menu.\n\n- Correction de bugs relatifs à l'usage de l'option collaborative";
+"whatsNew_content" = "- Choisissez parmi 3 propositions quand vous ajoutez un plat aléatoire.\n\n- Ajout d'une animation lorsque vous gardez appuyé sur un plat pour le déplacer.\n\n- Visualisez la liste des plats que vous n'avez pas mangé depuis longtemps.";
 "whatsNew_old_title" = "Précédemment";
-"whatsNew_old_content" = "Une 4ème catégorie est désormais disponible pour ranger vos plats. Les deux premières catégories restent les seules choisies si vous ajoutez un plat aléatoire.\n\nVous pouvez maintenant renommer/personnaliser les catégories selon vos besoins (Options -> Personnalisation).";
+"whatsNew_old_content" = "- Vous pouvez désormais ajouter vos propres accompagnements et supprimer ceux que vous n'utilisez pas.\n\n- Ajoutez un acompagnement par défaut à vos plats pour que celui-ci soit automatiquement sélectionné lorque vous ajoutez ce plat à votre menu.\n\n- Correction de bugs relatifs à l'usage de l'option collaborative";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -205,3 +205,10 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "per_month" = "/mois";
 "premium_viewOur" = "Consultez notre ";
 "premium_policy" = "Politique de confidentialité";
+
+
+"randomMeals_title" = "Plats aléatoires";
+"randomMeals_content" = "Choisissez un plat pour";
+"randomMeals_refresh" = "Changer les plats";
+"availableMeals_title" = "Plats recommandés";
+"availableMeals_content" = "Les plats que vous n'avez pas mangé depuis longtemps et qui seront sélectionnés lorsque vous ajouterez des plats aléatoirement. Vous pouvez réinitialiser ces listes à tout moment.";

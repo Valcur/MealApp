@@ -52,7 +52,7 @@ struct MealList {
     }
     
     func count() -> (Int, Int, Int, Int) {
-        return (meatMeals.count, veganMeals.count, outsideMeals.count, otherMeals.count)
+        return (meatMeals.count, veganMeals.count, otherMeals.count, outsideMeals.count)
     }
     
     func getRandomElement(type: MealType) -> Meal? {
@@ -76,6 +76,7 @@ struct MealList {
 struct AlreadyPickedIds: Codable {
     var pickedMeatIds: [Int]
     var pickedVeganIds: [Int]
+    var pickedOtherIds: [Int]
     var pickedOutsideIds: [Int]
     
     mutating func append(_ id: Int, type: MealType) {
@@ -85,6 +86,9 @@ struct AlreadyPickedIds: Codable {
         } else if type == .vegan {
             pickedVeganIds.removeAll(where: {$0 == id})
             pickedVeganIds.append(id)
+        } else if type == .vegan {
+            pickedOtherIds.removeAll(where: {$0 == id})
+            pickedOtherIds.append(id)
         } else {
             pickedOutsideIds.removeAll(where: {$0 == id})
             pickedOutsideIds.append(id)

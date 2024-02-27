@@ -237,20 +237,9 @@ class PlanningPanelViewModel: ObservableObject {
 }
 
 extension PlanningPanelViewModel {
-    func addRandomMeal(day: WeekDays, time: TimeOfTheDay) {
-        let randomMeal = mealsVM.getRandomMealMeatOrVegan()
-        guard let randomMeal = randomMeal else { return }
-        
-        withAnimation(.easeInOut(duration: 0.3)) {
-            weekPlan.append(randomMeal, day: day, time: time)
-            weekPlan.objectWillChange.send()
-            for i in 0..<weekPlan.week.count {
-                weekPlan.week[i].objectWillChange.send()
-            }
-            self.objectWillChange.send()
-        }
-        
-        saveWeek()
+    func getThreeRnadomMealsPropositions() -> [Meal] {
+        let meals = mealsVM.getRandomMealsMeatOrVegan(count: 3)
+        return meals
     }
     
     func addMeal(_ meal: Meal, day: WeekDays, time: TimeOfTheDay) {
