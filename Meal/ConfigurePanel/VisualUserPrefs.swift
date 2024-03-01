@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 class VisualUserPrefs: ObservableObject {
     private var categoriesPrefs: CategoriesCustomizationData
     private let data: MealsDataController
+    @Published private var backgroundImageId: Int
+    @Published private var accentColorId: Int
     
     var meatTitle: String {
         categoriesPrefs.meatTitle
@@ -76,9 +79,30 @@ class VisualUserPrefs: ObservableObject {
         "ImageChoice \(categoriesPrefs.outsideImageId)"
     }
     
+    var backgroundImageName: String {
+        "Background \(backgroundImageId)"
+    }
+    var backgroundDarkImageName: String {
+        "BackgroundDark \(backgroundImageId)"
+    }
+    
+    var accentColor: Color {
+        Color("AccentColor \(accentColorId)")
+    }
+    
     init() {
         data = MealsDataController()
         categoriesPrefs = data.loadCategoriesCustomization()
+        backgroundImageId = 1
+        accentColorId = 2
+    }
+    
+    func applyBackgroundImageIdChange(_ newId: Int) {
+        backgroundImageId = newId
+    }
+    
+    func applyAccentColorIdChange(_ newId: Int) {
+        accentColorId = newId
     }
     
     func applyChanges(_ categories: CategoriesCustomizationData) {

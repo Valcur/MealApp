@@ -61,6 +61,7 @@
 "mealList_name_placeholder" = "Entrez le nom du plat";
 "mealList_type_title" = "Type de plat";
 "mealList_notes_title" = "Notes";
+"mealList_defaultSides" = "Accompagnements par défaut";
 "notes_placeholder" = "Ajoutez vos notes ici ...";
 
 "options_schedule_title" = "Programme";

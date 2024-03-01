@@ -123,7 +123,7 @@ struct MealInfoSheet: View {
             })
             
             Group {
-                Text("default-sides".translate())
+                Text("mealList_defaultSides".translate())
                     .subTitle()
                 
                 SidePickerView(selectedSides: $mealSides)

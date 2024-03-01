@@ -54,6 +54,7 @@
 "mealList_name_placeholder" = "Enter meal name";
 "mealList_type_title" = "Meal type";
 "mealList_notes_title" = "Notes";
+"mealList_defaultSides" = "Default sides";
 "notes_placeholder" = "Add your notes here ...";
 
 "options_schedule_title" = "Schedule";

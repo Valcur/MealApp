@@ -61,6 +61,14 @@ extension View {
             .padding(.horizontal, hPadding).padding(.vertical, vPadding)
             .background(Color(style == .primary ? "BackgroundColor" : "WhiteBackgroundColor").cornerRadius(10))
     }
+    
+    func tabItemAccentColor(_ accentColor: Color) -> some View {
+        if #available(iOS 16, *) {
+            return self.tint(accentColor)
+        } else {
+            return self.accentColor(accentColor)
+        }
+    }
 }
 
 extension UIApplication {
@@ -186,6 +194,7 @@ extension Date {
 }
 
 struct ButtonLabel: View {
+    @EnvironmentObject var userPrefs: VisualUserPrefs
     let title: String
     let isCompact: Bool
     let style: UIStyle
@@ -205,7 +214,7 @@ struct ButtonLabel: View {
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .frame(minWidth: isCompact && UIDevice.current.userInterfaceIdiom == .phone ? 60 : 100)
-                .roundedCornerRectangle(color: style == .primary ? .accentColor : .black)
+                .roundedCornerRectangle(color: style == .primary ? userPrefs.accentColor : .black)
             if !isCompact {
                 Spacer()
             }
@@ -309,5 +318,25 @@ fileprivate struct DelaysTouchesButtonStyle: ButtonStyle {
             touchDownDate = nil
             disabled = false
         }
+    }
+}
+
+struct BackgroundImageView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var userPrefs: VisualUserPrefs
+    var body: some View {
+        ZStack {
+            Color("BackgroundColor")
+            if colorScheme == .light {
+                Image(userPrefs.backgroundImageName)
+                    .resizable(resizingMode: .tile)
+                    .opacity(0.5)
+            } else {
+                Image(userPrefs.backgroundDarkImageName)
+                    .resizable(resizingMode: .tile)
+                    .opacity(0.5)
+            }
+            
+        }.clipped()
     }
 }
