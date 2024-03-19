@@ -10,9 +10,8 @@ import SwiftUI
 
 class VisualUserPrefs: ObservableObject {
     private var categoriesPrefs: CategoriesCustomizationData
+    @Published private var interfacePrefs: InterfaceCustomizationData
     private let data: MealsDataController
-    @Published private var backgroundImageId: Int
-    @Published private var accentColorId: Int
     
     var meatTitle: String {
         categoriesPrefs.meatTitle
@@ -79,30 +78,37 @@ class VisualUserPrefs: ObservableObject {
         "ImageChoice \(categoriesPrefs.outsideImageId)"
     }
     
+    var backgroundImage: Int {
+        interfacePrefs.backgroundId
+    }
     var backgroundImageName: String {
-        "Background \(backgroundImageId)"
+        "Background \(interfacePrefs.backgroundId)"
     }
     var backgroundDarkImageName: String {
-        "BackgroundDark \(backgroundImageId)"
+        "Background \(interfacePrefs.backgroundId) Dark"
     }
     
+    var accentColorId: Int {
+        interfacePrefs.appAccentColorId
+    }
     var accentColor: Color {
-        Color("AccentColor \(accentColorId)")
+        Color("AccentColor \(interfacePrefs.appAccentColorId)")
     }
     
     init() {
         data = MealsDataController()
         categoriesPrefs = data.loadCategoriesCustomization()
-        backgroundImageId = 1
-        accentColorId = 2
+        interfacePrefs = data.loadInterfaceCustomization()
     }
     
     func applyBackgroundImageIdChange(_ newId: Int) {
-        backgroundImageId = newId
+        interfacePrefs.backgroundId = newId
+        data.saveInterfaceCustomization(interfaceCustomization: interfacePrefs)
     }
     
     func applyAccentColorIdChange(_ newId: Int) {
-        accentColorId = newId
+        interfacePrefs.appAccentColorId = newId
+        data.saveInterfaceCustomization(interfaceCustomization: interfacePrefs)
     }
     
     func applyChanges(_ categories: CategoriesCustomizationData) {

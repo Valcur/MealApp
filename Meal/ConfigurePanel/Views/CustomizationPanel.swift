@@ -50,7 +50,7 @@ struct CustomizationPanel: View {
                 .headLine()
             
             VStack(alignment: .leading, spacing: 20)  {
-                Text("\("customization.category".translate()) 1")
+                Text("\("customization.category".translate()) 1\("customization.category.randomPickable".translate())")
                     .subTitle()
                 
                 TextField("customization.title.placeholder".translate(), text: $meatCategorieName)
@@ -76,7 +76,7 @@ struct CustomizationPanel: View {
             }
                 
             VStack(alignment: .leading, spacing: 20)  {
-                Text("\("customization.category".translate()) 2")
+                Text("\("customization.category".translate()) 2\("customization.category.randomPickable".translate())")
                     .subTitle()
                 
                 TextField("customization.title.placeholder".translate(), text: $veganCategorieName)
@@ -173,6 +173,7 @@ struct CustomizationPanel: View {
     }
     
     private struct ColorPickerView: View {
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         var colorId: Int
         @Binding var selectedColor: Int
         var isSelected: Bool {
@@ -189,7 +190,7 @@ struct CustomizationPanel: View {
                     .padding(4)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(isSelected ? Color.accentColor : Color("WhiteBackgroundColor"), lineWidth: 2)
+                            .stroke(isSelected ? userPrefs.accentColor : Color("WhiteBackgroundColor"), lineWidth: 2)
                     )
                     .padding(2)
             })
@@ -197,6 +198,7 @@ struct CustomizationPanel: View {
     }
     
     private struct ImagePickerView: View {
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         var imageId: Int
         @Binding var selectedImage: Int
         var isSelected: Bool {
@@ -213,7 +215,7 @@ struct CustomizationPanel: View {
                     .padding(4)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(isSelected ? Color.accentColor : Color("WhiteBackgroundColor"), lineWidth: 2)
+                            .stroke(isSelected ? userPrefs.accentColor : Color("WhiteBackgroundColor"), lineWidth: 2)
                     )
                     .padding(2)
             })

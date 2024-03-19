@@ -108,6 +108,9 @@
 "intro_continue" = "Continuer";
 "intro_start" = "Commencer";
 
+"newUserBuble_myWeek" = "Votre liste de plats est vide, dirigez vous vers cet onglet pour ajouter un plat";
+"newUserBuble_myMeals" = "Appuyez ici pour ajouter un plat à votre liste";
+                          
 "sidepicker_title" = "Choissez autant d'accompagnements que souhaité";
 "avec" = "Avec";
 "et" = "et";
@@ -179,6 +182,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "customization.title" = "Personnalisation";
 "customization.intro" = "Si les catégories par défaut ne vous conviennent pas, changez ce que vous souhaitez ci-dessous.";
 "customization.category" = "Categorie";
+"customization.category.randomPickable" = " (Sélectionné aléatoirement)";
 "customization.title.placeholder" = "Nom de la catégorie";
 "customization.color.title" = "Couleur :";
 "customization.image.title" = "Image :";
@@ -189,6 +193,8 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "sides-manager.reset.content" = "Utilisez ce bouton pour supprimer tous les accompagnements que vous avez ajouté et faire réapparaître tous les accompagnements que vous avez supprimé.";
 "sides-manager.custom.title" = "Vos accompagnements";
 "sides-manager.custom.placeholder" = "Nom de l'accompagnement";
+
+"ui-personalization.title" = "Interface";
 
 "options_other_title" = "Autres";
 

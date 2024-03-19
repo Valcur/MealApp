@@ -14,6 +14,10 @@ class MealsListPanelViewModel: ObservableObject {
     var recentlyPickedMealsId: AlreadyPickedIds
     @Published var availableMeals: MealList
     var sides: [Side]
+    var isListEmpty: Bool {
+        let mealsCount = meals.count()
+        return mealsCount.0 == 0 && mealsCount.1 == 0 && mealsCount.2 == 0 && mealsCount.3 == 0
+    }
     
     init() {
         meals = data.loadAllMeals()

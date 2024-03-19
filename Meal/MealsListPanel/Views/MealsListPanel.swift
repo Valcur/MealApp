@@ -33,6 +33,7 @@ struct MealsListPanel: View {
     
     struct NewMealButton: View {
         @Binding var showingNewMealSheet: Bool
+        @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
         
         var body: some View {
             Button(action: {
@@ -40,6 +41,7 @@ struct MealsListPanel: View {
             }, label: {
                 ButtonLabel(title: "+", isCompact: true)
             })
+            .overlay(NewUserInfoBuble(text: "newUserBuble_myMeals", xOffset: -100, yOffset: -100, height: 150, arrowSide: .right, isVisible: mealsListPanelVM.isListEmpty))
         }
     }
 }

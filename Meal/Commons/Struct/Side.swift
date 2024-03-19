@@ -129,6 +129,7 @@ struct SidePickerView: View {
     }
     
     struct SideView: View {
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         let side: Side
         @Binding var selectedSides: [Side]
         var isSelected: Bool {
@@ -157,7 +158,7 @@ struct SidePickerView: View {
                                 .frame(width: 40, height: 40)
                         }
                     }.padding(.vertical, 10)
-                    .roundedCornerRectangle(padding: 10, color: isSelected ? .accentColor : Color("BackgroundColor"))
+                        .roundedCornerRectangle(padding: 10, color: isSelected ? userPrefs.accentColor : Color("BackgroundColor"))
                     
                     if side.imageName == "champignons" {
                         Text(side.name)

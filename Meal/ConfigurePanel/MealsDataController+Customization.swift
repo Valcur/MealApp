@@ -34,6 +34,23 @@ extension MealsDataController {
                                            outsideColorId: 3,
                                            outsideImageId: 3)
     }
+    
+    func saveInterfaceCustomization(interfaceCustomization: InterfaceCustomizationData) {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(interfaceCustomization) {
+            userDefaults.set(data, forKey: "\(INTERFACE_CUSTOMIZATION_KEY)")
+        }
+    }
+    
+    func loadInterfaceCustomization() -> InterfaceCustomizationData {
+        if let data = userDefaults.object(forKey: "\(INTERFACE_CUSTOMIZATION_KEY)") as? Data {
+            let decoder = JSONDecoder()
+            if let interface = try? decoder.decode(InterfaceCustomizationData.self, from: data) {
+                return interface
+            }
+        }
+        return InterfaceCustomizationData(backgroundId: 0, appAccentColorId: 0)
+    }
 }
 
 struct CategoriesCustomizationData: Codable {
@@ -51,4 +68,9 @@ struct CategoriesCustomizationData: Codable {
     
     var outsideColorId: Int
     var outsideImageId: Int
+}
+
+struct InterfaceCustomizationData: Codable {
+    var backgroundId: Int
+    var appAccentColorId: Int
 }

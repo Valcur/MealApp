@@ -17,22 +17,31 @@ struct UIPersonalisationPanel: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
+            GoingPremium()
             Text("Background").subTitle()
             ScrollView(.horizontal) {
                 HStack {
+                    BackgroundChoice(backgroundId: 0, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 1, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 2, selectedBackground: $selectedBackground)
+                    BackgroundChoice(backgroundId: 3, selectedBackground: $selectedBackground)
+                    BackgroundChoice(backgroundId: 4, selectedBackground: $selectedBackground)
+                    BackgroundChoice(backgroundId: 5, selectedBackground: $selectedBackground)
                 }
             }
             Text("App main color").subTitle()
             ScrollView(.horizontal) {
                 HStack {
+                    ColorPickerView(colorId: 0, selectedColor: $selectedColor)
                     ColorPickerView(colorId: 1, selectedColor: $selectedColor)
-                    ColorPickerView(colorId: 2, selectedColor: $selectedColor)
                 }
             }
         }.scrollableSheetVStack()
-        .navigationTitle("availableMeals_title")
+        .navigationTitle("ui-personalization.title")
+        .onAppear() {
+            selectedBackground = userPrefs.backgroundImage
+            selectedColor = userPrefs.accentColorId
+        }
     }
     
     struct BackgroundChoice: View {
@@ -45,9 +54,25 @@ struct UIPersonalisationPanel: View {
                 userPrefs.applyBackgroundImageIdChange(backgroundId)
             }, label: {
                 ZStack {
-                    Image("Background \(backgroundId)")
-                        .resizable()
-                        .scaledToFill()
+                    Color("BackgroundColor")
+                    
+                    if backgroundId > 0 {
+                        ZStack {
+                            Color("BackgroundColor")
+                            Image("Background \(backgroundId) Dark")
+                                .resizable()
+                                .scaledToFill()
+                                .opacity(0.4)
+                        }.mask(Rectangle().frame(width: 98).padding(.leading, 102))
+                        
+                        ZStack {
+                            Color("BackgroundColor")
+                            Image("Background \(backgroundId)")
+                                .resizable()
+                                .scaledToFill()
+                                .opacity(0.4)
+                        }.mask(Rectangle().frame(width: 98).padding(.trailing, 102))
+                    }
                 }.frame(width: 200, height: 200).cornerRadius(15).clipped()
                     .padding(4)
                     .overlay(

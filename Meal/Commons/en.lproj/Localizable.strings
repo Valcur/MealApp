@@ -101,6 +101,9 @@
 "intro_continue" = "Continue";
 "intro_start" = "Let's get started";
 
+"newUserBuble_myWeek" = "Your meals list is empty, head over this panel to add meals";
+"newUserBuble_myMeals" = "Press here to add a meal to your list";
+
 "sidepicker_title" = "Choose any number of sides";
 "avec" = "With";
 "et" = "and";
@@ -171,6 +174,7 @@ Once activated if you have an error during synchronization, check your device's 
 "customization.title" = "Customization";
 "customization.intro" = "If the default categories doesn't suit you, change them below.";
 "customization.category" = "Category";
+"customization.category.randomPickable" = " (Chosen randomly)";
 "customization.title.placeholder" = "Category name";
 "customization.color.title" = "Color :";
 "customization.image.title" = "Image :";
@@ -180,6 +184,8 @@ Once activated if you have an error during synchronization, check your device's 
 "sides-manager.reset.content" = "Use this button to remove all custom sides you have added and recover all default sides you have deleted.";
 "sides-manager.custom.title" = "Your sides";
 "sides-manager.custom.placeholder" = "Side name";
+
+"ui-personalization.title" = "Interface";
 
 "options_other_title" = "Other";
 

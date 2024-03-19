@@ -22,7 +22,7 @@ struct ConfigurePanel: View {
                     }
                     NavigationLink(destination: NewMealSchedule()) {
                         HStack {
-                            Image(systemName: "plus").foregroundColor(.accentColor)
+                            Image(systemName: "plus").foregroundColor(userPrefs.accentColor)
                             Text(NSLocalizedString("options_schedule_new", comment: "options_schedule_new"))
                         }
                     }
@@ -41,7 +41,7 @@ struct ConfigurePanel: View {
                         Text(NSLocalizedString("options_calendar_title", comment: "options_calendar_title"))
                     }
                     NavigationLink(destination: UIPersonalisationPanel()) {
-                        Text(NSLocalizedString("erere", comment: "options_calendar_title"))
+                        Text(NSLocalizedString("ui-personalization.title".translate(), comment: "options_calendar_title"))
                     }
                 }
                 Section(header: Text("options_other_title")) {

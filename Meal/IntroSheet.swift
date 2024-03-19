@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct IntroSheet: View {
+    @EnvironmentObject var userPrefs: VisualUserPrefs
     @Environment(\.presentationMode) var presentationMode
     let introPannels: [AnyView]
     @State var selectedPannelId = 0
@@ -35,7 +36,7 @@ struct IntroSheet: View {
                 Text(NSLocalizedString("intro_addMeal_title", comment: "intro_addMeal_title"))
                     .title()
                     .padding(.bottom, 20)
-                
+                /*
                 Text(NSLocalizedString("intro_addMeal_intro", comment: "intro_addMeal_intro"))
                     .headLine()
                 
@@ -47,13 +48,13 @@ struct IntroSheet: View {
                     Spacer()
                     
                     ButtonLabel(title: "+", isCompact: true)
-                }
+                }*/
                 
                 Text(NSLocalizedString("intro_addMeal_category", comment: "intro_addMeal_category"))
                     .headLine()
                 
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Color("MeatColor").opacity(0.5), Color("MeatColor")]), startPoint: .top, endPoint: .bottom)
+                    LinearGradient(gradient: Gradient(colors: [Color("MeatColor").opacity(0.8), Color("MeatColor")]), startPoint: .top, endPoint: .bottom)
                     HStack {
                         Text(NSLocalizedString("intro_addMeal_meat", comment: "intro_addMeal_meat"))
                             .foregroundColor(.black)
@@ -67,7 +68,7 @@ struct IntroSheet: View {
                 }.roundedCornerRectangle(padding: 0)
                 
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Color("VeganColor").opacity(0.5), Color("VeganColor")]), startPoint: .top, endPoint: .bottom)
+                    LinearGradient(gradient: Gradient(colors: [Color("VeganColor").opacity(0.8), Color("VeganColor")]), startPoint: .top, endPoint: .bottom)
                     HStack {
                         Text(NSLocalizedString("intro_addMeal_vegan", comment: "intro_addMeal_vegan"))
                             .foregroundColor(.black)
@@ -81,7 +82,7 @@ struct IntroSheet: View {
                 }.roundedCornerRectangle(padding: 0)
                 
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Color("OtherColor").opacity(0.5), Color("OtherColor")]), startPoint: .top, endPoint: .bottom)
+                    LinearGradient(gradient: Gradient(colors: [Color("OtherColor").opacity(0.8), Color("OtherColor")]), startPoint: .top, endPoint: .bottom)
                     HStack {
                         Text(NSLocalizedString("intro_addMeal_other", comment: "intro_addMeal_other"))
                             .foregroundColor(.black)
@@ -95,7 +96,7 @@ struct IntroSheet: View {
                 }.roundedCornerRectangle(padding: 0)
                 
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Color("OutsideColor").opacity(0.5), Color("OutsideColor")]), startPoint: .top, endPoint: .bottom)
+                    LinearGradient(gradient: Gradient(colors: [Color("OutsideColor").opacity(0.8), Color("OutsideColor")]), startPoint: .top, endPoint: .bottom)
                     HStack {
                         Text(NSLocalizedString("intro_addMeal_outside", comment: "intro_addMeal_outside"))
                             .foregroundColor(.black)
@@ -210,7 +211,7 @@ struct IntroSheet: View {
                     }.background(
                         IntroArc()
                             .frame(width: geo.size.width + 50, height: 600)
-                            .foregroundColor(Color.accentColor)
+                            .foregroundColor(userPrefs.accentColor)
                             .offset(x: -20, y: 250)
                     )
                 }
@@ -250,6 +251,51 @@ struct IntroSheet: View {
             path.closeSubpath()
 
             return path
+        }
+    }
+}
+
+struct NewUserInfoBuble: View {
+    @EnvironmentObject var userPrefs: VisualUserPrefs
+    let text: String
+    let xOffset: CGFloat
+    let yOffset: CGFloat
+    let height: CGFloat
+    let arrowSide: ArrowSide
+    let isVisible: Bool
+    
+    var body: some View {
+        if isVisible {
+            ZStack(alignment: .bottom) {
+                Color.clear
+                VStack(alignment: arrowSide.alignment(), spacing: 10) {
+                    Text(text.translate()).foregroundColor(Color("BackgroundColor")).headLine()
+                    Image(systemName: arrowSide.imageSystemName()).font(.title).foregroundColor(Color("BackgroundColor"))
+                }.roundedCornerRectangle(color: userPrefs.accentColor).frame(width: 200, height: height).offset(x: xOffset, y: yOffset)
+            }
+        }
+    }
+    
+    enum ArrowSide {
+        case center
+        case right
+        
+        func alignment() -> SwiftUI.HorizontalAlignment {
+            switch self {
+            case .center:
+                return .center
+            case .right:
+                return .trailing
+            }
+        }
+        
+        func imageSystemName() -> String {
+            switch self {
+            case .center:
+                return "arrow.down"
+            case .right:
+                return "arrow.down.forward"
+            }
         }
     }
 }

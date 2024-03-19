@@ -28,7 +28,7 @@ struct AutoFillSheet: View {
                 Text("\(meatPercentageThisWeek, specifier: "%.0f")%")
                     .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(userPrefs.accentColor)
                     .frame(width: 70)
                 Slider(value: $meatPercentageThisWeek, in: 0...100, step: 1.0)
             }
@@ -39,7 +39,7 @@ struct AutoFillSheet: View {
                 Text("\(outsideThisWeek, specifier: "%.0f")")
                     .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(userPrefs.accentColor)
                     .frame(width: 70)
                 Slider(value: $outsideThisWeek, in: 0...7, step: 1.0)
             }

@@ -83,6 +83,15 @@ struct SidesManagerPanel: View {
                                .frame(width: 40, height: 40)
                         }
                         
+                        if !side.isDefaultSide {
+                            Button(action: {}, label: {
+                                Image(systemName: "square.and.arrow.down")
+                                    .font(.headline)
+                                    .foregroundColor(Color("TextColor"))
+                                    .textFieldBackground(hPadding: 25, style: .primary)
+                            }).frame(width: 60)
+                        }
+                        
                         ZStack {
                             TextField("sides-manager.custom.placeholder".translate(), text: $sideName)
                                 .allowsHitTesting(!side.isDefaultSide)

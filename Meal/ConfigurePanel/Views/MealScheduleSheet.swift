@@ -152,6 +152,7 @@ struct MealScheduleScheet: View {
         }
         
         struct HourView: View {
+            @EnvironmentObject var userPrefs: VisualUserPrefs
             let hour: TimeOfTheDay
             @Binding var isSelected: Bool
             
@@ -160,13 +161,14 @@ struct MealScheduleScheet: View {
                     isSelected.toggle()
                 }, label: {
                     hour.image()
-                        .foregroundColor(isSelected ? .white : Color("AccentColor"))
+                        .foregroundColor(isSelected ? .white : userPrefs.accentColor)
                         .padding(10)
-                }).frame(width: 40, height: 40).background(Color("AccentColor").opacity(isSelected ? 1 : 0.0).cornerRadius(20).shadow(color: Color("ShadowColor"), radius: 5)).padding(ViewSizes._5())
+                }).frame(width: 40, height: 40).background(userPrefs.accentColor.opacity(isSelected ? 1 : 0.0).cornerRadius(20).shadow(color: Color("ShadowColor"), radius: 5)).padding(ViewSizes._5())
             }
         }
         
         struct DayView: View {
+            @EnvironmentObject var userPrefs: VisualUserPrefs
             let day: WeekDays
             @Binding var isSelected: Bool
             
@@ -175,8 +177,8 @@ struct MealScheduleScheet: View {
                     isSelected.toggle()
                 }, label: {
                     Text(day.name().prefix(2))
-                        .foregroundColor(isSelected ? .white : Color("AccentColor"))
-                }).frame(width: 40, height: 40).background(Color("AccentColor").opacity(isSelected ? 1 : 0.0).cornerRadius(20).shadow(color: Color("ShadowColor"), radius: 5)).padding(ViewSizes._5())
+                        .foregroundColor(isSelected ? .white : userPrefs.accentColor)
+                }).frame(width: 40, height: 40).background(userPrefs.accentColor.opacity(isSelected ? 1 : 0.0).cornerRadius(20).shadow(color: Color("ShadowColor"), radius: 5)).padding(ViewSizes._5())
             }
         }
     }

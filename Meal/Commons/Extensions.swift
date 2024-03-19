@@ -78,21 +78,21 @@ extension UIApplication {
 }
 
 extension Text {
-    func largeTitle(style: UIStyle = .primary, numberOfLine: Int = 2) -> some View {
+    func largeTitle(style: UIStyle = .primary, numberOfLine: Int = 2, accentColor: Color = Color("TextColor")) -> some View {
         self
             .font(ViewSizes._title())
             .fontWeight(.bold)
-            .foregroundColor(style == .primary ? .accentColor: Color("TextColor"))
+            .foregroundColor(style == .primary ? accentColor : Color("TextColor"))
             .frame(minHeight: CGFloat(30 * numberOfLine))
             .scaledToFit()
             .minimumScaleFactor(0.4)
     }
     
-    func title(style: UIStyle = .primary) -> some View {
+    func title(style: UIStyle = .primary, accentColor: Color = Color("TextColor")) -> some View {
         self
             .font(.title2)
             .fontWeight(.bold)
-            .foregroundColor(style == .primary ? Color("TextColor") : .accentColor)
+            .foregroundColor(style == .primary ? Color("TextColor") : accentColor)
     }
     
     func subTitle(style: UIStyle = .primary) -> some View {
@@ -327,16 +327,17 @@ struct BackgroundImageView: View {
     var body: some View {
         ZStack {
             Color("BackgroundColor")
-            if colorScheme == .light {
-                Image(userPrefs.backgroundImageName)
-                    .resizable(resizingMode: .tile)
-                    .opacity(0.5)
-            } else {
-                Image(userPrefs.backgroundDarkImageName)
-                    .resizable(resizingMode: .tile)
-                    .opacity(0.5)
+            if userPrefs.backgroundImage > 0 {
+                if colorScheme == .light {
+                    Image(userPrefs.backgroundImageName)
+                        .resizable(resizingMode: .tile)
+                        .opacity(0.4)
+                } else {
+                    Image(userPrefs.backgroundDarkImageName)
+                        .resizable(resizingMode: .tile)
+                        .opacity(0.4)
+                }
             }
-            
         }.clipped()
     }
 }

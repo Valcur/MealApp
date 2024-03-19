@@ -25,8 +25,7 @@ struct MealApp: App {
         userPrefs = VisualUserPrefs()
         
         // Show intro for as long as there is no meal saved by the user
-        let mealsCount = mealListVM.meals.count()
-        showIntro = mealsCount.0 == 0 && mealsCount.1 == 0 && mealsCount.2 == 0 && mealsCount.3 == 0
+        showIntro = mealListVM.isListEmpty
     }
     
     var body: some Scene {
@@ -49,7 +48,7 @@ struct MealApp: App {
                     .tabItem {
                         Image(systemName: "calendar")
                         Text(NSLocalizedString("tab_week", comment: "My week"))
-                    }
+                    }.tabItemAccentColor(userPrefs.accentColor)
                 
                 MealsListPanel()
                     .environmentObject(mealListVM)
@@ -57,7 +56,7 @@ struct MealApp: App {
                     .tabItem {
                         Image(systemName: "list.dash")
                         Text(NSLocalizedString("tab_meals", comment: "My meals"))
-                    }
+                    }.tabItemAccentColor(userPrefs.accentColor)
                 
                 ConfigurePanel()
                     .environmentObject(configurePanelVM)
@@ -66,12 +65,12 @@ struct MealApp: App {
                     .tabItem {
                         Image(systemName: "gear")
                         Text(NSLocalizedString("tab_options", comment: "Options"))
-                }
-            }.sheet(isPresented: $showIntro) {
-                IntroSheet()
+                    }.tabItemAccentColor(userPrefs.accentColor)
+            }.tabItemAccentColor(userPrefs.accentColor).sheet(isPresented: $showIntro) {
+                IntroSheet().environmentObject(userPrefs)
             }.background(ZStack {
                 if !showIntro {
-                    WhatsNewView()
+                    WhatsNewView().environmentObject(userPrefs)
                 }
             })
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in

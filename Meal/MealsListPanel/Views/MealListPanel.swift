@@ -39,7 +39,7 @@ extension MealsListPanel {
                                 MealGridItem(meal: meal)
                             }
                             Spacer()
-                        }.padding(.horizontal, 20).padding(.top, 10)
+                        }.padding(.horizontal, 20).padding(.top, 10).padding(.bottom, 100)
                     }
                 }.transition(.slide.combined(with: .opacity))
             }

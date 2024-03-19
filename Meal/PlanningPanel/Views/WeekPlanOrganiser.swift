@@ -71,6 +71,7 @@ struct WeekPlanOrganiser: View {
     }
     
     struct DayView: View {
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         @ObservedObject var dayPlan: DayPlan
         let dateFormatter: DateFormatter
         let isToday: Bool
@@ -86,7 +87,7 @@ struct WeekPlanOrganiser: View {
             VStack(spacing: 15) {
                 VStack(spacing: 3) {
                     Text(dayPlan.day.name())
-                        .title(style: isToday ? .secondary : .primary)
+                        .title(style: isToday ? .secondary : .primary, accentColor: userPrefs.accentColor)
                     
                     Text(dateFormatter.string(from: dayPlan.date))
                         .subTitle(style: .secondary)
@@ -109,6 +110,7 @@ struct WeekPlanOrganiser: View {
         
         
         struct DayMealView: View {
+            @EnvironmentObject var userPrefs: VisualUserPrefs
             @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
             @ObservedObject var dayPlan: DayPlan
             @State private var showingNewMealSheet = false
@@ -134,7 +136,7 @@ struct WeekPlanOrganiser: View {
                                     Image(systemName: "plus")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                        .foregroundColor(isToday ? Color.accentColor : Color("TextColor"))
+                                        .foregroundColor(isToday ? userPrefs.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                                     .sheet(isPresented: $showingNewMealSheet) {
                                         DayPlanNewMealSheet(dayPlan: dayPlan, time: time)
@@ -147,7 +149,7 @@ struct WeekPlanOrganiser: View {
                                     Image(systemName: "questionmark.square")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                        .foregroundColor(isToday ? Color.accentColor : Color("TextColor"))
+                                        .foregroundColor(isToday ? userPrefs.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                                     .sheet(isPresented: $showingRandomMealSheet) {
                                         RandomMeelSheet(day: dayPlan.day, time: time)
@@ -159,7 +161,7 @@ struct WeekPlanOrganiser: View {
                                     Image(systemName: "doc.on.clipboard")
                                         .resizable()
                                         .frame(width: 30, height: 30)
-                                        .foregroundColor(isToday ? Color.accentColor : Color("TextColor"))
+                                        .foregroundColor(isToday ? userPrefs.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                             }
                         }
@@ -225,7 +227,7 @@ struct WeekPlanOrganiser: View {
                     }.padding(2)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(isToday ? Color.accentColor : Color.clear, lineWidth: 4)
+                            .stroke(isToday ? userPrefs.accentColor : Color.clear, lineWidth: 4)
                     )
                     .roundedCornerRectangle(padding: 0).frame(maxWidth: .infinity)
                     

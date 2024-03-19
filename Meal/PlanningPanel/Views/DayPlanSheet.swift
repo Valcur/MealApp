@@ -209,6 +209,7 @@ struct DayPlanSheet: View {
     }
     
     struct EditChoicePicker: View {
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         @Binding var editChoice: EditMealChoice
         var selectorOffsetX: CGFloat {
             switch editChoice {
@@ -224,7 +225,7 @@ struct DayPlanSheet: View {
         var body: some View {
             GeometryReader { geo in
                 ZStack {
-                    Color.accentColor.frame(width: geo.size.width / 3, height: 35).cornerRadius(8).offset(x: selectorOffsetX * geo.size.width / 3 - geo.size.width / 3)
+                    userPrefs.accentColor.frame(width: geo.size.width / 3, height: 35).cornerRadius(8).offset(x: selectorOffsetX * geo.size.width / 3 - geo.size.width / 3)
                     HStack {
                         ChoiceButton(choice: .choose, editChoice: $editChoice, title: "choice_choose")
                         
