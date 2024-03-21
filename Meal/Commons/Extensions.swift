@@ -69,6 +69,12 @@ extension View {
             return self.accentColor(accentColor)
         }
     }
+    
+    func blurredBackground() -> some View {
+        self
+            /*.background(VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterialLight))
+                .cornerRadius(10).padding(.vertical, -5).padding(.horizontal, -5))*/
+    }
 }
 
 extension UIApplication {
@@ -331,13 +337,148 @@ struct BackgroundImageView: View {
                 if colorScheme == .light {
                     Image(userPrefs.backgroundImageName)
                         .resizable(resizingMode: .tile)
-                        .opacity(0.4)
                 } else {
                     Image(userPrefs.backgroundDarkImageName)
                         .resizable(resizingMode: .tile)
-                        .opacity(0.4)
                 }
+            }
+            if userPrefs.backgroundImage == -1 {
+                AnyView(userPrefs.customBackgroundImageView)
             }
         }.clipped()
     }
+}
+
+import PhotosUI
+
+struct ImagePicker: UIViewControllerRepresentable {
+    @Binding var image: UIImage?
+
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        config.preferredAssetRepresentationMode = .current
+        config.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
+
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true)
+            
+            guard !results.isEmpty else { return }
+
+            guard let provider = results.first?.itemProvider else { return }
+            
+            if provider.canLoadObject(ofClass: UIImage.self) {
+                provider.loadObject(ofClass: UIImage.self, completionHandler: {image, error in
+                       DispatchQueue.main.async {
+                           guard let image = image as? UIImage else {
+                               debugPrint("Error: UIImage is nil")
+                               return }
+                           self.parent.image = image
+                       }
+                   })
+            } else if provider.hasItemConformingToTypeIdentifier(UTType.webP.identifier) {
+                provider.loadDataRepresentation(forTypeIdentifier: UTType.webP.identifier) {data, err in
+                    if let data = data, let img = UIImage.init(data: data) {
+                        DispatchQueue.main.async {
+                            self.parent.image = img
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+extension UIImage {
+    private func aspectFittedToHeight(_ newHeight: CGFloat) -> UIImage {
+        let scale = newHeight / self.size.height
+        let newWidth = self.size.width * scale
+        let newSize = CGSize(width: newWidth, height: newHeight)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+    
+    func compressImage(height: CGFloat = 30) -> UIImage {
+        print(self.size.height)
+        if self.size.height <= height * 2 {
+            print("Image too small, no compressing")
+            return self
+        }
+        let resizedImage = self.aspectFittedToHeight(height)
+        resizedImage.jpegData(compressionQuality: 0.2)
+        print("Compressing")
+    
+        return resizedImage
+    }
+}
+
+// MARK: - ImageWrapper
+
+public struct ImageWrapper: Codable {
+
+    // Enums
+
+    public enum CodingKeys: String, CodingKey {
+        case image
+    }
+
+    // Properties
+
+    public let image: UIImage
+
+    // Inits
+
+    public init(image: UIImage) {
+        self.image = image
+    }
+
+    // Methods
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let data = try container.decode(Data.self, forKey: CodingKeys.image)
+        if let image = UIImage(data: data) {
+            self.image = image
+        } else {
+            // Error Decode
+            self.image = UIImage(named: "avocat")!
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        if let imageData: Data = image.pngData() {
+            try container.encode(imageData, forKey: .image)
+        } else {
+            // Error Encode
+        }
+    }
+}
+
+struct VisualEffectView: UIViewRepresentable {
+    var effect: UIVisualEffect?
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
 }

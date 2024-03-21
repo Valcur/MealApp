@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-struct Side: Codable, Equatable {
+struct Side: Codable, Equatable, Identifiable {
     var id: String
     var name: String
     var imageName: String
     var isDefaultSide: Bool
+    var customImage: ImageWrapper?
     
     init(key: String) {
         self.name = NSLocalizedString(key, comment: key)
@@ -38,6 +39,10 @@ struct Side: Codable, Equatable {
                 self.imageName = name.prefix(2).capitalized
             }
         }
+    }
+    
+    mutating func updateImage(_ newImage: UIImage) {
+        self.customImage = ImageWrapper(image: newImage.compressImage())
     }
     
     static func ==(lhs: Side, rhs: Side) -> Bool {
@@ -151,11 +156,18 @@ struct SidePickerView: View {
                                 .resizable()
                                 .frame(width: 40, height: 40)
                         } else {
-                            Text(side.imageName)
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color("TextColor"))
-                                .frame(width: 40, height: 40)
+                            if let sideImage = side.customImage {
+                                Image(uiImage: sideImage.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
+                            } else {
+                                Text(side.imageName)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("TextColor"))
+                                    .frame(width: 40, height: 40)
+                            }
                         }
                     }.padding(.vertical, 10)
                         .roundedCornerRectangle(padding: 10, color: isSelected ? userPrefs.accentColor : Color("BackgroundColor"))
@@ -178,3 +190,58 @@ struct SidePickerView: View {
         }
     }
 }
+
+
+
+class SaveManager {
+    static func deleteFromFileManager(fileName: String) {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let customImageURL = documentsURL.appendingPathComponent(fileName)
+        do {
+            try FileManager.default.removeItem(at: customImageURL)
+            print("Successfully deleted file")
+        } catch {
+            print("Error deleting file: \(error)")
+        }
+    }
+    
+    static func getSavedUIImageData(fileName: String) -> Data? {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let customImageURL = documentsURL.appendingPathComponent(fileName)
+        
+        do {
+            let data = try Data(contentsOf: customImageURL)
+            let decoded = try! PropertyListDecoder().decode(Data.self, from: data)
+            return decoded
+        } catch {
+            print("Error reading custom image: \(error)")
+            return nil
+        }
+    }
+    
+    static func getSavedUIImage(fileName: String) -> UIImage? {
+        guard let decoded = getSavedUIImageData(fileName: fileName) else {
+            return nil
+        }
+        guard let inputImage = UIImage(data: decoded) else {
+            return nil
+        }
+        return inputImage
+    }
+    
+    static func saveUIImage(uiImage: UIImage?, fileName: String) {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let customImageURL = documentsURL.appendingPathComponent(fileName)
+        
+        guard let image = uiImage else { return }
+        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
+        let encoded = try! PropertyListEncoder().encode(data)
+        
+        do {
+            try encoded.write(to: customImageURL)
+        } catch {
+            print("Error saving custom image to file: \(error)")
+        }
+    }
+}
+

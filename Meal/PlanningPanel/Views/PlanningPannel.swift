@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlanningPannel: View {
+    @EnvironmentObject var userPrefs: VisualUserPrefs
     @EnvironmentObject var planningPanelVM : PlanningPanelViewModel
     @ObservedObject var cloudKitController: CloudKitController
     @State private var showingAutoFillSheet = false
@@ -18,7 +19,8 @@ struct PlanningPannel: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            VStack(spacing: 20) {
+            Color("WhiteBackgroundColor").frame(height: 80).offset(y: -40)
+            VStack(spacing: 0) {
                 HStack {
                     if UIDevice.current.userInterfaceIdiom == .phone {
                         VStack(alignment: .leading, spacing: 0) {
@@ -26,13 +28,13 @@ struct PlanningPannel: View {
                                 planningPanelVM.switchToThisWeek()
                             }, label: {
                                 Text(WichWeekIsIt.thisWeek.name())
-                                    .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary, numberOfLine: 1)
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary, numberOfLine: 1, accentColor: userPrefs.accentColor)
                             })
                             Button(action: {
                                 planningPanelVM.switchToNextWeek()
                             }, label: {
                                 Text(WichWeekIsIt.nextWeek.name())
-                                    .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary, numberOfLine: 1)
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary, numberOfLine: 1, accentColor: userPrefs.accentColor)
                             })
                         }
                     } else {
@@ -41,13 +43,13 @@ struct PlanningPannel: View {
                                 planningPanelVM.switchToThisWeek()
                             }, label: {
                                 Text(WichWeekIsIt.thisWeek.name())
-                                    .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary)
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .thisWeek ? .primary : .secondary, accentColor: userPrefs.accentColor)
                             }).padding(.trailing, 40)
                             Button(action: {
                                 planningPanelVM.switchToNextWeek()
                             }, label: {
                                 Text(WichWeekIsIt.nextWeek.name())
-                                    .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary)
+                                    .largeTitle(style: planningPanelVM.selectedWeek == .nextWeek ? .primary : .secondary, accentColor: userPrefs.accentColor)
                             })
                         }
                     }
@@ -103,10 +105,20 @@ struct PlanningPannel: View {
                     }
                 }.padding([.bottom, .horizontal], 20).background(Color("WhiteBackgroundColor").shadow(color: Color("ShadowColor"), radius: 4).mask(Rectangle().padding(.bottom, -20)))
                 
-                WeekPlanOrganiser()
+                WeekPlanOrganiser().background(
+                    VStack{
+                        VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial)).frame(height: 90)
+                        Spacer()
+                    }
+                )
             }
+            
+            // For new users when meals list is empty
+            NewUserInfoBuble(text: "newUserBuble_myWeek", xOffset: 0, yOffset: 30, height: 250, arrowSide: .center, isVisible: planningPanelVM.mealsVM.isListEmpty)
 
-        }.background(Color("BackgroundColor"))
+
+        }//.background(Color("BackgroundColor"))
+        .background(BackgroundImageView())
     }
 }
 

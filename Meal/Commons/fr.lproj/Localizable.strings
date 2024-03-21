@@ -165,7 +165,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 
 "collaboration.shareYourPlanning.title" = "Partager votre menu";
 "collaboration.shareYourPlanning.toggle" = "Partager votre menu avec quiconque a votre code";
-"collaboration.shareYourPlanning.codeDescription" = "Copiez ce code et envoyé le aux gens avec qui vous souhaitez collaborer :";
+"collaboration.shareYourPlanning.codeDescription" = "Copiez ce code et envoyez le aux gens avec qui vous souhaitez collaborer :";
 "collaboration.shareYourPlanning.error" = "Vous ne pouvez pas partager votre menu alors que vous collaborez déjà sur le menu de quelqu'un d'autre.";
 
 "collaboration.premium.description" = "Seul les utilisateurs premium peuvent partager leur menu.";

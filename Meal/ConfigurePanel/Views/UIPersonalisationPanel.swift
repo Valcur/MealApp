@@ -22,18 +22,22 @@ struct UIPersonalisationPanel: View {
             ScrollView(.horizontal) {
                 HStack {
                     BackgroundChoice(backgroundId: 0, selectedBackground: $selectedBackground)
+                    BackgroundChoice(backgroundId: -1, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 1, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 2, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 3, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 4, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 5, selectedBackground: $selectedBackground)
-                }
+                }.padding(.bottom, 10)
             }
             Text("App main color").subTitle()
             ScrollView(.horizontal) {
                 HStack {
                     ColorPickerView(colorId: 0, selectedColor: $selectedColor)
                     ColorPickerView(colorId: 1, selectedColor: $selectedColor)
+                    ColorPickerView(colorId: 2, selectedColor: $selectedColor)
+                    ColorPickerView(colorId: 3, selectedColor: $selectedColor)
+                    ColorPickerView(colorId: 4, selectedColor: $selectedColor)
                 }
             }
         }.scrollableSheetVStack()
@@ -48,10 +52,21 @@ struct UIPersonalisationPanel: View {
         @EnvironmentObject var userPrefs: VisualUserPrefs
         let backgroundId: Int
         @Binding var selectedBackground: Int
+        
+        var isSelected: Bool {
+            selectedBackground == backgroundId
+        }
+        @State var showImagePicker: Bool = false
+        @State private var inputImage: UIImage?
+        
         var body: some View {
             Button(action: {
-                selectedBackground = backgroundId
-                userPrefs.applyBackgroundImageIdChange(backgroundId)
+                if backgroundId == -1 && isSelected {
+                    showImagePicker = true
+                } else {
+                    selectedBackground = backgroundId
+                    userPrefs.applyBackgroundImageIdChange(backgroundId)
+                }
             }, label: {
                 ZStack {
                     Color("BackgroundColor")
@@ -73,11 +88,34 @@ struct UIPersonalisationPanel: View {
                                 .opacity(0.4)
                         }.mask(Rectangle().frame(width: 98).padding(.trailing, 102))
                     }
+                    
+                    if backgroundId == -1 {
+                        AnyView(userPrefs.customBackgroundImageView)
+                            .frame(width:  200, height: 200)
+                        
+                        ZStack {
+                            Color.black.opacity(isSelected ? 0.5 : 0).cornerRadius(10)
+                            
+                            Image(systemName: "square.and.arrow.down")
+                                .resizable()
+                                .foregroundColor(isSelected ? Color.white : Color.black)
+                                .opacity(isSelected ? 1 : 0.5)
+                                .padding(25)
+                        }.padding(40)
+                        .onChange(of: inputImage) { _ in
+                            guard let inputImage = inputImage else { return }
+                            userPrefs.applyCustomBackgroundImage(inputImage)
+                        }
+                        .sheet(isPresented: $showImagePicker) {
+                            ImagePicker(image: $inputImage).preferredColorScheme(.dark)
+                                .ignoresSafeArea()
+                        }
+                    }
                 }.frame(width: 200, height: 200).cornerRadius(15).clipped()
                     .padding(4)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(selectedBackground == backgroundId ? userPrefs.accentColor : Color("WhiteBackgroundColor"), lineWidth: 2)
+                            .stroke(isSelected ? userPrefs.accentColor : Color("WhiteBackgroundColor"), lineWidth: 2)
                     )
                     .padding(2)
             })

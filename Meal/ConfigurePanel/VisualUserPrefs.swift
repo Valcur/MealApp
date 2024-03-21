@@ -11,6 +11,7 @@ import SwiftUI
 class VisualUserPrefs: ObservableObject {
     private var categoriesPrefs: CategoriesCustomizationData
     @Published private var interfacePrefs: InterfaceCustomizationData
+    @Published private var customBackground: UIImage?
     private let data: MealsDataController
     
     var meatTitle: String {
@@ -87,6 +88,16 @@ class VisualUserPrefs: ObservableObject {
     var backgroundDarkImageName: String {
         "Background \(interfacePrefs.backgroundId) Dark"
     }
+    var customBackgroundImageView: any View {
+        ZStack(alignment: .top) {
+            if let image = customBackground {
+                Image(uiImage: image).resizable().scaledToFill()
+            }
+        }
+    }
+    var isUsingDefaultBackground: Bool {
+        return interfacePrefs.backgroundId == 0
+    }
     
     var accentColorId: Int {
         interfacePrefs.appAccentColorId
@@ -95,10 +106,12 @@ class VisualUserPrefs: ObservableObject {
         Color("AccentColor \(interfacePrefs.appAccentColorId)")
     }
     
+    
     init() {
         data = MealsDataController()
         categoriesPrefs = data.loadCategoriesCustomization()
         interfacePrefs = data.loadInterfaceCustomization()
+        customBackground = SaveManager.getSavedUIImage(fileName: "CustomBackgroundImage")
     }
     
     func applyBackgroundImageIdChange(_ newId: Int) {
@@ -109,6 +122,11 @@ class VisualUserPrefs: ObservableObject {
     func applyAccentColorIdChange(_ newId: Int) {
         interfacePrefs.appAccentColorId = newId
         data.saveInterfaceCustomization(interfaceCustomization: interfacePrefs)
+    }
+    
+    func applyCustomBackgroundImage(_ newImage: UIImage) {
+        customBackground = newImage
+        SaveManager.saveUIImage(uiImage: newImage, fileName: "CustomBackgroundImage")
     }
     
     func applyChanges(_ categories: CategoriesCustomizationData) {

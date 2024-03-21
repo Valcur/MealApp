@@ -23,7 +23,7 @@ struct WeekPlanOrganiser: View {
                             .id(day.day)
                     }
                 }
-                .padding(.trailing, 20)
+                .padding(.trailing, 20).padding(.top, 20)
                 .onAppear() {
                     for day in planningPanelVM.weekPlan.week {
                         if Calendar.current.isDateInToday(day.date) {
@@ -88,18 +88,20 @@ struct WeekPlanOrganiser: View {
                 VStack(spacing: 3) {
                     Text(dayPlan.day.name())
                         .title(style: isToday ? .secondary : .primary, accentColor: userPrefs.accentColor)
-                    
+                 
                     Text(dateFormatter.string(from: dayPlan.date))
                         .subTitle(style: .secondary)
                 }
                 
                 Divider()
+                    .opacity(userPrefs.isUsingDefaultBackground ? 1 : 0)
                 
                 VStack {
                     DayMealView(dayPlan: dayPlan, time: .midday, meals: dayPlan.midday, isToday: isToday)
                     
                     Divider()
                         .frame(maxHeight: 10)
+                        .opacity(userPrefs.isUsingDefaultBackground ? 1 : 0)
                     
                     DayMealView(dayPlan: dayPlan, time: .evening, meals: dayPlan.evening, isToday: isToday)
                 }
@@ -164,7 +166,7 @@ struct WeekPlanOrganiser: View {
                                         .foregroundColor(isToday ? userPrefs.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                             }
-                        }
+                        }.blurredBackground()
                     }
                 }
             }
@@ -206,7 +208,7 @@ struct WeekPlanOrganiser: View {
                             HStack {
                                 Image(systemName: "slider.horizontal.3")
                                     .resizable()
-                                    .frame(width: 20, height: 20)
+                                    .frame(width: 25, height: 20)
                                     .foregroundColor(meal.type.getColor(userPrefs: userPrefs))
                                     .onTapGesture {
                                         showingMealInfoSheet = true

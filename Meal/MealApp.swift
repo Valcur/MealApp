@@ -84,6 +84,13 @@ struct MealApp: App {
                 // Not working from init
                 IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId()], sharedSecret: IAPManager.getSharedSecret())
                 configurePanelVM.testPremium()
+                
+                
+                if #available(iOS 15.0, *) {
+                    let tabBarAppearance = UITabBarAppearance()
+                    tabBarAppearance.configureWithDefaultBackground()
+                    UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+                }
             }
         }
     }

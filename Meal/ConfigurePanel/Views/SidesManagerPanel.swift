@@ -10,7 +10,13 @@ import SwiftUI
 struct SidesManagerPanel: View {
     @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
     //@State var selectedSides: [Side] = Side.defaultSides
-    @State var customSides: [Side] = []
+    //@State var customSides: [Side] = []
+    @ObservedObject var customSides = CustomSidesObject()
+    
+    class CustomSidesObject: ObservableObject {
+        @Published var sides: [Side] = []
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 40)  {
             VStack(alignment: .leading, spacing: 20) {
@@ -20,10 +26,10 @@ struct SidesManagerPanel: View {
                     
                     Spacer()
                     
-                    if customSides.count <= 30 {
+                    if customSides.sides.count <= 30 {
                         Button(action: {
-                            if customSides.count <= 30 {
-                                customSides.insert(Side(name: "", id: UUID().uuidString), at: 0)
+                            if customSides.sides.count <= 30 {
+                                customSides.sides.insert(Side(name: "", id: UUID().uuidString), at: 0)
                             }
                         }, label: {
                             ButtonLabel(title: "+", isCompact: true)
@@ -31,9 +37,11 @@ struct SidesManagerPanel: View {
                     }
                 }
                 
-                ForEach(0..<customSides.count, id:\.self) { i in
-                    CustomSide(sideIndex: i, customSides: $customSides)
-                        .id(customSides[i].id)
+                ForEach(customSides.sides) { side in
+                    if let i = customSides.sides.firstIndex(of: side) {
+                        CustomSide(sideIndex: i, customSides: $customSides.sides)
+                            .id(side.id)
+                    }
                 }
             }
             VStack(alignment: .leading, spacing: 20) {
@@ -43,7 +51,7 @@ struct SidesManagerPanel: View {
                     Text("sides-manager.reset.content".translate()).padding(.trailing, 20)
                     Spacer()
                     Button(action: {
-                        customSides = Side.defaultSides
+                        customSides.sides = Side.defaultSides
                     }, label: {
                         ButtonLabel(title: "reset", isCompact: true)
                     })
@@ -52,14 +60,14 @@ struct SidesManagerPanel: View {
         }
         .safeAreaScrollableSheetVStackWithStickyButton(button: AnyView(
             Button(action: {
-                mealsListPanelVM.saveSides(customSides)
+                mealsListPanelVM.saveSides(customSides.sides)
             }, label: {
                 ButtonLabel(title: "confirmChangesButton")
             })
         ))
         .navigationTitle("sides-manager.title".translate())
         .onAppear() {
-            customSides = mealsListPanelVM.sides
+            customSides.sides = mealsListPanelVM.sides
         }
     }
     
@@ -67,6 +75,10 @@ struct SidesManagerPanel: View {
         let sideIndex: Int
         @Binding var customSides: [Side]
         @State var sideName: String = ""
+        
+        @State var showImagePicker: Bool = false
+        @State private var inputImage: UIImage?
+        
         var body: some View {
             if sideIndex < customSides.count {
                 HStack(spacing: 20) {
@@ -76,20 +88,37 @@ struct SidesManagerPanel: View {
                                .resizable()
                                .frame(width: 40, height: 40)
                         } else {
-                            Text(side.imageName)
-                               .font(.title2)
-                               .fontWeight(.bold)
-                               .foregroundColor(Color("TextColor"))
-                               .frame(width: 40, height: 40)
+                            if let sideImage = side.customImage {
+                                Image(uiImage: sideImage.image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 40)
+                            } else {
+                                Text(side.imageName)
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("TextColor"))
+                                    .frame(width: 40, height: 40)
+                            }
                         }
                         
                         if !side.isDefaultSide {
-                            Button(action: {}, label: {
+                            Button(action: {
+                                showImagePicker = true
+                            }, label: {
                                 Image(systemName: "square.and.arrow.down")
                                     .font(.headline)
                                     .foregroundColor(Color("TextColor"))
                                     .textFieldBackground(hPadding: 25, style: .primary)
                             }).frame(width: 60)
+                                .onChange(of: inputImage) { _ in
+                                    guard let inputImage = inputImage else { return }
+                                    customSides[sideIndex].updateImage(inputImage)
+                                }
+                                .sheet(isPresented: $showImagePicker) {
+                                    ImagePicker(image: $inputImage).preferredColorScheme(.dark)
+                                        .ignoresSafeArea()
+                                }
                         }
                         
                         ZStack {
@@ -122,3 +151,15 @@ struct SidesManagerPanel: View {
         }
     }
 }
+
+/*
+ 360 personnes
+ 180 fr 8eme arrondissement
+ 
+ manager
+ 3 dev ios 3 android
+ 1 designer
+ 
+ interraction de
+ 
+ */
