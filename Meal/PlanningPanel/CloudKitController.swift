@@ -97,7 +97,7 @@ class CloudKitController: ObservableObject {
         }
     }
     
-    private func weekPlanStringToWeekPlan(_ text: String, whichWeek: WichWeekIsIt) -> WeekPlan {
+    private func weekPlanStringToWeekPlan_deprecated(_ text: String, whichWeek: WichWeekIsIt) -> WeekPlan {
         let lines = text.split(whereSeparator: \.isNewline)
         let weekPlan = WeekPlan(whichWeek)
         var currentWeekDay: WeekDays = .monday
@@ -174,6 +174,31 @@ class CloudKitController: ObservableObject {
         return weekPlan
     }
     
+    private func weekPlanStringToWeekPlan(_ text: String, whichWeek: WichWeekIsIt) -> WeekPlan {
+        var weekPlan = WeekPlan(whichWeek)
+        do {
+            let jsonDecoder = JSONDecoder()
+            if let textData = text.data(using: .utf8, allowLossyConversion: false) {
+                let weekData = try jsonDecoder.decode([DayPlan].self, from: textData)
+                print(text)
+                for day in weekData {
+                    for meal in day.midday {
+                        weekPlan.append(meal, day: day.day, time: .midday)
+                    }
+                    for meal in day.evening {
+                        weekPlan.append(meal, day: day.day, time: .evening)
+                    }
+                }
+            }
+        } catch {
+            print("Failed to decode, switching to old method")
+            weekPlan = weekPlanStringToWeekPlan_deprecated(text, whichWeek: whichWeek)
+        }
+        
+        return weekPlan
+    }
+    
+    
     func saveWeeksPlanningToCloud(thisWeek: WeekPlan, nexWeek: WeekPlan) {
         weekSavingProgress = 0
         savingWeekPlanningToCloud(recordType: RecordType.thisWeekPlan.rawValue, plan: thisWeek)
@@ -185,6 +210,77 @@ class CloudKitController: ObservableObject {
         savingWeekPlanningToCloud(recordType: recordType, plan: plan)
     }
     
+    // Replace in a few weeks
+    private func savingWeekPlanningToCloud_new(recordType: String, plan: WeekPlan) {
+        self.setCloudSyncStatus(.inProgress)
+        do {
+            let myWeek = plan.week
+            for d in 0..<myWeek.count {
+                for m in 0..<myWeek[d].midday.count {
+                    if myWeek[d].midday[m].sides != nil {
+                        for i in 0..<myWeek[d].midday[m].sides!.count {
+                            myWeek[d].midday[m].sides![i].customImage = nil
+                        }
+                    }
+                }
+                for m in 0..<myWeek[d].evening.count {
+                    if myWeek[d].evening[m].sides != nil {
+                        for i in 0..<myWeek[d].evening[m].sides!.count {
+                            myWeek[d].evening[m].sides![i].customImage = nil
+                        }
+                    }
+                }
+            }
+            let jsonEncoder = JSONEncoder()
+            let jsonData = try jsonEncoder.encode(myWeek)
+            let weekData = String(data: jsonData, encoding: String.Encoding.utf8)
+            
+            let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
+            let query = CKQuery(recordType: recordType, predicate: predicate)
+            database.perform(query, inZoneWith: nil) { ckRecords, error in
+                if let error = error {
+                    print(error)
+                    self.setCloudSyncStatus(.error)
+                } else {
+                    guard let records = ckRecords else {
+                        self.setCloudSyncStatus(.error)
+                        return
+                    }
+                    
+                    guard let record = records.first else {
+                        self.setCloudSyncStatus(.error)
+                        return
+                    }
+                    
+                    record["weekPlan"] = weekData
+                    
+                    let modifyRecords = CKModifyRecordsOperation(recordsToSave:[record], recordIDsToDelete: nil)
+                    modifyRecords.savePolicy = .allKeys
+                    modifyRecords.qualityOfService = QualityOfService.userInitiated
+                    modifyRecords.modifyRecordsCompletionBlock = { savedRecords, deletedRecordIDs, error in
+                        if error == nil {
+                            print("Week updated successfully")
+                            self.weekSavingProgress += 1
+                            if self.weekSavingProgress == 2 {
+                                self.setCloudSyncStatus(.completed)
+                            }
+                        }else {
+                            print(error ?? "Error modifying record")
+                            self.setCloudSyncStatus(.error)
+                            self.weekSavingProgress = -1
+                        }
+                    }
+                    self.database.add(modifyRecords)
+                }
+            }
+        } catch {
+            print("ERROR: Failed to encode weekplan")
+            self.setCloudSyncStatus(.error)
+            self.weekSavingProgress = -1
+        }
+    }
+    
+    // TODO: Deprecated, replace with _new in a few weeks after update
     private func savingWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
         self.setCloudSyncStatus(.inProgress)
         var text = "\(recordType)\n\n"
@@ -197,7 +293,7 @@ class CloudKitController: ObservableObject {
             for midday in dayPlan.midday {
                 text += "\(CloudTextSavingLabels.meal.rawValue)\n"
                 text += "\(midday.id)\n"
-                text += "\(midday.name)\n"
+                text += "\(midday.name == "" ? " " : midday.name)\n"
                 text += "\(midday.type == .meat ? 1 : (midday.type == .vegan ? 2 : (midday.type == .outside ? 3 : 4)))\n"
                 if let sides = midday.sides {
                     for side in sides {
@@ -228,7 +324,7 @@ class CloudKitController: ObservableObject {
             for evening in dayPlan.evening {
                 text += "\(CloudTextSavingLabels.meal.rawValue)\n"
                 text += "\(evening.id)\n"
-                text += "\(evening.name)\n"
+                text += "\(evening.name == "" ? " " : evening.name)\n"
                 text += "\(evening.type == .meat ? 1 : (evening.type == .vegan ? 2 : (evening.type == .outside ? 3 : 4)))\n"
                 if let sides = evening.sides {
                     for side in sides {
