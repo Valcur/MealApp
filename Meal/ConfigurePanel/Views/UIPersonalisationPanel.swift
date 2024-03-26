@@ -11,16 +11,36 @@ import SwiftUI
 
 struct UIPersonalisationPanel: View {
     @EnvironmentObject var mealsListVM: MealsListPanelViewModel
+    @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
     @EnvironmentObject var userPrefs: VisualUserPrefs
     @State var selectedBackground = 1
     @State var selectedColor = 1
     
+    var isPremium: Bool {
+        configurePanelVM.isPremium || configurePanelVM.cloudKitController.useSharedPlanning
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            GoingPremium()
-            Text("Background").subTitle()
-            ScrollView(.horizontal) {
-                HStack {
+            if !isPremium || true {
+                GoingPremium()
+                Text("ui-personalization.premium.intro".translate()).headLine()
+            }
+            
+            Group {
+                Text("ui-personalization.appColor.title".translate()).subTitle()
+                ScrollView(.horizontal) {
+                    HStack {
+                        ColorPickerView(colorId: 0, selectedColor: $selectedColor)
+                        ColorPickerView(colorId: 1, selectedColor: $selectedColor)
+                        ColorPickerView(colorId: 2, selectedColor: $selectedColor)
+                        ColorPickerView(colorId: 3, selectedColor: $selectedColor)
+                        ColorPickerView(colorId: 4, selectedColor: $selectedColor)
+                        ColorPickerView(colorId: 5, selectedColor: $selectedColor)
+                    }
+                }
+                Text("ui-personalization.background.title".translate()).subTitle()
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 200))]) {
                     BackgroundChoice(backgroundId: 0, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: -1, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 1, selectedBackground: $selectedBackground)
@@ -28,18 +48,12 @@ struct UIPersonalisationPanel: View {
                     BackgroundChoice(backgroundId: 3, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 4, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: 5, selectedBackground: $selectedBackground)
+                    BackgroundChoice(backgroundId: 6, selectedBackground: $selectedBackground)
+                    BackgroundChoice(backgroundId: 7, selectedBackground: $selectedBackground)
+                    BackgroundChoice(backgroundId: 8, selectedBackground: $selectedBackground)
                 }.padding(.bottom, 10)
-            }
-            Text("App main color").subTitle()
-            ScrollView(.horizontal) {
-                HStack {
-                    ColorPickerView(colorId: 0, selectedColor: $selectedColor)
-                    ColorPickerView(colorId: 1, selectedColor: $selectedColor)
-                    ColorPickerView(colorId: 2, selectedColor: $selectedColor)
-                    ColorPickerView(colorId: 3, selectedColor: $selectedColor)
-                    ColorPickerView(colorId: 4, selectedColor: $selectedColor)
-                }
-            }
+            }.opacity(isPremium ? 1 : 0.7)
+            .allowsHitTesting(isPremium)
         }.scrollableSheetVStack()
         .navigationTitle("ui-personalization.title")
         .onAppear() {
@@ -77,7 +91,6 @@ struct UIPersonalisationPanel: View {
                             Image("Background \(backgroundId) Dark")
                                 .resizable()
                                 .scaledToFill()
-                                .opacity(0.4)
                         }.mask(Rectangle().frame(width: 98).padding(.leading, 102))
                         
                         ZStack {
@@ -85,7 +98,6 @@ struct UIPersonalisationPanel: View {
                             Image("Background \(backgroundId)")
                                 .resizable()
                                 .scaledToFill()
-                                .opacity(0.4)
                         }.mask(Rectangle().frame(width: 98).padding(.trailing, 102))
                     }
                     
@@ -96,11 +108,9 @@ struct UIPersonalisationPanel: View {
                         ZStack {
                             Color.black.opacity(isSelected ? 0.5 : 0).cornerRadius(10)
                             
-                            Image(systemName: "square.and.arrow.down")
-                                .resizable()
+                            Image(systemName: "photo")
+                                .font(.system(size: 60))
                                 .foregroundColor(isSelected ? Color.white : Color.black)
-                                .opacity(isSelected ? 1 : 0.5)
-                                .padding(25)
                         }.padding(40)
                         .onChange(of: inputImage) { _ in
                             guard let inputImage = inputImage else { return }
@@ -111,7 +121,7 @@ struct UIPersonalisationPanel: View {
                                 .ignoresSafeArea()
                         }
                     }
-                }.frame(width: 200, height: 200).cornerRadius(15).clipped()
+                }.frame(width: 200, height: 200).cornerRadius(15).opacity(isSelected ? 0.9 : 0.7).clipped()
                     .padding(4)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)

@@ -106,7 +106,7 @@ struct SidesManagerPanel: View {
                             Button(action: {
                                 showImagePicker = true
                             }, label: {
-                                Image(systemName: "square.and.arrow.down")
+                                Image(systemName: "photo")
                                     .font(.headline)
                                     .foregroundColor(Color("TextColor"))
                                     .textFieldBackground(hPadding: 25, style: .primary)

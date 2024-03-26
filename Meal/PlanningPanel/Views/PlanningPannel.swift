@@ -107,7 +107,9 @@ struct PlanningPannel: View {
                 
                 WeekPlanOrganiser().background(
                     VStack{
-                        VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial)).frame(height: 90)
+                        if userPrefs.backgroundImage != 0 {
+                            VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial)).frame(height: 70)
+                        }
                         Spacer()
                     }
                 )

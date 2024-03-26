@@ -168,7 +168,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "collaboration.shareYourPlanning.codeDescription" = "Copiez ce code et envoyez le aux gens avec qui vous souhaitez collaborer :";
 "collaboration.shareYourPlanning.error" = "Vous ne pouvez pas partager votre menu alors que vous collaborez déjà sur le menu de quelqu'un d'autre.";
 
-"collaboration.premium.description" = "Seul les utilisateurs premium peuvent partager leur menu.";
+"collaboration.premium.description" = "Seul les utilisateurs premium peuvent partager leur menu et personnaliser l'interface de l'app.";
 "collaboration.premium.subscribe.description" = "Abonnez vous";
 "collaboration.premium.restore.description" = "Déjà premium ?";
 "collaboration.premium.restore.title" = "Restorer";
@@ -195,6 +195,9 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "sides-manager.custom.placeholder" = "Nom de l'accompagnement";
 
 "ui-personalization.title" = "Interface";
+"ui-personalization.premium.intro" = "Pour pouvoir personnaliser l'interface, vou devez être premium ou faire partie d'un planning partagé.";
+"ui-personalization.appColor.title" = "Couleur principale";
+"ui-personalization.background.title" = "Arrière-plan";
 
 "options_other_title" = "Autres";
 

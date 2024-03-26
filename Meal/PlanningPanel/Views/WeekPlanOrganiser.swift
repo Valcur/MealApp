@@ -23,18 +23,18 @@ struct WeekPlanOrganiser: View {
                             .id(day.day)
                     }
                 }
-                .padding(.trailing, 20).padding(.top, 20)
+                .padding(.trailing, 20).padding(.top, 10)
                 .onAppear() {
                     for day in planningPanelVM.weekPlan.week {
                         if Calendar.current.isDateInToday(day.date) {
                             if day.day == .monday {
-                                reader.scrollTo(-1, anchor: .leading)
+                                reader.scrollTo(-1, anchor: .bottomLeading)
                             } else {
                                 if UIDevice.isIPhone {
                                     if day.day == .sunday {
-                                        reader.scrollTo(day.day, anchor: .trailing)
+                                        reader.scrollTo(day.day, anchor: .bottomTrailing)
                                     } else {
-                                        reader.scrollTo(day.day, anchor: .leading)
+                                        reader.scrollTo(day.day, anchor: .bottomLeading)
                                     }
                                 } else {
                                     reader.scrollTo(day.day)
@@ -84,7 +84,7 @@ struct WeekPlanOrganiser: View {
         }
         
         var body: some View {
-            VStack(spacing: 15) {
+            VStack(spacing: 10) {
                 VStack(spacing: 3) {
                     Text(dayPlan.day.name())
                         .title(style: isToday ? .secondary : .primary, accentColor: userPrefs.accentColor)
@@ -96,18 +96,16 @@ struct WeekPlanOrganiser: View {
                 Divider()
                     .opacity(userPrefs.isUsingDefaultBackground ? 1 : 0)
                 
-                VStack {
+                VStack(spacing: 0) {
                     DayMealView(dayPlan: dayPlan, time: .midday, meals: dayPlan.midday, isToday: isToday)
                     
                     Divider()
-                        .frame(maxHeight: 10)
+                        .frame(height: 20)
                         .opacity(userPrefs.isUsingDefaultBackground ? 1 : 0)
                     
                     DayMealView(dayPlan: dayPlan, time: .evening, meals: dayPlan.evening, isToday: isToday)
                 }
-                
-                Spacer()
-            }.frame(width: 200)
+            }.frame(width: 200).padding(.bottom, 12)
         }
         
         
@@ -166,7 +164,7 @@ struct WeekPlanOrganiser: View {
                                         .foregroundColor(isToday ? userPrefs.accentColor : Color("TextColor"))
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                             }
-                        }.blurredBackground()
+                        }
                     }
                 }
             }

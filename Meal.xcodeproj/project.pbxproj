@@ -32,6 +32,7 @@
 		DB7708AE2968304F00BF5604 /* IntroSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7708AD2968304F00BF5604 /* IntroSheet.swift */; };
 		DB7708B0296C57D000BF5604 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB7708AF296C57D000BF5604 /* Assets.xcassets */; };
 		DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */; };
+		DB7999BF2BAF434B007DF8B3 /* BackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7999BE2BAF434B007DF8B3 /* BackgroundImageView.swift */; };
 		DB9B879F293F4F9F00F2344B /* MealApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B879E293F4F9F00F2344B /* MealApp.swift */; };
 		DB9B87A6293F4FA300F2344B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9B87A5293F4FA300F2344B /* Preview Assets.xcassets */; };
 		DB9B87B0293F4FA300F2344B /* MealTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B87AF293F4FA300F2344B /* MealTests.swift */; };
@@ -119,6 +120,7 @@
 		DB7708AD2968304F00BF5604 /* IntroSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSheet.swift; sourceTree = "<group>"; };
 		DB7708AF296C57D000BF5604 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB772BC52964A98E00A5C1F8 /* ViewSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSizes.swift; sourceTree = "<group>"; };
+		DB7999BE2BAF434B007DF8B3 /* BackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageView.swift; sourceTree = "<group>"; };
 		DB9B879B293F4F9F00F2344B /* Meal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9B879E293F4F9F00F2344B /* MealApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealApp.swift; sourceTree = "<group>"; };
 		DB9B87A5293F4FA300F2344B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				DB9B87E82943A4AE00F2344B /* DayPlanSheet.swift */,
 				DB9D994D294F8EA10051BD63 /* AutoFillSheet.swift */,
 				DB4BD4C92B67F964007845BD /* RandomMeelSheet.swift */,
+				DB7999BE2BAF434B007DF8B3 /* BackgroundImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				DB9D9965295387B40051BD63 /* MealsDataController+Calendar.swift in Sources */,
 				DB14B3CA2B90D08C0024821D /* UIPersonalisationPanel.swift in Sources */,
 				DB9B87EC294503BB00F2344B /* MealList.swift in Sources */,
+				DB7999BF2BAF434B007DF8B3 /* BackgroundImageView.swift in Sources */,
 				DB3663162A6827DA00F7894B /* CardView.swift in Sources */,
 				DB9B87E32942143A00F2344B /* WeekPlanOrganiser.swift in Sources */,
 				DB3663242A6967B600F7894B /* AddRecipeSheet.swift in Sources */,

@@ -30,10 +30,6 @@ class WeekPlan: ObservableObject {
         ]
     }
     
-    func dayName() -> String {
-        return "Monday"
-    }
-    
     func append(_ meal: Meal, day: WeekDays, time: TimeOfTheDay) {
         if time == .midday && week[day.rawValue].midday.count < 3 {
             week[day.rawValue].midday.append(meal.new())

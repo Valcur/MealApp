@@ -82,7 +82,7 @@ struct MealApp: App {
             }
             .onAppear() {
                 // Not working from init
-                IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId()], sharedSecret: IAPManager.getSharedSecret())
+                IAPManager.shared.startWith(arrayOfIds: [IAPManager.getSubscriptionId(), IAPManager.getLifetimeId()], sharedSecret: IAPManager.getSharedSecret())
                 configurePanelVM.testPremium()
                 
                 

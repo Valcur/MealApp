@@ -46,12 +46,12 @@ struct GoingPremium: View {
                             Button(action: {
                                 showingBuyInfo = true
                             }, label: {
-                                ButtonLabel(title: "\(IAPManager.shared.price() ?? "0.99")\("per_month".translate())", style: .secondary)
+                                ButtonLabel(title: "\(IAPManager.shared.price(forProduct: IAPManager.getSubscriptionId()) ?? "0.99")\("per_month".translate())", style: .secondary)
                             })
                             Button(action: {
                                 showingBuyInfo = true
                             }, label: {
-                                ButtonLabel(title: "\(IAPManager.shared.price() ?? "0.99")\("forever")", style: .secondary)
+                                ButtonLabel(title: "\(IAPManager.shared.price(forProduct: IAPManager.getLifetimeId()) ?? "0.99")\("forever")", style: .secondary)
                             })
                         }
                     }

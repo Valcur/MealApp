@@ -161,7 +161,7 @@ Once activated if you have an error during synchronization, check your device's 
 "collaboration.shareYourPlanning.codeDescription" = "Copy this code and share it to invite others to join your planning :";
 "collaboration.shareYourPlanning.error" = "You can't share a planning while working on someone else's planning.";
 
-"collaboration.premium.description" = "Only premium users can share their planning.";
+"collaboration.premium.description" = "Only premium users can share their planning and customize the app interface.";
 "collaboration.premium.subscribe.description" = "Subscribe";
 "collaboration.premium.restore.description" = "Already premium ?";
 "collaboration.premium.restore.title" = "Restore";
@@ -186,6 +186,9 @@ Once activated if you have an error during synchronization, check your device's 
 "sides-manager.custom.placeholder" = "Side name";
 
 "ui-personalization.title" = "Interface";
+"ui-personalization.premium.intro" = "Only premium users or users on a shared planning can customize the app interface.";
+"ui-personalization.appColor.title" = "App main color";
+"ui-personalization.background.title" = "Background";
 
 "options_other_title" = "Other";
 

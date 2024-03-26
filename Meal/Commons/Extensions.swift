@@ -72,8 +72,7 @@ extension View {
     
     func blurredBackground() -> some View {
         self
-            /*.background(VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterialLight))
-                .cornerRadius(10).padding(.vertical, -5).padding(.horizontal, -5))*/
+            .background(VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterialLight)))
     }
 }
 
@@ -324,28 +323,6 @@ fileprivate struct DelaysTouchesButtonStyle: ButtonStyle {
             touchDownDate = nil
             disabled = false
         }
-    }
-}
-
-struct BackgroundImageView: View {
-    @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject var userPrefs: VisualUserPrefs
-    var body: some View {
-        ZStack {
-            Color("BackgroundColor")
-            if userPrefs.backgroundImage > 0 {
-                if colorScheme == .light {
-                    Image(userPrefs.backgroundImageName)
-                        .resizable(resizingMode: .tile)
-                } else {
-                    Image(userPrefs.backgroundDarkImageName)
-                        .resizable(resizingMode: .tile)
-                }
-            }
-            if userPrefs.backgroundImage == -1 {
-                AnyView(userPrefs.customBackgroundImageView)
-            }
-        }.clipped()
     }
 }
 
