@@ -45,6 +45,9 @@ struct ConfigurePanel: View {
                     }
                 }
                 Section(header: Text("options_other_title")) {
+                    NavigationLink(destination: ContactPanel()) {
+                        Text("Contact")
+                    }
                     NavigationLink(destination: AlreadyPickedPanel()) {
                         Text("availableMeals_title".translate())
                     }
