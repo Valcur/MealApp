@@ -172,7 +172,9 @@ struct DayPlanSheet: View {
                         selectedSides = meal.sides ?? []
                     }
                     .onChange(of: selection) { _ in
-                        selectedSides = mealsAvailable[selection].sides ?? []
+                        if selection < mealsAvailable.count {
+                            selectedSides = mealsAvailable[selection].sides ?? []
+                        }
                     }
             }
             

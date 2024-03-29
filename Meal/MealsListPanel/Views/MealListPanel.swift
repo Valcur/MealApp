@@ -37,6 +37,7 @@ extension MealsListPanel {
                         LazyVGrid(columns: columns) {
                             ForEach(mealList, id: \.self) { meal in
                                 MealGridItem(meal: meal)
+                                    .id(meal.uuid)
                             }
                             Spacer()
                         }.padding(.horizontal, 20).padding(.top, 10).padding(.bottom, 100)

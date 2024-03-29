@@ -17,7 +17,7 @@ struct BackgroundImageView: View {
                 if colorScheme == .light {
                     Image(userPrefs.backgroundImageName)
                         .resizable(resizingMode: .tile)
-                        .opacity(0.8)
+                        .opacity(1)
                 } else {
                     Image(userPrefs.backgroundDarkImageName)
                         .resizable(resizingMode: .tile)

@@ -29,14 +29,9 @@ struct WhatsNewView: View {
                 Text(NSLocalizedString("whatsNew_content", comment: "whatsNew_content"))
                     .headLine()
                 
-                HStack {
-                    Spacer()
-                    /*Image("WhatsNew")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: 400)*/
-                    Spacer()
-                }.padding(.horizontal, 50)
+                Image("WhatsNew")
+                    .resizable()
+                    .scaledToFill()
                 
                 if showPreviousVersion {
                     Text(NSLocalizedString("whatsNew_old_title", comment: "whatsNew_title"))
@@ -46,7 +41,7 @@ struct WhatsNewView: View {
                         .headLine()
                 }
                 
-                Spacer().padding(.bottom, 120)
+                Spacer().padding(.bottom, 180)
             }.scrollableSheetVStackWithStickyButton(button: AnyView(
                 VStack {
                     Text(NSLocalizedString("whatsNew_rateUs_title", comment: "whatsNew_rateUs_title"))
@@ -77,23 +72,27 @@ struct WhatsNewView: View {
     }
     
     class WhatsNewController: ObservableObject {
-        private let updateDate = "24/10/2023"
+        private let updateDate = "29/03/2024"
         @Published var showWhatsNew: Bool
         
         init() {
-            let key = "ShowWhatsNew?_\(updateDate)"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yy"
+            let newUpdateDate = dateFormatter.date(from: updateDate) ?? Date()
+            
+            let key = "LastUpdateDate"
             let userDefaults = UserDefaults.standard
-            userDefaults.register(
-                defaults: [
-                    key: true
-                ]
-            )
-            if false {
+            
+            var lastValue = userDefaults.value(forKey: key) as? Date ?? Date()
+            lastValue = lastValue.addingTimeInterval(1)
+            print("Last update date \(lastValue) vs new update date \(newUpdateDate)")
+            
+            if lastValue < newUpdateDate {
                 showWhatsNew = true
+                //userDefaults.set(newUpdateDate, forKey: key)
             } else {
-                showWhatsNew = UserDefaults.standard.bool(forKey: key)
+                showWhatsNew = false
             }
-            UserDefaults.standard.setValue(false, forKey: key)
         }
     }
 }

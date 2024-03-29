@@ -25,7 +25,8 @@ struct GoingPremium: View {
     struct SubscribePanel: View {
         @EnvironmentObject var userPrefs: VisualUserPrefs
         @EnvironmentObject var configurePanelVM: ConfigurePanelViewModel
-        @State var showingBuyInfo = false
+        @State var showingBuyInfoMonthly = false
+        @State var showingBuyInfoLifetime = false
         
         var body: some View {
             VStack(spacing: 20) {
@@ -44,15 +45,48 @@ struct GoingPremium: View {
      
                         HStack {
                             Button(action: {
-                                showingBuyInfo = true
+                                showingBuyInfoMonthly = true
                             }, label: {
                                 ButtonLabel(title: "\(IAPManager.shared.price(forProduct: IAPManager.getSubscriptionId()) ?? "0.99")\("per_month".translate())", style: .secondary)
                             })
+                            .alert(isPresented: $showingBuyInfoMonthly) {
+                                Alert(
+                                    title: Text("premium_info_title".translate()),
+                                    message: Text("premium_info_content".translate()),
+                                    primaryButton: .destructive(
+                                        Text("cancel".translate()),
+                                        action: {showingBuyInfoMonthly = false}
+                                    ),
+                                    secondaryButton: .default(
+                                        Text("continue".translate()),
+                                        action: {
+                                            configurePanelVM.buy(productId: IAPManager.getSubscriptionId())
+                                        }
+                                    )
+                                )
+                            }
+                            
                             Button(action: {
-                                showingBuyInfo = true
+                                showingBuyInfoLifetime = true
                             }, label: {
-                                ButtonLabel(title: "\(IAPManager.shared.price(forProduct: IAPManager.getLifetimeId()) ?? "0.99")\("forever")", style: .secondary)
+                                ButtonLabel(title: "\(IAPManager.shared.price(forProduct: IAPManager.getLifetimeId()) ?? "0.99")\(" forever")", style: .secondary)
                             })
+                            .alert(isPresented: $showingBuyInfoLifetime) {
+                                Alert(
+                                    title: Text("premium_lifetime_info_title".translate()),
+                                    message: Text("premium_lifetime_info_content".translate()),
+                                    primaryButton: .destructive(
+                                        Text("cancel".translate()),
+                                        action: {showingBuyInfoLifetime = false}
+                                    ),
+                                    secondaryButton: .default(
+                                        Text("continue".translate()),
+                                        action: {
+                                            configurePanelVM.buy(productId: IAPManager.getLifetimeId())
+                                        }
+                                    )
+                                )
+                            }
                         }
                     }
                     Spacer()
@@ -84,22 +118,6 @@ struct GoingPremium: View {
                  }
 
             }.roundedCornerRectangle(color: userPrefs.accentColor)
-                .alert(isPresented: $showingBuyInfo) {
-                    Alert(
-                        title: Text("premium_info_title".translate()),
-                        message: Text("premium_info_content".translate()),
-                        primaryButton: .destructive(
-                            Text("cancel".translate()),
-                            action: {showingBuyInfo = false}
-                        ),
-                        secondaryButton: .default(
-                            Text("continue".translate()),
-                            action: {
-                                configurePanelVM.buy()
-                            }
-                        )
-                    )
-                }
         }
     }
 }

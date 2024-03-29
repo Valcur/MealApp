@@ -106,6 +106,10 @@ class VisualUserPrefs: ObservableObject {
         Color("AccentColor \(interfacePrefs.appAccentColorId)")
     }
     
+    var showButtonbackground: Bool {
+        interfacePrefs.showButtonbackground && backgroundImage != 0
+    }
+    
     
     init() {
         data = MealsDataController()
@@ -121,6 +125,11 @@ class VisualUserPrefs: ObservableObject {
     
     func applyAccentColorIdChange(_ newId: Int) {
         interfacePrefs.appAccentColorId = newId
+        data.saveInterfaceCustomization(interfaceCustomization: interfacePrefs)
+    }
+    
+    func applyNewValueShowButtonbackground(_ newValue: Bool) {
+        interfacePrefs.showButtonbackground = newValue
         data.saveInterfaceCustomization(interfaceCustomization: interfacePrefs)
     }
     

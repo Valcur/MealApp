@@ -140,9 +140,9 @@
 "champignons" = "Champi";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Choisissez parmi 3 propositions quand vous ajoutez un plat aléatoire.\n\n- Ajout d'une animation lorsque vous gardez appuyé sur un plat pour le déplacer.\n\n- Visualisez la liste des plats que vous n'avez pas mangé depuis longtemps.";
+"whatsNew_content" = "- Ajoutez une photo à vos accompagnements personnalisés\n- Ajout d'un onglet contact dans les options pour me contacter si vous souhaitez que j'ajoute une nouvelle foncitonnalité\n\nLes utilisateurs premium et les membres de leur planning partagé peuvent désormais personnaliser l'apparence de l'application:\n- Changement de la couleur princiaple de l'app\n- Ajout d'une image de fond pour le menu de la semaine parmis une séléction ou importez une photo de votre choix depuis votre appareil";
 "whatsNew_old_title" = "Précédemment";
-"whatsNew_old_content" = "- Vous pouvez désormais ajouter vos propres accompagnements et supprimer ceux que vous n'utilisez pas.\n\n- Ajoutez un acompagnement par défaut à vos plats pour que celui-ci soit automatiquement sélectionné lorque vous ajoutez ce plat à votre menu.\n\n- Correction de bugs relatifs à l'usage de l'option collaborative";
+"whatsNew_old_content" = "- Choisissez parmi 3 propositions quand vous ajoutez un plat aléatoire.\n\n- Ajout d'une animation lorsque vous gardez appuyé sur un plat pour le déplacer.\n\n- Visualisez la liste des plats que vous n'avez pas mangé depuis longtemps.";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -195,11 +195,16 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "sides-manager.custom.placeholder" = "Nom de l'accompagnement";
 
 "ui-personalization.title" = "Interface";
-"ui-personalization.premium.intro" = "Pour pouvoir personnaliser l'interface, vou devez être premium ou faire partie d'un planning partagé.";
+"ui-personalization.premium.intro" = "Pour pouvoir personnaliser l'interface, vous devez être premium ou faire partie d'un planning partagé.";
 "ui-personalization.appColor.title" = "Couleur principale";
+"ui-personalization.appColor.content" = "Il peut être nécessaire de fermer/relancer l'application pour que le changement de couleur se fasse sur toute l'application.";
 "ui-personalization.background.title" = "Arrière-plan";
+"ui-personalization.background.showButtonBackground" = "Rendre les boutons du planning plus visible";
 
 "options_other_title" = "Autres";
+
+"options.contact.content" = "Si vous souhaitez une nouvelle fonctionnalité en particulier ou recontrez des problèmes avec l'application, vous pouvez me contacter par mail en utilisant le bouton ci-dessous.";
+"options.contact.button" = "Contactez moi";
 
 
 "copy" = "Copier";
@@ -209,7 +214,9 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 
 
 "premium_info_title" = "Information sur l'abonnement";
-"premium_info_content" = "Vous pouvez acheter un abonnement avec renouvellement automatique par un achat In-App.\n\n • (en EUR) Premium - 1 mois (0.99€) \n\n • Votre abonnement sera facturé sur votre compte iTunes après confirmation de votre achat et sera automatiquelent renouvelé (à la fin de la durée selectionnée) à moins que le renouvellement automatique ne soit désactivé au moins 24h avant la fin de la période en cours.\n\n • L'abonnement en counrs ne peut pas être annulé durant la période active; cependant, vous pouvez gérer vos abonnements et/ou désactiver le renouvellement automatique en vous rendant dans les options de votre compte iTunes après l'achat\n\n • Etre premium vous offre, pour la durée de votre abonnement, la possibilité de partager votre menu avec qui vous voulez.";
+"premium_info_content" = "Vous pouvez acheter un abonnement avec renouvellement automatique par un achat In-App.\n\n • (en EUR) Premium - 1 mois (0.99€) \n\n • Votre abonnement sera facturé sur votre compte iTunes après confirmation de votre achat et sera automatiquelent renouvelé (à la fin de la durée selectionnée) à moins que le renouvellement automatique ne soit désactivé au moins 24h avant la fin de la période en cours.\n\n • L'abonnement en counrs ne peut pas être annulé durant la période active; cependant, vous pouvez gérer vos abonnements et/ou désactiver le renouvellement automatique en vous rendant dans les options de votre compte iTunes après l'achat\n\n • Etre premium vous offre, pour la durée de votre abonnement, la possibilité de partager votre menu avec qui vous voulez et de changer la couleur de l'app ainsi que l'image de fond.";
+"premium_lifetime_info_title" = "Information sur l'achat";
+"premium_lifetime_info_content" = "Vous pouvez acheter un accès premium à vie grâce à un achat In-App.\n\n • (in USD) Premium - A vie ($9.99) \n\n • Etre premium vous offre la possibilité de partager votre menu avec qui vous voulez et de changer la couleur de l'app ainsi que l'image de fond.";
 "cancel" = "Annuler";
 "continue" = "Continuer";
 "per_month" = "/mois";

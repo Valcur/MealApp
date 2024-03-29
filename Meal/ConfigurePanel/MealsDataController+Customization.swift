@@ -49,7 +49,7 @@ extension MealsDataController {
                 return interface
             }
         }
-        return InterfaceCustomizationData(backgroundId: 0, appAccentColorId: 0)
+        return InterfaceCustomizationData(backgroundId: 0, appAccentColorId: 0, showButtonbackground: false)
     }
 }
 
@@ -73,4 +73,5 @@ struct CategoriesCustomizationData: Codable {
 struct InterfaceCustomizationData: Codable {
     var backgroundId: Int
     var appAccentColorId: Int
+    var showButtonbackground: Bool
 }

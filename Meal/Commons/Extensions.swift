@@ -397,7 +397,7 @@ extension UIImage {
         }
     }
     
-    func compressImage(height: CGFloat = 30) -> UIImage {
+    func compressImage(height: CGFloat = 45) -> UIImage {
         print(self.size.height)
         if self.size.height <= height * 2 {
             print("Image too small, no compressing")

@@ -133,9 +133,9 @@
 "champignons" = "Mushrooms";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Pick between 3 choices when adding a random meal.\n\n- Added an animation when holding on a meal to move it to another day.\n\n- Visualize the list of meals you haven't eaten for a long time.";
+"whatsNew_content" = "- Add an image to your custom sides\n- Added a contact panel in the options to reach me if there is a new feature you want to have or if you find a bug\n\nPremium users and members of their shared planning can customize the look of the app:\n- Change the app main color\n- Add a background image to your planning by choosing one of ours or importing a picture from your device";
 "whatsNew_old_title" = "Previously";
-"whatsNew_old_content" = "- You can now delete any of the existing sides and add your own.\n\n- Add default sides to your meals to have them added automatically.";
+"whatsNew_old_content" = "- Pick between 3 choices when adding a random meal.\n\n- Added an animation when holding on a meal to move it to another day.\n\n- Visualize the list of meals you haven't eaten for a long time.";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
@@ -188,10 +188,14 @@ Once activated if you have an error during synchronization, check your device's 
 "ui-personalization.title" = "Interface";
 "ui-personalization.premium.intro" = "Only premium users or users on a shared planning can customize the app interface.";
 "ui-personalization.appColor.title" = "App main color";
+"ui-personalization.appColor.content" = "You might need to restart the app for the color change to apply everywhere.";
 "ui-personalization.background.title" = "Background";
+"ui-personalization.background.showButtonBackground" = "Make the planning buttons more visible";
 
 "options_other_title" = "Other";
 
+"options.contact.content" = "If you want so see any new features, find a bug, or anything else, feel free to contact me by mail using the button below.";
+"options.contact.button" = "Contact me";
 
 "copy" = "Copy";
 "paste" = "Paste";
@@ -200,7 +204,9 @@ Once activated if you have an error during synchronization, check your device's 
 
 
 "premium_info_title" = "Subscription informations";
-"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($0.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will let you, for the duration of your subsription, share your planning with whoever you want.";
+"premium_info_content" = "You may purchase an auto-renewing subscription through an In-App Purchase.\n\n • (in USD) Premium - 1 month ($0.99) \n\n • Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.\n\n • Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase\n\n • Being Premium will let you, for the duration of your subsription, share your planning with whoever you want and change the app color and background image.";
+"premium_lifetime_info_title" = "Purchase information";
+"premium_lifetime_info_content" = "You may purchase a lifetime premium access through an In-App Purchase.\n\n • (in USD) Premium - Lifetime ($9.99) \n\n • Being Premium will let you share your planning with whoever you want and change the app color and background image.";
 "cancel" = "Cancel";
 "continue" = "Continue";
 "per_month" = "/month";

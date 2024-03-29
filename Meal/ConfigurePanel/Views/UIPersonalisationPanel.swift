@@ -15,6 +15,7 @@ struct UIPersonalisationPanel: View {
     @EnvironmentObject var userPrefs: VisualUserPrefs
     @State var selectedBackground = 1
     @State var selectedColor = 1
+    @State var showButtonBackground = false
     
     var isPremium: Bool {
         configurePanelVM.isPremium || configurePanelVM.cloudKitController.useSharedPlanning
@@ -22,13 +23,14 @@ struct UIPersonalisationPanel: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            if !isPremium || true {
+            if !isPremium {
                 GoingPremium()
                 Text("ui-personalization.premium.intro".translate()).headLine()
             }
             
             Group {
                 Text("ui-personalization.appColor.title".translate()).subTitle()
+                Text("ui-personalization.appColor.content".translate()).headLine()
                 ScrollView(.horizontal) {
                     HStack {
                         ColorPickerView(colorId: 0, selectedColor: $selectedColor)
@@ -40,6 +42,16 @@ struct UIPersonalisationPanel: View {
                     }
                 }
                 Text("ui-personalization.background.title".translate()).subTitle()
+                HStack {
+                    Text("ui-personalization.background.showButtonBackground".translate())
+                        .headLine()
+                    Spacer()
+                    Toggle("", isOn: $showButtonBackground)
+                        .labelsHidden()
+                        .onChange(of: showButtonBackground) { _ in
+                            userPrefs.applyNewValueShowButtonbackground(showButtonBackground)
+                        }
+                }
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 200))]) {
                     BackgroundChoice(backgroundId: 0, selectedBackground: $selectedBackground)
                     BackgroundChoice(backgroundId: -1, selectedBackground: $selectedBackground)
@@ -59,6 +71,7 @@ struct UIPersonalisationPanel: View {
         .onAppear() {
             selectedBackground = userPrefs.backgroundImage
             selectedColor = userPrefs.accentColorId
+            showButtonBackground = userPrefs.showButtonbackground
         }
     }
     
@@ -121,7 +134,7 @@ struct UIPersonalisationPanel: View {
                                 .ignoresSafeArea()
                         }
                     }
-                }.frame(width: 200, height: 200).cornerRadius(15).opacity(isSelected ? 0.9 : 0.7).clipped()
+                }.frame(width: 200, height: 200).cornerRadius(15).opacity(0.9).clipped()
                     .padding(4)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)

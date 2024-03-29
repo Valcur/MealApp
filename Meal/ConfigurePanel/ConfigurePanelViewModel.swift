@@ -20,8 +20,6 @@ class ConfigurePanelViewModel: ObservableObject {
         self.schedules = data.loadSchedules().schedules
         self.cloudKitController = cloudKitController
         self.calendarController = CalendarController()
-        
-        testPremium()
     }
 }
 
