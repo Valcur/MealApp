@@ -165,7 +165,7 @@ struct WeekPlanOrganiser: View {
                                 }).padding(5).transition(.slide.combined(with: .opacity))
                             }
                         }.padding(5).background(
-                            VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterialLight))
+                            VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial))
                                 .cornerRadius(10)
                                 .opacity(userPrefs.showButtonbackground ? 1 : 0)
                         ).padding(-5)

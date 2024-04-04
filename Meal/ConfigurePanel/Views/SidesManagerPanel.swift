@@ -109,8 +109,8 @@ struct SidesManagerPanel: View {
                                 Image(systemName: "photo")
                                     .font(.headline)
                                     .foregroundColor(Color("TextColor"))
-                                    .textFieldBackground(hPadding: 25, style: .primary)
-                            }).frame(width: 60)
+                                    .textFieldBackground(hPadding: 15, style: .primary)
+                            }).frame(width: 30)
                                 .onChange(of: inputImage) { _ in
                                     guard let inputImage = inputImage else { return }
                                     customSides[sideIndex].updateImage(inputImage)

@@ -43,7 +43,7 @@ struct GoingPremium: View {
                             .fontWeight(.bold)
                             .headLine()
      
-                        HStack {
+                        Group {
                             Button(action: {
                                 showingBuyInfoMonthly = true
                             }, label: {
@@ -69,7 +69,7 @@ struct GoingPremium: View {
                             Button(action: {
                                 showingBuyInfoLifetime = true
                             }, label: {
-                                ButtonLabel(title: "\(IAPManager.shared.price(forProduct: IAPManager.getLifetimeId()) ?? "0.99")\(" forever")", style: .secondary)
+                                ButtonLabel(title: "\(IAPManager.shared.price(forProduct: IAPManager.getLifetimeId()) ?? "9.99") \("once".translate())", style: .secondary)
                             })
                             .alert(isPresented: $showingBuyInfoLifetime) {
                                 Alert(
@@ -87,7 +87,7 @@ struct GoingPremium: View {
                                     )
                                 )
                             }
-                        }
+                        }.HStackIPadVStackIPhone()
                     }
                     Spacer()
                     VStack {

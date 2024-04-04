@@ -72,7 +72,7 @@ struct WhatsNewView: View {
     }
     
     class WhatsNewController: ObservableObject {
-        private let updateDate = "29/03/2024"
+        private let updateDate = "10/04/2024"
         @Published var showWhatsNew: Bool
         
         init() {
@@ -89,7 +89,7 @@ struct WhatsNewView: View {
             
             if lastValue < newUpdateDate {
                 showWhatsNew = true
-                //userDefaults.set(newUpdateDate, forKey: key)
+                userDefaults.set(newUpdateDate, forKey: key)
             } else {
                 showWhatsNew = false
             }

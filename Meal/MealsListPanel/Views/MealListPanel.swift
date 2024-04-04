@@ -30,26 +30,32 @@ extension MealsListPanel {
         struct MealList: View {
             let columns = ViewSizes._MealList_GridColumns()
             let mealList: [Meal]
+            @State private var showingMealInfoSheet = false
+            @State private var shownMeal: Meal = Meal.EmptyMEal
             
             var body: some View {
                 VStack {
                     ScrollView(.vertical) {
                         LazyVGrid(columns: columns) {
                             ForEach(mealList, id: \.self) { meal in
-                                MealGridItem(meal: meal)
+                                MealGridItem(meal: meal, showingMealInfoSheet: $showingMealInfoSheet, shownMeal: $shownMeal)
                                     .id(meal.uuid)
                             }
                             Spacer()
                         }.padding(.horizontal, 20).padding(.top, 10).padding(.bottom, 100)
                     }
                 }.transition(.slide.combined(with: .opacity))
+                .sheet(isPresented: $showingMealInfoSheet) {
+                    EditMealSheet(meal: $shownMeal)
+                }
             }
         }
     }
     
     struct MealGridItem: View {
-        @State private var showingMealInfoSheet = false
         @State var meal: Meal
+        @Binding var showingMealInfoSheet: Bool
+        @Binding var shownMeal: Meal
         
         var body: some View {
             HStack {
@@ -59,14 +65,12 @@ extension MealsListPanel {
                 
                 Button(action: {
                     showingMealInfoSheet = true
+                    shownMeal = meal
                 }, label: {
                     Image(systemName: "slider.horizontal.3")
                         .font(.title3)
                 })
             }.roundedCornerRectangle()
-            .sheet(isPresented: $showingMealInfoSheet) {
-                EditMealSheet(meal: $meal)
-            }
         }
     }
 }

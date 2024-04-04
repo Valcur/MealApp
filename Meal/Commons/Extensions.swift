@@ -72,7 +72,21 @@ extension View {
     
     func blurredBackground() -> some View {
         self
-            .background(VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterialLight)))
+            .background(VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial)))
+    }
+    
+    func HStackIPadVStackIPhone() -> some View {
+        ZStack {
+            if UIDevice.isIPhone {
+                VStack {
+                    self
+                }
+            } else {
+                HStack {
+                    self
+                }
+            }
+        }
     }
 }
 

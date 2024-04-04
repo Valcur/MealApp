@@ -119,11 +119,11 @@ struct UIPersonalisationPanel: View {
                             .frame(width:  200, height: 200)
                         
                         ZStack {
-                            Color.black.opacity(isSelected ? 0.5 : 0).cornerRadius(10)
+                            VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial)).opacity(isSelected ? 1 : 0).cornerRadius(10)
                             
                             Image(systemName: "photo")
                                 .font(.system(size: 60))
-                                .foregroundColor(isSelected ? Color.white : Color.black)
+                                .foregroundColor(Color("TextColor"))
                         }.padding(40)
                         .onChange(of: inputImage) { _ in
                             guard let inputImage = inputImage else { return }

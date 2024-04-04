@@ -73,25 +73,39 @@ struct MealList {
     }
 }
 
-struct AlreadyPickedIds: Codable {
-    var pickedMeatIds: [Int]
-    var pickedVeganIds: [Int]
-    var pickedOtherIds: [Int]
-    var pickedOutsideIds: [Int]
+struct AlreadyPicked: Codable {
+    var pickedMeatIds: [AlreadyPickedMeal]
+    var pickedVeganIds: [AlreadyPickedMeal]
+    var pickedOtherIds: [AlreadyPickedMeal]
+    var pickedOutsideIds: [AlreadyPickedMeal]
     
-    mutating func append(_ id: Int, type: MealType) {
+    mutating func append(_ id: Int, type: MealType, date: Date) {
         if type == .meat {
-            pickedMeatIds.removeAll(where: {$0 == id})
-            pickedMeatIds.append(id)
+            pickedMeatIds.removeAll(where: {$0.id == id})
+            pickedMeatIds.append(AlreadyPickedMeal(id: id, date: date))
+            pickedMeatIds.sort{ $0.lastPickedDate < $1.lastPickedDate }
         } else if type == .vegan {
-            pickedVeganIds.removeAll(where: {$0 == id})
-            pickedVeganIds.append(id)
-        } else if type == .vegan {
-            pickedOtherIds.removeAll(where: {$0 == id})
-            pickedOtherIds.append(id)
+            pickedVeganIds.removeAll(where: {$0.id == id})
+            pickedVeganIds.append(AlreadyPickedMeal(id: id, date: date))
+            pickedVeganIds.sort{ $0.lastPickedDate < $1.lastPickedDate }
+        } else if type == .other {
+            pickedOtherIds.removeAll(where: {$0.id == id})
+            pickedOtherIds.append(AlreadyPickedMeal(id: id, date: date))
+            pickedOtherIds.sort{ $0.lastPickedDate < $1.lastPickedDate }
         } else {
-            pickedOutsideIds.removeAll(where: {$0 == id})
-            pickedOutsideIds.append(id)
+            pickedOutsideIds.removeAll(where: {$0.id == id})
+            pickedOutsideIds.append(AlreadyPickedMeal(id: id, date: date))
+            pickedOutsideIds.sort{ $0.lastPickedDate < $1.lastPickedDate }
         }
+    }
+}
+
+struct AlreadyPickedMeal: Codable {
+    var id: Int
+    var lastPickedDate: Date
+    
+    init(id: Int, date: Date) {
+        self.id = id
+        self.lastPickedDate = date
     }
 }

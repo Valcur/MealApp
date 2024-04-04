@@ -133,7 +133,7 @@
 "champignons" = "Mushrooms";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Add an image to your custom sides\n- Added a contact panel in the options to reach me if there is a new feature you want to have or if you find a bug\n\nPremium users and members of their shared planning can customize the look of the app:\n- Change the app main color\n- Add a background image to your planning by choosing one of ours or importing a picture from your device";
+"whatsNew_content" = "- Add an image to your custom sides\n\n- Fixed a bug making you unable to edit your meals\n\n- Reworked the recommendation system to prevent meals from being re-selectable too quickly. The meals can also be re-selectable automatically after a certain period (4 weeks by default, modifiable in 'Options -> Recommended meals')\n\n- Added a contact panel in the options to reach me if there is a new feature you want to have or if you find a bug\n\n\nPremium users and members of their shared planning can customize the look of the app:\n- Change the app main color\n- Add a background image to your planning by choosing one of ours or importing a picture from your device";
 "whatsNew_old_title" = "Previously";
 "whatsNew_old_content" = "- Pick between 3 choices when adding a random meal.\n\n- Added an animation when holding on a meal to move it to another day.\n\n- Visualize the list of meals you haven't eaten for a long time.";
 "whatsNew_rateUs_title" = "Enjoying the app ?";
@@ -219,3 +219,8 @@ Once activated if you have an error during synchronization, check your device's 
 "randomMeals_refresh" = "Change meals";
 "availableMeals_title" = "Recommended meals";
 "availableMeals_content" = "All meals you haven't picked for a long time which will be added to your week when choosing randomly. You can reset those lists at any time.";
+"availableMeals_content_2" = "Meals are added back to the possible recommandation when the list become too small. You can also choose a time after which meals will be added back regardless of list size.";
+"weeks" = "weeks";
+"disabled" = "Disabled";
+"once" = "forever";
+"time" = "Time :";

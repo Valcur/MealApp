@@ -78,6 +78,8 @@ struct MealApp: App {
                 if cloudKitController.isIniComplete() || !cloudKitController.isSavingToCloud() {
                     print("Going foreground from background")
                     planningVM.updateData()
+                    print("Updating too old picked meals")
+                    mealListVM.addBackTooOldPickedMeals()
                 }
             }
             .onAppear() {

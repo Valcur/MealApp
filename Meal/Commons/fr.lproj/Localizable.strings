@@ -140,7 +140,7 @@
 "champignons" = "Champi";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Ajoutez une photo à vos accompagnements personnalisés\n- Ajout d'un onglet contact dans les options pour me contacter si vous souhaitez que j'ajoute une nouvelle foncitonnalité\n\nLes utilisateurs premium et les membres de leur planning partagé peuvent désormais personnaliser l'apparence de l'application:\n- Changement de la couleur princiaple de l'app\n- Ajout d'une image de fond pour le menu de la semaine parmis une séléction ou importez une photo de votre choix depuis votre appareil";
+"whatsNew_content" = "- Ajoutez une photo à vos accompagnements personnalisés (Options -> Accompagnements)\n\n- Correction d'un bug empêchant de modifier certains plats de votre liste\n\n- Refonte du système interne de recommandation de plats aléatoire afin d'empêcher que des plats ne soient selectionnable à nouveau trop rapidement. Les plats peuvent également être resélectionnable automatiquement après un certains délai (4 semaines par défaut, modifiable dans 'Options -> Plats recommandés')\n- Ajout d'un onglet contact dans les options pour me contacter si vous souhaitez que j'ajoute une nouvelle fonctionnalité ou me signaler un bug\n\n\nLes utilisateurs premium et les membres de leur planning partagé peuvent désormais personnaliser l'apparence de l'application:\n- Changement de la couleur principale de l'app\n- Ajout d'une image de fond pour le menu de la semaine parmi une sélection ou importez une photo de votre choix depuis votre appareil";
 "whatsNew_old_title" = "Précédemment";
 "whatsNew_old_content" = "- Choisissez parmi 3 propositions quand vous ajoutez un plat aléatoire.\n\n- Ajout d'une animation lorsque vous gardez appuyé sur un plat pour le déplacer.\n\n- Visualisez la liste des plats que vous n'avez pas mangé depuis longtemps.";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
@@ -179,7 +179,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "collaboration.errorMessage.tryAgain" = "Erreur, veuillez réessayer";
 
 
-"customization.title" = "Personnalisation";
+"customization.title" = "Catégories";
 "customization.intro" = "Si les catégories par défaut ne vous conviennent pas, changez ce que vous souhaitez ci-dessous.";
 "customization.category" = "Categorie";
 "customization.category.randomPickable" = " (Sélectionné aléatoirement)";
@@ -229,3 +229,8 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "randomMeals_refresh" = "Changer les plats";
 "availableMeals_title" = "Plats recommandés";
 "availableMeals_content" = "Les plats que vous n'avez pas mangé depuis longtemps et qui seront sélectionnés lorsque vous ajouterez des plats aléatoirement. Vous pouvez réinitialiser ces listes à tout moment.";
+"availableMeals_content_2" = "Les plats sont à nouveau proposés automatiquement quand la liste devient trop petite. Vous pouvez également choisir un délai après lequel les plats seront rajoutés peu importe le nombre de plat restant dans la liste.";
+"weeks" = "semaines";
+"disabled" = "Désactivé";
+"once" = "à vie";
+"time" = "Délai :";

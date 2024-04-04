@@ -86,10 +86,12 @@ struct PlanningPannel: View {
                                 Image(systemName: "exclamationmark.icloud.fill")
                                     .resizable()
                                     .frame(width: 50, height: 34)
+                                    .foregroundColor(userPrefs.accentColor)
                                 
                                 Text("tryAgain".translate())
                                     .font(.caption)
                                     .offset(y: 25)
+                                    .foregroundColor(userPrefs.accentColor)
                             }
                         }).opacity(cloudKitController.cloudSyncStatus == .error ? 1 : 0)
                             

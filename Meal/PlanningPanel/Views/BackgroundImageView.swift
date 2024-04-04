@@ -25,6 +25,7 @@ struct BackgroundImageView: View {
             }
             if userPrefs.backgroundImage == -1 {
                 AnyView(userPrefs.customBackgroundImageView)
+                    .opacity(colorScheme == .light ? 1 : 0.8)
             }
         }.clipped()
     }

@@ -248,7 +248,8 @@ extension PlanningPanelViewModel {
             weekPlan.week[day.rawValue].objectWillChange.send()
             self.objectWillChange.send()
         }
-        mealsVM.mealHasBeenPicked(meal)
+        let date = weekPlan.week[day.rawValue].date
+        mealsVM.mealHasBeenPicked(meal, date: date)
         
         saveWeek()
     }
@@ -397,6 +398,7 @@ extension PlanningPanelViewModel {
             if possibleChoices.count > 0 {
                 let randomTime = possibleChoices.randomElement()
                 day.append(meal, time: randomTime!)
+                mealsVM.mealHasBeenPicked(meal, date: day.date)
                 successfullyAdded = true
             }
             
@@ -433,6 +435,7 @@ extension PlanningPanelViewModel {
             if possibleChoices.count > 0 {
                 let randomTime = possibleChoices.randomElement()
                 day.append(meal, time: randomTime!)
+                mealsVM.mealHasBeenPicked(meal, date: day.date)
                 successfullyAdded = true
             }
             

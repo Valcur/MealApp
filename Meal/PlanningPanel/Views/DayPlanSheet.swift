@@ -44,7 +44,7 @@ struct DayPlanMealEditSheet: View {
                         dayPlan.evening[mealIndex] = meal
                         dayPlan.evening[mealIndex] = meal
                     }
-                    planningPanelVM.mealsVM.mealHasBeenPicked(meal)
+                    planningPanelVM.mealsVM.mealHasBeenPicked(meal, date: dayPlan.date)
                     dayPlan.objectWillChange.send()
                     planningPanelVM.saveWeek()
                 }

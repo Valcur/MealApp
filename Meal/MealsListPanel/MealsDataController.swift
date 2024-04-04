@@ -89,21 +89,21 @@ extension MealsDataController {
 }
 
 extension MealsDataController {
-    func saveAlreadyPickedIds(_ alreadyPicked: AlreadyPickedIds) {
+    func saveAlreadyPickedIds(_ alreadyPicked: AlreadyPicked) {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(alreadyPicked) {
             userDefaults.set(data, forKey: "\(ALREADY_PICKED_KEY)")
         }
     }
     
-    func loadAlreadyPickedIds() -> AlreadyPickedIds {
+    func loadAlreadyPickedIds() -> AlreadyPicked {
         if let data = userDefaults.object(forKey: "\(ALREADY_PICKED_KEY)") as? Data {
             let decoder = JSONDecoder()
-            if let picked = try? decoder.decode(AlreadyPickedIds.self, from: data) {
+            if let picked = try? decoder.decode(AlreadyPicked.self, from: data) {
                 return picked
             }
         }
-        return AlreadyPickedIds(pickedMeatIds: [], pickedVeganIds: [], pickedOtherIds: [], pickedOutsideIds: [])
+        return AlreadyPicked(pickedMeatIds: [], pickedVeganIds: [], pickedOtherIds: [], pickedOutsideIds: [])
     }
 }
 
