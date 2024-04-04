@@ -136,7 +136,8 @@ struct DayPlanSheet: View {
                     ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
                         Text(mealsAvailable[mealId].name)
                     }
-                }.onChange(of: mealsAvailable) { _ in
+                }.textFieldBackground(vPadding: 5)
+                .onChange(of: mealsAvailable) { _ in
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
                     if selection > mealsAvailable.count {
                         selectedSides = mealsAvailable[selection].sides ?? []
