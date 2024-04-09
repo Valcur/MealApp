@@ -100,7 +100,7 @@ struct DayPlanSheet: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text(NSLocalizedString(sheetTitle, comment: sheetTitle))
                     .title()
@@ -126,17 +126,18 @@ struct DayPlanSheet: View {
                 .subTitle()
             
             EditChoicePicker(editChoice: $editChoice)
-            
-            if editChoice != .leftOver {
-                MealTypeSelection(selectedMealType: $mealType)
-            }
+
             
             if editChoice == .choose {
-                Picker("Meals to choose from", selection: $selection) {
-                    ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
-                        Text(mealsAvailable[mealId].name)
-                    }
-                }.textFieldBackground(vPadding: 5)
+                VStackBlock {
+                    MealTypeSelection(selectedMealType: $mealType)
+                    
+                    Picker("Meals to choose from", selection: $selection) {
+                        ForEach(0..<mealsAvailable.count, id: \.self) { mealId in
+                            Text(mealsAvailable[mealId].name)
+                        }
+                    }.textFieldBackground(vPadding: 5)
+                }
                 .onChange(of: mealsAvailable) { _ in
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
                     if selection > mealsAvailable.count {
@@ -147,36 +148,44 @@ struct DayPlanSheet: View {
                     selection = mealsAvailable.firstIndex(where: {$0.id == meal.id}) ?? 0
                 }
             } else if editChoice == .write {
-                Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
-                    .subTitle()
-                TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
-                    .textFieldBackground()
-            } else {
-                VStack(alignment: .center, spacing: 30) {
-                    Spacer()
-                    Text(NSLocalizedString("leftover", comment: "leftover"))
-                        .headLine()
+                VStackBlock {
+                    MealTypeSelection(selectedMealType: $mealType)
                     
-                    Image("LeftOver")
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                    Spacer()
-                }.frame(maxWidth: .infinity)
+                    Text(NSLocalizedString("choice_write_intro", comment: "choice_write_intro"))
+                        .subTitle()
+                    TextField(NSLocalizedString("choice_write_placeholder", comment: "choice_write_placeholder"), text: $customMealName)
+                        .textFieldBackground()
+                }
+            } else {
+                VStackBlock {
+                    VStack(alignment: .center, spacing: 30) {
+                        Spacer()
+                        Text(NSLocalizedString("leftover", comment: "leftover"))
+                            .headLine()
+                        
+                        Image("LeftOver")
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                        Spacer()
+                    }.frame(maxWidth: .infinity)
+                }
             }
             
             if editChoice != .leftOver {
-                Text(NSLocalizedString("sidepicker_title", comment: "sidepicker_title"))
-                    .subTitle()
-                SidePickerView(selectedSides: $selectedSides)
-                    .environmentObject(planningPanelVM.mealsVM)
-                    .onAppear {
-                        selectedSides = meal.sides ?? []
-                    }
-                    .onChange(of: selection) { _ in
-                        if selection < mealsAvailable.count {
-                            selectedSides = mealsAvailable[selection].sides ?? []
+                VStackBlock {
+                    Text(NSLocalizedString("sidepicker_title", comment: "sidepicker_title"))
+                        .subTitle()
+                    SidePickerView(selectedSides: $selectedSides)
+                        .environmentObject(planningPanelVM.mealsVM)
+                        .onAppear {
+                            selectedSides = meal.sides ?? []
                         }
-                    }
+                        .onChange(of: selection) { _ in
+                            if selection < mealsAvailable.count {
+                                selectedSides = mealsAvailable[selection].sides ?? []
+                            }
+                        }
+                }
             }
             
             Spacer()
@@ -208,7 +217,7 @@ struct DayPlanSheet: View {
             }, label: {
                 ButtonLabel(title: "done")
             })
-        ))
+        )).background(Color("BackgroundColor"))
     }
     
     struct EditChoicePicker: View {

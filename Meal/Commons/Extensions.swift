@@ -248,7 +248,12 @@ struct StickyBottomButton: View {
     
     var body: some View {
         ZStack(alignment: .top){
-            button.padding(.top, 30).padding(.bottom, 10).background(
+            button
+                .padding(.top, 10)
+                .padding(.bottom, 10)
+                .background(Color.clear.blurredBackground())
+                .padding(.top, 20)
+                /*.background(
                     VStack(spacing: 0) {
                         LinearGradient(gradient:  Gradient(colors: [clearColor, backgroundColor]), startPoint: .top, endPoint: .bottom)
                             .frame(height: 10)
@@ -256,7 +261,7 @@ struct StickyBottomButton: View {
                             .foregroundColor(backgroundColor)
                             .background(Rectangle()
                                 .foregroundColor(backgroundColor).frame(height: 150).offset(y: 100))
-                    })
+                    })*/
         }.frame(maxHeight: .infinity, alignment: .bottom)
     }
 }

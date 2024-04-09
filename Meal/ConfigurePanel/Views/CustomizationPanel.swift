@@ -9,14 +9,14 @@ import SwiftUI
 
 struct CustomizationPanel: View {
     var userPrefs: VisualUserPrefs
-    @State private var meatCategorieName: String
-    @State private var veganCategorieName: String
-    @State private var otherCategorieName: String
+    @State private var meatCategorieName: String = ""
+    @State private var veganCategorieName: String = ""
+    @State private var otherCategorieName: String = ""
     
-    @State private var meatCategorieColorId: Int
-    @State private var veganCategorieColorId: Int
-    @State private var otherCategorieColorId: Int
-    @State private var outsideCategorieColorId: Int
+    @State private var meatCategorieColorId: Int = 0
+    @State private var veganCategorieColorId: Int = 0
+    @State private var otherCategorieColorId: Int = 0
+    @State private var outsideCategorieColorId: Int = 0
     
     @State private var meatImageId: Int = 0
     @State private var veganImageId: Int = 1
@@ -28,20 +28,6 @@ struct CustomizationPanel: View {
     
     init(userPrefs: VisualUserPrefs) {
         self.userPrefs = userPrefs
-        
-        meatCategorieName = userPrefs.meatTitle
-        veganCategorieName = userPrefs.veganTitle
-        otherCategorieName = userPrefs.otherTitle
-        
-        meatCategorieColorId = userPrefs.meatColorId
-        veganCategorieColorId = userPrefs.veganColorId
-        otherCategorieColorId = userPrefs.otherColorId
-        outsideCategorieColorId = userPrefs.outsideColorId
-        
-        meatImageId = userPrefs.meatImageId
-        veganImageId = userPrefs.veganImageId
-        otherImageId = userPrefs.otherImageId
-        outsideImageId = userPrefs.outsideImageId
     }
     
     var body: some View {
@@ -170,6 +156,21 @@ struct CustomizationPanel: View {
             })
         ))
         .navigationTitle("customization.title".translate())
+        .onAppear() {
+            meatCategorieName = userPrefs.meatTitle
+            veganCategorieName = userPrefs.veganTitle
+            otherCategorieName = userPrefs.otherTitle
+            
+            meatCategorieColorId = userPrefs.meatColorId
+            veganCategorieColorId = userPrefs.veganColorId
+            otherCategorieColorId = userPrefs.otherColorId
+            outsideCategorieColorId = userPrefs.outsideColorId
+            
+            meatImageId = userPrefs.meatImageId
+            veganImageId = userPrefs.veganImageId
+            otherImageId = userPrefs.otherImageId
+            outsideImageId = userPrefs.outsideImageId
+        }
     }
     
     private struct ColorPickerView: View {

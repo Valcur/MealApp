@@ -87,7 +87,7 @@ struct MealInfoSheet: View {
     @State private var showingNotesSheet = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 30) {
+        VStack(alignment: .leading, spacing: 20) {
             HStack {
                 Text(NSLocalizedString(sheetInfo.title, comment: sheetInfo.title))
                     .title()
@@ -97,32 +97,36 @@ struct MealInfoSheet: View {
                 trashButton
             }
             
-            Group {
-                Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
-                    .headLine()
-                
+            Text(NSLocalizedString(sheetInfo.intro, comment: sheetInfo.intro))
+                .headLine()
+            
+            VStackBlock {
                 Text(NSLocalizedString("mealList_name_title", comment: "mealList_name_title"))
                     .subTitle()
                 
                 TextField(NSLocalizedString("mealList_name_placeholder", comment: "mealList_name_placeholder"), text: $mealNameField)
                     .textFieldBackground()
-                
+            }
+            
+            VStackBlock {
                 Text(NSLocalizedString("mealList_type_title", comment: "mealList_type_title"))
                     .subTitle()
                 
                 MealTypeSelection(selectedMealType: $mealTypeField)
-                
-                Text(NSLocalizedString("mealList_notes_title", comment: "mealList_notes_title"))
-                    .subTitle()
             }
             
-            Button(action: {
-                showingNotesSheet = true
-            }, label: {
-                ButtonLabel(title: "mealPlan_notes_edit_title", isCompact: true)
-            })
+            VStackBlock {
+                Text(NSLocalizedString("mealList_notes_title", comment: "mealList_notes_title"))
+                    .subTitle()
+                
+                Button(action: {
+                    showingNotesSheet = true
+                }, label: {
+                    ButtonLabel(title: "mealPlan_notes_edit_title", isCompact: true)
+                })
+            }
             
-            Group {
+            VStackBlock {
                 Text("mealList_defaultSides".translate())
                     .subTitle()
                 
@@ -131,6 +135,7 @@ struct MealInfoSheet: View {
             
             Spacer()
         }.scrollableSheetVStackWithStickyButton(button: confirmButton)
+            .background(Color("BackgroundColor"))
             .onChange(of: mealNameField) { _ in
                 mealName = mealNameField
             }
