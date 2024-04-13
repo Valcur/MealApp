@@ -65,8 +65,6 @@ class MealsDataController {
     func deleteMeal(meal: Meal) {
         userDefaults.removeObject(forKey: "\(MEAL_KEY)_\(meal.id)")
     }
-    
-
 }
 
 extension MealsDataController {

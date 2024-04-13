@@ -63,6 +63,8 @@
 "mealList_notes_title" = "Notes";
 "mealList_defaultSides" = "Accompagnements par défaut";
 "notes_placeholder" = "Ajoutez vos notes ici ...";
+"mealList_delete_title" = "Supprimer le plat";
+"mealList_delete_content" = "Êtes-vous sûr de vouloir supprimer ce plat ?";
 
 "options_schedule_title" = "Programme";
 "options_schedule_new" = "Nouveau programme";
@@ -234,3 +236,25 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "disabled" = "Désactivé";
 "once" = "à vie";
 "time" = "Délai :";
+
+
+"recipe" = "Recette";
+"ingredients" = "Ingrédients";
+"delete" = "Supprimer";
+"add" = "Ajouter";
+"edit" = "Modifier";
+"close" = "Fermer";
+
+"recipe_delete_title" = "Supprimer la recette";
+"recipe_delete_content" = "Êtes-vous sûr de vouloir supprimer cette recette ?";
+
+"recipe_ingredient_add" = "Ajouter ingrédient";
+"recipe_ingredient_edit" = "Modifier ingrédient";
+"recipe_ingredient_add_content" = "Ecrivez l'ingrédient et sa quantité ci-dessous. La quantité doit être celle pour le nombre de personne actuellement sélectionné.";
+
+"recipe_steps" = "Etapes";
+"recipe_step" = "Etape";
+"recipe_steps_add" = "Ajouter une étape";
+"recipe_steps_placeholder" = "Ecrivez l'étape de la préparation ...";
+"recipe_steps_delete" = "Supprimer étape";
+"recipe_steps_delete_content" = "Êtes-vous sûr de vouloir supprimer l'étape ?";

@@ -26,9 +26,9 @@ struct SidesManagerPanel: View {
                     
                     Spacer()
                     
-                    if customSides.sides.count <= 30 {
+                    if customSides.sides.count <= 100 {
                         Button(action: {
-                            if customSides.sides.count <= 30 {
+                            if customSides.sides.count <= 100 {
                                 customSides.sides.insert(Side(name: "", id: UUID().uuidString), at: 0)
                             }
                         }, label: {

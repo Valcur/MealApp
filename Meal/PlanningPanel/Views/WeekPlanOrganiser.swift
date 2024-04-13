@@ -182,7 +182,7 @@ struct WeekPlanOrganiser: View {
                 let time: TimeOfTheDay
                 @State var meal: Meal
                 var mealHasNotes: Bool {
-                    return meal.notes != nil && meal.notes! != ""
+                    return (meal.notes != nil && meal.notes! != "") || meal.recipe != nil
                 }
                 let isToday: Bool
                 @State var isLongPressing = false

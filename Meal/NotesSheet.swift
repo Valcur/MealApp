@@ -15,25 +15,38 @@ struct WeekPlanNotesSheet: View {
     @Binding var meal: Meal
     @State var mealIndex = -1
     @State private var mealNotesField: String = "Add notes ..."
+    @State private var showRecipe = false
     
     var body: some View {
-        NotesSheet(meal: $meal, mealNotesField: $mealNotesField).sheetVStackWithStickyButton(button: AnyView(Button(action: {
-            if mealNotesField != "" {
-                meal.notes = mealNotesField
-            } else {
-                meal.notes = nil
+        VStack {
+            if let recipe = meal.recipe {
+                Button(action: {
+                    showRecipe = true
+                }, label: {
+                    ButtonLabel(title: "Voir Recette")
+                }).padding(.horizontal, 20).padding(.top, 20)
+                .fullScreenCover(isPresented: $showRecipe) {
+                    FullScreenRecipe(recipe, meal: meal)
+                }
             }
-            if time == .midday && mealIndex >= 0 {
-                dayPlan.midday[mealIndex] = meal
-            } else if time == .evening && mealIndex >= 0 {
-                dayPlan.evening[mealIndex] = meal
-            }
-            dayPlan.objectWillChange.send()
-            planningPanelVM.saveWeek()
-            presentationMode.wrappedValue.dismiss()
-        }, label: {
-            ButtonLabel(title: "confirmChangesButton")
-        })))
+            NotesSheet(meal: $meal, mealNotesField: $mealNotesField).sheetVStackWithStickyButton(button: AnyView(Button(action: {
+                if mealNotesField != "" {
+                    meal.notes = mealNotesField
+                } else {
+                    meal.notes = nil
+                }
+                if time == .midday && mealIndex >= 0 {
+                    dayPlan.midday[mealIndex] = meal
+                } else if time == .evening && mealIndex >= 0 {
+                    dayPlan.evening[mealIndex] = meal
+                }
+                dayPlan.objectWillChange.send()
+                planningPanelVM.saveWeek()
+                presentationMode.wrappedValue.dismiss()
+            }, label: {
+                ButtonLabel(title: "confirmChangesButton")
+            })))
+        }
         .onAppear() {
             if time == .midday {
                 mealIndex = dayPlan.midday.firstIndex(where: {$0.uuid == meal.uuid}) ?? -1

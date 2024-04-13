@@ -22,10 +22,7 @@
 "tab_meals" = "My meals";
 "tab_options" = "Configure";
 
-/*
-"Midday" = "Midday"; // Lunch ??
-"Evening" = "Evening";
-*/
+
 "autofill" = "Auto";
 "autofill_intro" = "Fill each empty lunch with a random meal depending on what options you selected";
 "autofill_meat-vegan_title" = "Share between %@/%@ meal this week";
@@ -56,6 +53,8 @@
 "mealList_notes_title" = "Notes";
 "mealList_defaultSides" = "Default sides";
 "notes_placeholder" = "Add your notes here ...";
+"mealList_delete_title" = "Delete meal";
+"mealList_delete_content" = "Are you sure you want to delete this meal ?";
 
 "options_schedule_title" = "Schedule";
 "options_schedule_new" = "New schedule";
@@ -224,3 +223,28 @@ Once activated if you have an error during synchronization, check your device's 
 "disabled" = "Disabled";
 "once" = "forever";
 "time" = "Time :";
+
+
+"recipe" = "Recipe";
+"ingredients" = "Ingredients";
+"delete" = "Delete";
+"add" = "Add";
+"edit" = "Edit";
+"close" = "Close";
+
+"recipe_delete_title" = "Delete recipe";
+"recipe_delete_content" = "Are you sure you want to delete this recipe ?";
+
+"recipe_ingredient_add" = "Add ingredient";
+"recipe_ingredient_edit" = "Edit ingredient";
+"recipe_ingredient_add_content" = "Write the quantity and the ingredient below. The quantity should be for the currently selected servings.";
+
+"recipe_steps" = "Steps";
+"recipe_step" = "Step";
+"recipe_steps_add" = "Add step";
+"recipe_steps_placeholder" = "Write step...";
+"recipe_steps_delete" = "Delete step";
+"recipe_steps_delete_content" = "Are you sure you want to delete this step ?";
+
+
+

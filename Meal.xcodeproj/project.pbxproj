@@ -71,10 +71,13 @@
 		DBA7B1FC29C9D98000B04E38 /* WhatsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA7B1FB29C9D98000B04E38 /* WhatsNew.swift */; };
 		DBB9C5D72A3DB6050087BA99 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9C5D62A3DB6050087BA99 /* IAPManager.swift */; };
 		DBB9C5D92A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9C5D82A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift */; };
+		DBC144FC2BC026C6006517CA /* VStackBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC144FB2BC026C6006517CA /* VStackBlock.swift */; };
 		DBDB328E29D0588600248B12 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DBDB329029D0588600248B12 /* InfoPlist.strings */; };
 		DBDB329429D070F900248B12 /* WhatsNewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDB329329D070F900248B12 /* WhatsNewPanel.swift */; };
 		DBEAFBD92A35C89C0048797C /* CloudKitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEAFBD82A35C89C0048797C /* CloudKitController.swift */; };
 		DBEAFBDB2A3786D30048797C /* CollaborationPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEAFBDA2A3786D30048797C /* CollaborationPanel.swift */; };
+		DBFF17DE2BC56080006506EB /* RecipeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFF17DD2BC56080006506EB /* RecipeSheet.swift */; };
+		DBFF17E02BC5623B006506EB /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFF17DF2BC5623B006506EB /* Recipe.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,12 +167,15 @@
 		DBA7B1FB29C9D98000B04E38 /* WhatsNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNew.swift; sourceTree = "<group>"; };
 		DBB9C5D62A3DB6050087BA99 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		DBB9C5D82A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConfigurePanelVM+IAP.swift"; sourceTree = "<group>"; };
+		DBC144FB2BC026C6006517CA /* VStackBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VStackBlock.swift; sourceTree = "<group>"; };
 		DBDB329129D0588E00248B12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBDB329229D0589E00248B12 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBDB329329D070F900248B12 /* WhatsNewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewPanel.swift; sourceTree = "<group>"; };
 		DBEAFBD72A334B590048797C /* Meal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Meal.entitlements; sourceTree = "<group>"; };
 		DBEAFBD82A35C89C0048797C /* CloudKitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitController.swift; sourceTree = "<group>"; };
 		DBEAFBDA2A3786D30048797C /* CollaborationPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollaborationPanel.swift; sourceTree = "<group>"; };
+		DBFF17DD2BC56080006506EB /* RecipeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSheet.swift; sourceTree = "<group>"; };
+		DBFF17DF2BC5623B006506EB /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +309,8 @@
 			children = (
 				DB9B87EB294503BB00F2344B /* MealList.swift */,
 				DB6E0E81297F05B300BCDB96 /* Side.swift */,
+				DBC144FB2BC026C6006517CA /* VStackBlock.swift */,
+				DBFF17DF2BC5623B006506EB /* Recipe.swift */,
 			);
 			path = Struct;
 			sourceTree = "<group>";
@@ -324,6 +332,7 @@
 				DB9B87D0293F51C200F2344B /* MealTypeSelectionRow.swift */,
 				DB9B87F12945044300F2344B /* MealListPanel.swift */,
 				DB9B87D9293F81C400F2344B /* NewMealSheet.swift */,
+				DBFF17DD2BC56080006506EB /* RecipeSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -553,6 +562,7 @@
 				DB9B87D1293F51C200F2344B /* MealTypeSelectionRow.swift in Sources */,
 				DB9B87E52942159A00F2344B /* WeekPlan.swift in Sources */,
 				DB4BD4CC2B692390007845BD /* AlreadyPickedPanel.swift in Sources */,
+				DBC144FC2BC026C6006517CA /* VStackBlock.swift in Sources */,
 				DB14B3CE2B99F5F40024821D /* GoingPremium.swift in Sources */,
 				DB9D9965295387B40051BD63 /* MealsDataController+Calendar.swift in Sources */,
 				DB14B3CA2B90D08C0024821D /* UIPersonalisationPanel.swift in Sources */,
@@ -569,6 +579,7 @@
 				DBB9C5D92A3DB6480087BA99 /* ConfigurePanelVM+IAP.swift in Sources */,
 				DB772BC62964A98E00A5C1F8 /* ViewSizes.swift in Sources */,
 				DB9D9957295092B40051BD63 /* MealsDataController+Schedule.swift in Sources */,
+				DBFF17DE2BC56080006506EB /* RecipeSheet.swift in Sources */,
 				DB3663222A6965AC00F7894B /* RecipeInfoSheet.swift in Sources */,
 				DBA39EED294C9DDF00AC97E2 /* ConfigurePanel.swift in Sources */,
 				DBA7B1FA29C3264900B04E38 /* NotesSheet.swift in Sources */,
@@ -579,6 +590,7 @@
 				DB9B87DC29410F2700F2344B /* Extensions.swift in Sources */,
 				DBDB329429D070F900248B12 /* WhatsNewPanel.swift in Sources */,
 				DBB9C5D72A3DB6050087BA99 /* IAPManager.swift in Sources */,
+				DBFF17E02BC5623B006506EB /* Recipe.swift in Sources */,
 				DB36632D2A6D44C700F7894B /* CustomizationPanel.swift in Sources */,
 				DBEAFBDB2A3786D30048797C /* CollaborationPanel.swift in Sources */,
 				DB9B87F02945042500F2344B /* MealsListPanel.swift in Sources */,
@@ -785,7 +797,7 @@
 				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
@@ -805,7 +817,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7;
+				MARKETING_VERSION = 7.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -826,7 +838,7 @@
 				CODE_SIGN_ENTITLEMENTS = Meal/Meal.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Meal/Preview Content\"";
 				DEVELOPMENT_TEAM = RDT93YL76H;
 				ENABLE_PREVIEWS = YES;
@@ -846,7 +858,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7;
+				MARKETING_VERSION = 7.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Loic.Danjean.MealPlanning;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

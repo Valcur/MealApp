@@ -16,13 +16,15 @@ class Meal: Hashable, Codable, Identifiable {
     var type: MealType
     var sides: [Side]?
     var notes: String?
+    var recipe: Recipe?
     
-    init(id: Int, name: String, type: MealType, sides: [Side]? = [], notes: String? = nil) {
+    init(id: Int, name: String, type: MealType, sides: [Side]? = [], notes: String? = nil, recipe: Recipe? = nil) {
         self.id = id
         self.name = name
         self.type = type
         self.sides = sides
         self.notes = notes
+        self.recipe = recipe
     }
     
     static func ==(lhs: Meal, rhs: Meal) -> Bool {
@@ -34,7 +36,7 @@ class Meal: Hashable, Codable, Identifiable {
     }
     
     func new() -> Meal {
-        return Meal(id: self.id, name: self.name, type: self.type, sides: self.sides ?? nil, notes: self.notes ?? nil)
+        return Meal(id: self.id, name: self.name, type: self.type, sides: self.sides ?? nil, notes: self.notes ?? nil, recipe: self.recipe ?? nil)
     }
     
     func hasNotes() -> Bool {

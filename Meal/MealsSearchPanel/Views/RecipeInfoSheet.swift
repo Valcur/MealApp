@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RecipeInfosSheet: View {
     @Environment(\.presentationMode) var presentationMode
-    let recipe: Recipe
+    let recipe: OnlineRecipe
     private let stackSpacing: CGFloat = 15
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {

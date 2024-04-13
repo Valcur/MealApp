@@ -11,7 +11,7 @@ import SwiftUI
 struct AddRecipeSheet: View {
     @EnvironmentObject var mealsListVM: MealsListPanelViewModel
     @Environment(\.presentationMode) var presentationMode
-    let recipe: Recipe
+    let recipe: OnlineRecipe
     private let stackSpacing: CGFloat = 15
     @State private var mealNameField: String = ""
     @State private var mealNotesField: String = ""
@@ -47,7 +47,7 @@ struct AddRecipeSheet: View {
             Spacer()
         }.safeAreaScrollableSheetVStackWithStickyButton(button: AnyView(
             Button(action: {
-                mealsListVM.createNewMealWith(name: mealNameField, type: mealTypeField, notes: mealNotesField)
+                //mealsListVM.createNewMealWith(name: mealNameField, type: mealTypeField, notes: mealNotesField)
                 presentationMode.wrappedValue.dismiss()
             }, label: {
                 ButtonLabel(title: "Add")

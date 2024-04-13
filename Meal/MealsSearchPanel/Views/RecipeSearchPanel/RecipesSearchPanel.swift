@@ -10,7 +10,7 @@ import SwiftUI
 struct RecipesSearchPanel: View
 {
     @EnvironmentObject var recipesSearchVM: RecipesSearchPanelViewModel
-    var recipes: [Recipe] {
+    var recipes: [OnlineRecipe] {
         Array(recipesSearchVM.recipes.suffix(3))
     }
     
@@ -20,7 +20,7 @@ struct RecipesSearchPanel: View
     private let cardAlphaStep: Double = 0.1
     
     @State private var showAddRecipeSheet = false
-    @State private var recipeToAdd: Recipe = Recipe.empty
+    @State private var recipeToAdd: OnlineRecipe = OnlineRecipe.empty
     
     private var yCardsOffset: CGFloat
     {
@@ -37,7 +37,7 @@ struct RecipesSearchPanel: View
         return offset * CGFloat(cardIndex)
     }
     
-    private func calculateItemInvertIndex(arr: [Recipe], item: Recipe) -> Int
+    private func calculateItemInvertIndex(arr: [OnlineRecipe], item: OnlineRecipe) -> Int
     {
         if arr.isEmpty { return 0 }
         return arr.count - 1 - arr.firstIndex(of: item)!

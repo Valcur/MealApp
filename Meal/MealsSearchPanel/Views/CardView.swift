@@ -18,7 +18,7 @@ enum DayState
 struct CardView: View
 {
     @EnvironmentObject var recipesSearchVM: RecipesSearchPanelViewModel
-    var recipe: Recipe
+    var recipe: OnlineRecipe
     var cardAlpha: Double = 1.0
     @Binding var addRecipe: Bool
     
