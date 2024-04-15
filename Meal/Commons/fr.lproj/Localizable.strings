@@ -162,7 +162,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 
 "collaboration.useSharedPlanning.title" = "Rejoindre un menu partagé";
 "collaboration.useSharedPlanning.codeDescription" = "Collez le code qu'on vous a partagé ci-dessous :";
-"collaboration.useSharedPlanning.toggle" = "Confirmer vouloir rejoindre le menu lié au code ci-dessus.";
+"collaboration.useSharedPlanning.toggle" = "Confirmer vouloir rejoindre un menu partagé";
 "collaboration.useSharedPlanning.error" = "Vous ne pouvez pas collaborer sur le menu de quelq'un d'autre tant que vous partagez votre menu.";
 
 "collaboration.shareYourPlanning.title" = "Partager votre menu";
@@ -252,8 +252,7 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "recipe_ingredient_edit" = "Modifier ingrédient";
 "recipe_ingredient_add_content" = "Ecrivez l'ingrédient et sa quantité ci-dessous. La quantité doit être celle pour le nombre de personne actuellement sélectionné.";
 
-"recipe_steps" = "Etapes";
-"recipe_step" = "Etape";
+"recipe_steps" = "Préparation";
 "recipe_steps_add" = "Ajouter une étape";
 "recipe_steps_placeholder" = "Ecrivez l'étape de la préparation ...";
 "recipe_steps_delete" = "Supprimer étape";

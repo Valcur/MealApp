@@ -152,7 +152,7 @@ Once activated if you have an error during synchronization, check your device's 
 
 "collaboration.useSharedPlanning.title" = "Join a shared planning";
 "collaboration.useSharedPlanning.codeDescription" = "Paste the code someone shared with you bellow to join his planning:";
-"collaboration.useSharedPlanning.toggle" = "Confirm using shared planning from this code";
+"collaboration.useSharedPlanning.toggle" = "Confirm using shared planning";
 "collaboration.useSharedPlanning.error" = "You can't join a shared planning while sharing your own planning.";
 
 "collaboration.shareYourPlanning.title" = "Share your planning";
@@ -239,8 +239,7 @@ Once activated if you have an error during synchronization, check your device's 
 "recipe_ingredient_edit" = "Edit ingredient";
 "recipe_ingredient_add_content" = "Write the quantity and the ingredient below. The quantity should be for the currently selected servings.";
 
-"recipe_steps" = "Steps";
-"recipe_step" = "Step";
+"recipe_steps" = "Intructions";
 "recipe_steps_add" = "Add step";
 "recipe_steps_placeholder" = "Write step...";
 "recipe_steps_delete" = "Delete step";

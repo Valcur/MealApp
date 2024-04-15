@@ -15,7 +15,7 @@ struct VStackBlock<Content: View>: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 30, content: content)
+        VStack(alignment: .leading, spacing: 20, content: content)
             .frame(maxWidth: .infinity)
             .roundedCornerRectangle(shadowRadius: 0)
             .padding(.horizontal, -5)

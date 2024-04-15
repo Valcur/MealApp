@@ -34,7 +34,7 @@ extension View {
     
     func scrollableSheetVStackWithStickyButton(button: AnyView) -> some View {
         ZStack {
-            self.padding(.bottom, 50).scrollableSheetVStack().ignoresSafeArea()
+            self.padding(.bottom, 80).scrollableSheetVStack().ignoresSafeArea()
             
             StickyBottomButton(button: button).ignoresSafeArea(.keyboard)
         }
@@ -75,14 +75,14 @@ extension View {
             .background(VisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial)))
     }
     
-    func HStackIPadVStackIPhone() -> some View {
+    func HStackIPadVStackIPhone(spacing: CGFloat = 0) -> some View {
         ZStack {
             if UIDevice.isIPhone {
-                VStack {
+                VStack(spacing: spacing) {
                     self
                 }
             } else {
-                HStack {
+                HStack(spacing: spacing) {
                     self
                 }
             }
@@ -251,8 +251,8 @@ struct StickyBottomButton: View {
             button
                 .padding(.top, 10)
                 .padding(.bottom, 10)
-                .background(Color.clear.blurredBackground())
-                .padding(.top, 20)
+                .background(Color.clear.blurredBackground().padding(.bottom, -35))
+                
                 /*.background(
                     VStack(spacing: 0) {
                         LinearGradient(gradient:  Gradient(colors: [clearColor, backgroundColor]), startPoint: .top, endPoint: .bottom)

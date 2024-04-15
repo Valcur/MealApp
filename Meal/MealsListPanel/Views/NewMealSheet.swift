@@ -31,7 +31,7 @@ struct NewMealSheet: View {
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ButtonLabel(title: "done")
-                }))
+                })), mealNameField: mealName, mealTypeField: mealType
         )
     }
 }
@@ -75,7 +75,7 @@ struct EditMealSheet: View {
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
                     ButtonLabel(title: "confirmChangesButton")
-                }))
+                })), mealNameField: mealName, mealTypeField: mealType
         )
         .onAppear() {
             defaultSides = meal.sides ?? []
@@ -114,8 +114,8 @@ struct MealInfoSheet: View {
     let sheetInfo: MealInfoSheetData
     let trashButton: AnyView
     let confirmButton: AnyView
-    @State private var mealNameField: String = ""
-    @State private var mealTypeField: MealType = .meat
+    @State var mealNameField: String
+    @State var mealTypeField: MealType
     @State private var mealNotesField: String = "This is some editable text..."
     @State private var showingNotesSheet = false
     @State private var showingRecipeSheet = false
@@ -150,7 +150,7 @@ struct MealInfoSheet: View {
                 MealTypeSelection(selectedMealType: $mealTypeField)
             }
             
-            HStack(spacing: 20) {
+            Group {
                 VStackBlock {
                     HStack {
                         Text("mealList_notes_title".translate())
@@ -206,7 +206,7 @@ struct MealInfoSheet: View {
                         RecipeSheetWrapper(mealName: mealName, mealType: mealType, recipe: $mealRecipe)
                     }
                 }
-            }
+            }.HStackIPadVStackIPhone(spacing: 20)
             
             VStackBlock {
                 Text("mealList_defaultSides".translate())
@@ -227,7 +227,6 @@ struct MealInfoSheet: View {
             .onChange(of: mealName) { _ in
                 if mealName != mealNameField {
                     mealNameField = mealName
-                    mealTypeField = mealType
                 }
             }
             .onChange(of: mealTypeField) { _ in
@@ -235,6 +234,11 @@ struct MealInfoSheet: View {
             }
             .onAppear() {
                 mealTypeField = mealType
+            }
+            .onChange(of: mealType) { _ in
+                if mealType != mealTypeField {
+                    mealTypeField = mealType
+                }
             }
             .onChange(of: mealTmp.notes) { _ in
                 mealNotes = mealTmp.notes

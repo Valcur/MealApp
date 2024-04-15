@@ -35,33 +35,34 @@ struct CollaborationPanel: View {
                 Text(NSLocalizedString("collaboration.useSharedPlanning.error", comment: "collaboration.useSharedPlanning.error"))
                     .headLine()
             } else {
-                
-                Text(NSLocalizedString("collaboration.useSharedPlanning.codeDescription", comment: "collaboration.useSharedPlanning.codeDescription"))
-                    .headLine()
-                
-                HStack {
-                    if #available(iOS 16.0, *) {
-                        TextField("", text: $keyUsed, axis: .vertical)
-                            .roundedCornerRectangle(cornerRadius: 5)
-                    } else {
-                        TextField("", text: $keyUsed)
-                            .roundedCornerRectangle(cornerRadius: 5)
-                    }
-                    
-                    
-                    Button(action: {
-                        keyUsed = UIPasteboard.general.string ?? ""
-                    }, label: {
-                        ButtonLabel(title: "paste", isCompact: true)
-                    })
-                }
-                
                 HStack {
                     Text("collaboration.useSharedPlanning.toggle")
                         .headLine()
                     Spacer()
                     Toggle("", isOn: $useSharedCalendar.animation())
                         .labelsHidden()
+                }
+                
+                if useSharedCalendar {
+                    Text(NSLocalizedString("collaboration.useSharedPlanning.codeDescription", comment: "collaboration.useSharedPlanning.codeDescription"))
+                        .headLine()
+                    
+                    HStack {
+                        if #available(iOS 16.0, *) {
+                            TextField("", text: $keyUsed, axis: .vertical)
+                                .roundedCornerRectangle(cornerRadius: 5)
+                        } else {
+                            TextField("", text: $keyUsed)
+                                .roundedCornerRectangle(cornerRadius: 5)
+                        }
+                        
+                        
+                        Button(action: {
+                            keyUsed = UIPasteboard.general.string ?? ""
+                        }, label: {
+                            ButtonLabel(title: "paste", isCompact: true)
+                        })
+                    }
                 }
             }
             
@@ -83,22 +84,24 @@ struct CollaborationPanel: View {
                             .labelsHidden()
                     }
                     
-                    Text(NSLocalizedString("collaboration.shareYourPlanning.codeDescription", comment: "collaboration.shareYourPlanning.codeDescription"))
-                        .headLine()
-                    
-                    HStack {
-                        HStack {
-                            Text(userUUID)
-                                .headLine()
-                            Spacer()
-                        }.roundedCornerRectangle(cornerRadius: 5)
+                    if shareYourCalendar {
+                        Text(NSLocalizedString("collaboration.shareYourPlanning.codeDescription", comment: "collaboration.shareYourPlanning.codeDescription"))
+                            .headLine()
                         
-                        Button(action: {
-                            UIPasteboard.general.setValue(userUUID,
-                                        forPasteboardType: UTType.plainText.identifier)
-                        }, label: {
-                            ButtonLabel(title: "copy", isCompact: true)
-                        })
+                        HStack {
+                            HStack {
+                                Text(userUUID)
+                                    .headLine()
+                                Spacer()
+                            }.roundedCornerRectangle(cornerRadius: 5)
+                            
+                            Button(action: {
+                                UIPasteboard.general.setValue(userUUID,
+                                                              forPasteboardType: UTType.plainText.identifier)
+                            }, label: {
+                                ButtonLabel(title: "copy", isCompact: true)
+                            })
+                        }
                     }
                 }
             } else {
@@ -107,9 +110,11 @@ struct CollaborationPanel: View {
             Spacer()
         }.safeAreaScrollableSheetVStackWithStickyButton(button: AnyView(
             VStack {
-                Text(errorMessage)
-                    .headLine()
-                    .foregroundColor(.red)
+                if errorMessage != "" {
+                    Text(errorMessage)
+                        .headLine()
+                        .foregroundColor(.red)
+                }
                 
                 Button(action: {
                     applyChanges()
