@@ -142,9 +142,9 @@
 "champignons" = "Champi";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "- Ajoutez une photo à vos accompagnements personnalisés (Options -> Accompagnements)\n\n- Correction d'un bug empêchant de modifier certains plats de votre liste\n\n- Refonte du système interne de recommandation de plats aléatoire afin d'empêcher que des plats ne soient selectionnable à nouveau trop rapidement. Les plats peuvent également être resélectionnable automatiquement après un certains délai (4 semaines par défaut, modifiable dans 'Options -> Plats recommandés')\n- Ajout d'un onglet contact dans les options pour me contacter si vous souhaitez que j'ajoute une nouvelle fonctionnalité ou me signaler un bug\n\n\nLes utilisateurs premium et les membres de leur planning partagé peuvent désormais personnaliser l'apparence de l'application:\n- Changement de la couleur principale de l'app\n- Ajout d'une image de fond pour le menu de la semaine parmi une sélection ou importez une photo de votre choix depuis votre appareil";
+"whatsNew_content" = "Augmentation du nombre maximum d'accompagnements personnalisés\n\nAjoutez une recette à vos plats :\n- Ajoutez une recette depuis l'onglet 'mes plats' (nécessite iOS 16 minimum)\n- Si vous ajoutez un plat avec recette à votre planning, la recette sera accessible depuis votre planning (même onglet que les notes, la recette doit avoir été créée avant d'ajouter le plat)\n- Les recettes ne sont actuellement pas partagées sur le planning des autres membre de votre famille si vous utilisez le planning partagé.";
 "whatsNew_old_title" = "Précédemment";
-"whatsNew_old_content" = "- Choisissez parmi 3 propositions quand vous ajoutez un plat aléatoire.\n\n- Ajout d'une animation lorsque vous gardez appuyé sur un plat pour le déplacer.\n\n- Visualisez la liste des plats que vous n'avez pas mangé depuis longtemps.";
+"whatsNew_old_content" = "- Ajoutez une photo à vos accompagnements personnalisés (Options -> Accompagnements)\n\n- Correction d'un bug empêchant de modifier certains plats de votre liste\n\n- Refonte du système interne de recommandation de plats aléatoire afin d'empêcher que des plats ne soient selectionnable à nouveau trop rapidement. Les plats peuvent également être resélectionnable automatiquement après un certains délai (4 semaines par défaut, modifiable dans 'Options -> Plats recommandés')\n- Ajout d'un onglet contact dans les options pour me contacter si vous souhaitez que j'ajoute une nouvelle fonctionnalité ou me signaler un bug\n\n\nLes utilisateurs premium et les membres de leur planning partagé peuvent désormais personnaliser l'apparence de l'application:\n- Changement de la couleur principale de l'app\n- Ajout d'une image de fond pour le menu de la semaine parmi une sélection ou importez une photo de votre choix depuis votre appareil";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
 "whatsNew_rateUs_content" = "Dites nous ce que vous en pensez.";
 "whatsNew_rateUs_button" = "Notez nous sur l'App Store";
@@ -248,12 +248,15 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "recipe_delete_title" = "Supprimer la recette";
 "recipe_delete_content" = "Êtes-vous sûr de vouloir supprimer cette recette ?";
 
-"recipe_ingredient_add" = "Ajouter ingrédient";
+"recipe_clipboard_content" = "Copiez la liste dans votre presse papier puis utilisez ce bouton pour tout ajouter d'un coup. Vous êtes sur le point d'ajouter :";
+
+"recipe_ingredient_add" = "Ajouter";
+"recipe_ingredient_add_all" = "Importer";
 "recipe_ingredient_edit" = "Modifier ingrédient";
 "recipe_ingredient_add_content" = "Ecrivez l'ingrédient et sa quantité ci-dessous. La quantité doit être celle pour le nombre de personne actuellement sélectionné.";
 
 "recipe_steps" = "Préparation";
-"recipe_steps_add" = "Ajouter une étape";
+"recipe_steps_add" = "Importer";
 "recipe_steps_placeholder" = "Ecrivez l'étape de la préparation ...";
 "recipe_steps_delete" = "Supprimer étape";
 "recipe_steps_delete_content" = "Êtes-vous sûr de vouloir supprimer l'étape ?";

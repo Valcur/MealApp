@@ -159,14 +159,14 @@ struct DayPlanSheet: View {
             } else {
                 VStackBlock {
                     VStack(alignment: .center, spacing: 30) {
-                        Spacer()
+                        Spacer().frame(maxHeight: 60)
                         Text(NSLocalizedString("leftover", comment: "leftover"))
                             .headLine()
                         
                         Image("LeftOver")
                             .resizable()
                             .frame(width: 200, height: 200)
-                        Spacer()
+                        Spacer().frame(maxHeight: 60)
                     }.frame(maxWidth: .infinity)
                 }
             }

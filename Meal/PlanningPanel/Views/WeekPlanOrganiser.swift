@@ -272,7 +272,6 @@ struct WeekPlanOrganiser: View {
                     .sheet(isPresented: $showingNotesSheet) {
                         WeekPlanNotesSheet(dayPlan: dayPlan, time: time, meal: $meal)
                     }
-                    
                 }
             }
         }

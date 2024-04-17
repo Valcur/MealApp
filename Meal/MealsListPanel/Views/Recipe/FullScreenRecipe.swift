@@ -9,11 +9,12 @@ import SwiftUI
 
 struct FullScreenRecipe: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var userPrefs: VisualUserPrefs
     @State var recipe: Recipe
     var mealName: String = ""
     var mealType: MealType = .meat
     @State var currentStep = -1
-    let textSize: CGFloat = 22
+    let textSize: CGFloat = UIDevice.isIPhone ? 16 : 22
     
     init(_ recipe: Recipe, meal: Meal) {
         self._recipe = State(initialValue: recipe)
@@ -44,7 +45,9 @@ struct FullScreenRecipe: View {
                 if UIDevice.isIPhone {
                     ScrollView(.vertical) {
                         VStack {
-                            IngredientsView(recipe: recipe, textSize: textSize)
+                            if recipe.ingredients.count > 0 {
+                                IngredientsView(recipe: recipe, textSize: textSize, mealType: mealType)
+                            }
                             
                             StepsView(recipe: recipe, mealType: mealType, textSize: textSize)
                         }
@@ -54,31 +57,43 @@ struct FullScreenRecipe: View {
                         HStack(alignment: .top) {
                             ScrollView(.vertical) {
                                 StepsView(recipe: recipe, mealType: mealType, textSize: textSize)
-                                    .frame(maxWidth: 2 * geo.size.width / 3)
+                                    .frame(minWidth: 1.75 * geo.size.width / 3)
                             }
                             
-                            IngredientsView(recipe: recipe, textSize: textSize)
+                            if recipe.ingredients.count > 0 {
+                                IngredientsView(recipe: recipe, textSize: textSize, mealType: mealType)
+                            }
                         }
                     }
                 }
-            }.background(Color("BackgroundColor").ignoresSafeArea())
+            }.background(mealType.getColor(userPrefs: userPrefs).opacity(0.05).ignoresSafeArea())
         }.background(
             GeometryReader { geo in
                 ZStack {
-                    RecipeBackgroundImage(recipe: recipe, mealType: mealType)
-                    Color.clear//.blurredBackground()
+                    //RecipeBackgroundImage(recipe: recipe, mealType: mealType)
+                    Color.white
+                    //Color.clear.blurredBackground()
                 }.frame(height: geo.size.height).clipped()
             }.ignoresSafeArea()
         )
     }
     
     struct IngredientsView: View {
+        @EnvironmentObject var userPrefs: VisualUserPrefs
         @State var recipe: Recipe
         let textSize: CGFloat
+        let mealType: MealType
         var body: some View {
-            VStackBlock {
+            VStack(spacing: 20) {
                 //MARK: Servings
                 HStack {
+                    
+                    Text("Ingredients")
+                        .font(.system(size: textSize))
+                        .fontWeight(.bold)
+                    
+                    Spacer()
+                    
                     Button(action: {
                         if recipe.serving > 1 {
                             recipe.updateServing(recipe.serving - 1)
@@ -86,6 +101,7 @@ struct FullScreenRecipe: View {
                     }, label: {
                         Image(systemName: "minus.square.fill")
                             .font(.system(size: textSize * 1.3))
+                            .foregroundColor(mealType.getColor(userPrefs: userPrefs))
                     })
                     
                     Text("\(recipe.serving)")
@@ -99,15 +115,16 @@ struct FullScreenRecipe: View {
                     }, label: {
                         Image(systemName: "plus.square.fill")
                             .font(.system(size: textSize * 1.3))
+                            .foregroundColor(mealType.getColor(userPrefs: userPrefs))
                     })
-                }.roundedCornerRectangle()
+                }
+                
+                Color.black.frame(height: 1).padding(.horizontal, 10)
                 
                 //MARK: Ingredients
                 ForEach(recipe.ingredients) { ingredient in
-                    HStack(spacing: 0) {
-                        Text("- ")
-                            .font(.system(size: textSize))
-                        Text("\(ingredient.displayedQuantity.clean)")
+                    HStack(alignment: .top, spacing: 0) {
+                        Text(ingredient.displayedQuantity)
                             .fontWeight(.bold)
                             .font(.system(size: textSize))
                         Text("\(ingredient.name)")
@@ -115,7 +132,7 @@ struct FullScreenRecipe: View {
                         Spacer()
                     }
                 }
-            }.padding(20)
+            }.roundedCornerRectangle(color: mealType.getColor(userPrefs: userPrefs).opacity(0.15)).padding(20)
         }
     }
     
@@ -142,10 +159,12 @@ struct FullScreenRecipe: View {
                          */
                         mealType.getColor(userPrefs: userPrefs)
                             .frame(maxWidth: 3)
+                            .frame(maxHeight: .infinity)
                         
                         Text(step.step)
                             .font(.system(size: textSize))
-                            //.padding(.top, (40 - textSize) / 2 - 5)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
                         
                         Spacer()
                     }

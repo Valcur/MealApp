@@ -19,50 +19,50 @@
 "next_week" = "Next week";
 
 "tab_week" = "My week";
-"tab_meals" = "My meals";
+"tab_meals" = "My dishes";
 "tab_options" = "Configure";
 
 
 "autofill" = "Auto";
-"autofill_intro" = "Fill each empty lunch with a random meal depending on what options you selected";
-"autofill_meat-vegan_title" = "Share between %@/%@ meal this week";
-"autofill_outside_title" = "Number of meal outside this week";
+"autofill_intro" = "Fill each empty meal with a random dish depending on what options you selected";
+"autofill_meat-vegan_title" = "Share between %@/%@ dish this week";
+"autofill_outside_title" = "Number of outdoor meals this week";
 
 "mealPlan_edit_title" = "Edit info";
-"mealPlan_edit_subtitle" = "Change meal";
-"mealPlan_new_title" = "New meal";
+"mealPlan_edit_subtitle" = "Change dish";
+"mealPlan_new_title" = "New dish";
 "mealPlan_new_subtitle" = "Select info";
 "mealPlan_notes_new_title" = "Add notes";
 "mealPlan_notes_edit_title" = "Edit notes";
 "choice_choose" = "Choose";
 "choice_write" = "Write";
 "choice_leftover" = "Leftover";
-"choice_write_intro" = "Choose a custom name for this one time meal";
-"choice_write_placeholder" = "Enter meal name";
+"choice_write_intro" = "Choose a custom name for this one time dish";
+"choice_write_placeholder" = "Enter dish name";
 "leftover" = "Leftover";
 "done" = "Done";
 
-"mealList_title" = "Your meals";
-"mealList_new_title" = "New meal";
-"mealList_new_subtitle" = "Enter the info for your new meal";
-"mealList_edit_title" = "Edit meal";
-"mealList_edit_subtitle" = "Change the info of your meal";
-"mealList_name_title" = "Meal name";
-"mealList_name_placeholder" = "Enter meal name";
-"mealList_type_title" = "Meal type";
+"mealList_title" = "Your dishes";
+"mealList_new_title" = "New dish";
+"mealList_new_subtitle" = "Enter the info for your new dish";
+"mealList_edit_title" = "Edit dish";
+"mealList_edit_subtitle" = "Change the info of your dish";
+"mealList_name_title" = "Name of the dish";
+"mealList_name_placeholder" = "Enter dish name";
+"mealList_type_title" = "Dish type";
 "mealList_notes_title" = "Notes";
 "mealList_defaultSides" = "Default sides";
 "notes_placeholder" = "Add your notes here ...";
-"mealList_delete_title" = "Delete meal";
-"mealList_delete_content" = "Are you sure you want to delete this meal ?";
+"mealList_delete_title" = "Delete dish";
+"mealList_delete_content" = "Are you sure you want to delete this dish ?";
 
 "options_schedule_title" = "Schedule";
 "options_schedule_new" = "New schedule";
 "options_schedule_new_title" = "New schedule";
-"options_schedule_new_mealChoice_subtitle" = "Choose the meal you want to add to a schedule";
+"options_schedule_new_mealChoice_subtitle" = "Choose the dish you want to add to a schedule";
 "options_schedule_edit_title" = "Edit schedule";
-"options_schedule_edit_mealChoice_subtitle" = "Change the meal for this schedule";
-"options_schedule_new_subtitle" = "Choose the days and hours for this schedule";
+"options_schedule_edit_mealChoice_subtitle" = "Change the dish for this schedule";
+"options_schedule_new_subtitle" = "Choose the days and meal for this schedule";
 "options_schedule_new_confirmButton" = "Add Schedule";
 "confirmChangesButton" = "Confirm changes";
 
@@ -76,32 +76,32 @@
 "intro_welcome_title" = "Welcome";
 "intro_welcome_intro" = "Let's quickly learn how to use this app";
 
-"intro_addMeal_title" = "Add meals";
-"intro_addMeal_intro" = "First, we need to add the meals you like. Head to the 'my meals' tab";
-"intro_addMeal_add" = "Use this button to create a new meal";
-"intro_addMeal_category" = "By default, your meals can be stored in 4 categories (you can rename the categories at any time in the options if you want to store your recipes differently) :";
-"intro_addMeal_meat" = "Your meals that contains meat";
-"intro_addMeal_vegan" = "Your vegan meals";
+"intro_addMeal_title" = "Add dishes";
+"intro_addMeal_intro" = "First, we need to add the dishes you like. Head to the 'my dishes' tab";
+"intro_addMeal_add" = "Use this button to create a new dish";
+"intro_addMeal_category" = "By default, your dishes can be stored in 4 categories (you can rename the categories at any time in the options if you want to store your recipes differently) :";
+"intro_addMeal_meat" = "Your dishes that contains meat";
+"intro_addMeal_vegan" = "Your vegan dishes";
 "intro_addMeal_other" = "Your desserts";
 "intro_addMeal_outside" = "The places where you like to order, like your favorite sushi place";
 
 "intro_organize_title" = "Plan your week";
-"intro_organize_intro" = "Once you have created a few meals, head to the 'my week' pannel. Here, you can fill your days";
-"intro_organize_+" = "Press this to add a specific meal";
-"intro_organize_?" = "Press this to add a random vegan/not vegan meal. The app will try to add meals that you haven't picked for a while.";
-"intro_organize_hold" = "Changed your mind ? Hold a meal in the menu to move it to another day";
+"intro_organize_intro" = "Once you have created a few dishes, head to the 'my week' pannel. Here, you can fill your days";
+"intro_organize_+" = "Press this button to add a specific dish";
+"intro_organize_?" = "Press this button to add a random vegan/not vegan dish. The app will try to add dishes that you haven't picked for a while.";
+"intro_organize_hold" = "Changed your mind ? Hold a dish in the planning to move it to another day";
 "intro_organize_auto" = "Use the auto button to let the app fill your week randomly";
 
 "intro_end_title" = "One more thing";
 "intro_end_calendar" = "Head to the options if you want to automatically add your menus to your calendar and share them with your family";
-"intro_end_schedule" = "You can create schedules to add the same meal every week at a specific time";
+"intro_end_schedule" = "You can create schedules to add the same dish every week at a specific time";
 "intro_end_collaboration" = "Check the 'Collaboration' tab if you want multiple people in your family to edit the menu together.";
 
 "intro_continue" = "Continue";
 "intro_start" = "Let's get started";
 
-"newUserBuble_myWeek" = "Your meals list is empty, head over this panel to add meals";
-"newUserBuble_myMeals" = "Press here to add a meal to your list";
+"newUserBuble_myWeek" = "Your dishes list is empty, head over this panel to add dishes";
+"newUserBuble_myMeals" = "Press here to add a dish to your list";
 
 "sidepicker_title" = "Choose any number of sides";
 "avec" = "With";
@@ -213,12 +213,12 @@ Once activated if you have an error during synchronization, check your device's 
 "premium_policy" = "Privacy policy";
 
 
-"randomMeals_title" = "Random meals";
-"randomMeals_content" = "Pick a meal for";
-"randomMeals_refresh" = "Change meals";
-"availableMeals_title" = "Recommended meals";
-"availableMeals_content" = "All meals you haven't picked for a long time which will be added to your week when choosing randomly. You can reset those lists at any time.";
-"availableMeals_content_2" = "Meals are added back to the possible recommandation when the list become too small. You can also choose a time after which meals will be added back regardless of list size.";
+"randomMeals_title" = "Random dishes";
+"randomMeals_content" = "Pick a dish for";
+"randomMeals_refresh" = "Change dishes";
+"availableMeals_title" = "Recommended dishes";
+"availableMeals_content" = "All dishes you haven't picked for a long time which will be added to your week when choosing randomly. You can reset those lists at any time.";
+"availableMeals_content_2" = "Dishes are added back to the possible recommandation when the list become too small. You can also choose a time after which dishes will be added back regardless of list size.";
 "weeks" = "weeks";
 "disabled" = "Disabled";
 "once" = "forever";
@@ -235,12 +235,16 @@ Once activated if you have an error during synchronization, check your device's 
 "recipe_delete_title" = "Delete recipe";
 "recipe_delete_content" = "Are you sure you want to delete this recipe ?";
 
-"recipe_ingredient_add" = "Add ingredient";
+"recipe_clipboard_content" = "Copy the list to your clipboard then use this button to add all at once. You are about to add :";
+
+"recipe_ingredient_add" = "Add";
+"recipe_ingredient_add_all" = "Import";
 "recipe_ingredient_edit" = "Edit ingredient";
 "recipe_ingredient_add_content" = "Write the quantity and the ingredient below. The quantity should be for the currently selected servings.";
 
 "recipe_steps" = "Intructions";
-"recipe_steps_add" = "Add step";
+"recipe_steps_add" = "Add";
+"recipe_steps_add_all" = "Import";
 "recipe_steps_placeholder" = "Write step...";
 "recipe_steps_delete" = "Delete step";
 "recipe_steps_delete_content" = "Are you sure you want to delete this step ?";

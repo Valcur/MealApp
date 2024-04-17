@@ -109,7 +109,13 @@ struct SidePickerView: View {
     @EnvironmentObject var mealsListPanelVM: MealsListPanelViewModel
     let columns = [GridItem(.adaptive(minimum: 65))]
     @State var sides: [Side] = []
-    @Binding var selectedSides: [Side]
+    @State var selectedSides: [Side]
+    @Binding var selection: [Side]
+    
+    init(selectedSides: Binding<[Side]>) {
+        self._selection = selectedSides
+        self.selectedSides = selectedSides.wrappedValue
+    }
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 0) {
@@ -130,6 +136,14 @@ struct SidePickerView: View {
         }
         .onAppear() {
             sides = mealsListPanelVM.sides
+        }
+        .onChange(of: selectedSides) { _ in
+            selection = selectedSides
+        }
+        .onChange(of: selection) { _ in
+            if selectedSides != selection {
+                selectedSides = selection
+            }
         }
     }
     

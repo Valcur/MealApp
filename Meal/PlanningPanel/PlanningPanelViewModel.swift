@@ -122,6 +122,7 @@ class PlanningPanelViewModel: ObservableObject {
         // IF TRUE STIL IN CALENDAR
         if !cloudKitController.isSavingToCloud() {
             updateWeekDatesIfNeeded()
+            updatePlanningMealsRecipe()
             print("User not saving to cloud")
             return
         }
@@ -129,7 +130,9 @@ class PlanningPanelViewModel: ObservableObject {
         cloudKitController.thisWeekIniCompleted = false
         cloudKitController.nextWeekIniCompleted = false
         
-        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, localPlanning: thisWeek, forceUpdate: forceUpdate, completion: { thisWeekPlan in
+        let userRecipes = mealsVM.meals.getAll()
+        
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.thisWeekPlan.rawValue, localPlanning: thisWeek, userRecipes: userRecipes, forceUpdate: forceUpdate, completion: { thisWeekPlan in
             DispatchQueue.main.async {
                 if let thisWeekPlan = thisWeekPlan {
                     self.thisWeek = thisWeekPlan
@@ -159,7 +162,7 @@ class PlanningPanelViewModel: ObservableObject {
             }
         })
         
-        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, localPlanning: nextWeek, forceUpdate: forceUpdate, completion: { nextWeekPlan in
+        cloudKitController.getWeekPlanningFromCloud(recordType: RecordType.nextWeekPlan.rawValue, localPlanning: nextWeek, userRecipes: userRecipes, forceUpdate: forceUpdate, completion: { nextWeekPlan in
             DispatchQueue.main.async {
                 if let nextWeekPlan = nextWeekPlan {
                     self.nextWeek = nextWeekPlan
@@ -456,6 +459,36 @@ extension PlanningPanelViewModel {
         if selectedWeek != .nextWeek {
             weekPlan = nextWeek
             selectedWeek = .nextWeek
+        }
+    }
+}
+
+
+extension PlanningPanelViewModel {
+    func updatePlanningMealsRecipe() {
+        print("Cheking for recipe locally")
+        let userMeals = mealsVM.meals.getAll()
+        var userRecipes = [Meal]()
+        for m in userMeals {
+            if m.recipe != nil {
+                userRecipes.append(m)
+            }
+        }
+        for day in weekPlan.week {
+            for meal in day.midday {
+                if let index = userRecipes.firstIndex(where: {$0.name == meal.name}) {
+                    if let r = userRecipes[index].recipe {
+                        meal.recipe = r
+                    }
+                }
+            }
+            for meal in day.evening {
+                if let index = userRecipes.firstIndex(where: {$0.name == meal.name}) {
+                    if let r = userRecipes[index].recipe {
+                        meal.recipe = r
+                    }
+                }
+            }
         }
     }
 }

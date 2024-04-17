@@ -91,7 +91,7 @@ class VisualUserPrefs: ObservableObject {
     var customBackgroundImageView: any View {
         ZStack(alignment: .top) {
             if let image = customBackground {
-                Image(uiImage: image).resizable().scaledToFill()
+                Image(uiImage: image).resizable().scaledToFill().clipped()
             }
         }
     }

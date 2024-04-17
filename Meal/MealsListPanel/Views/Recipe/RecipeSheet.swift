@@ -71,7 +71,7 @@ struct RecipeServings: View {
                 Image(systemName: "plus.square.fill")
                     .font(.title)
             })
-        }.roundedCornerRectangle()
+        }
     }
 }
 
@@ -115,7 +115,7 @@ struct RecipeSheet: View {
                 }
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity)
-                .background(RecipeBackgroundImage(recipe: recipe, mealType: mealType))
+                .background(Color.white)
                 .padding(.horizontal, -20)
                 .padding(.top, -20)
             
@@ -146,6 +146,9 @@ struct RecipeSheet: View {
         @State var ingredientTextLine: String = ""
         @State var ingredientAlertIndex: Int = -1
         
+        @State var showImportIngredientsAlert = false
+        @State var userClipboard: String = ""
+        
         var isEditingIngredient: Bool {
             ingredientAlertIndex != -1
         }
@@ -157,11 +160,11 @@ struct RecipeSheet: View {
                         .subTitle()
                     Spacer()
                 }
-
+                
                 ForEach(Array(recipe.ingredients.enumerated()), id: \.element) { index, ingredient in
                     VStackBlock {
-                        HStack {
-                            Text("\(ingredient.displayedQuantity.clean)")
+                        HStack(alignment: .top, spacing: 2) {
+                            Text(ingredient.displayedQuantity)
                                 .fontWeight(.bold)
                                 .headLine()
                             Text("\(ingredient.name)")
@@ -170,7 +173,7 @@ struct RecipeSheet: View {
                             Button(action: {
                                 showIngredientAlert = true
                                 ingredientAlertIndex = index
-                                ingredientTextLine = "\(ingredient.displayedQuantity.clean)\(ingredient.name)"
+                                ingredientTextLine = "\(ingredient.displayedQuantity)\(ingredient.name)"
                             }, label: {
                                 Image(systemName: "pencil")
                                     .font(.title2)
@@ -180,14 +183,15 @@ struct RecipeSheet: View {
                 }
                 
                 if #available(iOS 15.0, *) {
-                    Button(action: {
-                        showIngredientAlert = true
-                        ingredientAlertIndex = -1
-                        ingredientTextLine = ""
-                    }, label: {
-                        ButtonLabel(title: "recipe_ingredient_add", isCompact: true)
-                    })
-                    .alert(isEditingIngredient ? "recipe_ingredient_edit".translate() : "recipe_ingredient_add".translate(), isPresented: $showIngredientAlert) {
+                    HStack {
+                        Button(action: {
+                            showIngredientAlert = true
+                            ingredientAlertIndex = -1
+                            ingredientTextLine = ""
+                        }, label: {
+                            ButtonLabel(title: "recipe_ingredient_add", isCompact: true)
+                        })
+                        .alert(isEditingIngredient ? "recipe_ingredient_edit".translate() : "recipe_ingredient_add".translate(), isPresented: $showIngredientAlert) {
                             TextField("", text: $ingredientTextLine)
                             Button("done".translate()) {
                                 if isEditingIngredient {
@@ -209,6 +213,34 @@ struct RecipeSheet: View {
                         } message: {
                             Text("recipe_ingredient_add_content")
                         }
+                        
+                        Button(action: {
+                            showImportIngredientsAlert = true
+                            userClipboard = UIPasteboard.general.string ?? ""
+                        }, label: {
+                            ButtonLabel(title: "All", isCompact: true)
+                        })
+                        .alert("recipe_ingredient_add_all".translate(), isPresented: $showImportIngredientsAlert)  {
+                            Button("add".translate()) {
+                                addIngredientsFromClipboard()
+                            }
+                            Button("cancel".translate(), role: .cancel) {
+                                
+                            }
+                        } message: {
+                            Text("\("recipe_clipboard_content".translate())\n\n\(userClipboard)".translate())
+                        }
+                    }
+                }
+            }
+        }
+        
+        private func addIngredientsFromClipboard() {
+            let ingredients = userClipboard.split(separator: "\n")
+            for i in ingredients {
+                if i.replacingOccurrences(of: " ", with: "") != "" {
+                    let textLine = String(i)
+                    recipe.ingredients.append(Ingredient(textLine: textLine, servings: recipe.serving))
                 }
             }
         }
@@ -217,7 +249,9 @@ struct RecipeSheet: View {
     struct RecipeStepsView: View {
         @Binding var recipe: Recipe
         @State var showDeleteAlert = false
+        @State var showImportStepsAlert = false
         @State var stepToDelete = -1
+        @State var userClipboard: String = ""
         
         var body: some View {
             if #available(iOS 16.0, *) {
@@ -232,11 +266,35 @@ struct RecipeSheet: View {
                         RecipeStepView(step: $recipe.steps[i], recipe: $recipe, showDeleteAlert: $showDeleteAlert, stepToDelete: $stepToDelete, stepId: i)
                     }
                     
-                    Button(action: {
-                        recipe.steps.append(RecipeStep(step: ""))
-                    }, label: {
-                        ButtonLabel(title: "recipe_steps_add", isCompact: true)
-                    })
+                    HStack {
+                        Button(action: {
+                            recipe.steps.append(RecipeStep(step: ""))
+                        }, label: {
+                            ButtonLabel(title: "recipe_steps_add", isCompact: true)
+                        })
+                        
+                        Button(action: {
+                            showImportStepsAlert = true
+                            userClipboard = UIPasteboard.general.string ?? ""
+                        }, label: {
+                            ButtonLabel(title: "All", isCompact: true)
+                        })
+                        .alert("recipe_steps_add_all".translate(), isPresented: $showImportStepsAlert)  {
+                            Button("add".translate()) {
+                                let steps = userClipboard.split(separator: "\n")
+                                for s in steps {
+                                    if s.replacingOccurrences(of: " ", with: "") != "" {
+                                        recipe.steps.append(RecipeStep(step: String(s)))
+                                    }
+                                }
+                            }
+                            Button("cancel".translate(), role: .cancel) {
+                                
+                            }
+                        } message: {
+                            Text("\("recipe_clipboard_content".translate())\n\n\(userClipboard)".translate())
+                        }
+                    }
                 }
                 .alert("recipe_steps_delete".translate(), isPresented: $showDeleteAlert)  {
                     Button("delete".translate(), role: .destructive) {
@@ -273,7 +331,9 @@ struct RecipeSheet: View {
                             if #available(iOS 16.0, *) {
                                 TextField("recipe_steps_placeholder".translate(), text: $step.step, axis: .vertical)
                                     .textFieldStyle(PlainTextFieldStyle())
-                                    .lineLimit(2...100)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .scrollDisabled(true)
+                                    //.lineLimit(1...100)
                             } else {
                                 // Fallback on earlier versions
                             }
@@ -293,6 +353,7 @@ struct RecipeSheet: View {
     }
 }
 
+// NOT CURRENTLY USED
 struct RecipeBackgroundImage: View {
     @EnvironmentObject var userPrefs: VisualUserPrefs
     let recipe: Recipe

@@ -151,22 +151,7 @@ struct MealInfoSheet: View {
             }
             
             Group {
-                VStackBlock {
-                    HStack {
-                        Text("mealList_notes_title".translate())
-                            .subTitle()
-                        
-                        Spacer()
-                    }
-                    
-                    Button(action: {
-                        showingNotesSheet = true
-                    }, label: {
-                        ButtonLabel(title: "mealPlan_notes_edit_title", isCompact: true)
-                    })
-                }
-                
-                if #available(iOS 15.0, *) {
+                if #available(iOS 16.0, *) {
                     VStackBlock {
                         HStack {
                             Text("recipe".translate())
@@ -205,6 +190,21 @@ struct MealInfoSheet: View {
                     .sheet(isPresented: $showingRecipeSheet) {
                         RecipeSheetWrapper(mealName: mealName, mealType: mealType, recipe: $mealRecipe)
                     }
+                }
+                
+                VStackBlock {
+                    HStack {
+                        Text("mealList_notes_title".translate())
+                            .subTitle()
+                        
+                        Spacer()
+                    }
+                    
+                    Button(action: {
+                        showingNotesSheet = true
+                    }, label: {
+                        ButtonLabel(title: "mealPlan_notes_edit_title", isCompact: true)
+                    })
                 }
             }.HStackIPadVStackIPhone(spacing: 20)
             
