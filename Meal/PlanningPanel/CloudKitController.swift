@@ -45,7 +45,7 @@ class CloudKitController: ObservableObject {
         useSharedPlanning = userDefaults.bool(forKey: CloudPreferenceKeys.useSharedPlanning.rawValue)
     }
     
-    func getWeekPlanningFromCloud(recordType: String, localPlanning: WeekPlan, forceUpdate: Bool, completion: @escaping (WeekPlan?) -> ()) {
+    func getWeekPlanningFromCloud(recordType: String, localPlanning: WeekPlan, userRecipes: [Meal], forceUpdate: Bool, completion: @escaping (WeekPlan?) -> ()) {
         self.setCloudSyncStatus(.inProgress)
         let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
         let query = CKQuery(recordType: recordType, predicate: predicate)
@@ -90,7 +90,7 @@ class CloudKitController: ObservableObject {
                 }
                 
                 guard let weekPlanString = record.value(forKey: "weekPlan") as? String else { return }
-                let weekPlan = self.weekPlanStringToWeekPlan(weekPlanString, whichWeek: recordType == RecordType.thisWeekPlan.rawValue ? .thisWeek : .nextWeek)
+                let weekPlan = self.weekPlanStringToWeekPlan(weekPlanString, whichWeek: recordType == RecordType.thisWeekPlan.rawValue ? .thisWeek : .nextWeek, userRecipes: userRecipes)
                 completion(weekPlan)
                 self.setCloudSyncStatus(.completed)
             }
@@ -174,7 +174,7 @@ class CloudKitController: ObservableObject {
         return weekPlan
     }
     
-    private func weekPlanStringToWeekPlan(_ text: String, whichWeek: WichWeekIsIt) -> WeekPlan {
+    private func weekPlanStringToWeekPlan(_ text: String, whichWeek: WichWeekIsIt, userRecipes: [Meal]) -> WeekPlan {
         var weekPlan = WeekPlan(whichWeek)
         do {
             let jsonDecoder = JSONDecoder()
@@ -183,9 +183,21 @@ class CloudKitController: ObservableObject {
                 print(text)
                 for day in weekData {
                     for meal in day.midday {
+                        // Find back the recipe
+                        if let index = userRecipes.firstIndex(where: {$0.name == meal.name}) {
+                            if let r = userRecipes[index].recipe {
+                                meal.recipe = r
+                            }
+                        }
                         weekPlan.append(meal, day: day.day, time: .midday)
                     }
                     for meal in day.evening {
+                        // Find back the recipe
+                        if let index = userRecipes.firstIndex(where: {$0.name == meal.name}) {
+                            if let r = userRecipes[index].recipe {
+                                meal.recipe = r
+                            }
+                        }
                         weekPlan.append(meal, day: day.day, time: .evening)
                     }
                 }
@@ -201,13 +213,13 @@ class CloudKitController: ObservableObject {
     
     func saveWeeksPlanningToCloud(thisWeek: WeekPlan, nexWeek: WeekPlan) {
         weekSavingProgress = 0
-        savingWeekPlanningToCloud(recordType: RecordType.thisWeekPlan.rawValue, plan: thisWeek)
-        savingWeekPlanningToCloud(recordType: RecordType.nextWeekPlan.rawValue, plan: nexWeek)
+        savingWeekPlanningToCloud_new(recordType: RecordType.thisWeekPlan.rawValue, plan: thisWeek)
+        savingWeekPlanningToCloud_new(recordType: RecordType.nextWeekPlan.rawValue, plan: nexWeek)
     }
     
     func saveWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
         weekSavingProgress = 1
-        savingWeekPlanningToCloud(recordType: recordType, plan: plan)
+        savingWeekPlanningToCloud_new(recordType: recordType, plan: plan)
     }
     
     // Replace in a few weeks
@@ -215,24 +227,40 @@ class CloudKitController: ObservableObject {
         self.setCloudSyncStatus(.inProgress)
         do {
             let myWeek = plan.week
+            var savedWeek = [DayPlan]()
+            
             for d in 0..<myWeek.count {
-                for m in 0..<myWeek[d].midday.count {
-                    if myWeek[d].midday[m].sides != nil {
-                        for i in 0..<myWeek[d].midday[m].sides!.count {
-                            myWeek[d].midday[m].sides![i].customImage = nil
+                let day = myWeek[d]
+                let savedDay = DayPlan(day: day.day,
+                                       date: day.date,
+                                       midday: [],
+                                       evening: [])
+                
+                for m in 0..<day.midday.count {
+                    let meal = day.midday[m].new()
+                    if meal.sides != nil {
+                        for i in 0..<meal.sides!.count {
+                            meal.sides![i].customImage = nil
                         }
                     }
+                    meal.recipe = nil
+                    savedDay.append(meal, time: .midday)
                 }
-                for m in 0..<myWeek[d].evening.count {
-                    if myWeek[d].evening[m].sides != nil {
-                        for i in 0..<myWeek[d].evening[m].sides!.count {
-                            myWeek[d].evening[m].sides![i].customImage = nil
+                for m in 0..<day.evening.count {
+                    let meal = day.evening[m].new()
+                    if meal.sides != nil {
+                        for i in 0..<meal.sides!.count {
+                            meal.sides![i].customImage = nil
                         }
                     }
+                    meal.recipe = nil
+                    savedDay.append(meal, time: .evening)
                 }
+                
+                savedWeek.append(savedDay)
             }
             let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(myWeek)
+            let jsonData = try jsonEncoder.encode(savedWeek)
             let weekData = String(data: jsonData, encoding: String.Encoding.utf8)
             
             let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)

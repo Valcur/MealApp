@@ -249,5 +249,7 @@ Once activated if you have an error during synchronization, check your device's 
 "recipe_steps_delete" = "Delete step";
 "recipe_steps_delete_content" = "Are you sure you want to delete this step ?";
 
+"weekPlan_recipe_title" = "This dish has a recipe";
+"weekPlan_recipe_content" = "See recipe";
 
 

@@ -14,7 +14,7 @@ struct FullScreenRecipe: View {
     var mealName: String = ""
     var mealType: MealType = .meat
     @State var currentStep = -1
-    let textSize: CGFloat = UIDevice.isIPhone ? 16 : 22
+    let textSize: CGFloat = UIDevice.isIPhone ? 19 : 22
     
     init(_ recipe: Recipe, meal: Meal) {
         self._recipe = State(initialValue: recipe)
@@ -43,7 +43,7 @@ struct FullScreenRecipe: View {
             ZStack {
                 //MARK: Content
                 if UIDevice.isIPhone {
-                    ScrollView(.vertical) {
+                    ScrollView(.vertical, showsIndicators: false) {
                         VStack {
                             if recipe.ingredients.count > 0 {
                                 IngredientsView(recipe: recipe, textSize: textSize, mealType: mealType)
@@ -55,23 +55,25 @@ struct FullScreenRecipe: View {
                 } else {
                     GeometryReader { geo in
                         HStack(alignment: .top) {
-                            ScrollView(.vertical) {
+                            ScrollView(.vertical, showsIndicators: false) {
                                 StepsView(recipe: recipe, mealType: mealType, textSize: textSize)
                                     .frame(minWidth: 1.75 * geo.size.width / 3)
                             }
                             
                             if recipe.ingredients.count > 0 {
-                                IngredientsView(recipe: recipe, textSize: textSize, mealType: mealType)
+                                ScrollView(.vertical, showsIndicators: false) {
+                                    IngredientsView(recipe: recipe, textSize: textSize, mealType: mealType)
+                                }
                             }
                         }
                     }
                 }
-            }.background(mealType.getColor(userPrefs: userPrefs).opacity(0.05).ignoresSafeArea())
+            }.background(mealType.getColor(userPrefs: userPrefs).opacity(0.0).ignoresSafeArea())
         }.background(
             GeometryReader { geo in
                 ZStack {
                     //RecipeBackgroundImage(recipe: recipe, mealType: mealType)
-                    Color.white
+                    Color("WhiteBackgroundColor")
                     //Color.clear.blurredBackground()
                 }.frame(height: geo.size.height).clipped()
             }.ignoresSafeArea()
@@ -100,7 +102,7 @@ struct FullScreenRecipe: View {
                         }
                     }, label: {
                         Image(systemName: "minus.square.fill")
-                            .font(.system(size: textSize * 1.3))
+                            .font(.system(size: textSize * 1.5))
                             .foregroundColor(mealType.getColor(userPrefs: userPrefs))
                     })
                     
@@ -114,12 +116,12 @@ struct FullScreenRecipe: View {
                         recipe.updateServing(recipe.serving + 1)
                     }, label: {
                         Image(systemName: "plus.square.fill")
-                            .font(.system(size: textSize * 1.3))
+                            .font(.system(size: textSize * 1.5))
                             .foregroundColor(mealType.getColor(userPrefs: userPrefs))
                     })
                 }
                 
-                Color.black.frame(height: 1).padding(.horizontal, 10)
+                Color("TextColor").frame(height: 1).padding(.horizontal, 10)
                 
                 //MARK: Ingredients
                 ForEach(recipe.ingredients) { ingredient in
@@ -157,17 +159,15 @@ struct FullScreenRecipe: View {
                                     .stroke(mealType.getColor(userPrefs: userPrefs), lineWidth: 3)
                             )
                          */
-                        mealType.getColor(userPrefs: userPrefs)
-                            .frame(maxWidth: 3)
-                            .frame(maxHeight: .infinity)
                         
                         Text(step.step)
                             .font(.system(size: textSize))
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
+                            .padding(.leading, 20)
                         
                         Spacer()
-                    }
+                    }.border(width: 3, edges: [.leading], color: mealType.getColor(userPrefs: userPrefs))
                 }
             }.padding(20)
         }

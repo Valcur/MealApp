@@ -40,7 +40,7 @@ struct PlayRecipe: View {
         }, label: {
             Image(systemName: "play.fill")
                 .font(.system(size: 50))
-                .foregroundColor(.black)
+                //.foregroundColor(Color("TextColor"))
         })
         .fullScreenCover(isPresented: $showFullscreenRecipe) {
             FullScreenRecipe(recipe, mealName: mealName, mealType: mealType)
@@ -84,59 +84,64 @@ struct RecipeSheet: View {
     @Binding var recipeFinal: Recipe?
     
     var body: some View {
-        VStack {
-                ZStack {
-                    if UIDevice.isIPhone {
-                        VStack(alignment: .leading) {
-                            Text(mealName)
-                                .title()
-                                .frame(minHeight: 80)
-                            
-                            HStack {
+        ScrollViewReader { scroll in
+            VStack {
+                    ZStack {
+                        if UIDevice.isIPhone {
+                            VStack(alignment: .leading) {
+                                /* A VOIR
+                                 
+                                 Text(mealName)
+                                    .title()
+                                    .frame(minHeight: 80)*/
+                                
+                                HStack {
+                                    PlayRecipe(recipe: recipe, mealName: mealName, mealType: mealType)
+                                    
+                                    Spacer()
+                                    
+                                    RecipeServings(recipe: $recipe)
+                                }.frame(minHeight: 80).padding(.horizontal, 20)/*.blurredBackground()*/.padding(.horizontal, -20)
+                            }
+                        } else {
+                            HStack(spacing: 10) {
                                 PlayRecipe(recipe: recipe, mealName: mealName, mealType: mealType)
+                                
+                                Text(mealName)
+                                    .title()
                                 
                                 Spacer()
                                 
                                 RecipeServings(recipe: $recipe)
-                            }.frame(minHeight: 80).padding(.horizontal, 20).blurredBackground().padding(.horizontal, -20)
+                            }.frame(minHeight: 80)
                         }
-                    } else {
-                        HStack(spacing: 10) {
-                            PlayRecipe(recipe: recipe, mealName: mealName, mealType: mealType)
-                            
-                            Text(mealName)
-                                .title()
-                            
-                            Spacer()
-                            
-                            RecipeServings(recipe: $recipe)
-                        }.frame(minHeight: 80)
                     }
-                }
-                .padding(.horizontal, 20)
-                .frame(maxWidth: .infinity)
-                .background(Color.white)
-                .padding(.horizontal, -20)
-                .padding(.top, -20)
-            
-            
-            
-            
-            VStack(alignment: .leading, spacing: 20) {
-                IngredientsView(recipe: $recipe)
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity)
+                    .background(Color("WhiteBackgroundColor"))
+                    .padding(.horizontal, -20)
+                    .padding(.top, -20)
                 
-                RecipeStepsView(recipe: $recipe)
                 
-                Spacer().frame(minHeight: 500)
-            }.padding(.top, 20)
-        }.scrollableSheetVStackWithStickyButton(button: AnyView(
-            Button(action: {
-                recipeFinal = recipe
-                presentationMode.wrappedValue.dismiss()
-            }, label: {
-                ButtonLabel(title: "done")
-            })
-        )).background(Color("BackgroundColor").ignoresSafeArea())
+                
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    IngredientsView(recipe: $recipe)
+                    
+                    RecipeStepsView(recipe: $recipe, scrollProxy: scroll)
+                    
+                    Spacer().frame(minHeight: UIScreen.main.bounds.height - 100)
+                }.padding(.top, 20)
+            }.scrollableSheetVStackWithStickyButton(button: AnyView(
+                Button(action: {
+                    recipeFinal = recipe
+                    presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    ButtonLabel(title: "done")
+                })
+            ))
+        }
+        .background(Color("BackgroundColor").ignoresSafeArea())
     }
     
     struct IngredientsView: View {
@@ -218,7 +223,7 @@ struct RecipeSheet: View {
                             showImportIngredientsAlert = true
                             userClipboard = UIPasteboard.general.string ?? ""
                         }, label: {
-                            ButtonLabel(title: "All", isCompact: true)
+                            ButtonLabel(title: "recipe_ingredient_add_all", isCompact: true)
                         })
                         .alert("recipe_ingredient_add_all".translate(), isPresented: $showImportIngredientsAlert)  {
                             Button("add".translate()) {
@@ -252,6 +257,7 @@ struct RecipeSheet: View {
         @State var showImportStepsAlert = false
         @State var stepToDelete = -1
         @State var userClipboard: String = ""
+        var scrollProxy: ScrollViewProxy
         
         var body: some View {
             if #available(iOS 16.0, *) {
@@ -262,9 +268,13 @@ struct RecipeSheet: View {
                         Spacer()
                     }
                     
-                    ForEach(0..<recipe.steps.count, id: \.self) { i in
-                        RecipeStepView(step: $recipe.steps[i], recipe: $recipe, showDeleteAlert: $showDeleteAlert, stepToDelete: $stepToDelete, stepId: i)
-                    }
+                    VStack(alignment: .leading, spacing: 0) {
+                        ForEach(0..<recipe.steps.count, id: \.self) { i in
+                            RecipeStepView(step: $recipe.steps[i], recipe: $recipe, showDeleteAlert: $showDeleteAlert, stepToDelete: $stepToDelete, stepId: i, scrollProxy: scrollProxy)
+                                .padding(.top, 20)
+                                .id(i)
+                        }
+                    }.padding(.top, recipe.steps.count == 0 ? 0 : -20)
                     
                     HStack {
                         Button(action: {
@@ -277,7 +287,7 @@ struct RecipeSheet: View {
                             showImportStepsAlert = true
                             userClipboard = UIPasteboard.general.string ?? ""
                         }, label: {
-                            ButtonLabel(title: "All", isCompact: true)
+                            ButtonLabel(title: "recipe_steps_add_all", isCompact: true)
                         })
                         .alert("recipe_steps_add_all".translate(), isPresented: $showImportStepsAlert)  {
                             Button("add".translate()) {
@@ -311,12 +321,15 @@ struct RecipeSheet: View {
             }
         }
         
+        @available(iOS 15.0, *)
         struct RecipeStepView: View {
             @Binding var step: RecipeStep
             @Binding var recipe: Recipe
             @Binding var showDeleteAlert: Bool
             @Binding var stepToDelete: Int
             let stepId: Int
+            var scrollProxy: ScrollViewProxy
+            @FocusState private var isFocused: Bool
             
             var body: some View {
                 VStackBlock {
@@ -333,6 +346,14 @@ struct RecipeSheet: View {
                                     .textFieldStyle(PlainTextFieldStyle())
                                     .fixedSize(horizontal: false, vertical: true)
                                     .scrollDisabled(true)
+                                    .focused($isFocused)
+                                    .onChange(of: isFocused) { isFocused in
+                                        if isFocused {
+                                            withAnimation(.easeInOut(duration: 0.3)) {
+                                                scrollProxy.scrollTo(stepId, anchor: .top)
+                                            }
+                                        }
+                                    }
                                     //.lineLimit(1...100)
                             } else {
                                 // Fallback on earlier versions

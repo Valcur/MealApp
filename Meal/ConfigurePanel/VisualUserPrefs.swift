@@ -89,10 +89,12 @@ class VisualUserPrefs: ObservableObject {
         "Background \(interfacePrefs.backgroundId) Dark"
     }
     var customBackgroundImageView: any View {
-        ZStack(alignment: .top) {
-            if let image = customBackground {
-                Image(uiImage: image).resizable().scaledToFill().clipped()
-            }
+        GeometryReader { geo in
+            ZStack(alignment: .top) {
+                if let image = self.customBackground {
+                    Image(uiImage: image).resizable().scaledToFill()
+                }
+            }.frame(width: geo.size.width, height: geo.size.height).clipped()
         }
     }
     var isUsingDefaultBackground: Bool {

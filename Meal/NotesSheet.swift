@@ -18,13 +18,15 @@ struct WeekPlanNotesSheet: View {
     @State private var showRecipe = false
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             if let recipe = meal.recipe {
+                Text("weekPlan_recipe_title").title().padding(.horizontal, 20).padding(.top, 20)
                 Button(action: {
                     showRecipe = true
                 }, label: {
-                    ButtonLabel(title: "Voir Recette")
-                }).padding(.horizontal, 20).padding(.top, 20)
+                    ButtonLabel(title: "weekPlan_recipe_content", isCompact: true)
+                        .padding(.horizontal, 20)
+                })
                 .fullScreenCover(isPresented: $showRecipe) {
                     FullScreenRecipe(recipe, meal: meal)
                 }
