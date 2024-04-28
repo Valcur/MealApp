@@ -132,10 +132,9 @@
 "champignons" = "Mushrooms";
 
 "whatsNew_title" = "Whats new";
-"whatsNew_content" = "- Add an image to your custom sides\n\n- Fixed a bug making you unable to edit your meals\n\n- Reworked the recommendation system to prevent meals from being re-selectable too quickly. The meals can also be re-selectable automatically after a certain period (4 weeks by default, modifiable in 'Options -> Recommended meals')\n\n- Added a contact panel in the options to reach me if there is a new feature you want to have or if you find a bug\n\n\nPremium users and members of their shared planning can customize the look of the app:\n- Change the app main color\n- Add a background image to your planning by choosing one of ours or importing a picture from your device";
+"whatsNew_content" = "";
 "whatsNew_old_title" = "Previously";
-"whatsNew_old_content" = "- Pick between 3 choices when adding a random meal.\n\n- Added an animation when holding on a meal to move it to another day.\n\n- Visualize the list of meals you haven't eaten for a long time.";
-"whatsNew_rateUs_title" = "Enjoying the app ?";
+"whatsNew_old_content" = "Increased the maximum number of custom sides\n\nAdd a recipe to your dishes:\n- Add a recipe from the 'My dishes' tab (requires iOS 16 minimum)\n- If you add a dish with recipe to your planning, the recipe will be accessible from your planning (same button as for notes)\n- Recipes are currently not shared with other members of your family if you use the shared planning";
 "whatsNew_rateUs_content" = "Please tell us how we're doing.";
 "whatsNew_rateUs_button" = "Rate us in the App Store";
 "whatsNew_rateUs_noThanks" = "No thanks";

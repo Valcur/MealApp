@@ -89,7 +89,7 @@ struct WhatsNewView: View {
             
             if lastValue < newUpdateDate {
                 showWhatsNew = true
-                //userDefaults.set(newUpdateDate, forKey: key)
+                userDefaults.set(newUpdateDate, forKey: key)
             } else {
                 showWhatsNew = false
             }

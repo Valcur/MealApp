@@ -125,7 +125,7 @@ struct FullScreenRecipe: View {
                 
                 //MARK: Ingredients
                 ForEach(recipe.ingredients) { ingredient in
-                    HStack(alignment: .top, spacing: 0) {
+                    HStack(alignment: .top, spacing: 2) {
                         Text(ingredient.displayedQuantity)
                             .fontWeight(.bold)
                             .font(.system(size: textSize))

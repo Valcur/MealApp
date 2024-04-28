@@ -137,7 +137,7 @@ struct RecipeSheet: View {
                     recipeFinal = recipe
                     presentationMode.wrappedValue.dismiss()
                 }, label: {
-                    ButtonLabel(title: "done")
+                    ButtonLabel(title: "confirmChangesButton")
                 })
             ))
         }

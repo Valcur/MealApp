@@ -181,7 +181,12 @@ class CloudKitController: ObservableObject {
             if let textData = text.data(using: .utf8, allowLossyConversion: false) {
                 let weekData = try jsonDecoder.decode([DayPlan].self, from: textData)
                 print(text)
+                var dayCount = 0
+                
                 for day in weekData {
+                    var midday = [Meal]()
+                    var evening = [Meal]()
+
                     for meal in day.midday {
                         // Find back the recipe
                         if let index = userRecipes.firstIndex(where: {$0.name == meal.name}) {
@@ -189,7 +194,7 @@ class CloudKitController: ObservableObject {
                                 meal.recipe = r
                             }
                         }
-                        weekPlan.append(meal, day: day.day, time: .midday)
+                        midday.append(meal.new())
                     }
                     for meal in day.evening {
                         // Find back the recipe
@@ -198,8 +203,13 @@ class CloudKitController: ObservableObject {
                                 meal.recipe = r
                             }
                         }
-                        weekPlan.append(meal, day: day.day, time: .evening)
+                        evening.append(meal.new())
                     }
+                    
+                    if dayCount < weekPlan.week.count {
+                        weekPlan.week[dayCount] = DayPlan(day: day.day, date: day.date, midday: midday, evening: evening)
+                    }
+                    dayCount += 1
                 }
             }
         } catch {

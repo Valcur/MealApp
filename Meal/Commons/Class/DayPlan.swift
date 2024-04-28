@@ -12,7 +12,7 @@ import SwiftUI
 class DayPlan: Equatable, Identifiable, ObservableObject, Codable {
     var id = UUID()
     let day: WeekDays
-    let date: Date
+    var date: Date
     var midday: [Meal]
     var evening: [Meal]
     

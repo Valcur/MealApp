@@ -142,7 +142,7 @@
 "champignons" = "Champi";
 
 "whatsNew_title" = "Nouvelle version";
-"whatsNew_content" = "Augmentation du nombre maximum d'accompagnements personnalisés\n\nAjoutez une recette à vos plats :\n- Ajoutez une recette depuis l'onglet 'mes plats' (nécessite iOS 16 minimum)\n- Si vous ajoutez un plat avec recette à votre planning, la recette sera accessible depuis votre planning (même bouton que pour les notes)\n- Les recettes ne sont actuellement pas partagées avec les autres membre de votre famille si vous utilisez le planning partagé.";
+"whatsNew_content" = "Augmentation du nombre maximum d'accompagnements personnalisés\n\nAjoutez une recette à vos plats :\n- Ajoutez une recette depuis l'onglet 'Mes plats' (nécessite iOS 16 minimum)\n- Si vous ajoutez un plat avec recette à votre planning, la recette sera accessible depuis votre planning (même bouton que pour les notes)\n- Les recettes ne sont actuellement pas partagées avec les autres membre de votre famille si vous utilisez le planning partagé";
 "whatsNew_old_title" = "Précédemment";
 "whatsNew_old_content" = "- Ajoutez une photo à vos accompagnements personnalisés (Options -> Accompagnements)\n\n- Correction d'un bug empêchant de modifier certains plats de votre liste\n\n- Refonte du système interne de recommandation de plats aléatoire afin d'empêcher que des plats ne soient selectionnable à nouveau trop rapidement. Les plats peuvent également être resélectionnable automatiquement après un certains délai (4 semaines par défaut, modifiable dans 'Options -> Plats recommandés')\n- Ajout d'un onglet contact dans les options pour me contacter si vous souhaitez que j'ajoute une nouvelle fonctionnalité ou me signaler un bug\n\n\nLes utilisateurs premium et les membres de leur planning partagé peuvent désormais personnaliser l'apparence de l'application:\n- Changement de la couleur principale de l'app\n- Ajout d'une image de fond pour le menu de la semaine parmi une sélection ou importez une photo de votre choix depuis votre appareil";
 "whatsNew_rateUs_title" = "Vous appréciez l'application ?";
@@ -262,5 +262,5 @@ Si une fois activé vous avez des erreur lors de la synchronisation, rendez vous
 "recipe_steps_delete" = "Supprimer étape";
 "recipe_steps_delete_content" = "Êtes-vous sûr de vouloir supprimer l'étape ?";
 
-"weekPlan_recipe_title" = "Ce plat a un recette";
+"weekPlan_recipe_title" = "Ce plat a une recette";
 "weekPlan_recipe_content" = "Voir recette";

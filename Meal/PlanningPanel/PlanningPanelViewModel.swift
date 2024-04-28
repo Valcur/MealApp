@@ -33,20 +33,15 @@ class PlanningPanelViewModel: ObservableObject {
         
         let WANT_TO_RESET = false
         if WANT_TO_RESET {
-            weekPlan = WeekPlan(.thisWeek)
-            weekPlan.append(Meal(id: 1, name: "Fish & Chips", type: .meat), day: .monday, time: .midday)
-            weekPlan.append(Meal(id: 2, name: "Avocado Toast", type: .vegan), day: .monday, time: .evening)
-            weekPlan.append(Meal(id: 3, name: "Kebab", type: .outside), day: .wednesday, time: .midday)
-            weekPlan.append(Meal(id: 4, name: "Soup", type: .vegan), day: .friday, time: .evening)
-            weekPlan.append(Meal(id: 5, name: "Salmon", type: .meat), day: .friday, time: .evening)
-            weekPlan.append(Meal(id: 6, name: "Sushi", type: .meat), day: .saturday, time: .midday)
-            weekPlan.append(Meal(id: 7, name: "Soup", type: .vegan), day: .monday, time: .midday)
+            thisWeek = WeekPlan(.thisWeek)
+            nextWeek = WeekPlan(.nextWeek)
             
             saveWeek()
+        } else {
+            
+            // Load from cloud and update when data is retrieved
+            updateData()
         }
-        
-        // Load from cloud and update when data is retrieved
-        updateData()
     }
     
     func updateWeekDatesIfNeeded() -> Bool {
@@ -58,6 +53,7 @@ class PlanningPanelViewModel: ObservableObject {
         let thisWeekMonday = cal.startOfDay(for: Date().previous(.monday))
         
         // Si nextweek est devenu thisweek, on remplace et on créé un nouveau nextweek
+        print("this \(thisWeekMonday) vs saved \(savedNextWeekMonday)")
         if thisWeekMonday == savedNextWeekMonday {
             print("Nouvelle semaine !")
             thisWeek = nextWeek
