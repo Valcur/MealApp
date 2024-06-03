@@ -38,7 +38,6 @@ class PlanningPanelViewModel: ObservableObject {
             
             saveWeek()
         } else {
-            
             // Load from cloud and update when data is retrieved
             updateData()
         }
@@ -71,7 +70,7 @@ class PlanningPanelViewModel: ObservableObject {
             }
             return true
         }
-        // Si la semaine actuelle correpsond a aucune des 2 semaines, on récréé 2 nouvelles semaines
+        // Si la semaine actuelle correpsond a aucune des 2 semaines, on recréé 2 nouvelles semaines
         else if thisWeekMonday != savedThisWeekMonday {
             print("L'app n'a pas été ouverte depuis plus de 2 semaines")
             thisWeek = WeekPlan(.thisWeek)
@@ -132,16 +131,11 @@ class PlanningPanelViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if let thisWeekPlan = thisWeekPlan {
                     self.thisWeek = thisWeekPlan
-                    
-                    //self.weekPlan = thisWeekPlan
-                    //self.selectedWeek = .thisWeek
-                    
                     self.cloudKitController.thisWeekIniCompleted = true
                     
                     if self.cloudKitController.isIniComplete() {
                         self.objectWillChange.send()
                         if !self.updateWeekDatesIfNeeded() {
-                            //self.saveWeek()
                             self.saveBothWeeks()
                             
                             if self.selectedWeek == .thisWeek {
@@ -168,7 +162,6 @@ class PlanningPanelViewModel: ObservableObject {
                 if self.cloudKitController.isIniComplete() {
                     self.objectWillChange.send()
                     if !self.updateWeekDatesIfNeeded() {
-                        //self.saveWeek()
                         self.saveBothWeeks()
                         
                         if self.selectedWeek == .thisWeek {

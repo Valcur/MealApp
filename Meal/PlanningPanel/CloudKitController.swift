@@ -9,8 +9,6 @@ import Foundation
 import CloudKit
 import SwiftUI
 
-// FAILED CRAETING KEY WITHOUT TEILLING ME ?
-// TROP DE SAVE NEXT WEEK ????
 
 class CloudKitController: ObservableObject {
     private let data = MealsDataController()
@@ -318,138 +316,6 @@ class CloudKitController: ObservableObject {
         }
     }
     
-    // TODO: Deprecated, replace with _new in a few weeks after update
-    private func savingWeekPlanningToCloud(recordType: String, plan: WeekPlan) {
-        self.setCloudSyncStatus(.inProgress)
-        var text = "\(recordType)\n\n"
-        for dayPlan in plan.week {
-            text += "\(dayPlan.day)\n"
-            text += "\(CloudTextSavingLabels.date.rawValue)\n"
-            text += "\(dayPlan.date)\n"
-            
-            text += "\(CloudTextSavingLabels.midday.rawValue)\n"
-            for midday in dayPlan.midday {
-                text += "\(CloudTextSavingLabels.meal.rawValue)\n"
-                text += "\(midday.id)\n"
-                text += "\(midday.name == "" ? " " : midday.name)\n"
-                text += "\(midday.type == .meat ? 1 : (midday.type == .vegan ? 2 : (midday.type == .outside ? 3 : 4)))\n"
-                if let sides = midday.sides {
-                    for side in sides {
-                        if side.isDefaultSide {
-                            text += "\(side.imageName)/"
-                        } else {
-                            print("Adding custom side \(side.name)")
-                            text += "CUSTOM-\(side.name)/"
-                        }
-                    }
-                }
-                text += " \n"
-                
-                let notes = midday.notes ?? ""
-                if notes != "" {
-                    var notesArray = notes.replacingOccurrences(of: "\n", with: "\nN:").split(whereSeparator: \.isNewline)
-                    notesArray[0] = "N:\(notesArray[0])"
-                    for noteLine in notesArray {
-                        text += "\(noteLine)\n"
-                    }
-                } else {
-                    text += "N:\n"
-                }
-                text += "\(CloudTextSavingLabels.endNotes.rawValue)\n"
-            }
-            
-            text += "\(CloudTextSavingLabels.evening.rawValue)\n"
-            for evening in dayPlan.evening {
-                text += "\(CloudTextSavingLabels.meal.rawValue)\n"
-                text += "\(evening.id)\n"
-                text += "\(evening.name == "" ? " " : evening.name)\n"
-                text += "\(evening.type == .meat ? 1 : (evening.type == .vegan ? 2 : (evening.type == .outside ? 3 : 4)))\n"
-                if let sides = evening.sides {
-                    for side in sides {
-                        if side.isDefaultSide {
-                            text += "\(side.imageName)/"
-                        } else {
-                            print("Adding custom side \(side.name)")
-                            text += "CUSTOM-\(side.name)/"
-                        }
-                    }
-                }
-                text += " \n"
-                
-                let notes = evening.notes ?? ""
-                if notes != "" {
-                    var notesArray = notes.replacingOccurrences(of: "\n", with: "\nN:").split(whereSeparator: \.isNewline)
-                    notesArray[0] = "N:\(notesArray[0])"
-                    for noteLine in notesArray {
-                        text += "\(noteLine)\n"
-                    }
-                } else {
-                    text += "N:\n"
-                }
-                text += "\(CloudTextSavingLabels.endNotes.rawValue)\n"
-            }
-        }
-        
-        //print("SAVING MY TEXT \(recordType)\n")
-        //print(text)
-        
-        let predicate = NSPredicate(format: "id == %@", sharedWeekPlanId)
-        let query = CKQuery(recordType: recordType, predicate: predicate)
-        database.perform(query, inZoneWith: nil) { ckRecords, error in
-            if let error = error {
-                print(error)
-                self.setCloudSyncStatus(.error)
-            } else {
-                guard let records = ckRecords else {
-                    print("1111")
-                    self.setCloudSyncStatus(.error)
-                    return
-                }
-                
-                guard let record = records.first else {
-                    print("2222")
-                    self.setCloudSyncStatus(.error)
-                    return
-                }
-                
-                record["weekPlan"] = text
-                
-                let modifyRecords = CKModifyRecordsOperation(recordsToSave:[record], recordIDsToDelete: nil)
-                modifyRecords.savePolicy = .allKeys
-                modifyRecords.qualityOfService = QualityOfService.userInitiated
-                modifyRecords.modifyRecordsCompletionBlock = { savedRecords, deletedRecordIDs, error in
-                    if error == nil {
-                        print("Week updated successfully")
-                        self.weekSavingProgress += 1
-                        if self.weekSavingProgress == 2 {
-                            self.setCloudSyncStatus(.completed)
-                        }
-                    }else {
-                        print(error ?? "Error modifying record")
-                        self.setCloudSyncStatus(.error)
-                        self.weekSavingProgress = -1
-                    }
-                }
-                self.database.add(modifyRecords)
-                
-                /*
-                self.database.save(record) { _, error in
-                    if let error = error {
-                        print(error)
-                        self.setCloudSyncStatus(.error)
-                        self.weekSavingProgress = -1
-                    } else {
-                        print("Week updated successfully")
-                        self.weekSavingProgress += 1
-                        if self.weekSavingProgress == 2 {
-                            self.setCloudSyncStatus(.completed)
-                        }
-                    }
-                }*/
-            }
-        }
-    }
-    
     func isIniComplete() -> Bool {
         return thisWeekIniCompleted && nextWeekIniCompleted
     }
@@ -468,7 +334,7 @@ class CloudKitController: ObservableObject {
 extension CloudKitController {
     func createWeekPlanningRecordIfNeeded(completion: @escaping (Bool) -> ()) {
         // Check if both exist, create if it doesn't
-
+        
         let predicate = NSPredicate(format: "id == %@", userUUID)
         var recordCount = 0
         
@@ -483,7 +349,7 @@ extension CloudKitController {
                     completion(false)
                     return
                 }
-
+                
                 if records.first != nil {
                     print("Record already exist")
                     recordCount += 1
@@ -512,7 +378,7 @@ extension CloudKitController {
                     completion(false)
                     return
                 }
-
+                
                 if records.first != nil {
                     print("Record already exist")
                     recordCount += 1
@@ -562,7 +428,7 @@ extension CloudKitController {
                     completion(false)
                     return
                 }
-
+                
                 guard records.first != nil else {
                     completion(false)
                     return
@@ -609,6 +475,11 @@ extension CloudKitController {
         return sharedWeekPlanId.count > 0
     }
     
+}
+
+// MARK: Enums
+
+extension CloudKitController {
     enum CloudPreferenceKeys: String {
         case userUUID = "USER_UUID"
         case sharedUUID = "SHARED_UUID"
